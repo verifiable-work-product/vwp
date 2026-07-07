@@ -1,0 +1,19 @@
+SYNTHETIC DEMO DATA - NOT A REAL CONTRACT
+
+MASTER SUBSCRIPTION AGREEMENT (EXCERPT)
+DemoCo, Inc. and Acme Corp - dated 2026-01-01
+
+Section 3. Services.
+3.1 Provider will make the hosted service available to Customer during the
+    subscription term. The hosted service is a standard offering and is not
+    materially modified for Customer.
+3.2 Implementation services consist of configuration, data migration, and
+    training. Implementation services are performed once and are expected to
+    complete within ninety (90) days of the contract date.
+3.3 Premium support entitles Customer to 24x7 response targets during the
+    subscription term.
+
+Section 9. Term and Termination.
+9.1 The initial subscription term is twenty-four (24) months and is
+    non-cancellable except for uncured material breach.
+9.2 Fees are non-refundable except as required by Section 9.1.

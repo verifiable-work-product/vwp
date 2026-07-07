@@ -1,0 +1,36 @@
+{
+  "validations": [
+    {
+      "id": "v_entity_mapping",
+      "validator": "digitalAssets.wallets.entityMapping",
+      "scope": "facts/wallets.json",
+      "status": "pass",
+      "severity": "high",
+      "message": "Both included wallets are mapped to DemoCo Treasury LLC with resolvable mapping evidence."
+    },
+    {
+      "id": "v_proof_of_control",
+      "validator": "digitalAssets.wallets.proofOfControl",
+      "scope": "wallet_eth_treasury",
+      "status": "pass",
+      "severity": "high",
+      "message": "The included self-custody wallet has a verified signed-message proof-of-control record."
+    },
+    {
+      "id": "v_exclusion_rationale",
+      "validator": "digitalAssets.wallets.exclusionRationale",
+      "scope": "wallet_test_legacy",
+      "status": "pass",
+      "severity": "medium",
+      "message": "The excluded wallet has a documented exclusion rationale."
+    },
+    {
+      "id": "v_balance_evidence",
+      "validator": "digitalAssets.wallets.balanceEvidence",
+      "scope": "facts/wallets.json",
+      "status": "pass",
+      "severity": "high",
+      "message": "Every included period-end balance references resolvable source evidence."
+    }
+  ]
+}

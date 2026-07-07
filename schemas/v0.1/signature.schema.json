@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/signature.schema.json",
+  "title": "VWP Signature",
+  "description": "Experimental in v0.1. A detached signature record over the package manifest (which in turn declares part hashes). v0.1 verifiers may treat signatures as informational.",
+  "type": "object",
+  "required": ["id", "signer", "algorithm", "created", "scope", "value"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "signer": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "keyId": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "algorithm": {
+      "type": "string",
+      "description": "Signature algorithm identifier, e.g. a JWS 'alg' value such as ES256, or 'placeholder' in v0.1 demos."
+    },
+    "created": { "type": "string", "format": "date-time" },
+    "scope": {
+      "type": "string",
+      "description": "What was signed. v0.1 signatures sign 'manifest.json'."
+    },
+    "value": {
+      "type": "string",
+      "description": "The signature value (e.g. compact JWS or base64), or a placeholder string in v0.1 demos."
+    }
+  }
+}

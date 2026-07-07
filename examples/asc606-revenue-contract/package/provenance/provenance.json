@@ -1,0 +1,23 @@
+{
+  "createdAt": "2026-07-07T15:00:00Z",
+  "createdBy": {
+    "type": "agent",
+    "name": "vwp-demo-agent",
+    "version": "0.1.0"
+  },
+  "toolchain": [
+    { "name": "vwp-cli", "version": "0.1.0" },
+    { "name": "demo-fact-extractor", "version": "0.1.0" }
+  ],
+  "models": [
+    { "provider": "demo", "name": "manual-fixture", "version": "n/a" }
+  ],
+  "policyVersions": [
+    { "id": "demo-revrec-policy", "version": "2026.01" }
+  ],
+  "sourceSystems": [
+    { "name": "demo-clm", "description": "Demo contract lifecycle management system (synthetic)" },
+    { "name": "demo-cpq", "description": "Demo pricing system (synthetic)" }
+  ],
+  "notes": "Synthetic demo package. All parties, contracts, and amounts are fictional. Facts were hand-authored to simulate extraction output."
+}

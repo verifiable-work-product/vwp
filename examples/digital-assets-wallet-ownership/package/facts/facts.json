@@ -1,0 +1,61 @@
+{
+  "facts": [
+    {
+      "id": "f_population",
+      "statement": "The wallet inventory for 2026-Q2 lists three wallets/accounts: wallet_eth_treasury (self-custody, included), acct_btc_custodian (custodian, included), and wallet_test_legacy (self-custody, excluded).",
+      "value": {
+        "total": 3,
+        "included": 2,
+        "excluded": 1
+      },
+      "evidenceRefs": ["ev_wallet_inventory"],
+      "extractionMethod": "deterministic-parser",
+      "confidence": 1
+    },
+    {
+      "id": "f_eth_signed_message",
+      "statement": "A message containing a dated challenge nonce was signed by the key for 0x1234567890abcdef1234567890abcdef12345678 on 2026-06-30 and the signature record was verified by treasury operations.",
+      "evidenceRefs": ["ev_signed_message"],
+      "extractionMethod": "manual",
+      "confidence": 1
+    },
+    {
+      "id": "f_entity_mapping",
+      "statement": "The entity mapping register maps all three wallets/accounts to DemoCo Treasury LLC, with mapping sources (treasury policy wallet register, custody agreement, engineering test wallet register) and controller approval dated 2026-01-15.",
+      "evidenceRefs": ["ev_entity_mapping"],
+      "extractionMethod": "deterministic-parser",
+      "confidence": 1
+    },
+    {
+      "id": "f_eth_balance",
+      "statement": "The period-end balance for wallet_eth_treasury is 1,250.5 ETH as of 2026-06-30 per the wallet inventory, referenced against a block explorer snapshot.",
+      "value": {
+        "asset": "ETH",
+        "amount": 1250.5,
+        "asOf": "2026-06-30"
+      },
+      "evidenceRefs": ["ev_wallet_inventory", "ev_explorer_snapshot"],
+      "extractionMethod": "deterministic-parser",
+      "confidence": 1
+    },
+    {
+      "id": "f_btc_balance",
+      "statement": "The period-end balance for acct_btc_custodian is 85.25 BTC as of 2026-06-30 per the custodian statement.",
+      "value": {
+        "asset": "BTC",
+        "amount": 85.25,
+        "asOf": "2026-06-30"
+      },
+      "evidenceRefs": ["ev_custodian_statement"],
+      "extractionMethod": "deterministic-parser",
+      "confidence": 1
+    },
+    {
+      "id": "f_test_wallet_zero",
+      "statement": "wallet_test_legacy is flagged as an engineering test wallet with a zero balance at period end.",
+      "evidenceRefs": ["ev_wallet_inventory", "ev_entity_mapping"],
+      "extractionMethod": "deterministic-parser",
+      "confidence": 1
+    }
+  ]
+}

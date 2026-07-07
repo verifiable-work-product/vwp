@@ -1,0 +1,9 @@
+{
+  "claims": [
+    {
+      "id": "c_minimal",
+      "statement": "This package contains the minimum required parts for VWP v0.1.",
+      "status": "supported"
+    }
+  ]
+}

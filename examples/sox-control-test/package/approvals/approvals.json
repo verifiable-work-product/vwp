@@ -1,0 +1,16 @@
+{
+  "approvals": [
+    {
+      "id": "app_controller_review",
+      "approver": {
+        "id": "user_demo_controller",
+        "name": "Demo Controller"
+      },
+      "role": "controller",
+      "action": "approved",
+      "timestamp": "2026-07-03T18:30:00Z",
+      "scope": "package",
+      "comments": "Reconciliation review complete; exception EXC-2026-06-01 confirmed resolved. Approval captures internal review state only, not audit signoff."
+    }
+  ]
+}

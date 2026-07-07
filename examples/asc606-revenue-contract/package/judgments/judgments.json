@@ -1,0 +1,20 @@
+{
+  "judgments": [
+    {
+      "id": "j_impl_distinct",
+      "topic": "Performance obligation identification",
+      "question": "Are the implementation services distinct from the hosted SaaS subscription under ASC 606-10-25-19 through 25-21?",
+      "proposedConclusion": "Distinct. The implementation services are routine configuration, data migration, and training; the hosted service is a standard offering that is not materially modified, and other vendors could perform comparable implementation work.",
+      "basis": "MSA Section 3 describes implementation as standard configuration and training against an unmodified hosted service; the price book shows observable standalone sales of the implementation package.",
+      "alternatives": [
+        {
+          "conclusion": "Not distinct; combine with the SaaS subscription",
+          "notes": "Would apply if the implementation significantly customizes or integrates the hosted service. Combined treatment would recognize the implementation allocation over the subscription term."
+        }
+      ],
+      "riskLevel": "medium",
+      "requiredApproverRole": "revenue-manager",
+      "status": "reviewRequired"
+    }
+  ]
+}

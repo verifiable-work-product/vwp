@@ -1,0 +1,13 @@
+SYNTHETIC DEMO DATA - NOT A REAL RECONCILIATION
+
+DIGITAL ASSET SUBLEDGER TO ERP RECONCILIATION
+Entity: DemoCo    Period: June 2026    Prepared: 2026-07-02 by Demo Preparer
+
+Account 1150 - Digital assets
+
+  Subledger balance (2026-06-30):        USD 4,812,300.00
+  ERP general ledger balance:            USD 4,812,300.00
+  Unreconciled difference:               USD 0.00
+
+Reconciling items during the month: 1 (see exception log EXC-2026-06-01,
+timing difference on custodian transfer, resolved 2026-07-01).

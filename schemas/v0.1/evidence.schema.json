@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/evidence.schema.json",
+  "title": "VWP Evidence",
+  "description": "An evidence reference: a source record supporting facts and claims. May point to a package-local file (path) or an external system (externalRef).",
+  "type": "object",
+  "required": ["id", "type", "title"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "type": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "sourceSystem": { "type": "string" },
+    "path": {
+      "type": "string",
+      "description": "Forward-slash relative path to a package-local evidence file."
+    },
+    "externalRef": {
+      "type": "object",
+      "properties": {
+        "system": { "type": "string" },
+        "locator": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "retrievedAt": { "type": "string", "format": "date-time" },
+    "periodCovered": {
+      "type": "object",
+      "properties": {
+        "start": { "type": "string" },
+        "end": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "accessNotes": { "type": "string" }
+  },
+  "anyOf": [
+    { "required": ["path"] },
+    { "required": ["externalRef"] }
+  ]
+}

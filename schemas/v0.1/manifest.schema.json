@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/manifest.schema.json",
+  "title": "VWP Manifest",
+  "description": "Top-level manifest for a VWP package. Declares the package identity, profile, and the parts the package contains, with optional SHA-256 digests for content integrity.",
+  "type": "object",
+  "required": ["vwpVersion", "packageId", "createdAt", "profile", "workproduct", "provenance"],
+  "properties": {
+    "vwpVersion": { "type": "string", "const": "0.1" },
+    "packageId": { "type": "string", "minLength": 1 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "profile": { "type": "string", "minLength": 1 },
+    "extension": { "type": "string" },
+    "title": { "type": "string" },
+    "subject": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "workproduct": { "$ref": "#/$defs/packagePart" },
+    "parts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/packagePart" }
+    },
+    "provenance": { "$ref": "#/$defs/packagePart" },
+    "signatures": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/packagePart" }
+    }
+  },
+  "$defs": {
+    "packagePart": {
+      "type": "object",
+      "required": ["path", "mediaType"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Forward-slash relative path within the package. MUST NOT be absolute or contain '..' segments."
+        },
+        "mediaType": { "type": "string", "minLength": 1 },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "Lowercase hex SHA-256 digest of the file contents."
+        },
+        "role": { "type": "string" }
+      }
+    }
+  }
+}

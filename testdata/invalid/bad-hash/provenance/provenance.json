@@ -1,0 +1,8 @@
+{
+  "createdAt": "2026-07-07T12:00:00Z",
+  "createdBy": {
+    "type": "human",
+    "name": "Test Fixture Author"
+  },
+  "notes": "Test fixture."
+}

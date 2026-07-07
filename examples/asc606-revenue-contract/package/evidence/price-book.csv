@@ -1,0 +1,4 @@
+item,description,standalone_selling_price_usd,ssp_basis
+saas_subscription_24mo,Hosted SaaS subscription (24 months),240000,observable list price with narrow discounting range
+implementation_services,Implementation services package,75000,observable standalone sales in trailing 12 months
+premium_support_24mo,Premium support (24 months),60000,observable renewal pricing

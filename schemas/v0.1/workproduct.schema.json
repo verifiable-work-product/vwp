@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/workproduct.schema.json",
+  "title": "VWP Work Product",
+  "description": "Describes the overall professional work product that the package represents.",
+  "type": "object",
+  "required": ["id", "title", "domain", "profile", "status"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "domain": { "type": "string", "minLength": 1 },
+    "profile": { "type": "string", "minLength": 1 },
+    "extension": { "type": "string" },
+    "standardRefs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "entity": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "period": {
+      "type": "object",
+      "properties": {
+        "start": { "type": "string" },
+        "end": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "conclusionSummary": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "inReview", "final", "superseded", "withdrawn"]
+    },
+    "createdBy": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "reviewState": {
+      "type": "string",
+      "enum": ["notStarted", "reviewRequired", "inReview", "reviewed", "approved", "rejected"]
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/claim.schema.json",
+  "title": "VWP Claim",
+  "description": "An assertion or conclusion supported by facts, evidence, calculations, or judgments. Claims form the core of the package's claim graph.",
+  "type": "object",
+  "required": ["id", "statement"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "statement": { "type": "string", "minLength": 1 },
+    "domain": { "type": "string" },
+    "standardRefs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "assertions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Assertion vocabulary terms from the declared profile, e.g. the finance profile uses existence, occurrence, completeness, valuationAllocation, rightsAndObligations, presentationDisclosure."
+    },
+    "supportingFacts": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "supportingEvidence": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "supportingCalculations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "judgments": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "conclusion": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "supported", "rejected", "superseded"]
+    },
+    "requiresReview": { "type": "boolean" }
+  }
+}

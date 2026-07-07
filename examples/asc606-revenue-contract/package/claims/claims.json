@@ -1,0 +1,67 @@
+{
+  "claims": [
+    {
+      "id": "c_step1_contract_identified",
+      "statement": "A contract with a customer exists under ASC 606-10-25-1: the arrangement is approved, identifies each party's rights and payment terms, has commercial substance, and collection is probable.",
+      "domain": "finance",
+      "standardRefs": ["ASC 606-10-25-1"],
+      "assertions": ["occurrence", "rightsAndObligations"],
+      "supportingFacts": ["f_contract_parties_date", "f_contract_value", "f_contract_term"],
+      "supportingEvidence": ["ev_order_form", "ev_msa_excerpt"],
+      "conclusion": "A contract exists as of 2026-01-01.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "c_step2_performance_obligations",
+      "statement": "The contract contains three promised goods and services: hosted SaaS subscription, implementation services, and premium support. The SaaS subscription and premium support are distinct. Whether implementation services are distinct from the SaaS subscription requires professional judgment.",
+      "domain": "finance",
+      "standardRefs": ["ASC 606-10-25-14"],
+      "assertions": ["completeness"],
+      "supportingFacts": ["f_components", "f_impl_timing"],
+      "supportingEvidence": ["ev_order_form", "ev_msa_excerpt"],
+      "judgments": ["j_impl_distinct"],
+      "conclusion": "Three performance obligations, subject to review of the implementation-services distinctness judgment.",
+      "status": "proposed",
+      "requiresReview": true
+    },
+    {
+      "id": "c_step3_transaction_price",
+      "statement": "The transaction price is 300,000 USD. There is no variable consideration, significant financing component, noncash consideration, or consideration payable to the customer identified in the demo arrangement.",
+      "domain": "finance",
+      "standardRefs": ["ASC 606-10-32-2"],
+      "assertions": ["valuationAllocation"],
+      "supportingFacts": ["f_contract_value"],
+      "supportingEvidence": ["ev_order_form"],
+      "conclusion": "Transaction price is 300,000 USD.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "c_step4_allocation",
+      "statement": "The transaction price is allocated to the performance obligations on a relative standalone selling price basis: 192,000 USD to the SaaS subscription, 60,000 USD to implementation services, and 48,000 USD to premium support.",
+      "domain": "finance",
+      "standardRefs": ["ASC 606-10-32-31"],
+      "assertions": ["valuationAllocation"],
+      "supportingFacts": ["f_ssp_saas", "f_ssp_impl", "f_ssp_support"],
+      "supportingEvidence": ["ev_price_book"],
+      "supportingCalculations": ["calc_ssp_allocation"],
+      "conclusion": "Allocation ties to the relative SSP calculation and sums to the transaction price.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "c_step5_recognition",
+      "statement": "Revenue allocated to the SaaS subscription and premium support is recognized ratably over the 24-month term. Revenue allocated to implementation services is recognized at completion of implementation, expected 2026-03-31, subject to the distinctness judgment.",
+      "domain": "finance",
+      "standardRefs": ["ASC 606-10-25-23"],
+      "assertions": ["occurrence", "valuationAllocation"],
+      "supportingFacts": ["f_contract_term", "f_impl_timing"],
+      "supportingCalculations": ["calc_ssp_allocation"],
+      "judgments": ["j_impl_distinct"],
+      "conclusion": "Draft recognition pattern per the revenue schedule; pending judgment review.",
+      "status": "proposed",
+      "requiresReview": true
+    }
+  ]
+}

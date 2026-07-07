@@ -1,0 +1,98 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_acme_asc606_2026q1",
+  "createdAt": "2026-07-07T15:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc606",
+  "title": "ASC 606 Revenue Recognition Workpaper - Acme Contract (synthetic demo)",
+  "subject": {
+    "type": "customerContract",
+    "id": "contract_acme_001"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "role": "workproduct",
+    "sha256": "0acfc8b9fc4c0c881e3e3218e7e8cec2e64336f53fb1f1704821cf3bbe29c625"
+  },
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "role": "provenance",
+    "sha256": "eafa2e50445e0b41bbacc8ef7ba98efdbb87feb47d976a5248fce8667c8f57cd"
+  },
+  "parts": [
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "role": "evidence-index",
+      "sha256": "14aee756e9145a0ebd2c8b33299d566fd3fca0d62c692973154ea1fdf52f1bf2"
+    },
+    {
+      "path": "evidence/order-form.txt",
+      "mediaType": "text/plain",
+      "role": "evidence",
+      "sha256": "c85066b0837cbde545fb72b49276cdc0658ad8a4474cee787ee6833364efa85b"
+    },
+    {
+      "path": "evidence/msa-excerpt.txt",
+      "mediaType": "text/plain",
+      "role": "evidence",
+      "sha256": "ac248143ad693f964e967d6434370d437ac430f1bf931692a874d5bfeeeda843"
+    },
+    {
+      "path": "evidence/price-book.csv",
+      "mediaType": "text/csv",
+      "role": "evidence",
+      "sha256": "27c87e8624a28c2e676ebf6759e4e00a30247bf518776a6a1cb98a0441d7f3e9"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "role": "facts",
+      "sha256": "bc3c6f408c6a3c8e7fbafd57834b7190f9884803bc9125138198a3c341fea48e"
+    },
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "role": "claims",
+      "sha256": "7b9ebbcd3f3860fddda5c87d15c3c95bb40f50cf3115ae3b5b2e12be1c5a9ad9"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "role": "judgments",
+      "sha256": "8bdc8cdc20aeaf190cfa2159dbc5b22de5e09ef299ca25271e21c114f9925783"
+    },
+    {
+      "path": "calculations/ssp-allocation.json",
+      "mediaType": "application/json",
+      "role": "calculation",
+      "sha256": "d16709c56e4d3407e83e93de7142c6d5e2f05a8b3a16d8869e12288a08195445"
+    },
+    {
+      "path": "calculations/revenue-schedule.csv",
+      "mediaType": "text/csv",
+      "role": "calculation",
+      "sha256": "7d66adb4d39c991845a2ed34c6530b6a65447fb35b6d46c94f66efcd9ede921c"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "role": "validations",
+      "sha256": "094a226d3c8cbe79867733462c1174d5d7e6518fde73396667f7f2cca0f134ae"
+    },
+    {
+      "path": "approvals/approvals.json",
+      "mediaType": "application/json",
+      "role": "approvals",
+      "sha256": "076ed3d7892cb4c6edd98fdeaecc45f59c250b8d26d06662375b364ba8a8ae6f"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "role": "rendering",
+      "sha256": "7df4056e5673f33240413ae04072907944adf8c689baacedf4fc645fa4e2dd14"
+    }
+  ]
+}

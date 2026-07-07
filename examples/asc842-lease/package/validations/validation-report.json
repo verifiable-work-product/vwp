@@ -1,0 +1,12 @@
+{
+  "validations": [
+    {
+      "id": "v_discount_rate_support",
+      "validator": "asc842.discountRate.supported",
+      "scope": "f_discount_rate",
+      "status": "reviewRequired",
+      "severity": "medium",
+      "message": "The 6.0% incremental borrowing rate lacks an attached support memo in this stub example."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "approvals": [
+    {
+      "id": "app_preparer_submit",
+      "approver": {
+        "id": "user_demo_preparer",
+        "name": "Demo Preparer"
+      },
+      "role": "preparer",
+      "action": "acknowledged",
+      "timestamp": "2026-07-07T15:05:00Z",
+      "scope": "package",
+      "comments": "Draft prepared and submitted for review. Judgment j_impl_distinct pending revenue-manager review."
+    }
+  ]
+}

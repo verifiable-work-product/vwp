@@ -1,0 +1,21 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_test_minimal",
+  "createdAt": "2026-07-07T12:00:00Z",
+  "profile": "vwp-core",
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json"
+  },
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "role": "claims"
+    }
+  ]
+}

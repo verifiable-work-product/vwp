@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/approval.schema.json",
+  "title": "VWP Approval",
+  "description": "A review or approval event. Approvals capture review state; they do not imply audit signoff unless a profile explicitly designs for that context.",
+  "type": "object",
+  "required": ["id", "approver", "action", "timestamp"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "approver": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "role": { "type": "string" },
+    "action": {
+      "type": "string",
+      "enum": ["approved", "rejected", "requestedChanges", "acknowledged"]
+    },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "scope": {
+      "type": "string",
+      "description": "What was approved: 'package', a part path, or an object ID such as a judgment ID."
+    },
+    "comments": { "type": "string" }
+  }
+}

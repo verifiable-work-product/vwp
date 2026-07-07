@@ -1,0 +1,80 @@
+{
+  "facts": [
+    {
+      "id": "f_contract_parties_date",
+      "statement": "DemoCo and Acme Corp executed Order Form #OF-2026-0142 dated 2026-01-01 under an MSA of the same date.",
+      "evidenceRefs": ["ev_order_form", "ev_msa_excerpt"],
+      "extractionMethod": "manual",
+      "confidence": 1,
+      "requiresReview": false
+    },
+    {
+      "id": "f_contract_value",
+      "statement": "Total contract value is 300,000 USD, billed 100% upfront.",
+      "value": {
+        "amount": 300000,
+        "currency": "USD"
+      },
+      "evidenceRefs": ["ev_order_form"],
+      "extractionMethod": "manual",
+      "confidence": 1
+    },
+    {
+      "id": "f_contract_term",
+      "statement": "The subscription term is 24 months, 2026-01-01 through 2027-12-31, non-cancellable except for uncured material breach.",
+      "value": {
+        "months": 24
+      },
+      "evidenceRefs": ["ev_order_form", "ev_msa_excerpt"],
+      "extractionMethod": "manual",
+      "confidence": 1
+    },
+    {
+      "id": "f_components",
+      "statement": "The order form lists three components: hosted SaaS subscription (200,000 USD), implementation services (55,000 USD), and premium support (45,000 USD).",
+      "evidenceRefs": ["ev_order_form"],
+      "extractionMethod": "manual",
+      "confidence": 1
+    },
+    {
+      "id": "f_impl_timing",
+      "statement": "Implementation services consist of configuration, data migration, and training, performed once and expected to complete within 90 days of the contract date.",
+      "evidenceRefs": ["ev_msa_excerpt"],
+      "extractionMethod": "manual",
+      "confidence": 1
+    },
+    {
+      "id": "f_ssp_saas",
+      "statement": "The price book lists a standalone selling price of 240,000 USD for the 24-month hosted SaaS subscription.",
+      "value": {
+        "amount": 240000,
+        "currency": "USD"
+      },
+      "evidenceRefs": ["ev_price_book"],
+      "extractionMethod": "deterministic-parser",
+      "confidence": 1
+    },
+    {
+      "id": "f_ssp_impl",
+      "statement": "The price book lists a standalone selling price of 75,000 USD for the implementation services package.",
+      "value": {
+        "amount": 75000,
+        "currency": "USD"
+      },
+      "evidenceRefs": ["ev_price_book"],
+      "extractionMethod": "deterministic-parser",
+      "confidence": 1
+    },
+    {
+      "id": "f_ssp_support",
+      "statement": "The price book lists a standalone selling price of 60,000 USD for 24 months of premium support.",
+      "value": {
+        "amount": 60000,
+        "currency": "USD"
+      },
+      "evidenceRefs": ["ev_price_book"],
+      "extractionMethod": "deterministic-parser",
+      "confidence": 1
+    }
+  ]
+}

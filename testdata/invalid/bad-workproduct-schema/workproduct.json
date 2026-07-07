@@ -1,0 +1,5 @@
+{
+  "id": "wp_test_bad_workproduct",
+  "title": "Workproduct missing required fields and using an invalid status",
+  "status": "not-a-valid-status"
+}

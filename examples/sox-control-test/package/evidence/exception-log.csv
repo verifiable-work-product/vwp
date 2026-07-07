@@ -1,0 +1,2 @@
+exception_id,period,description,identified_at,status,resolution,resolved_at,escalated
+EXC-2026-06-01,2026-06,Timing difference on custodian transfer recorded in subledger on 2026-06-30 and in ERP on 2026-07-01,2026-07-02,resolved,ERP entry posted in July close; balances agree after posting,2026-07-01,false

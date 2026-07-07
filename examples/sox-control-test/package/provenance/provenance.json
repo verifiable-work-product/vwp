@@ -1,0 +1,18 @@
+{
+  "createdAt": "2026-07-07T17:00:00Z",
+  "createdBy": {
+    "type": "agent",
+    "name": "vwp-demo-agent",
+    "version": "0.1.0"
+  },
+  "toolchain": [
+    { "name": "vwp-cli", "version": "0.1.0" }
+  ],
+  "models": [
+    { "provider": "demo", "name": "manual-fixture", "version": "n/a" }
+  ],
+  "sourceSystems": [
+    { "name": "demo-close-tool", "description": "Demo financial close tool (synthetic)" }
+  ],
+  "notes": "Synthetic stub package demonstrating control-test evidence packaging. All parties, balances, and records are fictional."
+}

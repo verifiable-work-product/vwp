@@ -1,0 +1,4 @@
+wallet_id,chain,address_or_account,custody,included,asset,period_end_balance,balance_as_of
+wallet_eth_treasury,ethereum,0x1234567890abcdef1234567890abcdef12345678,self,true,ETH,1250.5,2026-06-30
+acct_btc_custodian,bitcoin,DEMO-CUSTODY-4821,custodian,true,BTC,85.25,2026-06-30
+wallet_test_legacy,ethereum,0xabcdefabcdefabcdefabcdefabcdefabcdefabcd,self,false,ETH,0.0,2026-06-30

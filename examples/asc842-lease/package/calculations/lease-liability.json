@@ -1,0 +1,18 @@
+{
+  "id": "calc_lease_liability",
+  "type": "presentValueOfLeasePayments",
+  "inputs": {
+    "monthlyPayment": 10000,
+    "currency": "USD",
+    "numberOfPayments": 36,
+    "paymentTiming": "arrears",
+    "annualDiscountRate": 0.06
+  },
+  "outputs": {
+    "initialLeaseLiability": 328710,
+    "initialRouAsset": 328710
+  },
+  "method": "Present value of an ordinary annuity: 10,000 * (1 - (1 + 0.005)^-36) / 0.005, with 0.005 = 0.06 / 12, rounded to the nearest USD.",
+  "validator": "asc842.initialMeasurement.tieOut",
+  "recomputable": true
+}

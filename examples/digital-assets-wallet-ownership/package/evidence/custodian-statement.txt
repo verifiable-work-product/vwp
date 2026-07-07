@@ -1,0 +1,19 @@
+SYNTHETIC DEMO DATA - NOT A REAL STATEMENT
+
+DEMO CUSTODY INC.
+ACCOUNT STATEMENT
+
+Account holder:  DemoCo Treasury LLC
+Account number:  DEMO-CUSTODY-4821
+Statement period: 2026-04-01 through 2026-06-30
+
+Holdings as of 2026-06-30:
+  Asset: BTC
+  Quantity: 85.25000000
+
+Account agreement: Digital Asset Custody Agreement dated 2025-11-15 between
+Demo Custody Inc. and DemoCo Treasury LLC. Assets are held in segregated
+custody for the benefit of the account holder.
+
+This statement is generated for demonstration purposes only. All parties,
+accounts, and balances are fictional.

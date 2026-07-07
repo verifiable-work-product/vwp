@@ -1,0 +1,18 @@
+SYNTHETIC DEMO DATA - NOT A REAL SIGNATURE
+
+PROOF-OF-CONTROL MESSAGE SIGNING RECORD
+
+Address:    0x1234567890abcdef1234567890abcdef12345678 (ethereum)
+Message:    "DemoCo Treasury LLC controls the signing key for this address.
+             Challenge nonce: vwp-demo-2026q2-7f3a. Date: 2026-06-30."
+Signed at:  2026-06-30T17:00:00Z
+Requested by: Demo Controller (treasury operations)
+Signature:  0xdeadbeef0000000000000000000000000000000000000000000000000000
+            0000000000000000000000000000000000000000000000000000000000demo
+            (placeholder value - synthetic demo data)
+Verified:   2026-06-30T17:05:00Z by demo-signature-verifier 0.1.0 against the
+            challenge nonce above.
+
+NOTE: A signed wallet message demonstrates control of a private key or signing
+authority at a point in time. It does not, by itself, establish legal title,
+beneficial ownership, or accounting recognition.

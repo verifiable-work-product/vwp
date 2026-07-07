@@ -1,0 +1,4 @@
+wallet_id,address_or_account,entity_id,entity_name,mapping_source,mapping_approved_by,mapping_approved_at
+wallet_eth_treasury,0x1234567890abcdef1234567890abcdef12345678,entity_democo_treasury,DemoCo Treasury LLC,treasury policy TP-2026-01 wallet register,Demo Controller,2026-01-15
+acct_btc_custodian,DEMO-CUSTODY-4821,entity_democo_treasury,DemoCo Treasury LLC,custody agreement dated 2025-11-15,Demo Controller,2026-01-15
+wallet_test_legacy,0xabcdefabcdefabcdefabcdefabcdefabcdefabcd,entity_democo_treasury,DemoCo Treasury LLC,engineering test wallet register,Demo Controller,2026-01-15

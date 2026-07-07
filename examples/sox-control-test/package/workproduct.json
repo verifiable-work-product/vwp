@@ -1,0 +1,29 @@
+{
+  "id": "wp_demo_sox_recon_review_2026_06",
+  "title": "SOX Control Test - Monthly Subledger to ERP Reconciliation Review, June 2026",
+  "domain": "controls",
+  "profile": "vwp-finance",
+  "extension": "vwp-controls-evidence",
+  "standardRefs": ["SOX 404"],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "start": "2026-06-01",
+    "end": "2026-06-30"
+  },
+  "subject": {
+    "type": "controlTest",
+    "controlId": "ctrl_da_recon_review",
+    "controlDescription": "Monthly review of the digital asset subledger to ERP reconciliation by an authorized reviewer, with exceptions resolved or escalated."
+  },
+  "conclusionSummary": "Stub example. The June 2026 reconciliation review was performed by an authorized reviewer within the required window; the one logged exception was resolved before signoff.",
+  "status": "inReview",
+  "createdBy": {
+    "type": "agent",
+    "name": "vwp-demo-agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

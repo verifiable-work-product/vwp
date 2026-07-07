@@ -1,0 +1,18 @@
+SYNTHETIC DEMO DATA - NOT A REAL CONTRACT
+
+DEMOCO ORDER FORM #OF-2026-0142
+
+Customer:        Acme Corp
+Contract date:   2026-01-01
+Term:            24 months (2026-01-01 through 2027-12-31)
+Billing:         100% upfront, invoiced at contract signature
+Governing terms: Master Subscription Agreement dated 2026-01-01
+
+Line items:
+  1. Hosted SaaS subscription (24 months)          USD 200,000
+  2. Implementation services (one-time)            USD  55,000
+  3. Premium support (24 months)                   USD  45,000
+
+Total contract value:                              USD 300,000
+
+Payment terms: Net 30 from invoice date.

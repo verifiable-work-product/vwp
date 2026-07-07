@@ -1,0 +1,26 @@
+{
+  "createdAt": "2026-07-07T16:00:00Z",
+  "createdBy": {
+    "type": "agent",
+    "name": "vwp-demo-agent",
+    "version": "0.1.0"
+  },
+  "toolchain": [
+    { "name": "vwp-cli", "version": "0.1.0" },
+    { "name": "demo-wallet-register-extractor", "version": "0.1.0" },
+    { "name": "demo-signature-verifier", "version": "0.1.0" }
+  ],
+  "models": [
+    { "provider": "demo", "name": "manual-fixture", "version": "n/a" }
+  ],
+  "policyVersions": [
+    { "id": "demo-treasury-policy-TP-2026-01", "version": "2026.01" }
+  ],
+  "sourceSystems": [
+    { "name": "demo-subledger", "description": "Demo digital asset subledger (synthetic)" },
+    { "name": "demo-treasury-ops", "description": "Demo treasury operations records (synthetic)" },
+    { "name": "demo-custodian-portal", "description": "Demo custodian reporting portal (synthetic)" },
+    { "name": "demo-block-explorer", "description": "Demo block explorer (synthetic)" }
+  ],
+  "notes": "Synthetic demo package. All wallets, addresses, balances, signatures, and parties are fictional."
+}

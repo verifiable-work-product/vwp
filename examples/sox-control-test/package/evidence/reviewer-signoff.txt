@@ -1,0 +1,11 @@
+SYNTHETIC DEMO DATA - NOT A REAL SIGNOFF
+
+REVIEW SIGNOFF RECORD
+
+Control:      ctrl_da_recon_review - Monthly subledger to ERP reconciliation review
+Period:       June 2026
+Reviewer:     Demo Controller (role: controller, authorized reviewer per
+              delegation matrix DM-2026-01)
+Reviewed at:  2026-07-03T18:30:00Z
+Result:       Approved. Reconciliation reviewed, one exception (EXC-2026-06-01)
+              confirmed resolved prior to signoff.

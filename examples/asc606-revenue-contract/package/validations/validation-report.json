@@ -1,0 +1,39 @@
+{
+  "validations": [
+    {
+      "id": "v_manifest_schema",
+      "validator": "core.manifest.schemaValid",
+      "scope": "manifest.json",
+      "status": "pass",
+      "severity": "high",
+      "message": "Manifest conforms to schemas/v0.1/manifest.schema.json."
+    },
+    {
+      "id": "v_allocation_tieout",
+      "validator": "asc606.allocation.tieOut",
+      "scope": "calc_ssp_allocation",
+      "status": "pass",
+      "severity": "high",
+      "message": "Allocated amounts (192,000 + 60,000 + 48,000) equal the transaction price of 300,000 USD."
+    },
+    {
+      "id": "v_schedule_total",
+      "validator": "asc606.revenueSchedule.total",
+      "scope": "calculations/revenue-schedule.csv",
+      "status": "pass",
+      "severity": "high",
+      "message": "Revenue schedule total of 300,000 USD equals allocated consideration."
+    },
+    {
+      "id": "v_judgments_review",
+      "validator": "finance.requiredJudgments.complete",
+      "scope": "j_impl_distinct",
+      "status": "reviewRequired",
+      "severity": "medium",
+      "message": "Judgment j_impl_distinct (implementation services distinctness) requires review by revenue-manager.",
+      "details": {
+        "judgmentIds": ["j_impl_distinct"]
+      }
+    }
+  ]
+}

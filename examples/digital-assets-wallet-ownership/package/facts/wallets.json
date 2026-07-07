@@ -1,0 +1,46 @@
+{
+  "description": "Structured wallet register consumed by the vwp-digital-assets-wallet-ownership-control demo validators. Synthetic data.",
+  "wallets": [
+    {
+      "id": "wallet_eth_treasury",
+      "chain": "ethereum",
+      "addressOrAccount": "0x1234567890abcdef1234567890abcdef12345678",
+      "custody": "self",
+      "included": true,
+      "entityId": "entity_democo_treasury",
+      "entityMappingEvidence": ["ev_entity_mapping"],
+      "proofOfControlEvidence": ["ev_signed_message"],
+      "periodEndBalance": {
+        "asset": "ETH",
+        "amount": 1250.5,
+        "asOf": "2026-06-30"
+      },
+      "balanceEvidence": ["ev_wallet_inventory", "ev_explorer_snapshot"]
+    },
+    {
+      "id": "acct_btc_custodian",
+      "chain": "bitcoin",
+      "addressOrAccount": "DEMO-CUSTODY-4821",
+      "custody": "custodian",
+      "included": true,
+      "entityId": "entity_democo_treasury",
+      "entityMappingEvidence": ["ev_entity_mapping"],
+      "periodEndBalance": {
+        "asset": "BTC",
+        "amount": 85.25,
+        "asOf": "2026-06-30"
+      },
+      "balanceEvidence": ["ev_custodian_statement"]
+    },
+    {
+      "id": "wallet_test_legacy",
+      "chain": "ethereum",
+      "addressOrAccount": "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd",
+      "custody": "self",
+      "included": false,
+      "entityId": "entity_democo_treasury",
+      "entityMappingEvidence": ["ev_entity_mapping"],
+      "exclusionRationale": "Engineering test wallet used for integration testing only; never funded by treasury operations and holds a zero balance at period end. Excluded from the reporting population per treasury policy TP-2026-01."
+    }
+  ]
+}

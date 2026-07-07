@@ -1,0 +1,16 @@
+{
+  "evidence": [
+    {
+      "id": "ev_lease_abstract",
+      "type": "leaseDocument",
+      "title": "Lease abstract for lease_demo_hq_001 (synthetic)",
+      "sourceSystem": "demo-lease-admin",
+      "path": "evidence/lease-summary.txt",
+      "retrievedAt": "2026-07-01T11:00:00Z",
+      "periodCovered": {
+        "start": "2026-01-01",
+        "end": "2028-12-31"
+      }
+    }
+  ]
+}

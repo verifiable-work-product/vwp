@@ -1,0 +1,8 @@
+{
+  "id": "wp_test_minimal",
+  "title": "Minimal valid VWP package",
+  "domain": "test",
+  "profile": "vwp-core",
+  "status": "draft",
+  "conclusionSummary": "Fixture demonstrating the minimum valid v0.1 package."
+}

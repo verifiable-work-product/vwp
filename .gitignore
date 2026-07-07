@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.idea/
+.claude/settings.local.json
+*.tsbuildinfo
+.DS_Store
+coverage/

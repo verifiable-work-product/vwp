@@ -1,0 +1,70 @@
+{
+  "claims": [
+    {
+      "id": "cl_eth_wallet_exists",
+      "statement": "Wallet wallet_eth_treasury exists on the Ethereum network with a non-zero balance at 2026-06-30.",
+      "domain": "finance",
+      "assertions": ["existence"],
+      "supportingFacts": ["f_eth_balance"],
+      "supportingEvidence": ["ev_wallet_inventory", "ev_explorer_snapshot"],
+      "conclusion": "Wallet exists at period end.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "cl_eth_wallet_control",
+      "statement": "DemoCo Treasury LLC controlled the signing key for wallet_eth_treasury at 2026-06-30, evidenced by a verified signed message over a dated challenge nonce, and the wallet is mapped to the entity in the approved entity mapping register. Control of a key at a point in time does not, by itself, establish legal or beneficial ownership; legal ownership is supported here by the entity mapping and treasury policy.",
+      "domain": "finance",
+      "assertions": ["rightsAndObligations"],
+      "supportingFacts": ["f_eth_signed_message", "f_entity_mapping"],
+      "supportingEvidence": ["ev_signed_message", "ev_entity_mapping"],
+      "conclusion": "Control at period end is supported; ownership support rests on entity mapping and policy.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "cl_btc_custodian_holding",
+      "statement": "acct_btc_custodian is held by Demo Custody Inc. for the benefit of DemoCo Treasury LLC under a custody agreement, with 85.25 BTC held at 2026-06-30 per the custodian statement.",
+      "domain": "finance",
+      "assertions": ["existence", "rightsAndObligations"],
+      "supportingFacts": ["f_btc_balance", "f_entity_mapping"],
+      "supportingEvidence": ["ev_custodian_statement", "ev_entity_mapping"],
+      "conclusion": "Custodial holding is supported by the statement and custody agreement mapping.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "cl_population_complete",
+      "statement": "The 2026-Q2 reporting population consists of wallet_eth_treasury and acct_btc_custodian; every wallet in the inventory is either included in the population or excluded with a documented rationale.",
+      "domain": "finance",
+      "assertions": ["completeness"],
+      "supportingFacts": ["f_population", "f_entity_mapping"],
+      "supportingEvidence": ["ev_wallet_inventory", "ev_entity_mapping"],
+      "conclusion": "Population is complete relative to the wallet inventory.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "cl_balances_tie",
+      "statement": "Period-end balances for the included wallets tie to source evidence: 1,250.5 ETH to the block explorer snapshot and 85.25 BTC to the custodian statement.",
+      "domain": "finance",
+      "assertions": ["valuationAllocation"],
+      "supportingFacts": ["f_eth_balance", "f_btc_balance"],
+      "supportingEvidence": ["ev_explorer_snapshot", "ev_custodian_statement"],
+      "conclusion": "Balances tie to source evidence; downstream fair value measurement is out of scope for this work product.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "cl_exclusion_documented",
+      "statement": "wallet_test_legacy is excluded from the reporting population with a documented rationale: it is an engineering test wallet, never funded by treasury operations, with a zero balance at period end.",
+      "domain": "finance",
+      "assertions": ["completeness"],
+      "supportingFacts": ["f_test_wallet_zero", "f_population"],
+      "supportingEvidence": ["ev_wallet_inventory", "ev_entity_mapping"],
+      "conclusion": "Exclusion is documented and consistent with treasury policy.",
+      "status": "supported",
+      "requiresReview": false
+    }
+  ]
+}

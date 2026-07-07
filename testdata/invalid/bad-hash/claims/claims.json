@@ -1,0 +1,8 @@
+{
+  "claims": [
+    {
+      "id": "c_bad_hash",
+      "statement": "The manifest declares a wrong sha256 for workproduct.json; verification must fail."
+    }
+  ]
+}

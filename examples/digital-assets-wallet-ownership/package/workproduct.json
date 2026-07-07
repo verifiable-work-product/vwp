@@ -1,0 +1,29 @@
+{
+  "id": "wp_democo_wallet_ownership_2026_q2",
+  "title": "Wallet Ownership and Control Workpaper - DemoCo Treasury LLC",
+  "domain": "finance",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-wallet-ownership-control",
+  "standardRefs": [],
+  "entity": {
+    "id": "entity_democo_treasury",
+    "name": "DemoCo Treasury LLC"
+  },
+  "period": {
+    "start": "2026-04-01",
+    "end": "2026-06-30"
+  },
+  "subject": {
+    "type": "walletPopulation",
+    "walletCount": 3,
+    "includedCount": 2
+  },
+  "conclusionSummary": "For 2026-Q2, the two included wallets are mapped to DemoCo Treasury LLC; the self-custody Ethereum wallet has proof-of-control evidence; the Bitcoin custodian account is supported by a custodian statement; period-end balances tie to source evidence; and the one excluded wallet has a documented exclusion rationale. Proof-of-control evidence demonstrates control of a key at a point in time and does not, by itself, establish legal or beneficial ownership.",
+  "status": "inReview",
+  "createdBy": {
+    "type": "agent",
+    "name": "vwp-demo-agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

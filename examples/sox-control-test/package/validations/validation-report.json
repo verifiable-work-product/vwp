@@ -1,0 +1,20 @@
+{
+  "validations": [
+    {
+      "id": "v_claims_supported",
+      "validator": "finance.claims.haveSupport",
+      "scope": "claims/claims.json",
+      "status": "pass",
+      "severity": "medium",
+      "message": "All four control claims reference supporting facts and evidence."
+    },
+    {
+      "id": "v_evidence_period",
+      "validator": "controls.evidence.coversPeriod",
+      "scope": "evidence/evidence.json",
+      "status": "pass",
+      "severity": "medium",
+      "message": "Reconciliation report and exception log cover 2026-06-01 through 2026-06-30."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "claims": [
+    {
+      "id": "cl_classification_operating",
+      "statement": "The lease is classified as an operating lease under ASC 842-10-25-2: no transfer of ownership, no purchase option reasonably certain of exercise, the 36-month term is not a major part of the asset's economic life, and the present value of payments is not substantially all of the asset's fair value.",
+      "domain": "finance",
+      "standardRefs": ["ASC 842-10-25-2"],
+      "assertions": ["presentationDisclosure", "rightsAndObligations"],
+      "supportingFacts": ["f_lease_terms"],
+      "supportingEvidence": ["ev_lease_abstract"],
+      "conclusion": "Operating lease classification (draft).",
+      "status": "proposed",
+      "requiresReview": true
+    },
+    {
+      "id": "cl_initial_measurement",
+      "statement": "The initial lease liability is measured at the present value of 36 monthly payments of 10,000 USD discounted at 6.0% per annum (approximately 328,710 USD), and the ROU asset equals the initial liability with no incentives, prepaid rent, or initial direct costs in this stub.",
+      "domain": "finance",
+      "standardRefs": ["ASC 842-20-30-1"],
+      "assertions": ["valuationAllocation"],
+      "supportingFacts": ["f_lease_terms", "f_discount_rate"],
+      "supportingCalculations": ["calc_lease_liability"],
+      "conclusion": "Initial measurement ties to the present value calculation, pending discount rate support.",
+      "status": "proposed",
+      "requiresReview": true
+    }
+  ]
+}

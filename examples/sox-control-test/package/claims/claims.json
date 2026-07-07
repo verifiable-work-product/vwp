@@ -1,0 +1,49 @@
+{
+  "claims": [
+    {
+      "id": "cl_control_performed",
+      "statement": "Control ctrl_da_recon_review was performed for June 2026: the reconciliation was prepared and reviewed during the monthly close.",
+      "domain": "controls",
+      "standardRefs": ["SOX 404"],
+      "assertions": ["occurrence"],
+      "supportingFacts": ["f_recon_prepared", "f_review_performed"],
+      "supportingEvidence": ["ev_recon_report", "ev_reviewer_signoff"],
+      "conclusion": "Control performed for the period.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "cl_reviewer_authorized",
+      "statement": "The June 2026 review was performed by a reviewer authorized under the delegation matrix in effect for the period.",
+      "domain": "controls",
+      "assertions": ["occurrence"],
+      "supportingFacts": ["f_reviewer_authorized"],
+      "supportingEvidence": ["ev_reviewer_signoff"],
+      "conclusion": "Reviewer was authorized.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "cl_exceptions_resolved",
+      "statement": "All exceptions logged for June 2026 were resolved or escalated before reviewer signoff; the single logged exception was resolved on 2026-07-01.",
+      "domain": "controls",
+      "assertions": ["completeness"],
+      "supportingFacts": ["f_exceptions", "f_review_performed"],
+      "supportingEvidence": ["ev_exception_log", "ev_reviewer_signoff"],
+      "conclusion": "Exceptions resolved; none escalated.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "cl_evidence_covers_period",
+      "statement": "The packaged evidence covers the full control period 2026-06-01 through 2026-06-30.",
+      "domain": "controls",
+      "assertions": ["completeness"],
+      "supportingFacts": ["f_recon_prepared", "f_exceptions"],
+      "supportingEvidence": ["ev_recon_report", "ev_exception_log"],
+      "conclusion": "Evidence covers the period.",
+      "status": "supported",
+      "requiresReview": false
+    }
+  ]
+}

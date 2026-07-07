@@ -1,0 +1,7 @@
+{
+  "id": "wp_test_missing_provenance",
+  "title": "Package missing its provenance part",
+  "domain": "test",
+  "profile": "vwp-core",
+  "status": "draft"
+}

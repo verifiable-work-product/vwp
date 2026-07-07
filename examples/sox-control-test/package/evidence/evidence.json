@@ -1,0 +1,36 @@
+{
+  "evidence": [
+    {
+      "id": "ev_recon_report",
+      "type": "reconciliationReport",
+      "title": "June 2026 digital asset subledger to ERP reconciliation (synthetic)",
+      "sourceSystem": "demo-close-tool",
+      "path": "evidence/reconciliation-report.txt",
+      "retrievedAt": "2026-07-05T10:00:00Z",
+      "periodCovered": {
+        "start": "2026-06-01",
+        "end": "2026-06-30"
+      }
+    },
+    {
+      "id": "ev_reviewer_signoff",
+      "type": "reviewSignoff",
+      "title": "Reviewer signoff record, June 2026 (synthetic)",
+      "sourceSystem": "demo-close-tool",
+      "path": "evidence/reviewer-signoff.txt",
+      "retrievedAt": "2026-07-05T10:00:00Z"
+    },
+    {
+      "id": "ev_exception_log",
+      "type": "exceptionLog",
+      "title": "Reconciliation exception log, June 2026 (synthetic)",
+      "sourceSystem": "demo-close-tool",
+      "path": "evidence/exception-log.csv",
+      "retrievedAt": "2026-07-05T10:00:00Z",
+      "periodCovered": {
+        "start": "2026-06-01",
+        "end": "2026-06-30"
+      }
+    }
+  ]
+}

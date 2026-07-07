@@ -1,0 +1,7 @@
+{
+  "id": "wp_test_bad_hash",
+  "title": "Package with a declared hash that does not match",
+  "domain": "test",
+  "profile": "vwp-core",
+  "status": "draft"
+}

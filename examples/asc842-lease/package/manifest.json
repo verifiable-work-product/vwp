@@ -1,0 +1,59 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_asc842_lease_2026",
+  "createdAt": "2026-07-07T16:30:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc842",
+  "title": "ASC 842 Lease Workpaper - Demo Office Lease (synthetic stub)",
+  "subject": {
+    "type": "leaseAgreement",
+    "id": "lease_demo_hq_001"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "role": "workproduct"
+  },
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "role": "provenance"
+  },
+  "parts": [
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/lease-summary.txt",
+      "mediaType": "text/plain",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "role": "facts"
+    },
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "role": "claims"
+    },
+    {
+      "path": "calculations/lease-liability.json",
+      "mediaType": "application/json",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "role": "rendering"
+    }
+  ]
+}

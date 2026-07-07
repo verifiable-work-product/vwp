@@ -1,0 +1,29 @@
+{
+  "id": "wp_demo_asc842_lease_2026",
+  "title": "ASC 842 Lease Workpaper - Demo Office Lease",
+  "domain": "finance",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc842",
+  "standardRefs": ["ASC 842"],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "start": "2026-01-01",
+    "end": "2026-12-31"
+  },
+  "subject": {
+    "type": "leaseAgreement",
+    "id": "lease_demo_hq_001",
+    "description": "36-month office lease (synthetic)"
+  },
+  "conclusionSummary": "Stub example. Draft operating lease classification with initial ROU asset and lease liability measurement; discount rate judgment not yet documented.",
+  "status": "draft",
+  "createdBy": {
+    "type": "agent",
+    "name": "vwp-demo-agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "notStarted"
+}

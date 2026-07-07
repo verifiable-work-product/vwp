@@ -1,0 +1,32 @@
+{
+  "facts": [
+    {
+      "id": "f_recon_prepared",
+      "statement": "The June 2026 subledger to ERP reconciliation for account 1150 was prepared on 2026-07-02 with a zero unreconciled difference.",
+      "evidenceRefs": ["ev_recon_report"],
+      "extractionMethod": "manual",
+      "confidence": 1
+    },
+    {
+      "id": "f_review_performed",
+      "statement": "Demo Controller reviewed and approved the June 2026 reconciliation on 2026-07-03, within the monthly close window.",
+      "evidenceRefs": ["ev_reviewer_signoff"],
+      "extractionMethod": "manual",
+      "confidence": 1
+    },
+    {
+      "id": "f_reviewer_authorized",
+      "statement": "The signoff record identifies the reviewer as an authorized reviewer under delegation matrix DM-2026-01.",
+      "evidenceRefs": ["ev_reviewer_signoff"],
+      "extractionMethod": "manual",
+      "confidence": 1
+    },
+    {
+      "id": "f_exceptions",
+      "statement": "One exception (EXC-2026-06-01, a custodian transfer timing difference) was logged for June 2026 and marked resolved on 2026-07-01, with no escalations.",
+      "evidenceRefs": ["ev_exception_log"],
+      "extractionMethod": "deterministic-parser",
+      "confidence": 1
+    }
+  ]
+}

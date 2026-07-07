@@ -1,0 +1,70 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_sox_recon_review_2026_06",
+  "createdAt": "2026-07-07T17:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-controls-evidence",
+  "title": "SOX Control Test - Monthly Subledger to ERP Reconciliation Review, June 2026 (synthetic stub)",
+  "subject": {
+    "type": "controlTest",
+    "controlId": "ctrl_da_recon_review",
+    "period": "2026-06"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "role": "workproduct"
+  },
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "role": "provenance"
+  },
+  "parts": [
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/reconciliation-report.txt",
+      "mediaType": "text/plain",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/reviewer-signoff.txt",
+      "mediaType": "text/plain",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/exception-log.csv",
+      "mediaType": "text/csv",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "role": "facts"
+    },
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "role": "claims"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "role": "validations"
+    },
+    {
+      "path": "approvals/approvals.json",
+      "mediaType": "application/json",
+      "role": "approvals"
+    },
+    {
+      "path": "renderings/workpaper.md",
+      "mediaType": "text/markdown",
+      "role": "rendering"
+    }
+  ]
+}

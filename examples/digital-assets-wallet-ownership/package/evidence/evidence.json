@@ -1,0 +1,57 @@
+{
+  "evidence": [
+    {
+      "id": "ev_wallet_inventory",
+      "type": "walletInventory",
+      "title": "Wallet inventory extract, 2026-Q2 (synthetic)",
+      "sourceSystem": "demo-subledger",
+      "path": "evidence/wallet-inventory.csv",
+      "retrievedAt": "2026-07-01T09:00:00Z",
+      "periodCovered": {
+        "start": "2026-04-01",
+        "end": "2026-06-30"
+      }
+    },
+    {
+      "id": "ev_signed_message",
+      "type": "proofOfControl",
+      "title": "Signed message record for wallet_eth_treasury (synthetic placeholder)",
+      "sourceSystem": "demo-treasury-ops",
+      "path": "evidence/signed-message.txt",
+      "retrievedAt": "2026-06-30T17:10:00Z",
+      "accessNotes": "Signature value is a synthetic placeholder; a real package would carry a verifiable signature over a dated challenge nonce."
+    },
+    {
+      "id": "ev_custodian_statement",
+      "type": "custodianStatement",
+      "title": "Demo Custody Inc. statement for account DEMO-CUSTODY-4821 (synthetic)",
+      "sourceSystem": "demo-custodian-portal",
+      "path": "evidence/custodian-statement.txt",
+      "retrievedAt": "2026-07-01T09:15:00Z",
+      "periodCovered": {
+        "start": "2026-04-01",
+        "end": "2026-06-30"
+      }
+    },
+    {
+      "id": "ev_entity_mapping",
+      "type": "entityMapping",
+      "title": "Wallet-to-entity mapping register (synthetic)",
+      "sourceSystem": "demo-treasury-ops",
+      "path": "evidence/entity-mapping.csv",
+      "retrievedAt": "2026-07-01T09:05:00Z"
+    },
+    {
+      "id": "ev_explorer_snapshot",
+      "type": "chainBalanceSnapshot",
+      "title": "Block explorer balance snapshot for wallet_eth_treasury as of 2026-06-30 (synthetic reference)",
+      "sourceSystem": "demo-block-explorer",
+      "externalRef": {
+        "system": "demo-block-explorer",
+        "locator": "demo://ethereum/address/0x1234567890abcdef1234567890abcdef12345678?block=2026-06-30T23:59:59Z",
+        "description": "Synthetic locator; a real package would reference an archived snapshot or node query with block height."
+      },
+      "retrievedAt": "2026-07-01T09:20:00Z"
+    }
+  ]
+}

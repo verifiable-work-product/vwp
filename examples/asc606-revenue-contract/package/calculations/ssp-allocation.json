@@ -1,0 +1,25 @@
+{
+  "id": "calc_ssp_allocation",
+  "type": "relativeStandaloneSellingPriceAllocation",
+  "inputs": {
+    "transactionPrice": 300000,
+    "currency": "USD",
+    "components": [
+      { "id": "saas_subscription", "standaloneSellingPrice": 240000, "sspFact": "f_ssp_saas" },
+      { "id": "implementation_services", "standaloneSellingPrice": 75000, "sspFact": "f_ssp_impl" },
+      { "id": "premium_support", "standaloneSellingPrice": 60000, "sspFact": "f_ssp_support" }
+    ]
+  },
+  "outputs": {
+    "totalStandaloneSellingPrice": 375000,
+    "allocationRatio": 0.8,
+    "allocations": [
+      { "componentId": "saas_subscription", "allocatedAmount": 192000 },
+      { "componentId": "implementation_services", "allocatedAmount": 60000 },
+      { "componentId": "premium_support", "allocatedAmount": 48000 }
+    ]
+  },
+  "method": "Each component is allocated transactionPrice * (componentSSP / totalSSP). 300,000 * (240,000 / 375,000) = 192,000; 300,000 * (75,000 / 375,000) = 60,000; 300,000 * (60,000 / 375,000) = 48,000.",
+  "validator": "asc606.allocation.tieOut",
+  "recomputable": true
+}

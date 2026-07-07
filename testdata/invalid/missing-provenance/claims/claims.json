@@ -1,0 +1,8 @@
+{
+  "claims": [
+    {
+      "id": "c_missing_provenance",
+      "statement": "The provenance part declared in the manifest is absent; verification must fail."
+    }
+  ]
+}

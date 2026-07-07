@@ -1,0 +1,33 @@
+{
+  "evidence": [
+    {
+      "id": "ev_order_form",
+      "type": "contractDocument",
+      "title": "DemoCo Order Form #OF-2026-0142 (synthetic)",
+      "sourceSystem": "demo-clm",
+      "path": "evidence/order-form.txt",
+      "retrievedAt": "2026-07-01T10:00:00Z",
+      "periodCovered": {
+        "start": "2026-01-01",
+        "end": "2027-12-31"
+      }
+    },
+    {
+      "id": "ev_msa_excerpt",
+      "type": "contractDocument",
+      "title": "Master Subscription Agreement excerpt (synthetic)",
+      "sourceSystem": "demo-clm",
+      "path": "evidence/msa-excerpt.txt",
+      "retrievedAt": "2026-07-01T10:00:00Z",
+      "accessNotes": "Excerpt only; full agreement retained in the demo contract system."
+    },
+    {
+      "id": "ev_price_book",
+      "type": "pricingRecord",
+      "title": "Standalone selling price book extract (synthetic)",
+      "sourceSystem": "demo-cpq",
+      "path": "evidence/price-book.csv",
+      "retrievedAt": "2026-07-01T10:05:00Z"
+    }
+  ]
+}

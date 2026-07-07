@@ -1,0 +1,22 @@
+{
+  "facts": [
+    {
+      "id": "f_lease_terms",
+      "statement": "The lease runs 36 months from 2026-01-01 at 10,000 USD per month in arrears, with no escalation, no purchase option, no transfer of ownership, and a renewal option that is not reasonably certain of exercise.",
+      "evidenceRefs": ["ev_lease_abstract"],
+      "extractionMethod": "manual",
+      "confidence": 1
+    },
+    {
+      "id": "f_discount_rate",
+      "statement": "An incremental borrowing rate of 6.0% per annum was used as the discount rate. The rate support memo is not yet attached in this stub example.",
+      "value": {
+        "annualRate": 0.06
+      },
+      "evidenceRefs": ["ev_lease_abstract"],
+      "extractionMethod": "manual",
+      "confidence": 0.7,
+      "requiresReview": true
+    }
+  ]
+}

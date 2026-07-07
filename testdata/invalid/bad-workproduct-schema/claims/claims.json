@@ -1,0 +1,8 @@
+{
+  "claims": [
+    {
+      "id": "c_bad_workproduct",
+      "statement": "The workproduct violates its schema; verification must fail."
+    }
+  ]
+}

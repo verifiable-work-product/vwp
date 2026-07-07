@@ -1,0 +1,29 @@
+{
+  "id": "wp_acme_asc606_2026_q1",
+  "title": "ASC 606 Revenue Recognition Workpaper - Acme Contract",
+  "domain": "finance",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc606",
+  "standardRefs": ["ASC 606"],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "start": "2026-01-01",
+    "end": "2026-03-31"
+  },
+  "subject": {
+    "type": "customerContract",
+    "id": "contract_acme_001",
+    "customer": "Acme Corp"
+  },
+  "conclusionSummary": "Draft revenue recognition treatment prepared for review. Transaction price of 300,000 USD allocated across three performance obligations on a relative standalone selling price basis. Whether implementation services are distinct remains subject to review.",
+  "status": "draft",
+  "createdBy": {
+    "type": "agent",
+    "name": "vwp-demo-agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "reviewRequired"
+}
