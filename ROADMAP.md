@@ -14,6 +14,10 @@ will change based on feedback and real-world use.
 ## v0.2 — Verification depth
 
 - Better signature support (beyond the v0.1 experimental placeholder)
+- Analysis attestation schema: structured, signed records of model-assisted
+  review procedures over a defined evidence scope (see the whitepaper,
+  section 4.5) — distinct from deterministic validation, never affecting
+  package validity
 - Stronger package diffing (structural diffs between package versions)
 - Package conformance tests
 - Finance profile validators (assertion coverage, support coverage, review surfacing)
@@ -23,7 +27,9 @@ will change based on feedback and real-world use.
 
 - Python and Go SDKs (currently stubs under `sdk/`)
 - More domain profiles beyond finance/audit/controls/digital assets
-- Evidence locator standard (stable addressing of external evidence)
+- Evidence locator standard (stable addressing of external evidence, plus
+  optional intra-file anchors — line/character spans, pages, cell ranges — so
+  facts can point inside the evidence they cite)
 - Review/approval event log (append-only record of review activity)
 - Better rendering templates for human-readable views
 
