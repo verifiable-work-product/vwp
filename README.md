@@ -85,6 +85,7 @@ A note on the wallet example: proof-of-control evidence, such as a signed wallet
 
 ## Repository layout
 
+- [`docs/whitepaper.md`](docs/whitepaper.md) — the VWP whitepaper: motivation, object model, verification model, and role in audit workflows.
 - [`spec/`](spec) — the v0.1 draft specification (package format, manifest, core objects, profiles).
 - [`schemas/v0.1/`](schemas/v0.1) — JSON Schemas (draft 2020-12) for every core object.
 - [`profiles/`](profiles) — finance, audit, accounting, digital-assets, and controls profile documentation.
