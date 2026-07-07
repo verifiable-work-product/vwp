@@ -1,0 +1,41 @@
+{
+  "description": "Fair value measurement register consumed by the vwp-accounting-asc820 demo validators. Synthetic data.",
+  "measurements": [
+    {
+      "id": "m_eth_2026_06_30",
+      "asset": "ETH",
+      "quantity": 1000,
+      "measurementDate": "2026-06-30",
+      "level": "level1",
+      "valuationTechnique": "Unadjusted quoted prices for identical assets in active markets (midpoint of two venue last-trade prices).",
+      "fairValue": {
+        "amount": 2500000,
+        "currency": "USD"
+      },
+      "pricingSourceEvidence": ["ev_exchange_quotes"],
+      "notes": "1,000 ETH x 2,500.00 USD midpoint."
+    },
+    {
+      "id": "m_lck_2026_06_30",
+      "asset": "LCK",
+      "quantity": 100000,
+      "measurementDate": "2026-06-30",
+      "level": "level3",
+      "valuationTechnique": "Market approach: vendor indicative quote for unrestricted tokens, adjusted by a discount for lack of marketability reflecting the holder-specific transfer restriction.",
+      "fairValue": {
+        "amount": 150000,
+        "currency": "USD"
+      },
+      "pricingSourceEvidence": ["ev_vendor_quote", "ev_token_agreement"],
+      "unobservableInputs": [
+        {
+          "name": "discountForLackOfMarketability",
+          "value": 0.25,
+          "basis": "Restricted-asset considerations for a 12-month transfer restriction with monthly release thereafter; thin-volume indicative quote for unrestricted units."
+        }
+      ],
+      "judgmentRef": "j_lck_level3",
+      "notes": "100,000 LCK x 2.00 USD x (1 - 0.25) = 150,000 USD."
+    }
+  ]
+}

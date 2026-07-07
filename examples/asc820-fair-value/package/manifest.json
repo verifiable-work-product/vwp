@@ -1,0 +1,99 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_asc820_fair_value_2026q2",
+  "createdAt": "2026-07-07T18:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc820",
+  "title": "ASC 820 Fair Value Support - DemoCo Digital Asset Positions, 2026-06-30 (synthetic demo)",
+  "subject": {
+    "type": "fairValueMeasurement",
+    "entityId": "entity_demo",
+    "measurementDate": "2026-06-30"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "role": "workproduct",
+    "sha256": "762e0916e7ff0578f620e8ca3f7b0d5e52e68368a798b08a5f877a7e984f2ea2"
+  },
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "role": "provenance",
+    "sha256": "f020f979bc63872a16d609c4c2c4770de9435b2822c511726b55e399f5aaf833"
+  },
+  "parts": [
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "role": "evidence-index",
+      "sha256": "9e72fa41ee278a1a0f8ae21bae11626774d8ca97de576b507e8c071f95c42808"
+    },
+    {
+      "path": "evidence/position-statement.txt",
+      "mediaType": "text/plain",
+      "role": "evidence",
+      "sha256": "3ebd0c134594dc611d1f08172491f6a5cc45c487c9635bf793744a610b113af9"
+    },
+    {
+      "path": "evidence/exchange-quotes.csv",
+      "mediaType": "text/csv",
+      "role": "evidence",
+      "sha256": "372b6c970b11b4f5f38ef0f052ba9bf116802712195878052a5a4c23ebd662a7"
+    },
+    {
+      "path": "evidence/vendor-quote.txt",
+      "mediaType": "text/plain",
+      "role": "evidence",
+      "sha256": "4289060167facb8a5781b3682cb2848e803d18b0d02522466b3dd366d411305d"
+    },
+    {
+      "path": "evidence/token-agreement-excerpt.txt",
+      "mediaType": "text/plain",
+      "role": "evidence",
+      "sha256": "e53006d0dadf949834f94857335f808c0d72a7f37fc04e6067339ba7362bc57e"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "role": "facts",
+      "sha256": "3e27fd4ef77d1aa2e9534fd4e9741b36a8383b8fdcc267dbc9a77443b2127b33"
+    },
+    {
+      "path": "facts/fair-value-measurements.json",
+      "mediaType": "application/json",
+      "role": "facts",
+      "sha256": "49ab8d6a0693ea9221c61c5ab212066d1c272647817a51dd9797a8b1aaea7e3e"
+    },
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "role": "claims",
+      "sha256": "20869dae4449bf1e833c79bd09cb78425e1d36a52951ba551443eccbfba5d9b4"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "role": "judgments",
+      "sha256": "2870f38fd5d90ee67940480ff944770b21273fba2e3499b7af2a1c0689a25cb3"
+    },
+    {
+      "path": "approvals/approvals.json",
+      "mediaType": "application/json",
+      "role": "approvals",
+      "sha256": "2d98e92a32afccbacc9981a393e4c04cf7375f637902ff4ab6cd6dfad039bd55"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "role": "validations",
+      "sha256": "048f6465540bec3836beafcf691d5ff1aeec7176d3bbc26838801f114862dc54"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "role": "rendering",
+      "sha256": "bef991854111601f3330066728c0bcbec22302c79b44495030b802680e6b325e"
+    }
+  ]
+}

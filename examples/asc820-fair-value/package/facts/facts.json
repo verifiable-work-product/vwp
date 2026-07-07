@@ -1,0 +1,55 @@
+{
+  "facts": [
+    {
+      "id": "f_eth_position",
+      "statement": "DemoCo held 1,000 ETH as of 2026-06-30 per the subledger position extract.",
+      "value": {
+        "asset": "ETH",
+        "quantity": 1000
+      },
+      "evidenceRefs": ["ev_position_statement"],
+      "extractionMethod": "deterministic-parser",
+      "confidence": 1
+    },
+    {
+      "id": "f_lck_position",
+      "statement": "DemoCo held 100,000 LCK tokens as of 2026-06-30, acquired under a token purchase agreement dated 2025-12-01.",
+      "value": {
+        "asset": "LCK",
+        "quantity": 100000
+      },
+      "evidenceRefs": ["ev_position_statement"],
+      "extractionMethod": "deterministic-parser",
+      "confidence": 1
+    },
+    {
+      "id": "f_eth_quotes",
+      "statement": "ETH last-trade prices at 2026-06-30 were 2,501.00 USD (demo-exchange-a) and 2,499.00 USD (demo-exchange-b); the workpaper uses the 2,500.00 USD midpoint.",
+      "value": {
+        "asset": "ETH",
+        "midpointUsd": 2500
+      },
+      "evidenceRefs": ["ev_exchange_quotes"],
+      "extractionMethod": "deterministic-parser",
+      "confidence": 1
+    },
+    {
+      "id": "f_lck_quote",
+      "statement": "The pricing vendor's indicative secondary quote for unrestricted LCK tokens was 2.00 USD per token as of 2026-06-30, based on two observed transactions in thin volume.",
+      "value": {
+        "asset": "LCK",
+        "indicativeUsd": 2.0
+      },
+      "evidenceRefs": ["ev_vendor_quote"],
+      "extractionMethod": "manual",
+      "confidence": 0.9
+    },
+    {
+      "id": "f_lck_restriction",
+      "statement": "DemoCo's LCK tokens may not be transferred before 2027-06-30 and are then released monthly over twelve months, per the token purchase agreement.",
+      "evidenceRefs": ["ev_token_agreement"],
+      "extractionMethod": "manual",
+      "confidence": 1
+    }
+  ]
+}

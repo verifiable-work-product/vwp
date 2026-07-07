@@ -560,7 +560,7 @@ workflows. These are roadmap items, not oversights — see below.
 
 The reference repository contains the v0.1 draft specification, JSON schemas,
 a TypeScript verifier CLI (`pack`, `unpack`, `verify`, `inspect`, `diff`,
-`render`), profile documentation, and four synthetic example packages. The
+`render`), profile documentation, and five synthetic example packages. The
 near-term roadmap: real signature support, an analysis attestation schema,
 and conformance tests (v0.2); Python and Go SDKs, standardized evidence
 locators with intra-file anchoring, and a review-event log (v0.3); converging

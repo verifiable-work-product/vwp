@@ -1,0 +1,11 @@
+SYNTHETIC DEMO DATA - NOT A REAL AGREEMENT
+
+TOKEN PURCHASE AGREEMENT (EXCERPT)
+DemoCo and LCK Foundation - dated 2025-12-01
+
+Section 6. Transfer Restrictions.
+6.1 Purchased tokens may not be sold, transferred, pledged, or otherwise
+    disposed of prior to 2027-06-30, except to affiliates who agree in
+    writing to be bound by this Section.
+6.2 Following 2027-06-30, tokens are released from restriction in equal
+    monthly installments over twelve (12) months.

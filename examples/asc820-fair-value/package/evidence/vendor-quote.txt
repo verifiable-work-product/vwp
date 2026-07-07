@@ -1,0 +1,14 @@
+SYNTHETIC DEMO DATA - NOT A REAL QUOTE
+
+DEMO PRICING SERVICES LLC
+INDICATIVE SECONDARY MARKET QUOTE
+
+Asset:        LCK token (unrestricted units)
+As of:        2026-06-30
+Indicative price: USD 2.00 per token
+Basis:        Two observed secondary transactions in June 2026 between
+              unrelated parties; thin volume. Quote reflects unrestricted
+              tokens and does not adjust for any holder-specific transfer
+              restrictions.
+
+This indicative quote is provided for demonstration purposes only.

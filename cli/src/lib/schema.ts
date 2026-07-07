@@ -43,13 +43,22 @@ export function findSchemasDir(): string {
   throw new Error('could not locate schemas/v0.1 (set VWP_SCHEMAS_DIR to override)');
 }
 
+let ajvInstance: Ajv2020 | undefined;
 let validators: Map<SchemaName, ValidateFunction> | undefined;
+const extensionValidators = new Map<string, ValidateFunction>();
+
+function getAjv(): Ajv2020 {
+  if (!ajvInstance) {
+    ajvInstance = new Ajv2020({ allErrors: true, strict: false });
+    addFormats(ajvInstance);
+  }
+  return ajvInstance;
+}
 
 export function getValidator(name: SchemaName): ValidateFunction {
   if (!validators) {
     const dir = findSchemasDir();
-    const ajv = new Ajv2020({ allErrors: true, strict: false });
-    addFormats(ajv);
+    const ajv = getAjv();
     validators = new Map();
     for (const schemaName of SCHEMA_NAMES) {
       const raw = fs.readFileSync(path.join(dir, `${schemaName}.schema.json`), 'utf8');
@@ -61,11 +70,35 @@ export function getValidator(name: SchemaName): ValidateFunction {
   return fn;
 }
 
-/** Validate data against a named schema; returns error strings (empty = valid). */
-export function schemaErrors(name: SchemaName, data: unknown): string[] {
-  const validate = getValidator(name);
-  if (validate(data)) return [];
+function formatErrors(validate: ValidateFunction): string[] {
   return (validate.errors ?? []).map(
     (e) => `${e.instancePath || '(root)'} ${e.message ?? 'invalid'}`
   );
+}
+
+/** Validate data against a named core schema; returns error strings (empty = valid). */
+export function schemaErrors(name: SchemaName, data: unknown): string[] {
+  const validate = getValidator(name);
+  if (validate(data)) return [];
+  return formatErrors(validate);
+}
+
+/**
+ * Validate data against an extension schema, addressed by its path relative
+ * to schemas/v0.1 (e.g. 'extensions/accounting-asc606/ssp-allocation.schema.json').
+ * Extension schemas constrain data the core schemas leave open; core schemas
+ * still apply where the object is also a core object.
+ */
+export function extensionSchemaErrors(relPath: string, data: unknown): string[] {
+  let validate = extensionValidators.get(relPath);
+  if (!validate) {
+    const file = path.join(findSchemasDir(), ...relPath.split('/'));
+    if (!fs.existsSync(file)) {
+      throw new Error(`extension schema not found: ${relPath}`);
+    }
+    validate = getAjv().compile(JSON.parse(fs.readFileSync(file, 'utf8')));
+    extensionValidators.set(relPath, validate);
+  }
+  if (validate(data)) return [];
+  return formatErrors(validate);
 }

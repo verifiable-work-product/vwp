@@ -1,0 +1,28 @@
+{
+  "validations": [
+    {
+      "id": "v_measurements_schema",
+      "validator": "asc820.measurements.schemaValid",
+      "scope": "facts/fair-value-measurements.json",
+      "status": "pass",
+      "severity": "high",
+      "message": "Measurement register conforms to the vwp-accounting-asc820 extension schema."
+    },
+    {
+      "id": "v_pricing_sources",
+      "validator": "asc820.pricingSources.resolve",
+      "scope": "facts/fair-value-measurements.json",
+      "status": "pass",
+      "severity": "high",
+      "message": "Both measurements reference resolvable pricing source evidence."
+    },
+    {
+      "id": "v_level3_judgment",
+      "validator": "asc820.level3.judgmentLinked",
+      "scope": "m_lck_2026_06_30",
+      "status": "pass",
+      "severity": "high",
+      "message": "The level 3 LCK measurement links judgment j_lck_level3 (approved by the valuation reviewer)."
+    }
+  ]
+}

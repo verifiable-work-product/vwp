@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/accounting-asc606/ssp-allocation.schema.json",
+  "title": "ASC 606 Relative Standalone Selling Price Allocation",
+  "description": "Extension schema for the vwp-accounting-asc606 extension. Constrains a core calculation object (calculation.schema.json still applies) of type 'relativeStandaloneSellingPriceAllocation', stored at calculations/ssp-allocation.json. This is the data contract consumed by the asc606.allocation.tieOut and asc606.revenueSchedule.total validators.",
+  "type": "object",
+  "required": ["id", "type", "inputs", "outputs"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "type": { "const": "relativeStandaloneSellingPriceAllocation" },
+    "inputs": {
+      "type": "object",
+      "required": ["transactionPrice", "components"],
+      "properties": {
+        "transactionPrice": { "type": "number", "exclusiveMinimum": 0 },
+        "currency": { "type": "string" },
+        "components": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "standaloneSellingPrice"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "standaloneSellingPrice": { "type": "number", "exclusiveMinimum": 0 },
+              "sspFact": {
+                "type": "string",
+                "description": "Optional fact ID supporting this standalone selling price."
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "required": ["allocations"],
+      "properties": {
+        "totalStandaloneSellingPrice": { "type": "number" },
+        "allocationRatio": { "type": "number" },
+        "allocations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["componentId", "allocatedAmount"],
+            "properties": {
+              "componentId": { "type": "string", "minLength": 1 },
+              "allocatedAmount": { "type": "number", "minimum": 0 }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "method": { "type": "string" },
+    "validator": { "type": "string" },
+    "recomputable": { "type": "boolean" }
+  }
+}

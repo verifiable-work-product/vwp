@@ -1,0 +1,29 @@
+{
+  "id": "wp_demo_asc820_fair_value_2026_q2",
+  "title": "ASC 820 Fair Value Support - DemoCo Digital Asset Positions",
+  "domain": "finance",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc820",
+  "standardRefs": ["ASC 820"],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "start": "2026-04-01",
+    "end": "2026-06-30"
+  },
+  "subject": {
+    "type": "fairValueMeasurement",
+    "measurementDate": "2026-06-30",
+    "positionCount": 2
+  },
+  "conclusionSummary": "Fair value support for two digital asset positions as of 2026-06-30: 1,000 ETH measured at 2,500,000 USD using unadjusted quoted prices (level 1), and 100,000 restricted LCK tokens measured at 150,000 USD using a market approach with a 25% discount for lack of marketability (level 3, supported by a reviewed judgment). Synthetic demo data.",
+  "status": "inReview",
+  "createdBy": {
+    "type": "agent",
+    "name": "vwp-demo-agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

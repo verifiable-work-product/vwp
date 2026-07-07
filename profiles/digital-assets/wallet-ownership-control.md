@@ -44,6 +44,16 @@ finance profile vocabulary ([`../finance/assertions.md`](../finance/assertions.m
 These are structural checks: they verify the package demonstrates its support, not
 that the underlying conclusions are correct.
 
+### Data contract (implemented in the reference CLI)
+
+The reference CLI implements these as `digitalAssets.wallets.entityMapping`,
+`digitalAssets.wallets.proofOfControl`, `digitalAssets.wallets.exclusionRationale`,
+and `digitalAssets.wallets.balanceEvidence`, preceded by
+`digitalAssets.wallets.schemaValid`. They consume a structured wallet register at
+`facts/wallets.json`, validating against
+[`schemas/v0.1/extensions/digital-assets-wallet-ownership-control/wallets.schema.json`](../../schemas/v0.1/extensions/digital-assets-wallet-ownership-control/wallets.schema.json).
+See [`examples/digital-assets-wallet-ownership`](../../examples/digital-assets-wallet-ownership).
+
 ## Caution: proof of control is not proof of ownership
 
 Proof-of-control evidence, such as a signed wallet message, can demonstrate control of

@@ -78,6 +78,7 @@ Exit codes: `0` valid (warnings/review items allowed unless `--strict`), `1` inv
 
 - [`examples/asc606-revenue-contract`](examples/asc606-revenue-contract) — a revenue recognition workpaper: five-step claims, an SSP allocation calculation that must tie out, a distinctness judgment left in review, and a memo rendering.
 - [`examples/digital-assets-wallet-ownership`](examples/digital-assets-wallet-ownership) — wallet ownership/control for a treasury entity: proof-of-control evidence, entity mapping, completeness with exclusion rationale, and balance tie-outs.
+- [`examples/asc820-fair-value`](examples/asc820-fair-value) — fair value support: a level 1 position priced from exchange quotes and a level 3 restricted token whose hierarchy classification and marketability discount are judgment-linked.
 - [`examples/asc842-lease`](examples/asc842-lease) — minimal lease workpaper stub.
 - [`examples/sox-control-test`](examples/sox-control-test) — minimal internal-control evidence stub.
 

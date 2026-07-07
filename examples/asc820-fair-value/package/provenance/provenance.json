@@ -1,0 +1,23 @@
+{
+  "createdAt": "2026-07-07T18:00:00Z",
+  "createdBy": {
+    "type": "agent",
+    "name": "vwp-demo-agent",
+    "version": "0.1.0"
+  },
+  "toolchain": [
+    { "name": "vwp-cli", "version": "0.1.0" }
+  ],
+  "models": [
+    { "provider": "demo", "name": "manual-fixture", "version": "n/a" }
+  ],
+  "policyVersions": [
+    { "id": "demo-valuation-policy", "version": "2026.01" }
+  ],
+  "sourceSystems": [
+    { "name": "demo-subledger", "description": "Demo digital asset subledger (synthetic)" },
+    { "name": "demo-market-data", "description": "Demo market data feed (synthetic)" },
+    { "name": "demo-pricing-vendor", "description": "Demo pricing vendor (synthetic)" }
+  ],
+  "notes": "Synthetic demo package demonstrating the vwp-accounting-asc820 extension. All positions, prices, and parties are fictional."
+}

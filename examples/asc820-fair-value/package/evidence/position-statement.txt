@@ -1,0 +1,13 @@
+SYNTHETIC DEMO DATA - NOT A REAL STATEMENT
+
+DEMOCO DIGITAL ASSET SUBLEDGER - POSITION EXTRACT
+
+Entity:  DemoCo
+As of:   2026-06-30
+
+Positions:
+  Asset: ETH   Quantity: 1,000.00000000    Custody: demo custody account
+  Asset: LCK   Quantity: 100,000.00000000  Custody: self-custody (restricted)
+
+LCK tokens were acquired under a token purchase agreement dated 2025-12-01
+and remain subject to transfer restrictions (see agreement excerpt).

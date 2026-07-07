@@ -1,0 +1,3 @@
+venue,asset,quote_type,price_usd,as_of
+demo-exchange-a,ETH,last_trade,2501.00,2026-06-30T23:59:00Z
+demo-exchange-b,ETH,last_trade,2499.00,2026-06-30T23:58:30Z

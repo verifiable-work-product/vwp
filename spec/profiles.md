@@ -57,8 +57,13 @@ A profile or extension specification SHOULD define:
 
 1. Its string identifier and the profile it extends (extensions only).
 2. Controlled vocabularies (e.g. claim `assertions` values, evidence `type` values).
-3. Additional schema constraints on core objects (via schemas that extend, never relax,
-   the core schemas).
+3. Additional schema constraints on core objects and any extension-specific data
+   structures (via schemas that extend, never relax, the core schemas). In this
+   repository, extension schemas are published under
+   `schemas/v0.1/extensions/<extension-suffix>/` (e.g.
+   `extensions/accounting-asc606/ssp-allocation.schema.json`,
+   `extensions/accounting-asc820/fair-value-measurements.schema.json`,
+   `extensions/digital-assets-wallet-ownership-control/wallets.schema.json`).
 4. Validators, each with an identifier and version, and the statuses/severities they emit.
 5. Any conventions for `subject`, `standardRefs`, and object field usage in the domain.
 
@@ -67,7 +72,9 @@ verification rules, or the semantics of validation statuses.
 
 ## 5. Status of named profiles
 
-`vwp-finance`, `vwp-accounting-asc606`, and `vwp-digital-assets-wallet-ownership-control`
-are referenced throughout v0.1 as motivating examples. Only the `vwp-finance` assertion
-vocabulary is normatively defined in v0.1 (see [claims.md](claims.md)); full profile and
-extension specifications are expected in later drafts.
+`vwp-finance`, `vwp-accounting-asc606`, `vwp-accounting-asc820`, and
+`vwp-digital-assets-wallet-ownership-control` are referenced throughout v0.1 as
+motivating examples. Only the `vwp-finance` assertion vocabulary and the extension data
+schemas under `schemas/v0.1/extensions/` are normatively defined in v0.1 (see
+[claims.md](claims.md)); full profile and extension specifications are expected in
+later drafts.

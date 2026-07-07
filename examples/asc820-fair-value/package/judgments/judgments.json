@@ -1,0 +1,24 @@
+{
+  "judgments": [
+    {
+      "id": "j_lck_level3",
+      "topic": "Fair value hierarchy classification and unobservable inputs",
+      "question": "What hierarchy level applies to the restricted LCK position, and what discount for lack of marketability is appropriate under ASC 820?",
+      "proposedConclusion": "Level 3. The vendor quote is indicative, thin-volume, and for unrestricted units, and the holder-specific transfer restriction requires a significant unobservable adjustment. A 25% discount for lack of marketability is applied for the 12-month restriction with monthly release thereafter.",
+      "basis": "ASC 820 fair value hierarchy; the indicative quote's limitations as documented by the vendor; the transfer restriction terms in the token purchase agreement.",
+      "alternatives": [
+        {
+          "conclusion": "Level 2 with no marketability adjustment",
+          "notes": "Rejected: the quote is indicative rather than binding, volume is thin, and the restriction is significant to the measurement."
+        },
+        {
+          "conclusion": "Different DLOM (15% - 35% range considered)",
+          "notes": "25% selected within the considered range; sensitivity noted in the memo."
+        }
+      ],
+      "riskLevel": "high",
+      "requiredApproverRole": "valuation-reviewer",
+      "status": "approved"
+    }
+  ]
+}

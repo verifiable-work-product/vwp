@@ -1,0 +1,37 @@
+{
+  "evidence": [
+    {
+      "id": "ev_position_statement",
+      "type": "subledgerExtract",
+      "title": "Digital asset subledger position extract as of 2026-06-30 (synthetic)",
+      "sourceSystem": "demo-subledger",
+      "path": "evidence/position-statement.txt",
+      "retrievedAt": "2026-07-01T09:00:00Z"
+    },
+    {
+      "id": "ev_exchange_quotes",
+      "type": "pricingRecord",
+      "title": "Exchange last-trade quotes for ETH from two venues, 2026-06-30 (synthetic)",
+      "sourceSystem": "demo-market-data",
+      "path": "evidence/exchange-quotes.csv",
+      "retrievedAt": "2026-07-01T09:05:00Z"
+    },
+    {
+      "id": "ev_vendor_quote",
+      "type": "pricingRecord",
+      "title": "Demo Pricing Services indicative secondary quote for LCK, 2026-06-30 (synthetic)",
+      "sourceSystem": "demo-pricing-vendor",
+      "path": "evidence/vendor-quote.txt",
+      "retrievedAt": "2026-07-01T09:10:00Z",
+      "accessNotes": "Indicative quote for unrestricted units; thin volume noted by the vendor."
+    },
+    {
+      "id": "ev_token_agreement",
+      "type": "contractDocument",
+      "title": "Token purchase agreement excerpt - LCK transfer restrictions (synthetic)",
+      "sourceSystem": "demo-clm",
+      "path": "evidence/token-agreement-excerpt.txt",
+      "retrievedAt": "2026-07-01T09:15:00Z"
+    }
+  ]
+}

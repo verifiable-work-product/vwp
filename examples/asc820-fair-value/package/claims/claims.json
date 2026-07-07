@@ -1,0 +1,41 @@
+{
+  "claims": [
+    {
+      "id": "cl_eth_fair_value",
+      "statement": "The 1,000 ETH position is measured at 2,500,000 USD as of 2026-06-30 using unadjusted quoted prices for identical assets in active markets (level 1).",
+      "domain": "finance",
+      "standardRefs": ["ASC 820"],
+      "assertions": ["valuationAllocation"],
+      "supportingFacts": ["f_eth_position", "f_eth_quotes"],
+      "supportingEvidence": ["ev_position_statement", "ev_exchange_quotes"],
+      "conclusion": "Level 1 measurement supported by two venue quotes.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "cl_lck_fair_value",
+      "statement": "The 100,000 LCK position is measured at 150,000 USD as of 2026-06-30 using a market approach with a 25% discount for lack of marketability, classified as level 3 because the significant marketability input is unobservable.",
+      "domain": "finance",
+      "standardRefs": ["ASC 820"],
+      "assertions": ["valuationAllocation"],
+      "supportingFacts": ["f_lck_position", "f_lck_quote", "f_lck_restriction"],
+      "supportingEvidence": ["ev_vendor_quote", "ev_token_agreement"],
+      "judgments": ["j_lck_level3"],
+      "conclusion": "Level 3 measurement supported by the vendor quote, the restriction terms, and an approved hierarchy/DLOM judgment.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "cl_hierarchy_classification",
+      "statement": "The measured positions are classified within the fair value hierarchy for disclosure: ETH at level 1 and LCK at level 3.",
+      "domain": "finance",
+      "standardRefs": ["ASC 820"],
+      "assertions": ["presentationDisclosure"],
+      "supportingFacts": ["f_eth_quotes", "f_lck_quote", "f_lck_restriction"],
+      "judgments": ["j_lck_level3"],
+      "conclusion": "Hierarchy classification is documented and judgment-backed where unobservable inputs are significant.",
+      "status": "supported",
+      "requiresReview": false
+    }
+  ]
+}

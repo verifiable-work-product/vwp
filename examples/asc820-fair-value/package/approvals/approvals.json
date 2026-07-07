@@ -1,0 +1,16 @@
+{
+  "approvals": [
+    {
+      "id": "app_valuation_review",
+      "approver": {
+        "id": "user_demo_valuation_reviewer",
+        "name": "Demo Valuation Reviewer"
+      },
+      "role": "valuation-reviewer",
+      "action": "approved",
+      "timestamp": "2026-07-05T16:00:00Z",
+      "scope": "j_lck_level3",
+      "comments": "Level 3 classification and 25% DLOM approved; sensitivity range documented in the memo. Approval captures internal review state only, not audit signoff."
+    }
+  ]
+}

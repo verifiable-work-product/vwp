@@ -22,6 +22,7 @@ describe('verifyPackage on example packages', () => {
     const byId = statuses(report);
     expect(byId.get('core.manifest.schemaValid')).toBe('pass');
     expect(byId.get('core.partHashes.match')).toBe('pass');
+    expect(byId.get('asc606.allocation.schemaValid')).toBe('pass');
     expect(byId.get('asc606.allocation.tieOut')).toBe('pass');
     expect(byId.get('asc606.revenueSchedule.total')).toBe('pass');
     // The implementation-services judgment is intentionally left in review.
@@ -33,10 +34,21 @@ describe('verifyPackage on example packages', () => {
     const report = verifyPackage(pkg);
     expect(report.valid).toBe(true);
     const byId = statuses(report);
+    expect(byId.get('digitalAssets.wallets.schemaValid')).toBe('pass');
     expect(byId.get('digitalAssets.wallets.entityMapping')).toBe('pass');
     expect(byId.get('digitalAssets.wallets.proofOfControl')).toBe('pass');
     expect(byId.get('digitalAssets.wallets.exclusionRationale')).toBe('pass');
     expect(byId.get('digitalAssets.wallets.balanceEvidence')).toBe('pass');
+  });
+
+  it('accepts the ASC 820 fair value example', () => {
+    const pkg = openPackage(path.join(EXAMPLES, 'asc820-fair-value', 'package'));
+    const report = verifyPackage(pkg);
+    expect(report.valid).toBe(true);
+    const byId = statuses(report);
+    expect(byId.get('asc820.measurements.schemaValid')).toBe('pass');
+    expect(byId.get('asc820.pricingSources.resolve')).toBe('pass');
+    expect(byId.get('asc820.level3.judgmentLinked')).toBe('pass');
   });
 
   it('accepts the minimal valid package from testdata', () => {

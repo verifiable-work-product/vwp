@@ -1,6 +1,6 @@
 import { PackageSource, readJson } from './package';
 import { sha256Hex } from './hashes';
-import { schemaErrors, SchemaName } from './schema';
+import { extensionSchemaErrors, schemaErrors, SchemaName } from './schema';
 
 export type OutcomeStatus = 'pass' | 'fail' | 'warning' | 'reviewRequired' | 'notRun';
 
@@ -276,6 +276,9 @@ export function verifyPackage(pkg: PackageSource): VerifyReport {
   if (extension === 'vwp-digital-assets-wallet-ownership-control') {
     walletValidators(outcomes, pkg, evidence ?? []);
   }
+  if (extension === 'vwp-accounting-asc820') {
+    asc820Validators(outcomes, pkg, evidence ?? [], judgments ?? []);
+  }
 
   const valid = !outcomes.some((o) => o.status === 'fail');
   return { packageOrigin: pkg.origin, manifest, outcomes, valid };
@@ -341,7 +344,7 @@ function parseCsv(text: string): string[][] {
     .map((line) => line.split(',').map((cell) => cell.trim()));
 }
 
-/** ASC 606 demo validators: allocation and revenue schedule tie-outs. */
+/** ASC 606 demo validators: allocation schema, then allocation and revenue schedule tie-outs. */
 function asc606Validators(outcomes: Outcome[], pkg: PackageSource): void {
   let allocation: any;
   try {
@@ -349,25 +352,36 @@ function asc606Validators(outcomes: Outcome[], pkg: PackageSource): void {
   } catch {
     allocation = undefined;
   }
+
+  let allocationValid = false;
   if (allocation === undefined) {
     outcomes.push({
-      id: 'asc606.allocation.tieOut',
+      id: 'asc606.allocation.schemaValid',
       status: 'notRun',
       message: 'calculations/ssp-allocation.json not present',
     });
+    outcomes.push({ id: 'asc606.allocation.tieOut', status: 'notRun', message: 'calculations/ssp-allocation.json not present' });
   } else {
-    const transactionPrice = Number(allocation.inputs?.transactionPrice);
-    const allocations: any[] = allocation.outputs?.allocations ?? [];
-    const total = allocations.reduce((sum, a) => sum + Number(a.allocatedAmount ?? 0), 0);
-    outcomes.push(
-      near(total, transactionPrice)
-        ? { id: 'asc606.allocation.tieOut', status: 'pass', message: `allocated ${total} equals transaction price ${transactionPrice}` }
-        : {
-            id: 'asc606.allocation.tieOut',
-            status: 'fail',
-            message: `allocated total ${total} does not equal transaction price ${transactionPrice}`,
-          }
-    );
+    const errs = extensionSchemaErrors('extensions/accounting-asc606/ssp-allocation.schema.json', allocation);
+    if (errs.length > 0) {
+      outcomes.push({ id: 'asc606.allocation.schemaValid', status: 'fail', message: errs.slice(0, 5).join('; ') });
+      outcomes.push({ id: 'asc606.allocation.tieOut', status: 'notRun', message: 'allocation failed extension schema validation' });
+    } else {
+      outcomes.push({ id: 'asc606.allocation.schemaValid', status: 'pass' });
+      allocationValid = true;
+      const transactionPrice = Number(allocation.inputs.transactionPrice);
+      const allocations: any[] = allocation.outputs.allocations;
+      const total = allocations.reduce((sum, a) => sum + Number(a.allocatedAmount ?? 0), 0);
+      outcomes.push(
+        near(total, transactionPrice)
+          ? { id: 'asc606.allocation.tieOut', status: 'pass', message: `allocated ${total} equals transaction price ${transactionPrice}` }
+          : {
+              id: 'asc606.allocation.tieOut',
+              status: 'fail',
+              message: `allocated total ${total} does not equal transaction price ${transactionPrice}`,
+            }
+      );
+    }
   }
 
   if (!pkg.has('calculations/revenue-schedule.csv')) {
@@ -375,6 +389,14 @@ function asc606Validators(outcomes: Outcome[], pkg: PackageSource): void {
       id: 'asc606.revenueSchedule.total',
       status: 'notRun',
       message: 'calculations/revenue-schedule.csv not present',
+    });
+    return;
+  }
+  if (!allocationValid) {
+    outcomes.push({
+      id: 'asc606.revenueSchedule.total',
+      status: 'notRun',
+      message: 'requires a schema-valid calculations/ssp-allocation.json to tie against',
     });
     return;
   }
@@ -386,9 +408,10 @@ function asc606Validators(outcomes: Outcome[], pkg: PackageSource): void {
     return;
   }
   const scheduleTotal = rows.slice(1).reduce((sum, row) => sum + Number(row[totalCol] ?? 0), 0);
-  const allocatedTotal = allocation
-    ? (allocation.outputs?.allocations ?? []).reduce((sum: number, a: any) => sum + Number(a.allocatedAmount ?? 0), 0)
-    : NaN;
+  const allocatedTotal = allocation.outputs.allocations.reduce(
+    (sum: number, a: any) => sum + Number(a.allocatedAmount ?? 0),
+    0
+  );
   outcomes.push(
     near(scheduleTotal, allocatedTotal)
       ? {
@@ -424,6 +447,19 @@ function walletValidators(outcomes: Outcome[], pkg: PackageSource, evidence: any
     });
     return;
   }
+  const schemaErrs = extensionSchemaErrors(
+    'extensions/digital-assets-wallet-ownership-control/wallets.schema.json',
+    register
+  );
+  if (schemaErrs.length > 0) {
+    outcomes.push({
+      id: 'digitalAssets.wallets.schemaValid',
+      status: 'fail',
+      message: `${schemaErrs.slice(0, 5).join('; ')} (remaining wallet validators not run)`,
+    });
+    return;
+  }
+  outcomes.push({ id: 'digitalAssets.wallets.schemaValid', status: 'pass' });
   const evidenceIds = new Set(evidence.map((e: any) => e.id));
   const resolves = (refs: string[] | undefined) =>
     Array.isArray(refs) && refs.length > 0 && refs.every((r) => evidenceIds.has(r));
@@ -480,6 +516,78 @@ function walletValidators(outcomes: Outcome[], pkg: PackageSource, evidence: any
           id: 'digitalAssets.wallets.balanceEvidence',
           status: 'fail',
           message: `period-end balances without source evidence: ${noBalance.join(', ')}`,
+        }
+  );
+}
+
+/**
+ * ASC 820 demo validators, run against the fair value measurement register
+ * at facts/fair-value-measurements.json.
+ */
+function asc820Validators(outcomes: Outcome[], pkg: PackageSource, evidence: any[], judgments: any[]): void {
+  let register: any;
+  try {
+    register = readJson(pkg, 'facts/fair-value-measurements.json');
+  } catch {
+    register = undefined;
+  }
+  if (register === undefined) {
+    outcomes.push({
+      id: 'asc820.measurements.present',
+      status: 'fail',
+      message: 'facts/fair-value-measurements.json missing or unreadable',
+    });
+    return;
+  }
+  const schemaErrs = extensionSchemaErrors('extensions/accounting-asc820/fair-value-measurements.schema.json', register);
+  if (schemaErrs.length > 0) {
+    outcomes.push({
+      id: 'asc820.measurements.schemaValid',
+      status: 'fail',
+      message: `${schemaErrs.slice(0, 5).join('; ')} (remaining asc820 validators not run)`,
+    });
+    return;
+  }
+  outcomes.push({ id: 'asc820.measurements.schemaValid', status: 'pass' });
+
+  const measurements: any[] = register.measurements;
+  const evidenceIds = new Set(evidence.map((e: any) => e.id));
+  const judgmentIds = new Set(judgments.map((j: any) => j.id));
+
+  const badSources = measurements
+    .filter((m) => !(m.pricingSourceEvidence as string[]).every((ref) => evidenceIds.has(ref)))
+    .map((m) => m.id);
+  outcomes.push(
+    badSources.length === 0
+      ? {
+          id: 'asc820.pricingSources.resolve',
+          status: 'pass',
+          message: `${measurements.length} measurements have resolvable pricing source evidence`,
+        }
+      : {
+          id: 'asc820.pricingSources.resolve',
+          status: 'fail',
+          message: `measurements with unresolvable pricing source evidence: ${badSources.join(', ')}`,
+        }
+  );
+
+  const level3 = measurements.filter((m) => m.level === 'level3');
+  const unjudged = level3
+    .filter((m) => !(typeof m.judgmentRef === 'string' && judgmentIds.has(m.judgmentRef)))
+    .map((m) => m.id);
+  outcomes.push(
+    unjudged.length === 0
+      ? {
+          id: 'asc820.level3.judgmentLinked',
+          status: 'pass',
+          message: `${level3.length} level3 measurement${level3.length === 1 ? '' : 's'} link${
+            level3.length === 1 ? 's' : ''
+          } a hierarchy/unobservable-inputs judgment`,
+        }
+      : {
+          id: 'asc820.level3.judgmentLinked',
+          status: 'fail',
+          message: `level3 measurements without a resolvable judgmentRef: ${unjudged.join(', ')}`,
         }
   );
 }
