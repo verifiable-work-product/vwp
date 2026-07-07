@@ -17,7 +17,8 @@ will change based on feedback and real-world use.
 - Analysis attestation schema: structured, signed records of model-assisted
   review procedures over a defined evidence scope (see the whitepaper,
   section 4.5) — distinct from deterministic validation, never affecting
-  package validity
+  package validity, always recording the exact model used (provider, model
+  identifier, version) so challengers can differ from preparers
 - Stronger package diffing (structural diffs between package versions)
 - Package conformance tests
 - Finance profile validators (assertion coverage, support coverage, review surfacing)

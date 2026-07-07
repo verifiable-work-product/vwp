@@ -38,6 +38,11 @@ whether the claims follow from the facts.
   `confidence`, and SHOULD set `requiresReview: true` when confidence is low or the fact
   is material to the conclusion. Whether `requiresReview` facts block acceptance is a
   matter for profile validators and organizational policy, not core verification.
+- Facts extracted by a model SHOULD set `extractionModel` with the exact `provider`,
+  `name` (the provider's published model identifier, not a family or marketing name), and
+  `version`. The model MUST also appear in `provenance/provenance.json` `models`. Exact
+  identity lets a reviewer challenge model-extracted facts with a *different* model than
+  the one that produced them (see [provenance.md](provenance.md)).
 
 ## 4. Example
 
@@ -48,6 +53,11 @@ whether the claims follow from the facts.
   "value": { "currency": "USD", "amount": "1250344.18", "asOf": "2026-06-30" },
   "evidenceRefs": ["ev-001"],
   "extractionMethod": "llm",
+  "extractionModel": {
+    "provider": "example-ai",
+    "name": "example-model-large",
+    "version": "2026-05-14"
+  },
   "confidence": 0.97,
   "requiresReview": false
 }

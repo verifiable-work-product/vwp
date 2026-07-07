@@ -55,6 +55,17 @@ evidence for any regulatory or professional purpose. When writing profile or ext
 docs, state the limits explicitly. PRs that overclaim will be asked to soften the
 language before merge.
 
+## Exact model identification
+
+Anywhere this project records, documents, or exemplifies the use of an AI model —
+provenance entries, fact extraction records, analysis attestations, spec examples,
+example packages — identify the exact model: provider, the provider's published model
+identifier (e.g. `claude-fable-5`, not a family or marketing name), and the most
+specific version or snapshot identifier available. This is what allows a downstream
+reviewer or auditor to deliberately challenge model-assisted work with a *different*
+model, so preparation and review do not share correlated failure modes. PRs that record
+model use vaguely ("an LLM", an unversioned name) will be asked to make it exact.
+
 ## Sign-off (optional)
 
 We use a DCO-style sign-off convention. Adding a `Signed-off-by:` line to your commits

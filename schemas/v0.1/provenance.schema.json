@@ -34,13 +34,26 @@
     },
     "models": {
       "type": "array",
+      "description": "AI models that materially shaped package content. Each entry MUST identify the exact model, so downstream reviewers can deliberately select a different model for independent analysis.",
       "items": {
         "type": "object",
-        "required": ["name"],
+        "required": ["provider", "name", "version"],
         "properties": {
-          "provider": { "type": "string" },
-          "name": { "type": "string" },
-          "version": { "type": "string" }
+          "provider": { "type": "string", "minLength": 1 },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Exact model identifier as published by the provider (e.g. 'claude-fable-5'), not a family or marketing name."
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Model version or snapshot date; use the provider's most specific identifier available."
+          },
+          "role": {
+            "type": "string",
+            "description": "What the model did, e.g. 'fact extraction', 'claim drafting', 'rendering'."
+          }
         },
         "additionalProperties": true
       }
