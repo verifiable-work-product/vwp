@@ -69,8 +69,8 @@ class ZipSource implements PackageSource {
   unsafeEntries: string[] = [];
   private entries = new Map<string, Buffer>();
 
-  constructor(public origin: string, zipPath: string) {
-    const zip = new AdmZip(zipPath);
+  constructor(public origin: string, zipInput: string | Buffer) {
+    const zip = new AdmZip(zipInput);
     for (const entry of zip.getEntries()) {
       if (entry.isDirectory) continue;
       const name = entry.entryName;
@@ -102,6 +102,15 @@ export function openPackage(input: string): PackageSource {
   const stat = fs.statSync(input);
   if (stat.isDirectory()) return new DirSource(input, input);
   return new ZipSource(input, input);
+}
+
+/**
+ * Open a VWP package from an in-memory .vwp buffer (e.g. an upload that
+ * should never touch disk). Unsafe entry paths are rejected exactly as for
+ * file-based packages.
+ */
+export function openPackageBuffer(data: Buffer, origin = '(in-memory package)'): PackageSource {
+  return new ZipSource(origin, data);
 }
 
 /** Read and parse a JSON file from the package, or return undefined. */
