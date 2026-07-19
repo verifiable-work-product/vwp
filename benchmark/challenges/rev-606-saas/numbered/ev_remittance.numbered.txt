@@ -1,0 +1,15 @@
+==== ev_remittance: Customer remittance advice, payment dated 2026-02-02 — PAGE 1 ====
+  1 | SYNTHETIC BENCHMARK EVIDENCE - NOT A REAL DOCUMENT - VWPB-R606-7C41-06
+  2 | 
+  3 | SAGEBROOK EDUCATION, INC.
+  4 | REMITTANCE ADVICE
+  5 | 
+  6 | Payment date:     February 2, 2026
+  7 | Payment method:   ACH, First Mountain Bank
+  8 | Payee:            Rivermark Education Systems, Inc.
+  9 | 
+ 10 | Invoice                    Invoice date       Amount paid (USD)
+ 11 | INV-2026-1001              January 5, 2026           180,000.00
+ 12 | INV-2026-1002              January 5, 2026            95,000.00
+ 13 | 
+ 14 | TOTAL PAYMENT                                        275,000.00

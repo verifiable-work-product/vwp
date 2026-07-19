@@ -1,0 +1,107 @@
+==== ev_msa: Master SaaS Agreement (excerpt), Rivermark / Sagebrook, dated 2025-12-15 — PAGE 1 ====
+  1 | SYNTHETIC BENCHMARK EVIDENCE - NOT A REAL CONTRACT - VWPB-R606-7C41-01
+  2 | 
+  3 | MASTER SAAS AGREEMENT (EXCERPT)
+  4 | 
+  5 | COVER PAGE
+  6 | 
+  7 | The attached documents describe the relationship between Rivermark Education
+  8 | Systems, Inc. ("Rivermark") and the customer identified below ("Customer")
+  9 | (each of Rivermark and Customer, a "Party"). The documents attached to this
+ 10 | Cover Page consist of the document entitled "Terms and Conditions" (the
+ 11 | "Access Terms") and any Order Forms for services, which describe and set
+ 12 | forth the general legal terms governing the relationship between the Parties
+ 13 | (collectively, the "Agreement"). This Agreement, including the attached
+ 14 | Access Terms, will become effective when this cover page is executed by
+ 15 | authorized representatives of both Parties (the "Effective Date").
+ 16 | 
+ 17 | CUSTOMER INFORMATION:
+ 18 | Name/Customer:  Sagebrook Education, Inc.
+ 19 | Address:        4200 Copper Ridge Parkway, Suite 300, Boulder, CO 80301
+ 20 | Billing:        Accounts Payable, ap@sagebrook-edu.example
+ 21 | 
+ 22 | Executed by authorized representatives of the Parties:
+ 23 | Rivermark Education Systems, Inc.   Date: December 15, 2025
+ 24 | Sagebrook Education, Inc.           Date: December 15, 2025
+ 25 | 
+ 26 | TERMS AND CONDITIONS (SELECTED SECTIONS)
+ 27 | 
+ 28 | 2. ACCESS AND USE OF THE SERVICES.
+ 29 | 
+ 30 | 2.1 Orders. Customer may order subscription services and professional
+ 31 |     services by executing one or more order forms referencing this Agreement
+ 32 |     (each, an "Order Form"). Each Order Form identifies the services
+ 33 |     ordered, the applicable fees, and the period of performance.
+ 34 | 
+ 35 | 2.2 Provision of Access. Rivermark will make the hosted service available to
+ 36 |     Customer during each subscription period set forth on an Order Form. The
+ 37 |     hosted service is a standard, multi-tenant offering made available to
+ 38 |     all subscribing customers and is not materially modified or customized
+ 39 |     for Customer.
+ 40 | 
+ 41 | 3. PROFESSIONAL SERVICES.
+ 42 | 
+ 43 | 3.1 Implementation Services. Implementation services consist of initial
+ 44 |     configuration of the hosted service, migration of Customer's historical
+ 45 |     data, and administrator training. Implementation services are performed
+ 46 |     once, are expected to be completed within ninety (90) days of the first
+ 47 |     subscription start date, and conclude upon Customer's written acceptance.
+ 48 | 
+ 49 | 3.2 Alternative Providers. Rivermark publishes administrator documentation
+ 50 |     and maintains a directory of certified third-party implementation
+
+==== ev_msa: Master SaaS Agreement (excerpt), Rivermark / Sagebrook, dated 2025-12-15 — PAGE 2 ====
+  1 |     consultants. Customer may elect to perform implementation itself or to
+  2 |     engage a certified consultant in lieu of purchasing implementation
+  3 |     services from Rivermark.
+  4 | 
+  5 | 4. FEES AND PAYMENT.
+  6 | 
+  7 | 4.1 Fees. In consideration for the access rights granted to Customer and the
+  8 |     services performed by Rivermark under this Agreement, Customer will pay
+  9 |     to Rivermark, without offset or deduction, all fees required by the
+ 10 |     applicable Order Form. All fees will be billed and paid in U.S. dollars
+ 11 |     in accordance with the timing set forth in the Order Form or, if not
+ 12 |     expressly set forth therein, within thirty (30) days following receipt
+ 13 |     of the applicable invoice. All late payments of undisputed fees will
+ 14 |     accrue interest at the rate of two percent (2%) per month. Except as
+ 15 |     provided in Section 9, all fees paid by Customer to Rivermark pursuant
+ 16 |     to this Agreement and any Order Form are non-refundable.
+ 17 | 
+ 18 | 4.2 Disputed Fees. If Customer disputes any fees billed by Rivermark,
+ 19 |     Customer shall notify Rivermark in writing of the disputed amount within
+ 20 |     thirty (30) days of the invoice date, together with any relevant
+ 21 |     supporting information.
+ 22 | 
+ 23 | 9. TERM AND TERMINATION.
+ 24 | 
+ 25 | 9.1 Term. The term of this Agreement shall commence upon the Effective Date
+ 26 |     and, unless earlier terminated in accordance with this Section 9, shall
+ 27 |     continue in full force and effect until expiration of the latest period
+ 28 |     set forth on an Order Form (the "Term").
+ 29 | 
+ 30 | 9.2 Elective Termination by Customer. Customer may, at its option, terminate
+ 31 |     this Agreement and any Order Form effective on any date on or after the
+ 32 |     first anniversary of the first subscription start date, upon not less
+ 33 |     than sixty (60) days' prior written notice to Rivermark and payment of
+ 34 |     an administrative termination fee of ten thousand dollars ($10,000).
+ 35 |     Upon such termination, Rivermark shall refund any prepaid subscription
+ 36 |     fees attributable to whole months following the effective date of
+ 37 |     termination.
+ 38 | 
+ 39 | 9.3 Termination for Breach. Either Party may, at its option, terminate this
+ 40 |     Agreement in the event of a material breach by the other Party. Such
+ 41 |     termination may be effected only through a written notice to the
+ 42 |     breaching Party, specifically identifying the breach or breaches on
+ 43 |     which such notice of termination is based. The breaching Party will have
+ 44 |     a right to cure such breach or breaches within thirty (30) days of
+ 45 |     receipt of such notice, and this Agreement will terminate in the event
+ 46 |     that such cure is not made within such thirty (30)-day period.
+ 47 | 
+ 48 | 9.4 Effect of Termination. Upon any termination, Customer's access to the
+ 49 |     hosted service ceases as of the effective date of termination and any
+ 50 |     fees then owed for services delivered remain payable.
+
+==== ev_msa: Master SaaS Agreement (excerpt), Rivermark / Sagebrook, dated 2025-12-15 — PAGE 3 ====
+  1 | 
+  2 | [Remaining sections omitted from this excerpt.]

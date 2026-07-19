@@ -1,0 +1,20 @@
+==== ev_invoice_1002: Invoice INV-2026-1002 (implementation services) — PAGE 1 ====
+  1 | SYNTHETIC BENCHMARK EVIDENCE - NOT A REAL DOCUMENT - VWPB-R606-7C41-05
+  2 | 
+  3 | RIVERMARK EDUCATION SYSTEMS, INC.
+  4 | INVOICE
+  5 | 
+  6 | Invoice number:   INV-2026-1002
+  7 | Invoice date:     January 5, 2026
+  8 | Bill to:          Sagebrook Education, Inc.
+  9 |                   Accounts Payable
+ 10 | Reference:        Order Form #OF-2026-011
+ 11 | 
+ 12 | Description                                                    Amount (USD)
+ 13 | Implementation Services - standard implementation of the
+ 14 | Rivermark FA Platform (configuration, data migration,
+ 15 | administrator training)                                           95,000.00
+ 16 | 
+ 17 | TOTAL DUE                                                         95,000.00
+ 18 | 
+ 19 | Payment terms: Net 30 days.

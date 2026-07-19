@@ -50,7 +50,7 @@
       "path": "facts/facts.json",
       "mediaType": "application/json",
       "role": "facts",
-      "sha256": "bc3c6f408c6a3c8e7fbafd57834b7190f9884803bc9125138198a3c341fea48e"
+      "sha256": "f8ce494c816a229855271c01a0a0312a80d21badd192a3ea110ab7eab8dda962"
     },
     {
       "path": "claims/claims.json",

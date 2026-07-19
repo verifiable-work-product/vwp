@@ -3,7 +3,21 @@
     {
       "id": "f_contract_parties_date",
       "statement": "DemoCo and Acme Corp executed Order Form #OF-2026-0142 dated 2026-01-01 under an MSA of the same date.",
-      "evidenceRefs": ["ev_order_form", "ev_msa_excerpt"],
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_order_form",
+          "anchor": {
+            "quote": "DEMOCO ORDER FORM #OF-2026-0142",
+            "lines": { "from": 3 }
+          }
+        },
+        {
+          "evidenceId": "ev_msa_excerpt",
+          "anchor": {
+            "quote": "DemoCo, Inc. and Acme Corp - dated 2026-01-01"
+          }
+        }
+      ],
       "extractionMethod": "manual",
       "confidence": 1,
       "requiresReview": false
@@ -11,68 +25,134 @@
     {
       "id": "f_contract_value",
       "statement": "Total contract value is 300,000 USD, billed 100% upfront.",
+      "factType": "asc606.transactionPrice",
       "value": {
         "amount": 300000,
         "currency": "USD"
       },
-      "evidenceRefs": ["ev_order_form"],
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_order_form",
+          "anchor": {
+            "quote": "Total contract value: USD 300,000"
+          }
+        }
+      ],
       "extractionMethod": "manual",
       "confidence": 1
     },
     {
       "id": "f_contract_term",
       "statement": "The subscription term is 24 months, 2026-01-01 through 2027-12-31, non-cancellable except for uncured material breach.",
+      "factType": "asc606.contractTerm",
       "value": {
-        "months": 24
+        "value": 24,
+        "unit": "months"
       },
-      "evidenceRefs": ["ev_order_form", "ev_msa_excerpt"],
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_order_form",
+          "anchor": {
+            "quote": "Term: 24 months (2026-01-01 through 2027-12-31)"
+          }
+        },
+        {
+          "evidenceId": "ev_msa_excerpt",
+          "anchor": {
+            "quote": "The initial subscription term is twenty-four (24) months and is non-cancellable except for uncured material breach.",
+            "section": "9.1"
+          }
+        }
+      ],
       "extractionMethod": "manual",
       "confidence": 1
     },
     {
       "id": "f_components",
       "statement": "The order form lists three components: hosted SaaS subscription (200,000 USD), implementation services (55,000 USD), and premium support (45,000 USD).",
-      "evidenceRefs": ["ev_order_form"],
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_order_form",
+          "anchor": {
+            "quote": "1. Hosted SaaS subscription (24 months) USD 200,000"
+          }
+        }
+      ],
       "extractionMethod": "manual",
       "confidence": 1
     },
     {
       "id": "f_impl_timing",
       "statement": "Implementation services consist of configuration, data migration, and training, performed once and expected to complete within 90 days of the contract date.",
-      "evidenceRefs": ["ev_msa_excerpt"],
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_msa_excerpt",
+          "anchor": {
+            "quote": "Implementation services consist of configuration, data migration, and training. Implementation services are performed once and are expected to complete within ninety (90) days of the contract date.",
+            "section": "3.2"
+          }
+        }
+      ],
       "extractionMethod": "manual",
       "confidence": 1
     },
     {
       "id": "f_ssp_saas",
       "statement": "The price book lists a standalone selling price of 240,000 USD for the 24-month hosted SaaS subscription.",
+      "factType": "asc606.standaloneSellingPrice",
       "value": {
         "amount": 240000,
         "currency": "USD"
       },
-      "evidenceRefs": ["ev_price_book"],
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_price_book",
+          "anchor": {
+            "quote": "saas_subscription_24mo,Hosted SaaS subscription (24 months),240000",
+            "lines": { "from": 2 }
+          }
+        }
+      ],
       "extractionMethod": "deterministic-parser",
       "confidence": 1
     },
     {
       "id": "f_ssp_impl",
       "statement": "The price book lists a standalone selling price of 75,000 USD for the implementation services package.",
+      "factType": "asc606.standaloneSellingPrice",
       "value": {
         "amount": 75000,
         "currency": "USD"
       },
-      "evidenceRefs": ["ev_price_book"],
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_price_book",
+          "anchor": {
+            "quote": "implementation_services,Implementation services package,75000",
+            "lines": { "from": 3 }
+          }
+        }
+      ],
       "extractionMethod": "deterministic-parser",
       "confidence": 1
     },
     {
       "id": "f_ssp_support",
       "statement": "The price book lists a standalone selling price of 60,000 USD for 24 months of premium support.",
+      "factType": "asc606.standaloneSellingPrice",
       "value": {
         "amount": 60000,
         "currency": "USD"
       },
-      "evidenceRefs": ["ev_price_book"],
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_price_book",
+          "anchor": {
+            "quote": "premium_support_24mo,Premium support (24 months),60000",
+            "lines": { "from": 4 }
+          }
+        }
+      ],
       "extractionMethod": "deterministic-parser",
       "confidence": 1
     }

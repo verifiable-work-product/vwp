@@ -1,0 +1,2 @@
+slot,statement,value,currency_or_unit,evidence_id,page,lines,cells,section,verbatim_quote,notes
+transactionPrice,"Total contract value is USD 300,000, billed upfront.",300000,USD,ev_order_form,1,14-16,,,"Total contract value: USD 300,000",EXAMPLE ROW - replace with your extraction

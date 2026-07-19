@@ -1,0 +1,19 @@
+==== ev_usage_q1: End User processing report, Q1 2026 — PAGE 1 ====
+  1 | SYNTHETIC BENCHMARK EVIDENCE - NOT A REAL DOCUMENT - VWPB-R606-7C41-09
+  2 | 
+  3 | RIVERMARK EDUCATION SYSTEMS, INC.
+  4 | END USER PROCESSING REPORT
+  5 | 
+  6 | Customer:          Sagebrook Education, Inc.
+  7 | Order Form:        #OF-2026-011
+  8 | Subscription year: January 1, 2026 - December 31, 2026
+  9 | Report period:     January 1, 2026 - March 31, 2026
+ 10 | 
+ 11 | Month              End Users processed
+ 12 | January 2026                     1,240
+ 13 | February 2026                    2,310
+ 14 | March 2026                       2,630
+ 15 | 
+ 16 | Subscription-year-to-date total: 6,180
+ 17 | Annual included allowance:      25,000
+ 18 | Overage End Users to date:           0

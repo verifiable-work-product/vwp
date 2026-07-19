@@ -22,6 +22,7 @@ describe('verifyPackage on example packages', () => {
     const byId = statuses(report);
     expect(byId.get('core.manifest.schemaValid')).toBe('pass');
     expect(byId.get('core.partHashes.match')).toBe('pass');
+    expect(byId.get('core.factAnchors.quotesMatch')).toBe('pass');
     expect(byId.get('asc606.allocation.schemaValid')).toBe('pass');
     expect(byId.get('asc606.allocation.tieOut')).toBe('pass');
     expect(byId.get('asc606.revenueSchedule.total')).toBe('pass');
@@ -68,6 +69,15 @@ describe('verifyPackage on invalid packages', () => {
     const report = verifyPackage(openPackage(path.join(TESTDATA, 'invalid', 'missing-provenance')));
     expect(report.valid).toBe(false);
     expect(statuses(report).get('core.requiredParts.exist')).toBe('fail');
+  });
+
+  it('fails when a quote anchor does not appear in the cited evidence', () => {
+    const report = verifyPackage(openPackage(path.join(TESTDATA, 'invalid', 'bad-anchor-quote')));
+    expect(report.valid).toBe(false);
+    const byId = statuses(report);
+    expect(byId.get('core.factAnchors.quotesMatch')).toBe('fail');
+    // The refs themselves resolve; only the quoted text is absent.
+    expect(byId.get('core.evidenceRefs.resolve')).toBe('pass');
   });
 
   it('fails on a schema-invalid workproduct', () => {

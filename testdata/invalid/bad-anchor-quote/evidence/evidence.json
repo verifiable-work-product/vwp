@@ -1,0 +1,10 @@
+{
+  "evidence": [
+    {
+      "id": "ev_contract",
+      "type": "document",
+      "title": "Test contract excerpt",
+      "path": "evidence/contract.txt"
+    }
+  ]
+}

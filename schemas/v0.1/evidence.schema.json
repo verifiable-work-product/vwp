@@ -24,6 +24,22 @@
       "additionalProperties": true
     },
     "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "derivedFrom": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Evidence id this object was mechanically derived from (e.g. a text extraction of a PDF, an OCR of a screenshot). The original remains the authoritative source; the derived layer exists so facts can anchor into verifiable text."
+    },
+    "transform": {
+      "type": "object",
+      "description": "How the derived evidence was produced from its source. Required in spirit whenever derivedFrom is set, so the derivation is reproducible and challengeable.",
+      "required": ["tool"],
+      "properties": {
+        "tool": { "type": "string", "minLength": 1 },
+        "version": { "type": "string" },
+        "method": { "type": "string", "description": "e.g. 'pdf-text-extraction', 'ocr', 'xlsx-to-csv'." }
+      },
+      "additionalProperties": true
+    },
     "retrievedAt": { "type": "string", "format": "date-time" },
     "periodCovered": {
       "type": "object",

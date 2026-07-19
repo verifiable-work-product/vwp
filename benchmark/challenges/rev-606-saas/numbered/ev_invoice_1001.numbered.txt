@@ -1,0 +1,19 @@
+==== ev_invoice_1001: Invoice INV-2026-1001 (annual subscription, year 1) — PAGE 1 ====
+  1 | SYNTHETIC BENCHMARK EVIDENCE - NOT A REAL DOCUMENT - VWPB-R606-7C41-04
+  2 | 
+  3 | RIVERMARK EDUCATION SYSTEMS, INC.
+  4 | INVOICE
+  5 | 
+  6 | Invoice number:   INV-2026-1001
+  7 | Invoice date:     January 5, 2026
+  8 | Bill to:          Sagebrook Education, Inc.
+  9 |                   Accounts Payable
+ 10 | Reference:        Order Form #OF-2026-011
+ 11 | 
+ 12 | Description                                                    Amount (USD)
+ 13 | Rivermark FA Platform - Annual Subscription fee,
+ 14 | subscription year 1 (January 1, 2026 - December 31, 2026)        180,000.00
+ 15 | 
+ 16 | TOTAL DUE                                                        180,000.00
+ 17 | 
+ 18 | Payment terms: Net 30 days.

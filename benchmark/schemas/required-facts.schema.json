@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/benchmark/schemas/required-facts.schema.json",
+  "title": "VWP-Bench required-facts manifest",
+  "description": "The public, per-challenge list of fact slots both arms must fill. Given to CPAs as the extraction worksheet's row set and to the agent as required factTypes.",
+  "type": "object",
+  "required": ["challengeId", "slots"],
+  "properties": {
+    "challengeId": { "type": "string", "minLength": 1 },
+    "slots": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["slot", "factType", "valueShape", "description"],
+        "properties": {
+          "slot": { "type": "string", "minLength": 1, "description": "Stable slot name, unique within the challenge." },
+          "factType": { "type": "string", "minLength": 1, "description": "The factType a package must use for this slot." },
+          "valueShape": {
+            "type": "string",
+            "enum": ["money", "quantity", "date", "period", "string", "enum", "boolean"],
+            "description": "Conventional value shape per spec/facts.md §5."
+          },
+          "enumValues": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Allowed values when valueShape is 'enum'."
+          },
+          "unit": { "type": "string", "description": "Expected unit when valueShape is 'quantity' (e.g. 'months')." },
+          "description": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

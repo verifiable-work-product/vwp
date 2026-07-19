@@ -1,0 +1,63 @@
+{
+  "challengeId": "rev-606-saas",
+  "slots": [
+    {
+      "slot": "transactionPrice",
+      "factType": "asc606.transactionPrice",
+      "valueShape": "money",
+      "description": "Total consideration in the initial contract, before the modification."
+    },
+    {
+      "slot": "contractTermMonths",
+      "factType": "asc606.contractTerm",
+      "valueShape": "quantity",
+      "unit": "months",
+      "description": "The enforceable contract term, after considering the termination-for-convenience clause."
+    },
+    {
+      "slot": "sspSubscription",
+      "factType": "asc606.ssp.subscription",
+      "valueShape": "money",
+      "description": "Standalone selling price of the SaaS subscription per the SSP study."
+    },
+    {
+      "slot": "sspImplementation",
+      "factType": "asc606.ssp.implementation",
+      "valueShape": "money",
+      "description": "Standalone selling price of the implementation services per the SSP study."
+    },
+    {
+      "slot": "implementationDistinct",
+      "factType": "asc606.performanceObligationConclusion",
+      "valueShape": "enum",
+      "enumValues": [
+        "distinct",
+        "notDistinct"
+      ],
+      "description": "Whether implementation services are distinct from the subscription. NOTE: this is a judgment conclusion surfaced as a keyed slot; the work product must also carry the judgment with its basis."
+    },
+    {
+      "slot": "modificationTreatment",
+      "factType": "asc606.modificationTreatment",
+      "valueShape": "enum",
+      "enumValues": [
+        "separateContract",
+        "cumulativeCatchUp",
+        "prospective"
+      ],
+      "description": "Accounting treatment of the mid-term upsell modification."
+    },
+    {
+      "slot": "q1RevenueTotal",
+      "factType": "asc606.periodRevenue",
+      "valueShape": "money",
+      "description": "Total revenue recognized in the first quarter."
+    },
+    {
+      "slot": "q1DeferredRevenueBalance",
+      "factType": "asc606.deferredRevenueBalance",
+      "valueShape": "money",
+      "description": "Deferred revenue balance at the end of the first quarter."
+    }
+  ]
+}

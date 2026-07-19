@@ -20,9 +20,11 @@ whether the claims follow from the facts.
 |---|---|---|---|
 | `id` | string | yes | Unique within the package. Referenced by claims. |
 | `statement` | string | yes | Human-readable statement of the observation. |
-| `value` | any | no | Structured value of the observation (number, string, object), when one exists. |
-| `evidenceRefs` | array of string | yes | `id`s of evidence objects the fact was extracted from. SHOULD be non-empty. |
+| `factType` | string | no | Namespaced type for the fact (e.g. `asc606.transactionPrice`). Extensions may declare fact types, validate `value` shapes, and require fact types for a work product type. |
+| `value` | any | no | Structured value of the observation (number, string, object), when one exists. See §5 for conventional shapes. |
+| `evidenceRefs` | array | yes | Non-empty. Each entry is an evidence `id` string, or an object `{ evidenceId, anchor }` locating the observation inside the evidence (§4). |
 | `extractionMethod` | string | no | How the fact was extracted (e.g. `manual`, `ocr`, `parser`, `llm`, `apiField`). |
+| `extractionModel` | object | no | When a model extracted this fact: the exact `provider`, `name`, and `version` (see §3). |
 | `confidence` | number | no | Extraction confidence in `[0, 1]`. Confidence in the extraction, not in any conclusion. |
 | `requiresReview` | boolean | no | True when a human should confirm the extraction before reliance. Defaults to false. |
 
@@ -30,8 +32,8 @@ whether the claims follow from the facts.
 
 - A fact MUST be an observation attributable to evidence. Interpretations, inferences, and
   conclusions belong in claims or judgments, not facts.
-- `evidenceRefs` MUST resolve to evidence `id`s present in the package. Verifiers MUST
-  fail on dangling references.
+- Every `evidenceRefs` entry MUST resolve to an evidence `id` present in the package.
+  Verifiers MUST fail on dangling references.
 - `value` SHOULD be provided whenever the observation has a natural structured form, so
   calculations and validators can consume it without re-parsing `statement`.
 - Facts extracted by automated means (including models) SHOULD set `extractionMethod` and
@@ -44,14 +46,76 @@ whether the claims follow from the facts.
   identity lets a reviewer challenge model-extracted facts with a *different* model than
   the one that produced them (see [provenance.md](provenance.md)).
 
-## 4. Example
+## 4. Anchors
+
+An anchor locates the observation *inside* the cited evidence, so a reviewer — human or
+machine — does not have to hunt through a 40-page contract or a 5,000-row export. Anchor
+fields, all optional:
+
+| Field | Type | Description |
+|---|---|---|
+| `quote` | string | Verbatim excerpt from the evidence supporting the fact. |
+| `page` | integer | 1-based page number. |
+| `lines` | object | `{ from, to? }`, 1-based line range. Page-relative when combined with `page` (a pin cite: page 7, lines 12–14); otherwise global to the text evidence. |
+| `cells` | object | `{ sheet?, range }`, A1-style range in tabular evidence. |
+| `section` | string | Human-readable section/clause label (e.g. `2(a)`). |
+| `jsonPath` | string | Path into JSON evidence. |
+| `region` | object | `{ x, y, width, height }` pixel region in image evidence. |
+
+`quote` is the load-bearing field: for package-local **text evidence** (`.txt`, `.md`,
+`.csv`, `.json`), verifiers check deterministically that the quote appears in the
+evidence bytes (validator `core.factAnchors.quotesMatch`). Anchor fields compose:
+`page` + `lines` is the conventional pin cite into paginated evidence (including
+derived text layers with page markers), and `page` + `quote` pairs a human locator
+with the machine check. Matching applies the same
+normalization to quote and evidence text: Unicode NFC, curly quotes/dashes mapped to
+ASCII, whitespace runs collapsed to single spaces. A quote that does not match fails
+verification. Other anchor fields are locators for human reviewers and are not
+machine-verified in v0.1.
+
+Quotes against binary evidence (PDF, DOCX, XLSX, images) or external evidence cannot be
+machine-checked and surface as a warning. Producers SHOULD instead include a **derived
+text layer** — a text extraction of the binary, itself an evidence object with
+`derivedFrom` and `transform` set (see [evidence.md](evidence.md) §4) — and anchor facts
+to the extraction. The binary remains the authoritative source; the extraction is
+inside the package hash envelope and independently re-derivable.
+
+- Anchors SHOULD be provided for any fact whose evidence exceeds roughly a page, and for
+  every fact material to a conclusion.
+- An anchor's `evidenceId` MUST resolve like any other evidence reference.
+
+## 5. Conventional value shapes
+
+`value` is schema-open, but producers SHOULD use these shapes so validators and
+downstream tools can consume values without guessing:
+
+| Shape | Form | Example |
+|---|---|---|
+| money | `{ "amount": number \| string, "currency": string }` | `{ "amount": 300000, "currency": "USD" }` |
+| quantity | `{ "value": number, "unit": string }` | `{ "value": 24, "unit": "months" }` |
+| date | RFC 3339 date string | `"2026-06-30"` |
+| period | `{ "from": date, "to": date }` | `{ "from": "2026-01-01", "to": "2027-12-31" }` |
+
+Extensions MAY constrain the `value` of a declared `factType` to one of these shapes (or
+a stricter one) via an extension schema.
+
+## 6. Example
 
 ```json
 {
   "id": "fact-003",
   "statement": "The closing balance of the operating account on 2026-06-30 was USD 1,250,344.18.",
-  "value": { "currency": "USD", "amount": "1250344.18", "asOf": "2026-06-30" },
-  "evidenceRefs": ["ev-001"],
+  "factType": "finance.accountBalance",
+  "value": { "amount": "1250344.18", "currency": "USD" },
+  "evidenceRefs": [
+    {
+      "evidenceId": "ev-001",
+      "anchor": {
+        "quote": "Closing balance as of June 30, 2026: $1,250,344.18",
+        "page": 2
+      }
+    }
+  ],
   "extractionMethod": "llm",
   "extractionModel": {
     "provider": "example-ai",

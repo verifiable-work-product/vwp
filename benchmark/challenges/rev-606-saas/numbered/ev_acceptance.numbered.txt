@@ -1,0 +1,16 @@
+==== ev_acceptance: Implementation acceptance certificate, dated 2026-03-27 — PAGE 1 ====
+  1 | SYNTHETIC BENCHMARK EVIDENCE - NOT A REAL DOCUMENT - VWPB-R606-7C41-08
+  2 | 
+  3 | CERTIFICATE OF ACCEPTANCE - IMPLEMENTATION SERVICES
+  4 | 
+  5 | Reference:  Order Form #OF-2026-011; Access Terms Section 3.1
+  6 | 
+  7 | Sagebrook Education, Inc. confirms that the Implementation Services
+  8 | described in Order Form #OF-2026-011 (configuration, data migration, and
+  9 | administrator training for the Rivermark FA Platform) have been completed
+ 10 | and are accepted, and that the Rivermark FA Platform entered production use
+ 11 | on March 27, 2026.
+ 12 | 
+ 13 | Accepted by:  Director of Student Financial Services,
+ 14 |               Sagebrook Education, Inc.
+ 15 | Date:         March 27, 2026

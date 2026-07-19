@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/benchmark/schemas/answer-key.schema.json",
+  "title": "VWP-Bench answer key",
+  "description": "The private, per-challenge expected values for keyed items, including documented acceptable alternatives. Held out until results publish; consumed by tools/score-key.mjs.",
+  "type": "object",
+  "required": ["challengeId", "keyedItems"],
+  "properties": {
+    "challengeId": { "type": "string", "minLength": 1 },
+    "authors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "The two independent key authors plus the external technical reviewer, per DESIGN.md §5.3."
+    },
+    "keyedItems": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["slot", "expected"],
+        "properties": {
+          "slot": { "type": "string", "minLength": 1, "description": "Matches a slot in the challenge's required-facts manifest." },
+          "expected": { "description": "Expected value, in the slot's declared value shape." },
+          "tolerance": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Absolute tolerance for numeric comparison (money amounts, quantities). Default 0.01."
+          },
+          "alternatives": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["expected", "basis"],
+              "properties": {
+                "expected": { "description": "An acceptable alternative value." },
+                "basis": { "type": "string", "minLength": 1, "description": "The position under which this alternative is acceptable." },
+                "requiredDocumentation": { "type": "string", "description": "What the work product must document for this alternative to earn credit." }
+              },
+              "additionalProperties": false
+            },
+            "description": "Acceptable alternative positions where US GAAP genuinely admits them."
+          },
+          "rationale": { "type": "string", "description": "Why the expected value is correct; standard citations." }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

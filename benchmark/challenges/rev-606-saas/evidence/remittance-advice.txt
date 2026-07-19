@@ -1,0 +1,14 @@
+SYNTHETIC BENCHMARK EVIDENCE - NOT A REAL DOCUMENT - VWPB-R606-7C41-06
+
+SAGEBROOK EDUCATION, INC.
+REMITTANCE ADVICE
+
+Payment date:     February 2, 2026
+Payment method:   ACH, First Mountain Bank
+Payee:            Rivermark Education Systems, Inc.
+
+Invoice                    Invoice date       Amount paid (USD)
+INV-2026-1001              January 5, 2026           180,000.00
+INV-2026-1002              January 5, 2026            95,000.00
+
+TOTAL PAYMENT                                        275,000.00

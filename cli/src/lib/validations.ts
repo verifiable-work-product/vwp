@@ -36,6 +36,34 @@ function allPartRefs(manifest: any): PartRef[] {
   return refs;
 }
 
+/** A fact evidence ref is a bare evidence id or an object with an optional anchor. */
+function refEvidenceId(ref: any): string | undefined {
+  if (typeof ref === 'string') return ref;
+  if (ref && typeof ref.evidenceId === 'string') return ref.evidenceId;
+  return undefined;
+}
+
+/**
+ * Normalization applied to both quote and evidence text before matching, per
+ * spec/facts.md: NFC, ASCII quotes/dashes, collapsed whitespace.
+ */
+export function normalizeForQuoteMatch(text: string): string {
+  return text
+    .normalize('NFC')
+    .replace(/[‘’‚]/g, "'")
+    .replace(/[“”„]/g, '"')
+    .replace(/[–—]/g, '-')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+const TEXT_EVIDENCE_EXTENSIONS = ['.txt', '.md', '.csv', '.json'];
+
+function isTextEvidencePath(p: string): boolean {
+  const lower = p.toLowerCase();
+  return TEXT_EVIDENCE_EXTENSIONS.some((ext) => lower.endsWith(ext));
+}
+
 function collection(pkg: PackageSource, relPath: string, key: string): any[] | undefined {
   try {
     const doc = readJson(pkg, relPath) as any;
@@ -203,9 +231,17 @@ export function verifyPackage(pkg: PackageSource): VerifyReport {
         }
       }
     }
+    for (const ev of evidence) {
+      if (ev.derivedFrom && !evidenceIds.has(ev.derivedFrom)) {
+        problems.push(`evidence ${ev.id}: unknown derivedFrom ref ${ev.derivedFrom}`);
+      }
+    }
     for (const fact of facts ?? []) {
       for (const ref of fact.evidenceRefs ?? []) {
-        if (!evidenceIds.has(ref)) problems.push(`fact ${fact.id}: unknown evidence ref ${ref}`);
+        const evidenceId = refEvidenceId(ref);
+        if (evidenceId === undefined || !evidenceIds.has(evidenceId)) {
+          problems.push(`fact ${fact.id}: unknown evidence ref ${evidenceId ?? JSON.stringify(ref)}`);
+        }
       }
     }
     for (const claim of claims ?? []) {
@@ -218,6 +254,47 @@ export function verifyPackage(pkg: PackageSource): VerifyReport {
         ? { id: 'core.evidenceRefs.resolve', status: 'pass' }
         : { id: 'core.evidenceRefs.resolve', status: 'fail', message: problems.slice(0, 5).join('; ') }
     );
+  }
+
+  // core.factAnchors.quotesMatch — quote anchors must appear in the cited
+  // text evidence (after normalization). Quotes against binary or external
+  // evidence cannot be machine-checked and surface as a warning.
+  if (facts !== undefined && evidence !== undefined) {
+    const evidenceById = new Map(evidence.map((e: any) => [e.id, e]));
+    const mismatches: string[] = [];
+    const uncheckable: string[] = [];
+    let checked = 0;
+    for (const fact of facts) {
+      for (const ref of fact.evidenceRefs ?? []) {
+        const quote = typeof ref === 'object' ? ref?.anchor?.quote : undefined;
+        if (typeof quote !== 'string') continue;
+        const ev = evidenceById.get(refEvidenceId(ref));
+        if (!ev?.path || !pkg.has(ev.path) || !isTextEvidencePath(ev.path)) {
+          uncheckable.push(`fact ${fact.id} -> evidence ${ev?.id ?? refEvidenceId(ref)}`);
+          continue;
+        }
+        checked++;
+        const haystack = normalizeForQuoteMatch(pkg.read(ev.path).toString('utf8'));
+        if (!haystack.includes(normalizeForQuoteMatch(quote))) {
+          mismatches.push(`fact ${fact.id}: quote not found in ${ev.path}`);
+        }
+      }
+    }
+    if (mismatches.length > 0) {
+      outcomes.push({ id: 'core.factAnchors.quotesMatch', status: 'fail', message: mismatches.slice(0, 5).join('; ') });
+    } else if (uncheckable.length > 0) {
+      outcomes.push({
+        id: 'core.factAnchors.quotesMatch',
+        status: 'warning',
+        message: `${checked} quote anchors verified; not machine-checkable against binary or external evidence (anchor to a derived text layer): ${uncheckable
+          .slice(0, 3)
+          .join(', ')}`,
+      });
+    } else if (checked > 0) {
+      outcomes.push({ id: 'core.factAnchors.quotesMatch', status: 'pass', message: `${checked} quote anchors verified` });
+    } else {
+      outcomes.push({ id: 'core.factAnchors.quotesMatch', status: 'notRun', message: 'no quote anchors declared' });
+    }
   }
 
   // core.claimRefs.resolve — claim links to facts/judgments/calculations must resolve.

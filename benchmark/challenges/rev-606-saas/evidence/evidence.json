@@ -1,0 +1,58 @@
+{
+  "evidence": [
+    {
+      "id": "ev_msa",
+      "type": "document",
+      "title": "Master SaaS Agreement (excerpt), Rivermark / Sagebrook, dated 2025-12-15",
+      "path": "evidence/msa-excerpt.txt"
+    },
+    {
+      "id": "ev_order_form_1",
+      "type": "document",
+      "title": "Order Form #OF-2026-011 (platform subscription and implementation)",
+      "path": "evidence/order-form-1.txt"
+    },
+    {
+      "id": "ev_order_form_2",
+      "type": "document",
+      "title": "Order Form #OF-2026-047 (Insight Analytics Module upsell)",
+      "path": "evidence/order-form-2-upsell.txt"
+    },
+    {
+      "id": "ev_invoice_1001",
+      "type": "document",
+      "title": "Invoice INV-2026-1001 (annual subscription, year 1)",
+      "path": "evidence/invoice-1001.txt"
+    },
+    {
+      "id": "ev_invoice_1002",
+      "type": "document",
+      "title": "Invoice INV-2026-1002 (implementation services)",
+      "path": "evidence/invoice-1002.txt"
+    },
+    {
+      "id": "ev_remittance",
+      "type": "document",
+      "title": "Customer remittance advice, payment dated 2026-02-02",
+      "path": "evidence/remittance-advice.txt"
+    },
+    {
+      "id": "ev_ssp_study",
+      "type": "document",
+      "title": "SSP study summary memo, dated 2025-11-30",
+      "path": "evidence/ssp-study-summary.txt"
+    },
+    {
+      "id": "ev_acceptance",
+      "type": "document",
+      "title": "Implementation acceptance certificate, dated 2026-03-27",
+      "path": "evidence/acceptance-certificate.txt"
+    },
+    {
+      "id": "ev_usage_q1",
+      "type": "export",
+      "title": "End User processing report, Q1 2026",
+      "path": "evidence/usage-report-q1.txt"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_test_bad_anchor_quote",
+  "createdAt": "2026-07-19T12:00:00Z",
+  "profile": "vwp-core",
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json"
+  },
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/contract.txt",
+      "mediaType": "text/plain",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "role": "facts"
+    }
+  ]
+}

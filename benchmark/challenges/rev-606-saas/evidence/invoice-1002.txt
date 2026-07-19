@@ -1,0 +1,19 @@
+SYNTHETIC BENCHMARK EVIDENCE - NOT A REAL DOCUMENT - VWPB-R606-7C41-05
+
+RIVERMARK EDUCATION SYSTEMS, INC.
+INVOICE
+
+Invoice number:   INV-2026-1002
+Invoice date:     January 5, 2026
+Bill to:          Sagebrook Education, Inc.
+                  Accounts Payable
+Reference:        Order Form #OF-2026-011
+
+Description                                                    Amount (USD)
+Implementation Services - standard implementation of the
+Rivermark FA Platform (configuration, data migration,
+administrator training)                                           95,000.00
+
+TOTAL DUE                                                         95,000.00
+
+Payment terms: Net 30 days.

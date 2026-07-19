@@ -1,0 +1,51 @@
+==== ev_order_form_1: Order Form #OF-2026-011 (platform subscription and implementation) — PAGE 1 ====
+  1 | SYNTHETIC BENCHMARK EVIDENCE - NOT A REAL CONTRACT - VWPB-R606-7C41-02
+  2 | 
+  3 | RIVERMARK EDUCATION SYSTEMS, INC.
+  4 | ORDER FORM #OF-2026-011
+  5 | Governing terms: Master SaaS Agreement dated December 15, 2025
+  6 | 
+  7 | Customer:           Sagebrook Education, Inc.
+  8 | Execution date:     December 15, 2025
+  9 | Subscription start: January 1, 2026
+ 10 | Subscription term:  Thirty-six (36) months (January 1, 2026 through
+ 11 |                     December 31, 2028)
+ 12 | 
+ 13 | PRICING AND PAYMENT TERMS
+ 14 | 
+ 15 | 1. Rivermark FA Platform Pricing. Customer will pay Rivermark the following
+ 16 |    fees for the Rivermark FA Platform:
+ 17 | 
+ 18 |    (i)  Annual Subscription fee of $180,000 for up to 25,000 End Users
+ 19 |         processed using the Rivermark FA Platform during each twelve (12)
+ 20 |         month period of the subscription term.
+ 21 | 
+ 22 |    (ii) In the event that the number of End Users processed during any
+ 23 |         twelve (12) month period exceeds 25,000, Rivermark shall invoice
+ 24 |         Customer for such additional End Users processed at a Price Per End
+ 25 |         User of $3.00. Prior to invoicing, Rivermark shall provide Customer
+ 26 |         with a calculation of the number of End Users processed during the
+ 27 |         previous twelve (12) month period.
+ 28 | 
+ 29 | 2. Implementation Services. One-time Implementation Services fee of $90,000
+ 30 |    for standard implementation of the Rivermark FA Platform, consisting of
+ 31 |    configuration, data migration, and administrator training per Section 3.1
+ 32 |    of the Access Terms.
+ 33 | 
+ 34 | 3. Invoice Schedule.
+ 35 | 
+ 36 |    Annual Subscription fee:        invoiced annually in advance on the first
+ 37 |                                    business day of each subscription year.
+ 38 |    Implementation Services fee:    invoiced upon execution of this Order
+ 39 |                                    Form.
+ 40 |    End User overage fees (if any): invoiced annually in arrears following
+ 41 |                                    the End User calculation for the
+ 42 |                                    applicable subscription year.
+ 43 | 
+ 44 |    Payment terms: Net thirty (30) days per Section 4.1 of the Access Terms.
+ 45 | 
+ 46 | TOTAL FIXED FEES UNDER THIS ORDER FORM (36 months): $630,000
+ 47 | 
+ 48 | Executed by authorized representatives of the Parties:
+ 49 | Rivermark Education Systems, Inc.   Date: December 15, 2025
+ 50 | Sagebrook Education, Inc.           Date: December 15, 2025

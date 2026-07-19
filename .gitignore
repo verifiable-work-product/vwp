@@ -5,3 +5,6 @@ dist/
 *.tsbuildinfo
 .DS_Store
 coverage/
+
+# Benchmark answer keys stay out of the public repo until results publish (DESIGN.md §7)
+benchmark/answer-keys/
