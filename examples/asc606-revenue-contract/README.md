@@ -14,6 +14,7 @@ What it demonstrates:
 - **Claims** — one claim per ASC 606 step (identify contract, identify performance obligations, determine transaction price, allocate, recognize), each linked to supporting facts, evidence, calculations, and judgments.
 - **Judgment** — whether implementation services are distinct (`j_impl_distinct`), intentionally left in `reviewRequired` so `vwp verify` reports a review item.
 - **Calculations** — a relative standalone selling price allocation (`calc_ssp_allocation`) and a monthly revenue schedule CSV; both are checked by the demo validators `asc606.allocation.tieOut` and `asc606.revenueSchedule.total`.
+- **Analysis attestation** — `attestations/att-001.json`, a synthetic model-assisted challenge of the distinctness claim by a different model than the preparer's, with findings and human dispositions. Schema-checked by `core.attestations.schemaValid`; never affects package validity.
 - **Rendering** — `renderings/memo.md`, a derived view of the structured package.
 
 ## Try it

@@ -162,7 +162,7 @@ rows.slice(1).forEach((row, i) => {
 
   const ref =
     Object.keys(anchor).length > 0
-      ? { evidenceId: get('evidence_id'), anchor }
+      ? { evidenceId: get('evidence_id'), anchors: [anchor] }
       : get('evidence_id');
 
   const fact = {

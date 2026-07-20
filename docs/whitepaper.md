@@ -390,6 +390,10 @@ and they make model-assisted review *inspectable* in the same way the rest of
 VWP makes preparation inspectable: scope declared, evidence pinned, model
 disclosed, limitations stated, disposition owned by a person.
 
+The v0.2 schema described here now exists as
+`schemas/v0.1/analysis-attestation.schema.json`, published early; see
+`spec/attestations.md`.
+
 ## 5. Worked example: an ASC 606 revenue workpaper
 
 The reference repository includes a fully synthetic example package

@@ -26,13 +26,18 @@
             "required": ["evidenceId"],
             "properties": {
               "evidenceId": { "type": "string", "minLength": 1 },
-              "anchor": { "$ref": "#/$defs/anchor" }
+              "anchors": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "$ref": "#/$defs/anchor" },
+                "description": "Locations inside the cited evidence, one anchor per chunk. Fields within an anchor compose to describe a single chunk; multiple chunks are multiple anchors."
+              }
             },
             "additionalProperties": false
           }
         ]
       },
-      "description": "References to supporting evidence: either a bare evidence id, or an object with an anchor locating the observation inside the evidence."
+      "description": "References to supporting evidence: either a bare evidence id, or an object with anchors locating the observation inside the evidence. The file itself is addressed by the evidence object the id resolves to (its path/sha256), never by the anchor."
     },
     "extractionMethod": {
       "type": "string",
@@ -63,7 +68,7 @@
   "$defs": {
     "anchor": {
       "type": "object",
-      "description": "Locates the observation inside the referenced evidence. All fields optional; 'quote' enables deterministic verification against text evidence.",
+      "description": "Locates one chunk of the referenced evidence. All fields optional and composable; 'quote' enables deterministic verification against text evidence, the rest are advisory locators.",
       "properties": {
         "quote": {
           "type": "string",
@@ -87,6 +92,26 @@
           "properties": {
             "sheet": { "type": "string" },
             "range": { "type": "string", "description": "A1-style cell or range, e.g. 'B7' or 'B7:D9'." }
+          },
+          "additionalProperties": false
+        },
+        "charSpan": {
+          "type": "object",
+          "description": "0-based character offsets into text evidence, end-exclusive.",
+          "required": ["start", "end"],
+          "properties": {
+            "start": { "type": "integer", "minimum": 0 },
+            "end": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "byteRange": {
+          "type": "object",
+          "description": "0-based byte offsets into the evidence bytes, end-exclusive.",
+          "required": ["start", "end"],
+          "properties": {
+            "start": { "type": "integer", "minimum": 0 },
+            "end": { "type": "integer", "minimum": 0 }
           },
           "additionalProperties": false
         },

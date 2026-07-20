@@ -218,6 +218,36 @@ export function verifyPackage(pkg: PackageSource): VerifyReport {
   const validations = collection(pkg, 'validations/validation-report.json', 'validations');
   checkCollectionSchema(outcomes, 'core.validations.schemaValid', validations, 'validation', 'validation');
 
+  // core.attestations.schemaValid — analysis attestations are optional parts
+  // under attestations/. Each is schema-checked like any other part; beyond
+  // that, attestation content never affects package validity (findings and
+  // dispositions are for humans, not for verification).
+  const attestationPaths = pkg.list().filter((p) => /^attestations\/[^/]+\.json$/.test(p));
+  if (attestationPaths.length > 0) {
+    const attErrors: string[] = [];
+    for (const attPath of attestationPaths) {
+      let attestation: unknown;
+      try {
+        attestation = readJson(pkg, attPath);
+      } catch {
+        attErrors.push(`${attPath}: not valid JSON`);
+        continue;
+      }
+      for (const err of schemaErrors('analysis-attestation', attestation)) {
+        attErrors.push(`${attPath}: ${err}`);
+      }
+    }
+    outcomes.push(
+      attErrors.length === 0
+        ? {
+            id: 'core.attestations.schemaValid',
+            status: 'pass',
+            message: `${attestationPaths.length} attestation${attestationPaths.length === 1 ? '' : 's'} schema-checked`,
+          }
+        : { id: 'core.attestations.schemaValid', status: 'fail', message: attErrors.slice(0, 5).join('; ') }
+    );
+  }
+
   // core.evidenceRefs.resolve
   if (evidence !== undefined) {
     const evidenceIds = new Set(evidence.map((e: any) => e.id));
@@ -266,17 +296,20 @@ export function verifyPackage(pkg: PackageSource): VerifyReport {
     let checked = 0;
     for (const fact of facts) {
       for (const ref of fact.evidenceRefs ?? []) {
-        const quote = typeof ref === 'object' ? ref?.anchor?.quote : undefined;
-        if (typeof quote !== 'string') continue;
-        const ev = evidenceById.get(refEvidenceId(ref));
-        if (!ev?.path || !pkg.has(ev.path) || !isTextEvidencePath(ev.path)) {
-          uncheckable.push(`fact ${fact.id} -> evidence ${ev?.id ?? refEvidenceId(ref)}`);
-          continue;
-        }
-        checked++;
-        const haystack = normalizeForQuoteMatch(pkg.read(ev.path).toString('utf8'));
-        if (!haystack.includes(normalizeForQuoteMatch(quote))) {
-          mismatches.push(`fact ${fact.id}: quote not found in ${ev.path}`);
+        const anchors: any[] = typeof ref === 'object' && Array.isArray(ref?.anchors) ? ref.anchors : [];
+        for (const anchor of anchors) {
+          const quote = anchor?.quote;
+          if (typeof quote !== 'string') continue;
+          const ev = evidenceById.get(refEvidenceId(ref));
+          if (!ev?.path || !pkg.has(ev.path) || !isTextEvidencePath(ev.path)) {
+            uncheckable.push(`fact ${fact.id} -> evidence ${ev?.id ?? refEvidenceId(ref)}`);
+            continue;
+          }
+          checked++;
+          const haystack = normalizeForQuoteMatch(pkg.read(ev.path).toString('utf8'));
+          if (!haystack.includes(normalizeForQuoteMatch(quote))) {
+            mismatches.push(`fact ${fact.id}: quote not found in ${ev.path}`);
+          }
         }
       }
     }

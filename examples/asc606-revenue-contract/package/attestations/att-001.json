@@ -1,0 +1,67 @@
+{
+  "id": "att-001",
+  "createdAt": "2026-07-08T09:30:00Z",
+  "performedBy": {
+    "type": "human",
+    "name": "demo-reviewer"
+  },
+  "model": {
+    "provider": "demo-challenger",
+    "name": "challenger-model-mini",
+    "version": "2026-06-01",
+    "role": "challenger"
+  },
+  "scope": {
+    "evidenceExamined": [
+      {
+        "evidenceId": "ev_msa_excerpt",
+        "sha256": "ac248143ad693f964e967d6434370d437ac430f1bf931692a874d5bfeeeda843"
+      },
+      {
+        "evidenceId": "ev_order_form",
+        "sha256": "c85066b0837cbde545fb72b49276cdc0658ad8a4474cee787ee6833364efa85b"
+      }
+    ],
+    "claimsChallenged": ["c_step2_performance_obligations"],
+    "procedure": "Read the MSA excerpt and the order form; challenge the claim that implementation services are distinct from the hosted SaaS subscription (ASC 606-10-25-19 through 25-21)."
+  },
+  "findings": [
+    {
+      "id": "att-001-f1",
+      "severity": "medium",
+      "summary": "MSA Section 3.2 includes data migration in the implementation services, but the excerpt does not state whether Customer can use the hosted service before migration completes. If go-live depends on migration, the customer may not benefit from the subscription on its own, which weighs against distinctness. The basis recorded in j_impl_distinct does not address this dependency.",
+      "relatedClaims": ["c_step2_performance_obligations"],
+      "relatedEvidence": ["ev_msa_excerpt"],
+      "requiresDisposition": true
+    },
+    {
+      "id": "att-001-f2",
+      "severity": "low",
+      "summary": "The examined MSA is an excerpt covering only Sections 3 and 9. Clauses elsewhere in the full agreement (e.g. customization or integration commitments) could contradict Section 3.1's statement that the hosted service is not materially modified; they were not available to this procedure.",
+      "relatedClaims": ["c_step2_performance_obligations"],
+      "relatedEvidence": ["ev_msa_excerpt"],
+      "requiresDisposition": true
+    }
+  ],
+  "limitations": [
+    "Only the two scoped evidence files were examined; the price book and the full Master Subscription Agreement were out of scope.",
+    "Whether implementation services are distinct is a professional judgment; this procedure surfaces contrary indicators, it does not settle the question."
+  ],
+  "dispositions": [
+    {
+      "findingId": "att-001-f1",
+      "decision": "acknowledged",
+      "by": { "name": "demo-revenue-manager" },
+      "at": "2026-07-08T16:00:00Z",
+      "note": "Routed into the open j_impl_distinct judgment review; the go-live dependency point will be addressed in the judgment basis."
+    },
+    {
+      "findingId": "att-001-f2",
+      "decision": "remediated",
+      "by": { "name": "demo-revenue-manager" },
+      "at": "2026-07-08T16:05:00Z",
+      "note": "Full agreement reviewed in the demo contract system; no customization or integration commitments beyond Section 3."
+    }
+  ],
+  "notes": "Synthetic demo attestation. The challenger model intentionally differs from the preparer model recorded in provenance/provenance.json."
+}

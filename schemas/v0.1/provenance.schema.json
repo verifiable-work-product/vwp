@@ -27,7 +27,35 @@
         "required": ["name"],
         "properties": {
           "name": { "type": "string" },
-          "version": { "type": "string" }
+          "version": { "type": "string" },
+          "sessionDigest": {
+            "type": "object",
+            "description": "Ties the package to an append-only agent-session transcript held by the producing system, without embedding its content. The digest is a hash-chain head over the session's ordered events.",
+            "required": ["system", "sessionId", "transcriptSha256", "eventCount"],
+            "properties": {
+              "system": {
+                "type": "string",
+                "minLength": 1,
+                "description": "The system that holds the session transcript."
+              },
+              "sessionId": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Identifier of the session within that system."
+              },
+              "transcriptSha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$",
+                "description": "Lowercase hex SHA-256 hash-chain head over the session's ordered events at package creation."
+              },
+              "eventCount": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Number of events covered by the digest."
+              }
+            },
+            "additionalProperties": true
+          }
         },
         "additionalProperties": true
       }

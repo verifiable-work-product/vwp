@@ -6,16 +6,22 @@
       "evidenceRefs": [
         {
           "evidenceId": "ev_order_form",
-          "anchor": {
-            "quote": "DEMOCO ORDER FORM #OF-2026-0142",
-            "lines": { "from": 3 }
-          }
+          "anchors": [
+            {
+              "quote": "DEMOCO ORDER FORM #OF-2026-0142",
+              "lines": {
+                "from": 3
+              }
+            }
+          ]
         },
         {
           "evidenceId": "ev_msa_excerpt",
-          "anchor": {
-            "quote": "DemoCo, Inc. and Acme Corp - dated 2026-01-01"
-          }
+          "anchors": [
+            {
+              "quote": "DemoCo, Inc. and Acme Corp - dated 2026-01-01"
+            }
+          ]
         }
       ],
       "extractionMethod": "manual",
@@ -33,9 +39,11 @@
       "evidenceRefs": [
         {
           "evidenceId": "ev_order_form",
-          "anchor": {
-            "quote": "Total contract value: USD 300,000"
-          }
+          "anchors": [
+            {
+              "quote": "Total contract value: USD 300,000"
+            }
+          ]
         }
       ],
       "extractionMethod": "manual",
@@ -52,16 +60,20 @@
       "evidenceRefs": [
         {
           "evidenceId": "ev_order_form",
-          "anchor": {
-            "quote": "Term: 24 months (2026-01-01 through 2027-12-31)"
-          }
+          "anchors": [
+            {
+              "quote": "Term: 24 months (2026-01-01 through 2027-12-31)"
+            }
+          ]
         },
         {
           "evidenceId": "ev_msa_excerpt",
-          "anchor": {
-            "quote": "The initial subscription term is twenty-four (24) months and is non-cancellable except for uncured material breach.",
-            "section": "9.1"
-          }
+          "anchors": [
+            {
+              "quote": "The initial subscription term is twenty-four (24) months and is non-cancellable except for uncured material breach.",
+              "section": "9.1"
+            }
+          ]
         }
       ],
       "extractionMethod": "manual",
@@ -73,9 +85,11 @@
       "evidenceRefs": [
         {
           "evidenceId": "ev_order_form",
-          "anchor": {
-            "quote": "1. Hosted SaaS subscription (24 months) USD 200,000"
-          }
+          "anchors": [
+            {
+              "quote": "1. Hosted SaaS subscription (24 months) USD 200,000"
+            }
+          ]
         }
       ],
       "extractionMethod": "manual",
@@ -87,10 +101,12 @@
       "evidenceRefs": [
         {
           "evidenceId": "ev_msa_excerpt",
-          "anchor": {
-            "quote": "Implementation services consist of configuration, data migration, and training. Implementation services are performed once and are expected to complete within ninety (90) days of the contract date.",
-            "section": "3.2"
-          }
+          "anchors": [
+            {
+              "quote": "Implementation services consist of configuration, data migration, and training. Implementation services are performed once and are expected to complete within ninety (90) days of the contract date.",
+              "section": "3.2"
+            }
+          ]
         }
       ],
       "extractionMethod": "manual",
@@ -107,10 +123,14 @@
       "evidenceRefs": [
         {
           "evidenceId": "ev_price_book",
-          "anchor": {
-            "quote": "saas_subscription_24mo,Hosted SaaS subscription (24 months),240000",
-            "lines": { "from": 2 }
-          }
+          "anchors": [
+            {
+              "quote": "saas_subscription_24mo,Hosted SaaS subscription (24 months),240000",
+              "lines": {
+                "from": 2
+              }
+            }
+          ]
         }
       ],
       "extractionMethod": "deterministic-parser",
@@ -127,10 +147,14 @@
       "evidenceRefs": [
         {
           "evidenceId": "ev_price_book",
-          "anchor": {
-            "quote": "implementation_services,Implementation services package,75000",
-            "lines": { "from": 3 }
-          }
+          "anchors": [
+            {
+              "quote": "implementation_services,Implementation services package,75000",
+              "lines": {
+                "from": 3
+              }
+            }
+          ]
         }
       ],
       "extractionMethod": "deterministic-parser",
@@ -147,10 +171,14 @@
       "evidenceRefs": [
         {
           "evidenceId": "ev_price_book",
-          "anchor": {
-            "quote": "premium_support_24mo,Premium support (24 months),60000",
-            "lines": { "from": 4 }
-          }
+          "anchors": [
+            {
+              "quote": "premium_support_24mo,Premium support (24 months),60000",
+              "lines": {
+                "from": 4
+              }
+            }
+          ]
         }
       ],
       "extractionMethod": "deterministic-parser",

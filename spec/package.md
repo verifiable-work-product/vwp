@@ -20,6 +20,7 @@ judgments/                     optional
 calculations/                  optional
 validations/                   optional, recommended
 approvals/                     optional
+attestations/                  optional
 renderings/                    optional
 provenance/provenance.json     required
 signatures/                    optional in v0.1
@@ -34,6 +35,9 @@ signatures/                    optional in v0.1
   required for useful packages.
 - `judgments/`, `calculations/`, `validations/`, `approvals/` — corresponding object
   collections. See their respective specs.
+- `attestations/` — analysis attestations (one JSON object per file), records of
+  model-assisted review procedures. Never affect package validity. See
+  [attestations.md](attestations.md).
 - `renderings/` — derived human-readable views (Markdown, HTML, PDF). Never authoritative.
 - `provenance/provenance.json` — production provenance. See [provenance.md](provenance.md).
 - `signatures/` — detached signatures, optional in v0.1. See [signatures.md](signatures.md).

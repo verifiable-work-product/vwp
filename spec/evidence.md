@@ -77,6 +77,13 @@ id, query, as-of time). Locators SHOULD be specific enough that an authorized pa
 re-retrieve the material, and SHOULD be paired with `retrievedAt` because external systems
 change over time.
 
+For locating content *inside* evidence, facts carry anchors on their evidence references
+(`page`, `lines`, `cells`, `charSpan`, `byteRange`, `section`, `jsonPath`, `region`,
+`quote`; see [facts.md](facts.md) §4). Anchors are locators inside already-hashed
+evidence: the integrity envelope covers the evidence bytes via `sha256`, anchors never
+affect integrity verification, and only `quote` is machine-checked (against text
+evidence). Anchors never carry file paths — the evidence object owns the file.
+
 ## 6. Privacy and security considerations
 
 - Packages MAY contain sensitive data (financial records, personal data, internal system

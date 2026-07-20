@@ -35,6 +35,7 @@ example.vwp
   calculations/                  deterministic computations with inputs and outputs
   validations/                   recorded validator results
   approvals/                     review/approval events
+  attestations/                  model-assisted review records (never affect validity)
   renderings/                    human-readable views (memo.md, workpaper.md)
   signatures/                    experimental in v0.1
 ```

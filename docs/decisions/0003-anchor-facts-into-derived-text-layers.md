@@ -21,8 +21,10 @@ evidence).
 ## Decision
 
 - **Anchors are part of the fact's evidence reference.** An `evidenceRefs` entry may be
-  an object `{ evidenceId, anchor }`, where the anchor carries `quote`, `page`,
-  `lines`, `cells`, `section`, `jsonPath`, and/or `region`.
+  an object `{ evidenceId, anchors }`, where each anchor in the array locates one chunk
+  and carries `quote`, `page`, `lines`, `cells`, `charSpan`, `byteRange`, `section`,
+  `jsonPath`, and/or `region`. Anchors never carry file paths; the evidence object the
+  id resolves to owns the file and its hash.
 - **The verbatim `quote` is the machine-checkable anchor.** For package-local text
   evidence (`.txt`, `.md`, `.csv`, `.json`), the verifier checks that the quote appears
   in the evidence bytes after a fixed normalization (Unicode NFC, curly quotes/dashes

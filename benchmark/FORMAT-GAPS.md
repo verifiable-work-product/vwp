@@ -115,7 +115,8 @@ infrastructure is itself a consumer of the format.
 1. **Drift** — fixed. `fact.schema.json` now requires `evidenceRefs`
    (non-empty); `extractionModel` added to the spec field table.
 2. **Anchors (Gap 1)** — implemented. `evidenceRefs` entries may be
-   `{ evidenceId, anchor }` with `quote`/`page`/`lines`/`cells`/`section`/
+   `{ evidenceId, anchors: [...] }`, one anchor per cited chunk, each with
+   `quote`/`page`/`lines`/`cells`/`charSpan`/`byteRange`/`section`/
    `jsonPath`/`region`; new deterministic validator
    `core.factAnchors.quotesMatch` checks quotes against text evidence after
    spec-frozen normalization; evidence gained `derivedFrom` + `transform`

@@ -22,7 +22,7 @@ whether the claims follow from the facts.
 | `statement` | string | yes | Human-readable statement of the observation. |
 | `factType` | string | no | Namespaced type for the fact (e.g. `asc606.transactionPrice`). Extensions may declare fact types, validate `value` shapes, and require fact types for a work product type. |
 | `value` | any | no | Structured value of the observation (number, string, object), when one exists. See §5 for conventional shapes. |
-| `evidenceRefs` | array | yes | Non-empty. Each entry is an evidence `id` string, or an object `{ evidenceId, anchor }` locating the observation inside the evidence (§4). |
+| `evidenceRefs` | array | yes | Non-empty. Each entry is an evidence `id` string, or an object `{ evidenceId, anchors }` locating the observation inside the evidence (§4). |
 | `extractionMethod` | string | no | How the fact was extracted (e.g. `manual`, `ocr`, `parser`, `llm`, `apiField`). |
 | `extractionModel` | object | no | When a model extracted this fact: the exact `provider`, `name`, and `version` (see §3). |
 | `confidence` | number | no | Extraction confidence in `[0, 1]`. Confidence in the extraction, not in any conclusion. |
@@ -48,9 +48,12 @@ whether the claims follow from the facts.
 
 ## 4. Anchors
 
-An anchor locates the observation *inside* the cited evidence, so a reviewer — human or
-machine — does not have to hunt through a 40-page contract or a 5,000-row export. Anchor
-fields, all optional:
+An anchored evidence reference is `{ evidenceId, anchors }`, where `anchors` is a
+non-empty array of anchor objects. Each anchor locates **one chunk** of the cited
+evidence, so a reviewer — human or machine — does not have to hunt through a 40-page
+contract or a 5,000-row export; a fact supported by several places in the same document
+carries several anchors. Fields *within* an anchor compose to describe its single chunk
+(e.g. `page` + `lines` + `quote`); all fields are optional:
 
 | Field | Type | Description |
 |---|---|---|
@@ -58,20 +61,28 @@ fields, all optional:
 | `page` | integer | 1-based page number. |
 | `lines` | object | `{ from, to? }`, 1-based line range. Page-relative when combined with `page` (a pin cite: page 7, lines 12–14); otherwise global to the text evidence. |
 | `cells` | object | `{ sheet?, range }`, A1-style range in tabular evidence. |
+| `charSpan` | object | `{ start, end }`, 0-based character offsets into text evidence, end-exclusive. |
+| `byteRange` | object | `{ start, end }`, 0-based byte offsets into the evidence bytes, end-exclusive. |
 | `section` | string | Human-readable section/clause label (e.g. `2(a)`). |
 | `jsonPath` | string | Path into JSON evidence. |
 | `region` | object | `{ x, y, width, height }` pixel region in image evidence. |
 
+**Anchors never address files.** The file (or external locator) is identified by the
+evidence object that `evidenceId` resolves to — its `path`, `externalRef`, and `sha256`
+— so an anchor cannot disagree with the evidence record about where the bytes live, and
+the integrity envelope stays with the evidence object. Content spanning multiple files
+is multiple evidence objects, each referenced (and anchored) separately.
+
 `quote` is the load-bearing field: for package-local **text evidence** (`.txt`, `.md`,
 `.csv`, `.json`), verifiers check deterministically that the quote appears in the
-evidence bytes (validator `core.factAnchors.quotesMatch`). Anchor fields compose:
-`page` + `lines` is the conventional pin cite into paginated evidence (including
-derived text layers with page markers), and `page` + `quote` pairs a human locator
-with the machine check. Matching applies the same
+evidence bytes (validator `core.factAnchors.quotesMatch`); every quote in every anchor
+is checked independently. `page` + `lines` is the conventional pin cite into paginated
+evidence (including derived text layers with page markers), and adding `quote` to the
+same anchor pairs the human locator with the machine check. Matching applies the same
 normalization to quote and evidence text: Unicode NFC, curly quotes/dashes mapped to
 ASCII, whitespace runs collapsed to single spaces. A quote that does not match fails
-verification. Other anchor fields are locators for human reviewers and are not
-machine-verified in v0.1.
+verification. All other anchor fields are advisory locators for human reviewers and
+tooling; they never affect integrity verification and are not machine-verified in v0.1.
 
 Quotes against binary evidence (PDF, DOCX, XLSX, images) or external evidence cannot be
 machine-checked and surface as a warning. Producers SHOULD instead include a **derived
@@ -82,7 +93,19 @@ inside the package hash envelope and independently re-derivable.
 
 - Anchors SHOULD be provided for any fact whose evidence exceeds roughly a page, and for
   every fact material to a conclusion.
-- An anchor's `evidenceId` MUST resolve like any other evidence reference.
+- An anchored reference's `evidenceId` MUST resolve like any other evidence reference.
+
+Multiple chunks in one reference:
+
+```json
+{
+  "evidenceId": "ev-001",
+  "anchors": [
+    { "quote": "Closing balance as of June 30, 2026: $1,250,344.18", "page": 2, "lines": { "from": 41 } },
+    { "quote": "Account 4471-220 (operating)", "page": 1, "lines": { "from": 6 } }
+  ]
+}
+```
 
 ## 5. Conventional value shapes
 
@@ -110,10 +133,12 @@ a stricter one) via an extension schema.
   "evidenceRefs": [
     {
       "evidenceId": "ev-001",
-      "anchor": {
-        "quote": "Closing balance as of June 30, 2026: $1,250,344.18",
-        "page": 2
-      }
+      "anchors": [
+        {
+          "quote": "Closing balance as of June 30, 2026: $1,250,344.18",
+          "page": 2
+        }
+      ]
     }
   ],
   "extractionMethod": "llm",

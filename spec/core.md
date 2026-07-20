@@ -76,6 +76,7 @@ A well-formed VWP package SHOULD allow a reader or verifier to answer:
 | [calculations.md](calculations.md) | Calculations and recomputability |
 | [validations.md](validations.md) | Validation results and semantics |
 | [approvals.md](approvals.md) | Review and approval records |
+| [attestations.md](attestations.md) | Analysis attestations (model-assisted review records) |
 | [provenance.md](provenance.md) | Toolchain and model provenance |
 | [signatures.md](signatures.md) | Signing (experimental in v0.1) |
 | [profiles.md](profiles.md) | Profiles and extensions |

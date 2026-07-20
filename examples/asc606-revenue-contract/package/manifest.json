@@ -50,7 +50,7 @@
       "path": "facts/facts.json",
       "mediaType": "application/json",
       "role": "facts",
-      "sha256": "f8ce494c816a229855271c01a0a0312a80d21badd192a3ea110ab7eab8dda962"
+      "sha256": "3d5112f70ca8e001fab0111f41fbbd25ef9e21ff0b435b92da8ed5bf8f804be1"
     },
     {
       "path": "claims/claims.json",
@@ -87,6 +87,12 @@
       "mediaType": "application/json",
       "role": "approvals",
       "sha256": "076ed3d7892cb4c6edd98fdeaecc45f59c250b8d26d06662375b364ba8a8ae6f"
+    },
+    {
+      "path": "attestations/att-001.json",
+      "mediaType": "application/json",
+      "role": "attestation",
+      "sha256": "dbecc5bcca40eee3730ffa319f2a560883d51b0f297310ef9bbc956f3d1a7ece"
     },
     {
       "path": "renderings/memo.md",

@@ -16,7 +16,7 @@ validates against `https://vwp.dev/schemas/v0.1/provenance.schema.json`.
 |---|---|---|---|
 | `createdAt` | string | yes | RFC 3339 timestamp of package creation. |
 | `createdBy` | string / object | yes | Person, team, or service that produced the package. |
-| `toolchain` | array | no | Tools involved, each with name and version (e.g. `{ "name": "vwp-cli", "version": "0.1.3" }`). |
+| `toolchain` | array | no | Tools involved, each with name and version (e.g. `{ "name": "vwp-cli", "version": "0.1.3" }`). Entries MAY carry a `sessionDigest` tying the package to an agent-session transcript (§5). |
 | `models` | array | no | AI models involved. Each entry MUST record the exact model: `provider`, `name` (the provider's published model identifier, e.g. `claude-fable-5` — not a family or marketing name), and `version` (the most specific version or snapshot identifier available), plus an optional `role` (e.g. extraction, drafting). |
 | `policyVersions` | array / object | no | Versions of organizational policies or rulebooks applied. |
 | `sourceSystems` | array | no | Systems evidence was drawn from (names, versions, environments). |
@@ -54,7 +54,30 @@ documentation deficiency.
 - Provenance MUST NOT contain secrets (credentials, tokens, private endpoints). See the
   privacy considerations in [evidence.md](evidence.md).
 
-## 5. Example
+## 5. Agent-session digests
+
+When a package is produced inside an agent session — an interactive or autonomous run
+whose events (prompts, tool calls, outputs) are recorded as an append-only transcript by
+the producing system — a `toolchain` entry MAY carry a `sessionDigest` tying the package
+to that transcript without leaking its content:
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `system` | string | yes | The system that holds the session transcript. |
+| `sessionId` | string | yes | Identifier of the session within that system. |
+| `transcriptSha256` | string | yes | Lowercase hex SHA-256 hash-chain head over the session's ordered events at package creation. |
+| `eventCount` | integer | yes | Number of events covered by the digest. |
+
+The digest is a hash-chain head: each session event is hashed together with the hash of
+the previous event, and `transcriptSha256` is the head of that chain after `eventCount`
+events. A party with authorized access to the transcript can recompute the chain and
+confirm both that the transcript is the one the package was produced from and that no
+recorded event was altered or removed — while parties without access learn nothing about
+the session's content from the digest itself. Like all provenance, a `sessionDigest` is a
+claim by the producer, tamper-evident only inside a hashed, signed manifest; verifiers
+MUST NOT attempt to resolve or fetch the session during core verification.
+
+## 6. Example
 
 ```json
 {
@@ -62,7 +85,16 @@ documentation deficiency.
   "createdBy": { "type": "system", "name": "Close Automation Service" },
   "toolchain": [
     { "name": "vwp-cli", "version": "0.1.3" },
-    { "name": "close-pipeline", "version": "2026.6.2" }
+    {
+      "name": "close-pipeline",
+      "version": "2026.6.2",
+      "sessionDigest": {
+        "system": "close-pipeline",
+        "sessionId": "close-2026-06-run-14-sess-3",
+        "transcriptSha256": "9b2f0c47e1a8d35c6f4b21e09a7d83f5c1e6b04d2a97f38c5d10e6a4b3c2f817",
+        "eventCount": 214
+      }
+    }
   ],
   "models": [
     {

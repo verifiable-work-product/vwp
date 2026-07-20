@@ -3,13 +3,18 @@
     {
       "id": "f_fee",
       "statement": "The total fee is USD 250,000.",
-      "value": { "amount": 250000, "currency": "USD" },
+      "value": {
+        "amount": 250000,
+        "currency": "USD"
+      },
       "evidenceRefs": [
         {
           "evidenceId": "ev_contract",
-          "anchor": {
-            "quote": "The total fee is USD 250,000"
-          }
+          "anchors": [
+            {
+              "quote": "The total fee is USD 250,000"
+            }
+          ]
         }
       ],
       "extractionMethod": "manual"
