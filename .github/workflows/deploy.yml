@@ -73,7 +73,7 @@ jobs:
             --port 8080 \
             --cpu 1 --memory 256Mi \
             --min-instances 0 --max-instances 4 \
-            --set-env-vars "VWP_ALLOWED_ORIGINS=https://vwp.ac,https://www.vwp.ac" \
+            --set-env-vars "^@@^VWP_ALLOWED_ORIGINS=https://vwp.ac,https://www.vwp.ac" \
             --quiet
 
       - name: Show service URL
