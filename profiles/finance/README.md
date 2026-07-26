@@ -55,4 +55,9 @@ audit opinion, a legal opinion, an accounting opinion, or an assurance engagemen
 passing validation does not make a conclusion correct or sufficient for any regulatory
 purpose. All examples in this profile are synthetic.
 
-See also: [`assertions.md`](./assertions.md), [`standards-map.md`](./standards-map.md).
+Extensions on this profile may add assertion values for packages declaring them; the
+`vwp-finance-forecast` extension adds `estimate` for forward-looking claims (see
+[`forecast.md`](./forecast.md)).
+
+See also: [`assertions.md`](./assertions.md), [`standards-map.md`](./standards-map.md),
+[`forecast.md`](./forecast.md).

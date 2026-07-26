@@ -1,0 +1,102 @@
+{
+  "facts": [
+    {
+      "id": "f_arrangement",
+      "statement": "DTCC and the Canton Foundation executed a milestone participation agreement dated 2026-01-15 under which DTCC may earn up to 10,000,000 Canton Coin by achieving three milestones.",
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_milestone_agreement",
+          "anchors": [
+            { "quote": "The Applicant may earn up to 10,000,000 Canton Coin (CC) by achieving the" }
+          ]
+        }
+      ],
+      "extractionMethod": "manual",
+      "confidence": 1
+    },
+    {
+      "id": "f_milestones",
+      "statement": "The three milestones and their associated coin are: M1 joint press release (2,000,000 CC); M2 production go-live on Canton (6,000,000 CC); M3 cumulative on-network settlement reaching a stated USD volume threshold (2,000,000 CC).",
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_milestone_agreement",
+          "anchors": [
+            { "quote": "Milestone 1 — Announcement:      publication of a joint press release.        2,000,000 CC" },
+            { "quote": "production go-live of the Applicant's" },
+            { "quote": "the stated USD volume threshold.             2,000,000 CC" }
+          ]
+        }
+      ],
+      "extractionMethod": "manual",
+      "confidence": 1
+    },
+    {
+      "id": "f_unminted_until_release",
+      "statement": "Canton Coin is not transferred at signing. Coin associated with each milestone remains unminted in the Unclaimed Rewards pool, and DTCC neither owns nor controls it, until the milestone is verified and released.",
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_milestone_agreement",
+          "anchors": [
+            { "quote": "Canton Coin is not transferred at signing. Coin" },
+            { "quote": "Coin is neither owned nor controlled by the Applicant, and remains" }
+          ]
+        }
+      ],
+      "extractionMethod": "manual",
+      "confidence": 1
+    },
+    {
+      "id": "f_committee_gate",
+      "statement": "For each milestone DTCC must present proof of completion and a coin calculation to the Tokenomics Working Group; the Accountability Committee confirms the milestone was met; and only then do two-thirds of Super Validator operators mint the approved coin to DTCC.",
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_milestone_agreement",
+          "anchors": [
+            { "quote": "The Accountability Committee will confirm whether the Applicant has", "section": "3.2" },
+            { "quote": "two-thirds of Super Validator operators assign the approved portion of the", "section": "3.3" }
+          ]
+        },
+        {
+          "evidenceId": "ev_cip_mechanism",
+          "anchors": [
+            { "quote": "present a calculation for number of Canton Coin it should earn for meeting" }
+          ]
+        }
+      ],
+      "extractionMethod": "manual",
+      "confidence": 1
+    },
+    {
+      "id": "f_no_control_at_inception",
+      "statement": "Because coin is unminted and uncontrolled until committee confirmation and the two-thirds SV minting action, DTCC obtains neither the asset nor control of it at signing; the right to the coin is contingent on a governance approval event outside DTCC's unilateral control.",
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_cip_mechanism",
+          "anchors": [
+            { "quote": "the Applicant obtains neither the asset nor" },
+            { "quote": "control of it at signing. The right to the coin is contingent on a governance" }
+          ]
+        }
+      ],
+      "extractionMethod": "manual",
+      "confidence": 1
+    },
+    {
+      "id": "f_coin_fair_value",
+      "statement": "The fair value of one Canton Coin is 0.0033 USD (Level 3), as concluded in the referenced ASC 820 fair value support package. That conclusion is itself reviewRequired.",
+      "factType": "asc606.noncashConsiderationUnitValue",
+      "value": { "amount": 0.0033, "currency": "USD", "unit": "per CC" },
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_coin_fv_package",
+          "anchors": [
+            { "quote": "per-coin fair value consumed here as noncash consideration" }
+          ]
+        }
+      ],
+      "extractionMethod": "manual",
+      "confidence": 0.4,
+      "requiresReview": true
+    }
+  ]
+}

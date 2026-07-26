@@ -1,0 +1,87 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_dtcc_canton_coin_fv_2026_01_15",
+  "createdAt": "2026-07-24T00:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc820",
+  "title": "ASC 820 Fair Value Support - Canton Coin at DTCC Contract Signing (illustrative)",
+  "subject": {
+    "type": "fairValueMeasurement",
+    "entityId": "entity_dtcc",
+    "measurementDate": "2026-01-15"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "role": "workproduct",
+    "sha256": "03693a0e05d32340ec06929a308d9f4770d23640ca652612113e1db3410d8db2"
+  },
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "role": "provenance",
+    "sha256": "f9f321ff74b88f011da17e30c70f6263b3252fb045ffa6a6cea164638e213d81"
+  },
+  "parts": [
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "role": "evidence-index",
+      "sha256": "19afaea959b21725ed51ec6469dba1e8786345510a56985cd9d1dda1d440f0db"
+    },
+    {
+      "path": "evidence/network-gas-price.txt",
+      "mediaType": "text/plain",
+      "role": "evidence",
+      "sha256": "1a361af4bef47a86d4850dc48fb248f3d7e449e5576eb87a6e1eac85dc6c1adb"
+    },
+    {
+      "path": "evidence/otc-telegram-quotes.csv",
+      "mediaType": "text/csv",
+      "role": "evidence",
+      "sha256": "d07916e95745ae53acc1a79d98860f6313b043ed35ade83e4b6d4a8b43ab662a"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "role": "facts",
+      "sha256": "2ae3d23cb5c28d93e19e429270712defd652e677829b9368573a450df454c0ce"
+    },
+    {
+      "path": "facts/fair-value-measurements.json",
+      "mediaType": "application/json",
+      "role": "facts",
+      "sha256": "440156cf216b83aace21bb3a77acc85ecb7026a671d2a0a1dd34b6a1dc344b2a"
+    },
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "role": "claims",
+      "sha256": "d0a0099c696a1a4e4b766da5caccdbb7706a09cb15e88c7242ec2a6e3b5f7afe"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "role": "judgments",
+      "sha256": "4f0ebf2e117960817dea28ccfc8d811c2f2eeacb0845dcf557600bdddf27d558"
+    },
+    {
+      "path": "approvals/approvals.json",
+      "mediaType": "application/json",
+      "role": "approvals",
+      "sha256": "de9f6c928de54bbdd505733995bae98c1d6c742ddd1dfacbe4beea9e80cafd3c"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "role": "validations",
+      "sha256": "5dfd4707202f3839fc17a12d09bef3ef206e1e137d6870a30c1e766e419d80de"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "role": "rendering",
+      "sha256": "6a23ed76c77899ed0ef03e81aca4d670acca864ed3e6b4cc4c257282221f15e7"
+    }
+  ]
+}

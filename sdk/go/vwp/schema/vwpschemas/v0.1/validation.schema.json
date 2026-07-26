@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/validation.schema.json",
+  "title": "VWP Validation Result",
+  "description": "The result of a single validator run against the package or a part of it.",
+  "type": "object",
+  "required": ["id", "validator", "status"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "validator": { "type": "string", "minLength": 1 },
+    "scope": {
+      "type": "string",
+      "description": "What the validator examined, e.g. 'package', a part path, or an object ID."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pass", "fail", "warning", "reviewRequired", "notRun"]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["info", "low", "medium", "high", "critical"]
+    },
+    "message": { "type": "string" },
+    "details": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

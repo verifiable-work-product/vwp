@@ -31,11 +31,11 @@ describe('pack', () => {
     expect(packCommand(tmp, path.join(tmp, 'out.vwp'), {})).toBe(2);
   });
 
-  it('packs a package directory into a .vwp zip', () => {
+  it('packs a package directory into a .vwp zip', async () => {
     const out = path.join(tmp, 'minimal.vwp');
     expect(packCommand(MINIMAL, out, {})).toBe(0);
     expect(fs.existsSync(out)).toBe(true);
-    expect(verifyCommand(out, {})).toBe(0);
+    expect(await verifyCommand(out, {})).toBe(0);
   });
 
   it('writes part hashes with --write-hashes and the result verifies without hash warnings', () => {
@@ -84,20 +84,20 @@ describe('unpack', () => {
 });
 
 describe('verify command', () => {
-  it('returns 0 for a valid package and 1 under --strict when warnings exist', () => {
-    expect(verifyCommand(MINIMAL, {})).toBe(0);
+  it('returns 0 for a valid package and 1 under --strict when warnings exist', async () => {
+    expect(await verifyCommand(MINIMAL, {})).toBe(0);
     // minimal package declares no hashes and no signature -> warnings -> strict fails
-    expect(verifyCommand(MINIMAL, { strict: true })).toBe(1);
+    expect(await verifyCommand(MINIMAL, { strict: true })).toBe(1);
   });
 
-  it('returns 1 for an invalid package', () => {
-    expect(verifyCommand(path.join(REPO_ROOT, 'testdata', 'invalid', 'bad-hash'), {})).toBe(1);
+  it('returns 1 for an invalid package', async () => {
+    expect(await verifyCommand(path.join(REPO_ROOT, 'testdata', 'invalid', 'bad-hash'), {})).toBe(1);
   });
 
-  it('returns 1 under --strict for review items', () => {
+  it('returns 1 under --strict for review items', async () => {
     // ASC 606 example has an intentionally open judgment (reviewRequired).
-    expect(verifyCommand(ASC606, {})).toBe(0);
-    expect(verifyCommand(ASC606, { strict: true })).toBe(1);
+    expect(await verifyCommand(ASC606, {})).toBe(0);
+    expect(await verifyCommand(ASC606, { strict: true })).toBe(1);
   });
 });
 

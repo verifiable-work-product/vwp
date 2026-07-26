@@ -1,0 +1,22 @@
+{
+  "approvals": [
+    {
+      "id": "ap_measurement_date_pending",
+      "approver": { "name": "Unassigned technical-accounting reviewer" },
+      "role": "technical-accounting-reviewer",
+      "action": "acknowledged",
+      "timestamp": "2026-07-24T00:00:00Z",
+      "scope": "j_measurement_date",
+      "comments": "Measurement-date judgment (measure at each milestone approval/mint rather than inception) routed for review; not yet approved."
+    },
+    {
+      "id": "ap_arrangement_type_pending",
+      "approver": { "name": "Unassigned technical-accounting reviewer" },
+      "role": "technical-accounting-reviewer",
+      "action": "acknowledged",
+      "timestamp": "2026-07-24T00:00:00Z",
+      "scope": "j_arrangement_type",
+      "comments": "Arrangement-characterization judgment (noncash consideration for services vs grant) routed for review; not yet approved."
+    }
+  ]
+}

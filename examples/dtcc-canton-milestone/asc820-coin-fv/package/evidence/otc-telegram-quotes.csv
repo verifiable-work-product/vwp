@@ -1,0 +1,6 @@
+captured_at,channel,side,message_excerpt,implied_price_usd_per_cc,size_cc,notes
+2026-01-09,cc-otc-desk-1,ask,"selling CC blocks, 0.0035/coin firm for size dm me",0.0035,5000000,informal peer ask; unverified counterparty
+2026-01-12,cc-otc-desk-1,bid,"looking to buy CC around 0.003, up to 2M",0.0030,2000000,informal peer bid
+2026-01-14,cc-otc-chat-2,trade,"done 1M CC @ 0.0032 settled offchain",0.0032,1000000,self-reported settled trade; no on-chain confirmation captured
+2026-01-16,cc-otc-chat-2,ask,"CC offers 0.0038, thin, few sellers",0.0038,750000,thin liquidity noted by participant
+2026-01-18,cc-otc-desk-1,trade,"filled 500k CC @ 0.0033",0.0033,500000,self-reported

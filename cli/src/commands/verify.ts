@@ -1,5 +1,5 @@
 import { openPackage } from '../lib/package';
-import { verifyPackage, Outcome } from '../lib/validations';
+import { verifyPackage, verifyExternalRefsReachable, Outcome } from '../lib/validations';
 
 const STATUS_LABEL: Record<Outcome['status'], string> = {
   pass: 'PASS',
@@ -9,9 +9,12 @@ const STATUS_LABEL: Record<Outcome['status'], string> = {
   notRun: 'SKIP',
 };
 
-export function verifyCommand(input: string, options: { strict?: boolean }): number {
+export async function verifyCommand(input: string, options: { strict?: boolean; online?: boolean }): Promise<number> {
   const pkg = openPackage(input);
   const report = verifyPackage(pkg);
+  if (options.online) {
+    report.outcomes.push(...(await verifyExternalRefsReachable(pkg)));
+  }
 
   console.log('VWP verification report');
   console.log('');

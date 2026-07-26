@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/provenance.schema.json",
+  "title": "VWP Provenance",
+  "description": "Records how the package was created: by whom, with which tools, models, policies, and source systems. Verification never requires the recorded models or tools.",
+  "type": "object",
+  "required": ["createdAt", "createdBy"],
+  "properties": {
+    "createdAt": { "type": "string", "format": "date-time" },
+    "createdBy": {
+      "type": "object",
+      "required": ["type", "name"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["human", "agent", "system"]
+        },
+        "name": { "type": "string" },
+        "version": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "toolchain": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "version": { "type": "string" },
+          "sessionDigest": {
+            "type": "object",
+            "description": "Ties the package to an append-only agent-session transcript held by the producing system, without embedding its content. The digest is a hash-chain head over the session's ordered events.",
+            "required": ["system", "sessionId", "transcriptSha256", "eventCount"],
+            "properties": {
+              "system": {
+                "type": "string",
+                "minLength": 1,
+                "description": "The system that holds the session transcript."
+              },
+              "sessionId": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Identifier of the session within that system."
+              },
+              "transcriptSha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$",
+                "description": "Lowercase hex SHA-256 hash-chain head over the session's ordered events at package creation."
+              },
+              "eventCount": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Number of events covered by the digest."
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "models": {
+      "type": "array",
+      "description": "AI models that materially shaped package content. Each entry MUST identify the exact model, so downstream reviewers can deliberately select a different model for independent analysis.",
+      "items": {
+        "type": "object",
+        "required": ["provider", "name", "version"],
+        "properties": {
+          "provider": { "type": "string", "minLength": 1 },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Exact model identifier as published by the provider (e.g. 'claude-fable-5'), not a family or marketing name."
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Model version or snapshot date; use the provider's most specific identifier available."
+          },
+          "role": {
+            "type": "string",
+            "description": "What the model did, e.g. 'fact extraction', 'claim drafting', 'rendering'."
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "policyVersions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string" },
+          "version": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sourceSystems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "notes": { "type": "string" }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "judgments": [
+    {
+      "id": "j_cc_fv_hierarchy",
+      "topic": "Fair value input selection and hierarchy classification for Canton Coin at signing",
+      "question": "What is the fair value of one Canton Coin at 2026-01-15, and which input governs: the published 0.0005 USD/CC network fee-reference price, or the informal OTC secondary-market evidence?",
+      "proposedConclusion": "Fair value is 0.0033 USD per CC, classified Level 3. The OTC secondary-market evidence, though informal and thin, reflects arm's-length willing-buyer/willing-seller transactions and is the best available exit-price evidence under ASC 820-10-20. The 0.0005 USD/CC fee-reference price is rejected as a fair value input: it is an administratively/protocol-set fee-conversion parameter with no order book or settled trade behind it, and therefore does not meet the definition of an exit price. It is retained only as a corroborating data point showing a floor well below observed market activity.",
+      "basis": "ASC 820-10-20 exit-price definition and the fair value hierarchy (ASC 820-10-35). No active market existed at signing (f_no_exchange_listing), so Level 1 is unavailable. The only market-participant transaction evidence is the OTC channel activity (f_otc_secondary_market). The fee-reference price fails the arm's-length/orderly-transaction test (f_gas_price_not_market).",
+      "alternatives": [
+        {
+          "conclusion": "Use the 0.0005 USD/CC network fee-reference price as fair value",
+          "notes": "Rejected. It is a utility/fee-conversion parameter, not an exit price; using it would understate consideration ~6.6x versus observed market trades and would not represent a price a market participant would transact at."
+        },
+        {
+          "conclusion": "Conclude fair value is not reliably measurable at signing",
+          "notes": "Rejected. Although evidence is thin, self-reported settled trades plus a bid/ask band provide a reasonable, if Level 3, basis; unmeasurability is not supportable when corroborating trade evidence exists."
+        },
+        {
+          "conclusion": "Different point in the range (0.0030 - 0.0038 USD/CC)",
+          "notes": "0.0033 selected as the median of settled trades; sensitivity across the range should be disclosed in any downstream consideration figure."
+        }
+      ],
+      "riskLevel": "high",
+      "requiredApproverRole": "valuation-reviewer",
+      "status": "reviewRequired"
+    }
+  ]
+}

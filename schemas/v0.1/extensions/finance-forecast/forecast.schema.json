@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/finance-forecast/forecast.schema.json",
+  "title": "Finance Forecast Register",
+  "description": "Extension schema for the vwp-finance-forecast extension: the forecast register at facts/forecast.json. A forecast package makes forward-looking estimates, so its claims cannot be verified against outcomes — only its chain can be verified. The register separates the calculable (scenarios bound to recomputable calculations) from the discretionary (assumptions bound to judgments), declares input freshness relative to the forecast as-of date, and links back-tests against a hash-pinned predecessor forecast package — enforced by the extension validators.",
+  "type": "object",
+  "required": ["subject", "asOfDate", "horizon", "scenarios"],
+  "properties": {
+    "description": { "type": "string" },
+    "subject": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What is being forecast (e.g. 'Canton Coin super validator rewards, node sv-main-1')."
+    },
+    "asOfDate": {
+      "type": "string",
+      "minLength": 1,
+      "description": "ISO 8601 date the forecast was prepared. Input freshness is measured against this date, never against verification time — a package does not go stale by sitting on disk; whether an old forecast may still be relied on is consumer policy, not validation."
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of scenario output values (e.g. 'CC', 'USD'). Forecasts of non-cash items that also express a currency value SHOULD consume a fair value package as hash-pinned external evidence rather than assert a price inline."
+    },
+    "horizon": {
+      "type": "object",
+      "required": ["start", "end"],
+      "properties": {
+        "start": { "type": "string", "minLength": 1, "description": "ISO 8601 start of the forecast period." },
+        "end": { "type": "string", "minLength": 1, "description": "ISO 8601 end of the forecast period." },
+        "periodization": { "type": "string", "description": "Output granularity, e.g. 'daily', 'weekly', 'monthly', 'quarterly'." }
+      },
+      "additionalProperties": true
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "factRef", "asOf"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "factRef": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Fact ID carrying the input value; the fact's evidenceRefs supply the source."
+          },
+          "asOf": {
+            "type": "string",
+            "minLength": 1,
+            "description": "ISO 8601 date the input value was observed."
+          },
+          "maxAgeDays": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Staleness budget: how many days older than asOfDate this input may be before the forecast requires review. Omit when no staleness policy applies."
+          },
+          "refreshTrigger": {
+            "type": "string",
+            "description": "Advisory: the event that should trigger regenerating the forecast (e.g. 'super validator set change', 'minting curve amendment'). Never machine-evaluated."
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Key model inputs with their freshness policy. Every driver a reviewer would want to check SHOULD appear here."
+    },
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "calculationRef"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "label": { "type": "string", "minLength": 1, "description": "e.g. 'base', 'upside', 'downside'." },
+          "calculationRef": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Calculation ID producing this scenario's outputs. SHOULD be recomputable — the projection itself is arithmetic, not judgment."
+          },
+          "assumptionJudgmentRefs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "description": "Judgment IDs backing every discretionary input that departs from observed fact (dilution, activity, pricing). Assumptions must not hide inside calculation inputs; even 'hold everything constant' is a judgment."
+          },
+          "probabilityWeight": { "type": "number", "minimum": 0, "maximum": 1 },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["period", "value"],
+              "properties": {
+                "period": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "ISO 8601 period label within the horizon (e.g. '2026-08')."
+                },
+                "value": { "oneOf": [{ "type": "number" }, { "type": "string" }] },
+                "low": { "oneOf": [{ "type": "number" }, { "type": "string" }] },
+                "high": { "oneOf": [{ "type": "number" }, { "type": "string" }] }
+              },
+              "additionalProperties": true
+            },
+            "description": "Per-period point estimates (optionally with a low/high range) as computed by calculationRef. Strings for values where decimal precision matters."
+          },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "backTest": {
+      "type": "object",
+      "required": ["predecessorEvidenceRef"],
+      "properties": {
+        "predecessorEvidenceRef": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Evidence ID for the predecessor forecast package, included as external evidence pinned by SHA-256."
+        },
+        "actualsFactRefs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Fact IDs carrying observed actuals covering the predecessor's horizon."
+        },
+        "varianceCalculationRef": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Calculation comparing the predecessor's scenario outputs to actuals."
+        }
+      },
+      "additionalProperties": true,
+      "description": "Back-test against the predecessor forecast. Successor forecasts for the same subject SHOULD declare this; the first forecast in a series omits it."
+    }
+  }
+}

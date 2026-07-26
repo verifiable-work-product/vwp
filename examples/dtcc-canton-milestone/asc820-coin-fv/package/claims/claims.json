@@ -1,0 +1,42 @@
+{
+  "claims": [
+    {
+      "id": "c_no_active_market",
+      "statement": "At the 2026-01-15 signing date there was no active market for Canton Coin: it was not listed or traded on any public exchange, so a Level 1 fair value input was unavailable.",
+      "domain": "finance",
+      "standardRefs": ["ASC 820-10-35"],
+      "assertions": ["valuationAllocation"],
+      "supportingFacts": ["f_no_exchange_listing"],
+      "supportingEvidence": ["ev_network_gas_price"],
+      "conclusion": "No Level 1 input available at signing.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "c_gas_price_not_fv",
+      "statement": "The published 0.0005 USD/CC network fee-reference price is not a fair value input under ASC 820 because it is an administratively set fee-conversion parameter rather than an exit price in an orderly arm's-length transaction.",
+      "domain": "finance",
+      "standardRefs": ["ASC 820-10-20"],
+      "assertions": ["valuationAllocation"],
+      "supportingFacts": ["f_gas_price", "f_gas_price_not_market"],
+      "supportingEvidence": ["ev_network_gas_price"],
+      "judgments": ["j_cc_fv_hierarchy"],
+      "conclusion": "Fee-reference price rejected as a fair value input; retained as corroborating floor only.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "c_cc_fair_value",
+      "statement": "The fair value of Canton Coin at 2026-01-15 is 0.0033 USD per coin, classified Level 3, based on informal OTC secondary-market quotes and self-reported settled trades, subject to reviewer approval of the input-selection judgment.",
+      "domain": "finance",
+      "standardRefs": ["ASC 820-10-35"],
+      "assertions": ["valuationAllocation"],
+      "supportingFacts": ["f_otc_secondary_market"],
+      "supportingEvidence": ["ev_otc_telegram_quotes", "ev_network_gas_price"],
+      "judgments": ["j_cc_fv_hierarchy"],
+      "conclusion": "Per-coin fair value of 0.0033 USD (Level 3), pending valuation-reviewer approval. This is the figure consumed by the referencing ASC 606 milestone package.",
+      "status": "proposed",
+      "requiresReview": true
+    }
+  ]
+}

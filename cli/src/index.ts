@@ -6,6 +6,7 @@ import { packCommand } from './commands/pack';
 import { unpackCommand } from './commands/unpack';
 import { diffCommand } from './commands/diff';
 import { renderCommand } from './commands/render';
+import { originsCommand } from './commands/origins';
 
 const program = new Command();
 
@@ -14,13 +15,16 @@ program
   .description('Reference CLI for VWP (Verifiable Work Product) packages')
   .version('0.1.0');
 
-function run(fn: () => number): void {
-  try {
-    process.exitCode = fn();
-  } catch (err) {
-    console.error(`error: ${err instanceof Error ? err.message : String(err)}`);
-    process.exitCode = 2;
-  }
+function run(fn: () => number | Promise<number>): void {
+  Promise.resolve()
+    .then(fn)
+    .then((code) => {
+      process.exitCode = code;
+    })
+    .catch((err) => {
+      console.error(`error: ${err instanceof Error ? err.message : String(err)}`);
+      process.exitCode = 2;
+    });
 }
 
 program
@@ -45,7 +49,14 @@ program
   .description('run core, profile, and extension validators against a package')
   .argument('<package>', '.vwp file or package directory')
   .option('--strict', 'treat warnings and review-required items as failures')
-  .action((input: string, options: { strict?: boolean }) => run(() => verifyCommand(input, options)));
+  .option('--online', 'also run online checks (fetch externalRef URLs with their declared auth and verify contentHash)')
+  .action((input: string, options: { strict?: boolean; online?: boolean }) => run(() => verifyCommand(input, options)));
+
+program
+  .command('origins')
+  .description('list the network origins external references want to reach, and the auth each needs (no network, no secrets)')
+  .argument('<package>', '.vwp file or package directory')
+  .action((input: string) => run(() => originsCommand(input)));
 
 program
   .command('inspect')

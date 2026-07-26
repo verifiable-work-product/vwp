@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/calculation.schema.json",
+  "title": "VWP Calculation",
+  "description": "A deterministic or reproducible computation with declared inputs and outputs.",
+  "type": "object",
+  "required": ["id", "type", "inputs", "outputs"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "type": { "type": "string", "minLength": 1 },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "method": {
+      "type": "string",
+      "description": "Human-readable description of the computation method."
+    },
+    "validator": {
+      "type": "string",
+      "description": "Identifier of a validator capable of recomputing or checking this calculation."
+    },
+    "recomputable": { "type": "boolean" }
+  }
+}

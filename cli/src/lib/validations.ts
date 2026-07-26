@@ -96,6 +96,27 @@ function checkCollectionSchema(
 }
 
 /** Run core, profile, and extension validators against a package. */
+/** Auth schemes with defined semantics in v0.1. Other non-empty strings are
+ *  permitted (forward-compatible) but surface as a warning. */
+const KNOWN_AUTH_SCHEMES = new Set(['bearer', 'none']);
+
+/** Heuristic: does a tokenHint carry a literal secret rather than a source
+ *  reference (env:/vault:/oauth:/keychain:/prompt:/none)? A literal secret in a
+ *  shareable package is a leak and must fail. */
+export function tokenHintLooksLikeSecret(hint: string): boolean {
+  return !/^(env:|vault:|oauth:|keychain:|prompt:|none$)/.test(hint.trim());
+}
+
+function isValidUri(s: string): boolean {
+  try {
+    // eslint-disable-next-line no-new
+    new URL(s);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export function verifyPackage(pkg: PackageSource): VerifyReport {
   const outcomes: Outcome[] = [];
 
@@ -286,6 +307,58 @@ export function verifyPackage(pkg: PackageSource): VerifyReport {
     );
   }
 
+  // core.externalRefs.wellFormed — offline check of externalRef retrieval/auth
+  // metadata. Deterministic and network-free: it validates SHAPE only (is the
+  // URL a URI, is the auth scheme known, does a tokenHint leak a literal
+  // secret). Actually fetching the URL is core.externalRefs.reachable, an
+  // opt-in online check. An embedded secret is a hard FAIL (leak); a malformed
+  // URL or unknown scheme is a WARNING.
+  if (evidence !== undefined) {
+    const fails: string[] = [];
+    const warns: string[] = [];
+    let checked = 0;
+    for (const ev of evidence) {
+      const ref = ev.externalRef;
+      if (!ref) continue;
+      if (ref.locatorType === 'url' && typeof ref.locator === 'string' && !isValidUri(ref.locator)) {
+        warns.push(`evidence ${ev.id}: locatorType 'url' but locator is not a valid URI`);
+      }
+      const r = ref.retrieval;
+      if (!r) continue;
+      checked++;
+      if (typeof r.url === 'string' && !isValidUri(r.url)) {
+        warns.push(`evidence ${ev.id}: retrieval.url is not a valid URI`);
+      }
+      const auth = r.auth;
+      if (auth) {
+        if (typeof auth.scheme === 'string' && !KNOWN_AUTH_SCHEMES.has(auth.scheme)) {
+          warns.push(`evidence ${ev.id}: auth.scheme '${auth.scheme}' is not a v0.1-defined scheme (bearer|none)`);
+        }
+        if (typeof auth.tokenHint === 'string' && tokenHintLooksLikeSecret(auth.tokenHint)) {
+          fails.push(
+            `evidence ${ev.id}: auth.tokenHint appears to embed a literal secret; use a source reference (env:/vault:/oauth:/keychain:/prompt:)`
+          );
+        }
+        if (typeof auth.discovery === 'string' && !isValidUri(auth.discovery)) {
+          warns.push(`evidence ${ev.id}: auth.discovery is not a valid URI`);
+        }
+      }
+    }
+    if (fails.length > 0) {
+      outcomes.push({ id: 'core.externalRefs.wellFormed', status: 'fail', message: fails.slice(0, 5).join('; ') });
+    } else if (warns.length > 0) {
+      outcomes.push({ id: 'core.externalRefs.wellFormed', status: 'warning', message: warns.slice(0, 5).join('; ') });
+    } else if (checked > 0) {
+      outcomes.push({
+        id: 'core.externalRefs.wellFormed',
+        status: 'pass',
+        message: `${checked} external retrieval reference(s) well-formed`,
+      });
+    } else {
+      outcomes.push({ id: 'core.externalRefs.wellFormed', status: 'notRun', message: 'no external retrieval metadata declared' });
+    }
+  }
+
   // core.factAnchors.quotesMatch — quote anchors must appear in the cited
   // text evidence (after normalization). Quotes against binary or external
   // evidence cannot be machine-checked and surface as a warning.
@@ -392,6 +465,186 @@ export function verifyPackage(pkg: PackageSource): VerifyReport {
 
   const valid = !outcomes.some((o) => o.status === 'fail');
   return { packageOrigin: pkg.origin, manifest, outcomes, valid };
+}
+
+/** One distinct network origin the package wants to reach, with the auth it
+ *  requires. Secrets live NOWHERE in the package — this is gathered from the
+ *  refs so a caller can request a credential per origin, once. */
+export interface RetrievalOrigin {
+  /** e.g. 'https://api.bitwave.io' */
+  origin: string;
+  /** true if any ref on this origin uses a credentialed scheme (e.g. bearer). */
+  requiresAuth: boolean;
+  /** Distinct auth schemes seen on this origin. */
+  schemes: string[];
+  /** Distinct tokenHints (source references, never secrets) seen on this origin. */
+  tokenHints: string[];
+  /** RFC 9728 discovery URL if any ref on this origin declared one. */
+  discovery?: string;
+  /** Distinct OAuth scopes requested across refs on this origin. */
+  scopes: string[];
+}
+
+/** How a caller supplies credentials for the online check: a map from origin to
+ *  the bearer token to use there. The verifier NEVER reads a secret from the
+ *  package — the caller gathers origins (collectRetrievalOrigins), requests a
+ *  token per origin over the top, and passes them here. */
+export type CredentialResolver = (origin: RetrievalOrigin) => string | undefined | Promise<string | undefined>;
+
+function originOf(url: string): string | undefined {
+  try {
+    return new URL(url).origin;
+  } catch {
+    return undefined;
+  }
+}
+
+/**
+ * Enumerate the distinct origins the package's externalRefs want to reach, and
+ * what auth each needs — WITHOUT touching the network. This is the "gather all
+ * the base URLs, then request secrets for them" step: a caller runs this,
+ * obtains one credential per origin (env, prompt, vault, OAuth via the RFC 9728
+ * discovery URL, ...), and only then runs verifyExternalRefsReachable.
+ */
+export function collectRetrievalOrigins(pkg: PackageSource): RetrievalOrigin[] {
+  let evidence: any[] | undefined;
+  try {
+    evidence = pkg.has('evidence/evidence.json') ? (readJson(pkg, 'evidence/evidence.json') as any)?.evidence : undefined;
+  } catch {
+    evidence = undefined;
+  }
+  const byOrigin = new Map<string, RetrievalOrigin>();
+  for (const ev of evidence ?? []) {
+    const r = ev.externalRef?.retrieval;
+    if (!r?.url) continue;
+    const origin = originOf(r.url);
+    if (!origin) continue;
+    const auth = r.auth ?? {};
+    const scheme = auth.scheme ?? 'none';
+    const entry =
+      byOrigin.get(origin) ??
+      ({ origin, requiresAuth: false, schemes: [], tokenHints: [], scopes: [] } as RetrievalOrigin);
+    if (scheme !== 'none') entry.requiresAuth = true;
+    if (!entry.schemes.includes(scheme)) entry.schemes.push(scheme);
+    if (typeof auth.tokenHint === 'string' && !entry.tokenHints.includes(auth.tokenHint)) entry.tokenHints.push(auth.tokenHint);
+    if (typeof auth.discovery === 'string') entry.discovery = auth.discovery;
+    for (const s of auth.scopes ?? []) if (!entry.scopes.includes(s)) entry.scopes.push(s);
+    byOrigin.set(origin, entry);
+  }
+  return [...byOrigin.values()];
+}
+
+/** Default resolver: gather a bearer token per origin from the environment.
+ *  Tries, in order, each ref's own 'env:NAME' tokenHint on that origin, then a
+ *  conventional VWP_TOKEN_<HOST> variable. Never reads anything from the
+ *  package. Non-env sources (vault:/oauth:/keychain:/prompt:) are left to a
+ *  richer resolver supplied by the embedding app (e.g. Wavie). */
+export function envCredentialResolver(origin: RetrievalOrigin): string | undefined {
+  for (const hint of origin.tokenHints) {
+    const [scheme, ...rest] = hint.split(':');
+    if (scheme === 'env') {
+      const v = process.env[rest.join(':')];
+      if (v) return v;
+    }
+  }
+  try {
+    const host = new URL(origin.origin).host.replace(/[^A-Za-z0-9]/g, '_').toUpperCase();
+    return process.env[`VWP_TOKEN_${host}`];
+  } catch {
+    return undefined;
+  }
+}
+
+/**
+ * core.externalRefs.reachable — ONLINE, opt-in. Fetches each
+ * externalRef.retrieval.url, supplying a Bearer token (RFC 6750) obtained PER
+ * ORIGIN from the caller-supplied resolver — credentials are gathered "over the
+ * top" during verification, never embedded in the package — and, when
+ * contentHash is declared, compares the SHA-256 of the retrieved bytes. This
+ * check is environment-dependent (network, credentials) and therefore never
+ * runs during the default offline `verify`. Returns outcomes to append to a
+ * report.
+ */
+export async function verifyExternalRefsReachable(
+  pkg: PackageSource,
+  resolveCredential: CredentialResolver = envCredentialResolver
+): Promise<Outcome[]> {
+  let evidence: any[] | undefined;
+  try {
+    evidence = pkg.has('evidence/evidence.json') ? (readJson(pkg, 'evidence/evidence.json') as any)?.evidence : undefined;
+  } catch {
+    evidence = undefined;
+  }
+  if (evidence === undefined) {
+    return [{ id: 'core.externalRefs.reachable', status: 'notRun', message: 'no evidence index' }];
+  }
+
+  const targets = evidence.filter((ev: any) => ev.externalRef?.retrieval?.url);
+  if (targets.length === 0) {
+    return [{ id: 'core.externalRefs.reachable', status: 'notRun', message: 'no retrievable external references' }];
+  }
+
+  // Step 1: gather origins and resolve one credential per origin, up front.
+  const origins = collectRetrievalOrigins(pkg);
+  const tokenByOrigin = new Map<string, string | undefined>();
+  for (const o of origins) {
+    tokenByOrigin.set(o.origin, o.requiresAuth ? await resolveCredential(o) : undefined);
+  }
+
+  // Step 2: fetch each ref, reusing the per-origin credential.
+  const problems: string[] = [];
+  let ok = 0;
+  for (const ev of targets) {
+    const r = ev.externalRef.retrieval;
+    const headers: Record<string, string> = {};
+    const auth = r.auth ?? {};
+    const origin = originOf(r.url);
+    if ((auth.scheme ?? 'none') === 'bearer') {
+      const token = origin ? tokenByOrigin.get(origin) : undefined;
+      if (!token) {
+        problems.push(`evidence ${ev.id}: no bearer credential available for origin ${origin ?? '(unknown)'}`);
+        continue;
+      }
+      headers[auth.header ?? 'Authorization'] = `Bearer ${token}`;
+    }
+    try {
+      const res = await fetch(r.url, { method: r.method ?? 'GET', headers });
+      if (!res.ok) {
+        // Surface RFC 6750 WWW-Authenticate challenge when present.
+        const challenge = res.headers.get('www-authenticate');
+        problems.push(`evidence ${ev.id}: ${res.status} ${res.statusText}${challenge ? ` (${challenge})` : ''}`);
+        continue;
+      }
+      if (r.contentHash) {
+        const buf = Buffer.from(await res.arrayBuffer());
+        const got = sha256Hex(buf);
+        if (got !== r.contentHash) {
+          problems.push(`evidence ${ev.id}: contentHash mismatch (expected ${r.contentHash.slice(0, 12)}…, got ${got.slice(0, 12)}…)`);
+          continue;
+        }
+      }
+      ok++;
+    } catch (err) {
+      problems.push(`evidence ${ev.id}: fetch failed: ${(err as Error).message}`);
+    }
+  }
+
+  if (problems.length > 0) {
+    return [
+      {
+        id: 'core.externalRefs.reachable',
+        status: 'fail',
+        message: `${ok}/${targets.length} reachable across ${origins.length} origin(s); ${problems.slice(0, 5).join('; ')}`,
+      },
+    ];
+  }
+  return [
+    {
+      id: 'core.externalRefs.reachable',
+      status: 'pass',
+      message: `${ok}/${targets.length} external reference(s) reachable across ${origins.length} origin(s); content-hash verified where declared`,
+    },
+  ];
 }
 
 /** Finance profile: assertion and support coverage, judgment review surfacing. */

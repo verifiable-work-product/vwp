@@ -186,7 +186,8 @@ Five design principles follow:
   vendor or model generation.
 - **Domain-extensible.** The core is generic. Profiles add domain vocabulary
   (financial assertions); extensions add narrower validators (ASC 606
-  tie-outs, wallet control checks, control-test completeness).
+  tie-outs, wallet control checks, control-test completeness, forecast
+  assumption and freshness checks).
 
 Taken together, these principles yield something more than a file format:
 **VWP creates a structured evidence object that multiple independent agents —
@@ -270,7 +271,10 @@ financial work product can declare *which assertions it speaks to*, and
 packaged evidence can be mapped to the assertions it supports. Extensions
 narrow further: an ASC 606 extension adds revenue-specific tie-out
 validators; a digital-asset extension adds wallet ownership and control
-checks; a controls extension addresses control-test evidence.
+checks; a controls extension addresses control-test evidence; a forecast
+extension structures forward-looking estimates, whose claims assert the
+integrity of a derivation rather than a past or present state (see the
+second sidebar in Section 5).
 
 ## 4. The verification model
 
@@ -284,7 +288,8 @@ runs in layers, all deterministic:
    digest matches the actual bytes; workproduct, claims, and provenance
    conform to their schemas; every evidence reference in every fact and claim
    resolves; every claim's references to facts, judgments, and calculations
-   resolve; archive paths are safe.
+   resolve; every external-reference retrieval block is well-formed and carries
+   no embedded secret (Section 4.6); archive paths are safe.
 2. **Profile validators** run when the package declares a profile. For
    `vwp-finance`: every claim should carry at least one assertion; every
    claim should have at least one supporting fact, evidence reference,
@@ -394,6 +399,44 @@ The v0.2 schema described here now exists as
 `schemas/v0.1/analysis-attestation.schema.json`, published early; see
 `spec/attestations.md`.
 
+### 4.6 Evidence that lives elsewhere: authenticated, long-lived references
+
+The strongest evidence is embedded in the package and covered by the integrity
+envelope: the verifier confirms the exact bytes the conclusion rests on. But
+much professional evidence cannot travel inside a package — it is too large,
+access-restricted, or the authoritative copy must remain in a system of record
+that outlives any single workpaper. VWP references such material by
+`externalRef`, and for long-lived sources it describes *how the reference is
+retrieved*, including authentication, without ever becoming a place secrets are
+stored.
+
+A retrieval descriptor carries the URL, the HTTP method, and an auth block
+aligned to the relevant IETF standards: **RFC 6750** for Bearer-token usage and
+**RFC 9728** for OAuth 2.0 protected-resource metadata discovery (the
+`.well-known/oauth-protected-resource` document from which a client learns the
+authorization server, token types, and scopes). Crucially, the descriptor names
+only *where a credential comes from* — a source reference such as
+`env:BITWAVE_VWP_TOKEN`, `vault:…`, or `oauth:…` — never the credential itself.
+A literal secret in that field is a verification **failure**, because packages
+are shareable and must be treated as untrusted input. Credentials are gathered
+*over the top* at retrieval time: a verifier enumerates the distinct origins the
+package's references target, obtains one credential per origin, and only then
+fetches.
+
+This splits verification into two honest tiers. **Offline verification stays
+deterministic and network-free** — the default. It checks that every retrieval
+descriptor is well-formed and leaks no secret, but never reaches the network,
+so the same package bytes always produce the same result and an auditor can
+verify with no credentials at all. **Online verification is a separate, opt-in
+tier.** When a reviewer chooses to run it, the verifier fetches each reference
+with its declared auth and compares the retrieved bytes against a declared
+`contentHash`. That content hash is what turns a live, authenticated,
+long-lived URL into *verifiable* evidence: the reference is confirmed both
+reachable and unchanged, without the material or the secret ever entering the
+package. The online result is reported as distinct from the deterministic core
+result, so what a machine settled offline is never confused with what depended
+on a particular network and credential at a particular moment.
+
 ## 5. Worked example: an ASC 606 revenue workpaper
 
 The reference repository includes a fully synthetic example package
@@ -463,6 +506,31 @@ reference outright, verification fails.
 > judgment. Encoding that distinction in the claim itself, rather than
 > leaving it to a footnote, is precisely what a structured claim graph is
 > for.
+
+> **Sidebar: forward-looking estimates.** A forecast extension
+> (`vwp-finance-forecast`) applies the structure to work products whose
+> conclusions cannot be verified against reality at production time at all —
+> the staple deliverables of FP&A: a validator-rewards projection, a revenue
+> run-rate, a budget build-up. Only the *chain* is verifiable, which makes
+> the decomposition more load-bearing, not less. The calculable core of a
+> forecast — a published emission curve, a contracted rate, a run-rate
+> extrapolation — lives in recomputable scenario calculations; every
+> discretionary departure from observed fact (participation, dilution,
+> pricing) must be an explicit judgment, and a scenario declaring *no*
+> assumption judgments is flagged for review, because zero acknowledged
+> discretion is the signature of a guess laundered into an input cell, not of
+> certainty. Claims carry an `estimate` assertion that asserts the integrity
+> of the derivation, never the outcome. Input freshness is checked against
+> the forecast's own as-of date — never the verifier's clock, so the same
+> bytes verify identically forever; whether an aging forecast may still be
+> *relied on* is consumer policy, not validation. And forecasts have a
+> property retrospective workpapers lack: they generate their own future
+> evidence. When the horizon lapses, the successor package pins its
+> predecessor by hash, extracts observed actuals, and carries a variance
+> calculation — an evidence-linked chain of forecast, actuals, and revised
+> forecast in which the judgments that missed are individually identifiable.
+> The substrate of Section 2 accumulates not just verification but a track
+> record.
 
 ## 6. VWP in the audit workflow
 
@@ -566,7 +634,7 @@ The reference repository contains the v0.1 draft specification, JSON schemas,
 a TypeScript verifier CLI (`pack`, `unpack`, `verify`, `inspect`, `diff`,
 `render`), profile documentation, and five synthetic example packages. The
 near-term roadmap: real signature support, an analysis attestation schema,
-and conformance tests (v0.2); Python and Go SDKs, standardized evidence
+forecast-extension validators, and conformance tests (v0.2); Python and Go SDKs, standardized evidence
 locators with intra-file anchoring, and a review-event log (v0.3); converging
 on a stable format, a validator plugin interface, and a public conformance
 suite (v1.0).

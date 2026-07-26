@@ -1,0 +1,18 @@
+{
+  "createdAt": "2026-07-24T00:00:00Z",
+  "createdBy": { "type": "agent", "name": "claude-code", "version": "opus-4-8" },
+  "toolchain": [
+    { "name": "vwp-cli", "version": "0.1.0" }
+  ],
+  "models": [
+    { "provider": "anthropic", "name": "claude-opus-4-8", "version": "claude-opus-4-8[1m]" }
+  ],
+  "policyVersions": [
+    { "id": "illustrative-revenue-policy", "version": "2026.01" }
+  ],
+  "sourceSystems": [
+    { "name": "illustrative-clm", "description": "Illustrative contract source for the milestone agreement" },
+    { "name": "canton-foundation-cips", "description": "Canton Improvement Proposal framework reference" }
+  ],
+  "notes": "Illustrative package. Milestone mechanics modeled on the public Canton Improvement Proposal process (Accountability Committee / Tokenomics Working Group / two-thirds SV mint, e.g. Nasdaq CIP-0097). Consumes the sibling ASC 820 package's per-coin fair value. Exact producing model recorded per exact-model-identification policy so an auditor may re-run with a different model."
+}

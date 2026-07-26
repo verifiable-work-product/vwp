@@ -1,0 +1,73 @@
+{
+  "evidence": [
+    {
+      "id": "ev_milestone_agreement",
+      "type": "contractDocument",
+      "title": "Canton Coin Milestone Participation Agreement excerpt (DTCC / Canton Foundation) - illustrative",
+      "sourceSystem": "illustrative-clm",
+      "path": "evidence/milestone-agreement-excerpt.txt",
+      "retrievedAt": "2026-01-15T00:00:00Z"
+    },
+    {
+      "id": "ev_cip_mechanism",
+      "type": "referenceDocument",
+      "title": "Canton Improvement Proposal milestone/escrow mechanism reference (Accountability Committee release) - illustrative",
+      "sourceSystem": "canton-foundation-cips",
+      "path": "evidence/cip-mechanism-reference.txt",
+      "retrievedAt": "2026-07-24T00:00:00Z",
+      "accessNotes": "Modeled on the public CIP framework (e.g. Nasdaq CIP-0097). Real filing lives on GitHub.",
+      "externalRef": {
+        "system": "canton-foundation-cips",
+        "locator": "https://github.com/canton-foundation/cips/blob/main/cip-0097/cip-0097.md",
+        "locatorType": "url",
+        "description": "Public CIP-0097 (Nasdaq milestone framework) that this reference is modeled on.",
+        "retrieval": {
+          "url": "https://raw.githubusercontent.com/canton-foundation/cips/main/cip-0097/cip-0097.md",
+          "method": "GET",
+          "auth": { "scheme": "none" }
+        }
+      }
+    },
+    {
+      "id": "ev_coin_fv_package",
+      "type": "vwpPackage",
+      "title": "Referenced ASC 820 fair value support package for Canton Coin at signing (0.0033 USD/CC, Level 3)",
+      "sourceSystem": "vwp",
+      "externalRef": {
+        "system": "vwp",
+        "locator": "../asc820-coin-fv/canton-coin-fv.vwp#c_cc_fair_value",
+        "locatorType": "vwp-ref",
+        "description": "Sibling VWP package concluding the per-coin fair value consumed here as noncash consideration. Its own judgment j_cc_fv_hierarchy is reviewRequired."
+      },
+      "sha256": "a23baccdadcaca9475ada38eb962969d2aabfd4d499a7cfc68cffc24ce4ad50d",
+      "retrievedAt": "2026-07-24T00:00:00Z",
+      "accessNotes": "Cross-package reference. The consuming package inherits the review status of the referenced fair value conclusion."
+    },
+    {
+      "id": "ev_bitwave_engagement_source",
+      "type": "referenceDocument",
+      "title": "Bitwave long-lived engagement source record for the DTCC/Canton milestone arrangement (access-controlled)",
+      "sourceSystem": "bitwave",
+      "externalRef": {
+        "system": "bitwave",
+        "locator": "https://api.bitwave.io/vwp/engagements/dtcc-canton-milestone/sources/milestone-agreement",
+        "locatorType": "url",
+        "description": "Authoritative, long-lived copy of the milestone agreement held in Bitwave. Retrievable by an authorized reviewer with a bearer token; the package carries only where to get the token, never the token itself.",
+        "retrieval": {
+          "url": "https://api.bitwave.io/vwp/engagements/dtcc-canton-milestone/sources/milestone-agreement",
+          "method": "GET",
+          "auth": {
+            "scheme": "bearer",
+            "header": "Authorization",
+            "tokenHint": "env:BITWAVE_VWP_TOKEN",
+            "discovery": "https://api.bitwave.io/.well-known/oauth-protected-resource",
+            "scopes": ["vwp:read"]
+          },
+          "contentHash": "c2d282ab43fb5957ea1ca200252eaab5450e9e2c008bdc8389e5e5a595b27be9"
+        }
+      },
+      "retrievedAt": "2026-07-24T00:00:00Z",
+      "accessNotes": "Illustrative Bitwave endpoint. contentHash pins the expected bytes (here, the same content as the local milestone-agreement excerpt) so an online verifier can confirm the live URL still serves the exact evidence."
+    }
+  ]
+}

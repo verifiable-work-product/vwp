@@ -46,9 +46,17 @@ treated as failures.
 - **Extension validators** — run when the manifest declares an extension: narrow,
   domain-specific rules (see [profiles.md](profiles.md)).
 
-Validators are deterministic. A validator MUST produce the same status for the same
-package bytes, MUST NOT require network access or model inference, and MUST NOT execute
-package contents.
+Core, profile, and extension validators are deterministic. A validator MUST produce the
+same status for the same package bytes, MUST NOT require network access or model
+inference, and MUST NOT execute package contents.
+
+**Online checks** are a separate, opt-in class that MAY access the network (e.g.
+`core.externalRefs.reachable`, which fetches `externalRef.retrieval.url` with the declared
+auth and compares `contentHash`). Online checks are environment-dependent — their result
+depends on network reachability and available credentials — so they are **never** part of
+default verification, MUST be explicitly enabled by the operator, and their outcomes MUST
+be reported as distinct from the deterministic core result. Credentials are supplied by the
+operator at run time (gathered per origin, over the top); a package never carries a secret.
 
 Analysis attestations (see [attestations.md](attestations.md)) are not validators.
 Verifiers schema-check attestation parts like any other part
@@ -58,9 +66,9 @@ affects any validation status.
 ## 5. Implemented validator ids
 
 The validator ids below are implemented today by the reference TypeScript CLI
-(`cli/src/lib/validations.ts`). Independent implementations — including the Go SDK in
-development at Bitwave, to be upstreamed under `sdk/go` — MUST agree on these ids and
-their semantics, so that reports from different verifiers are comparable.
+(`cli/src/lib/validations.ts`) and by the Go SDK in this repository (`sdk/go`).
+Independent implementations MUST agree on these ids and their semantics, so that
+reports from different verifiers are comparable.
 
 ### Core validators
 
@@ -81,6 +89,7 @@ their semantics, so that reports from different verifiers are comparable.
 | `core.validations.schemaValid` | Every shipped validation result validates against the validation schema (when present). |
 | `core.attestations.schemaValid` | Every `attestations/*.json` part validates against the analysis-attestation schema (when present). Attestation content never otherwise affects verification. |
 | `core.evidenceRefs.resolve` | Evidence `path`s exist with matching hashes; `derivedFrom`, fact `evidenceRefs`, and claim `supportingEvidence` resolve to evidence ids. |
+| `core.externalRefs.wellFormed` | Offline shape check of `externalRef.retrieval`: `url`/`discovery` are valid URIs when `locatorType` is `url`, `auth.scheme` is recognized (`bearer`/`none` warn otherwise), and — critically — `auth.tokenHint` is a source reference, not a literal secret. An embedded secret **fails**; a malformed URL or unknown scheme **warns**. Never accesses the network. |
 | `core.factAnchors.quotesMatch` | Quote anchors appear in the cited text evidence after normalization; warns on quotes against binary or external evidence. |
 | `core.claimRefs.resolve` | Claim `supportingFacts`, `judgments`, and `supportingCalculations` resolve to objects in the package. |
 | `core.signatures.present` | Warns when the package carries no signature (informational in v0.1). |

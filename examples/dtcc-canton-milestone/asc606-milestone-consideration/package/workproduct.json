@@ -1,0 +1,15 @@
+{
+  "id": "wp_dtcc_canton_milestone_consideration_2026",
+  "title": "ASC 606 Milestone Noncash Consideration - DTCC / Canton Coin Arrangement",
+  "domain": "finance",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc606",
+  "standardRefs": ["ASC 606"],
+  "entity": { "id": "entity_dtcc", "name": "DTCC (illustrative)" },
+  "period": { "start": "2026-01-15", "end": "2026-12-31" },
+  "subject": { "type": "customerContract", "id": "contract_dtcc_canton_milestone" },
+  "conclusionSummary": "Analyzes the DTCC/Canton 10,000,000 Canton Coin milestone arrangement (M1 press release 2M; M2 go-live 6M; M3 volume threshold 2M). Concludes: (1) the coin is not transferred at signing but is unminted and committee-gated, so DTCC has no asset or control at inception; (2) the arrangement is noncash consideration for services rendered to the network; (3) fair value is measured at each Accountability Committee approval/mint date, not fixed at inception; (4) at the referenced Level 3 fair value of 0.0033 USD/CC the total earnable consideration is 33,000 USD, recognized milestone-by-milestone. Illustrative data; two judgments and the referenced fair value are reviewRequired.",
+  "status": "inReview",
+  "createdBy": { "type": "agent", "name": "claude-code", "version": "opus-4-8" },
+  "reviewState": "inReview"
+}

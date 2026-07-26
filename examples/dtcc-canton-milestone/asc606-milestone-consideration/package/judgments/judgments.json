@@ -1,0 +1,40 @@
+{
+  "judgments": [
+    {
+      "id": "j_arrangement_type",
+      "topic": "Characterization of the DTCC/Canton milestone arrangement",
+      "question": "Is the coin earned under this arrangement noncash consideration for services rendered to the network, or a conditional nonmonetary grant/incentive?",
+      "proposedConclusion": "Noncash consideration for services rendered to the network. DTCC earns coin by delivering participation and deliverables that benefit the Canton Network (a joint announcement, a production go-live, and driving settlement volume). This is an exchange of services for noncash consideration, best analogized to ASC 606-10-32-21 (measure noncash consideration at fair value), rather than a pure grant.",
+      "basis": "The milestones are performance deliverables that provide value to the network counterparty (f_milestones); the arrangement is a bilateral agreement with the Canton Foundation (f_arrangement).",
+      "alternatives": [
+        {
+          "conclusion": "Conditional nonmonetary grant / incentive with performance conditions",
+          "notes": "Rejected as the primary model. Would recognize when conditions are met and receipt is probable. The economic substance here is closer to compensation for services benefiting the network than to a unilateral grant, but the recognition timing under either model converges on milestone approval."
+        }
+      ],
+      "riskLevel": "medium",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "status": "reviewRequired"
+    },
+    {
+      "id": "j_measurement_date",
+      "topic": "Measurement date and recognition timing for milestone coin",
+      "question": "Is the coin's fair value measured once at contract inception (2026-01-15), or separately at each milestone's Accountability Committee approval / mint date?",
+      "proposedConclusion": "Measure at each milestone's approval/mint date, not at inception. The coin is unminted and DTCC has no control until the Accountability Committee confirms the milestone and two-thirds of Super Validator operators mint it. The right to the coin is contingent on a governance approval outside DTCC's unilateral control, so the variable-consideration constraint (ASC 606-10-32-11) is not overcome, and no asset is obtained, until approval. Recognition and measurement therefore occur milestone-by-milestone on each approval/mint date.",
+      "basis": "Coin is unminted until release and DTCC neither owns nor controls it at signing (f_unminted_until_release, f_no_control_at_inception); release requires committee confirmation and a two-thirds SV mint (f_committee_gate). This mirrors performance-condition logic (an award whose vesting depends on a condition outside the counterparty's control is measured/recognized when the condition is resolved).",
+      "alternatives": [
+        {
+          "conclusion": "Measure all 10,000,000 CC once at inception (2026-01-15) and treat milestones only as recognition-timing gates",
+          "notes": "Rejected. Although ASC 606-10-32-21 measures noncash consideration at inception when the entity has a right to it, here there is no right, asset, or control at inception because the coin is unminted and committee-gated. Fixing value at inception would recognize consideration DTCC cannot yet compel and would ignore the contingency. Retained as an alternative because an entity could elect an inception-measurement policy if it concluded the right was substantive at signing."
+        },
+        {
+          "conclusion": "Do not recognize until all three milestones are complete",
+          "notes": "Rejected. Each milestone is separately verified, approved, and minted, so consideration is earned and measured milestone-by-milestone, not only in aggregate."
+        }
+      ],
+      "riskLevel": "high",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "status": "reviewRequired"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "evidence": [
+    {
+      "id": "ev_network_gas_price",
+      "type": "pricingRecord",
+      "title": "Canton Network published coin fee-reference price at signing (0.0005 USD/CC) - illustrative",
+      "sourceSystem": "canton-network-protocol-parameters",
+      "path": "evidence/network-gas-price.txt",
+      "retrievedAt": "2026-01-15T00:00:00Z",
+      "accessNotes": "Protocol-set fee-denomination parameter, not an exchange quote. No order book or settled arm's-length trade behind it."
+    },
+    {
+      "id": "ev_otc_telegram_quotes",
+      "type": "pricingRecord",
+      "title": "Informal OTC Canton Coin quotes and self-reported trades from Telegram channels, Jan 2026 - illustrative",
+      "sourceSystem": "telegram-otc-channels",
+      "path": "evidence/otc-telegram-quotes.csv",
+      "retrievedAt": "2026-01-20T00:00:00Z",
+      "accessNotes": "Informal peer-to-peer asks, bids, and self-reported off-chain trades captured from Telegram OTC channels around the 2026-01-15 signing date. Not an exchange; not binding; thin volume; counterparties and settlement unverified. Weak but corroborating Level 3 evidence of a secondary market above the fee-reference price."
+    }
+  ]
+}

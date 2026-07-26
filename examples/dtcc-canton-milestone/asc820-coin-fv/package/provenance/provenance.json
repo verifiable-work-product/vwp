@@ -1,0 +1,18 @@
+{
+  "createdAt": "2026-07-24T00:00:00Z",
+  "createdBy": { "type": "agent", "name": "claude-code", "version": "opus-4-8" },
+  "toolchain": [
+    { "name": "vwp-cli", "version": "0.1.0" }
+  ],
+  "models": [
+    { "provider": "anthropic", "name": "claude-opus-4-8", "version": "claude-opus-4-8[1m]" }
+  ],
+  "policyVersions": [
+    { "id": "illustrative-valuation-policy", "version": "2026.01" }
+  ],
+  "sourceSystems": [
+    { "name": "canton-network-protocol-parameters", "description": "Canton Network published fee-reference parameter (illustrative)" },
+    { "name": "telegram-otc-channels", "description": "Informal OTC quote channels captured off-platform (illustrative)" }
+  ],
+  "notes": "Illustrative package. The 0.0005 USD/CC fee-reference price is modeled on the real Canton Network fee-denomination mechanism; the OTC quotes are synthetic stand-ins for Telegram-sourced sale messages. Replace with real captured evidence before any reliance. Exact producing model recorded per exact-model-identification policy so an auditor may challenge with a different model."
+}

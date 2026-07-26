@@ -45,9 +45,13 @@ profile defines:
 `existence`, `occurrence`, `completeness`, `valuationAllocation`,
 `rightsAndObligations`, `presentationDisclosure`
 
-Other profiles define their own vocabularies (see [profiles.md](profiles.md)). Core
-verification treats `assertions` as opaque strings; profile validators enforce membership
-in the declared vocabulary.
+Other profiles define their own vocabularies (see [profiles.md](profiles.md)). An
+extension MAY add values to its profile's vocabulary for packages declaring it: the
+`vwp-finance-forecast` extension adds `estimate` for forward-looking claims, which
+assert the integrity of a derivation rather than a past or present state (see
+[profiles/finance/forecast.md](../profiles/finance/forecast.md)). Core verification
+treats `assertions` as opaque strings; profile validators enforce membership in the
+declared vocabulary.
 
 ## 5. Example
 

@@ -1,0 +1,70 @@
+{
+  "facts": [
+    {
+      "id": "f_gas_price",
+      "statement": "At the 2026-01-15 signing date, the only published on-network Canton Coin price was a fee-denomination reference of USD 0.0005 per CC, used to convert the USD fee schedule into coin for paying network (gas) fees.",
+      "factType": "asc820.pricingInput",
+      "value": { "amount": 0.0005, "currency": "USD", "unit": "per CC" },
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_network_gas_price",
+          "anchors": [
+            { "quote": "Canton Coin (CC) fee-reference price: USD 0.0005 per CC" }
+          ]
+        }
+      ],
+      "extractionMethod": "manual",
+      "confidence": 1,
+      "requiresReview": false
+    },
+    {
+      "id": "f_gas_price_not_market",
+      "statement": "The published 0.0005 USD/CC figure is an administratively/protocol-set fee-conversion parameter, not an exchange quotation or arm's-length transaction price; there is no order book, bid/ask, or settled market trade behind it.",
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_network_gas_price",
+          "anchors": [
+            { "quote": "It is NOT an exchange quotation and does" },
+            { "quote": "willing seller. There is no order book, bid/ask, or settled trade behind this" }
+          ]
+        }
+      ],
+      "extractionMethod": "manual",
+      "confidence": 1,
+      "requiresReview": false
+    },
+    {
+      "id": "f_no_exchange_listing",
+      "statement": "At the signing date Canton Coin was not listed or traded on any public exchange; no active market existed for the coin.",
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_network_gas_price",
+          "anchors": [
+            { "quote": "At the signing date Canton Coin was not listed or traded on any public" }
+          ]
+        }
+      ],
+      "extractionMethod": "manual",
+      "confidence": 1,
+      "requiresReview": false
+    },
+    {
+      "id": "f_otc_secondary_market",
+      "statement": "Informal OTC channels show asks, bids, and self-reported settled trades for Canton Coin in the range of approximately 0.0030 to 0.0038 USD per CC in the two weeks around signing, with two self-reported settled trades at 0.0032 and 0.0033 USD per CC.",
+      "factType": "asc820.pricingInput",
+      "value": { "amount": 0.0033, "currency": "USD", "unit": "per CC", "range": { "low": 0.0030, "high": 0.0038 } },
+      "evidenceRefs": [
+        {
+          "evidenceId": "ev_otc_telegram_quotes",
+          "anchors": [
+            { "quote": "done 1M CC @ 0.0032 settled offchain", "lines": { "from": 4 } },
+            { "quote": "filled 500k CC @ 0.0033", "lines": { "from": 6 } }
+          ]
+        }
+      ],
+      "extractionMethod": "manual",
+      "confidence": 0.4,
+      "requiresReview": true
+    }
+  ]
+}

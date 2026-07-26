@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { verifyPackage, normalizeForQuoteMatch } from '../src/lib/validations';
+import {
+  verifyPackage,
+  normalizeForQuoteMatch,
+  collectRetrievalOrigins,
+  tokenHintLooksLikeSecret,
+} from '../src/lib/validations';
 import { buildPackage, baseFiles, statuses } from './helpers';
 
 function verify(files: Record<string, string | object | Buffer>) {
@@ -140,6 +145,113 @@ describe('quote anchors against unverifiable evidence', () => {
 
   it('normalizes curly quotes, dashes, and whitespace before matching', () => {
     expect(normalizeForQuoteMatch('“smart” — quotes  and\n spaces')).toBe('"smart" - quotes and spaces');
+  });
+});
+
+describe('core.externalRefs.wellFormed', () => {
+  function evFiles(externalRef: object) {
+    return baseFiles({
+      'evidence/evidence.json': {
+        evidence: [{ id: 'ev_ext', type: 'referenceDocument', title: 'T', externalRef }],
+      },
+    });
+  }
+
+  it('passes for a well-formed url ref with bearer auth and a source tokenHint', () => {
+    const { byId } = verify(
+      evFiles({
+        locatorType: 'url',
+        locator: 'https://api.bitwave.io/x',
+        retrieval: {
+          url: 'https://api.bitwave.io/x',
+          auth: { scheme: 'bearer', tokenHint: 'env:BITWAVE_VWP_TOKEN' },
+        },
+      })
+    );
+    expect(byId.get('core.externalRefs.wellFormed')).toBe('pass');
+  });
+
+  it('fails hard when tokenHint embeds a literal secret', () => {
+    const { report, byId } = verify(
+      evFiles({
+        locatorType: 'url',
+        locator: 'https://api.bitwave.io/x',
+        retrieval: { url: 'https://api.bitwave.io/x', auth: { scheme: 'bearer', tokenHint: 'sk-live-REALSECRET' } },
+      })
+    );
+    expect(byId.get('core.externalRefs.wellFormed')).toBe('fail');
+    expect(report.valid).toBe(false);
+  });
+
+  it('warns on a malformed retrieval url and an unknown auth scheme', () => {
+    const badUrl = verify(
+      evFiles({ locatorType: 'url', locator: 'https://h/x', retrieval: { url: 'not a url' } })
+    );
+    expect(badUrl.byId.get('core.externalRefs.wellFormed')).toBe('warning');
+
+    const unknownScheme = verify(
+      evFiles({
+        locatorType: 'url',
+        locator: 'https://h/x',
+        retrieval: { url: 'https://h/x', auth: { scheme: 'dpop', tokenHint: 'env:T' } },
+      })
+    );
+    expect(unknownScheme.byId.get('core.externalRefs.wellFormed')).toBe('warning');
+  });
+
+  it('reports notRun when no retrieval metadata is declared', () => {
+    const { byId } = verify(evFiles({ system: 'S', locator: 'x', locatorType: 'opaque' }));
+    expect(byId.get('core.externalRefs.wellFormed')).toBe('notRun');
+  });
+
+  it('collects distinct origins with their auth requirements and discovery', () => {
+    const pkg = buildPackage(
+      baseFiles({
+        'evidence/evidence.json': {
+          evidence: [
+            {
+              id: 'ev_gh',
+              type: 'referenceDocument',
+              title: 'gh',
+              externalRef: { locatorType: 'url', locator: 'https://raw.githubusercontent.com/a', retrieval: { url: 'https://raw.githubusercontent.com/a', auth: { scheme: 'none' } } },
+            },
+            {
+              id: 'ev_bw1',
+              type: 'referenceDocument',
+              title: 'bw1',
+              externalRef: {
+                locatorType: 'url',
+                locator: 'https://api.bitwave.io/1',
+                retrieval: { url: 'https://api.bitwave.io/1', auth: { scheme: 'bearer', tokenHint: 'env:BW', discovery: 'https://api.bitwave.io/.well-known/oauth-protected-resource', scopes: ['vwp:read'] } },
+              },
+            },
+            {
+              id: 'ev_bw2',
+              type: 'referenceDocument',
+              title: 'bw2',
+              externalRef: { locatorType: 'url', locator: 'https://api.bitwave.io/2', retrieval: { url: 'https://api.bitwave.io/2', auth: { scheme: 'bearer', tokenHint: 'env:BW' } } },
+            },
+          ],
+        },
+      })
+    );
+    const origins = collectRetrievalOrigins(pkg);
+    expect(origins.length).toBe(2);
+    const bw = origins.find((o) => o.origin === 'https://api.bitwave.io')!;
+    expect(bw.requiresAuth).toBe(true);
+    expect(bw.schemes).toEqual(['bearer']);
+    expect(bw.discovery).toBe('https://api.bitwave.io/.well-known/oauth-protected-resource');
+    expect(bw.scopes).toEqual(['vwp:read']);
+    const gh = origins.find((o) => o.origin === 'https://raw.githubusercontent.com')!;
+    expect(gh.requiresAuth).toBe(false);
+  });
+
+  it('tokenHintLooksLikeSecret distinguishes source references from literals', () => {
+    expect(tokenHintLooksLikeSecret('env:X')).toBe(false);
+    expect(tokenHintLooksLikeSecret('vault:secret/x')).toBe(false);
+    expect(tokenHintLooksLikeSecret('none')).toBe(false);
+    expect(tokenHintLooksLikeSecret('sk-live-abc')).toBe(true);
+    expect(tokenHintLooksLikeSecret('Bearer abc.def')).toBe(true);
   });
 });
 

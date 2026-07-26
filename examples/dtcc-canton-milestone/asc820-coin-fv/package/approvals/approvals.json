@@ -1,0 +1,13 @@
+{
+  "approvals": [
+    {
+      "id": "ap_cc_fv_pending",
+      "approver": { "name": "Unassigned valuation reviewer" },
+      "role": "valuation-reviewer",
+      "action": "acknowledged",
+      "timestamp": "2026-07-24T00:00:00Z",
+      "scope": "j_cc_fv_hierarchy",
+      "comments": "Routed for review, not yet approved. The Level 3 input-selection judgment (reject fee-reference price; adopt 0.0033 USD/CC from thin OTC evidence) awaits valuation-reviewer approval before the per-coin fair value is treated as final."
+    }
+  ]
+}
