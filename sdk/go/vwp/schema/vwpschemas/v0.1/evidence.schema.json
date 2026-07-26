@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/evidence.schema.json",
+  "title": "VWP Evidence",
+  "description": "An evidence reference: a source record supporting facts and claims. May point to a package-local file (path) or an external system (externalRef).",
+  "type": "object",
+  "required": ["id", "type", "title"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "type": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "sourceSystem": { "type": "string" },
+    "path": {
+      "type": "string",
+      "description": "Forward-slash relative path to a package-local evidence file."
+    },
+    "externalRef": {
+      "type": "object",
+      "description": "A reference to a record held outside the package. 'locator' is a free-form string; set 'locatorType' to declare how to interpret it, and 'retrieval' to describe how (and with what auth) a long-lived URL is fetched.",
+      "properties": {
+        "system": { "type": "string" },
+        "locator": { "type": "string" },
+        "locatorType": {
+          "type": "string",
+          "description": "How to interpret 'locator'. 'url' triggers URI validation and enables the 'retrieval' block; 'path' is a filesystem/relative path; 'vwp-ref' is a cross-package reference (e.g. other.vwp#objectId); 'opaque' is any other identifier (docket, ticket, S3 key).",
+          "enum": ["url", "path", "vwp-ref", "opaque"]
+        },
+        "description": { "type": "string" },
+        "retrieval": {
+          "type": "object",
+          "description": "How to retrieve this reference over the network. Metadata only: the package never carries the secret needed to actually authenticate.",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Absolute URL to fetch. Should be long-lived/stable for referenced evidence."
+            },
+            "method": {
+              "type": "string",
+              "enum": ["GET", "POST", "HEAD"],
+              "default": "GET"
+            },
+            "auth": {
+              "type": "object",
+              "description": "How a retriever authenticates. Aligned to RFC 6750 (Bearer token usage) and RFC 9728 (OAuth 2.0 protected-resource metadata discovery).",
+              "properties": {
+                "scheme": {
+                  "type": "string",
+                  "description": "Auth scheme. 'bearer' (RFC 6750) and 'none' are defined; other non-empty strings are permitted for forward compatibility and interpreted by the retriever.",
+                  "minLength": 1
+                },
+                "header": {
+                  "type": "string",
+                  "description": "Request header carrying the credential.",
+                  "default": "Authorization"
+                },
+                "tokenHint": {
+                  "type": "string",
+                  "description": "WHERE the retriever obtains the credential — never the credential itself. Use a source scheme such as 'env:VAR_NAME', 'vault:path/to/secret', 'oauth:client-id', 'keychain:item', or 'prompt:label'. A literal secret here is a validation failure.",
+                  "pattern": "^(env:|vault:|oauth:|keychain:|prompt:|none$)"
+                },
+                "discovery": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "RFC 9728 protected-resource metadata URL (typically '<origin>/.well-known/oauth-protected-resource'), from which a retriever learns the authorization server, supported token types, and required scopes."
+                },
+                "scopes": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "description": "OAuth scopes a retriever must request to access this resource."
+                }
+              },
+              "additionalProperties": true
+            },
+            "contentHash": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "description": "SHA-256 the retrieved bytes are expected to match. Turns a live long-lived URL into verifiable evidence: an online retriever fetches, hashes, and compares."
+            },
+            "retrievedSnapshotAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When the bytes behind 'contentHash' were last retrieved and hashed."
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "derivedFrom": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Evidence id this object was mechanically derived from (e.g. a text extraction of a PDF, an OCR of a screenshot). The original remains the authoritative source; the derived layer exists so facts can anchor into verifiable text."
+    },
+    "transform": {
+      "type": "object",
+      "description": "How the derived evidence was produced from its source. Required in spirit whenever derivedFrom is set, so the derivation is reproducible and challengeable.",
+      "required": ["tool"],
+      "properties": {
+        "tool": { "type": "string", "minLength": 1 },
+        "version": { "type": "string" },
+        "method": { "type": "string", "description": "e.g. 'pdf-text-extraction', 'ocr', 'xlsx-to-csv'." }
+      },
+      "additionalProperties": true
+    },
+    "retrievedAt": { "type": "string", "format": "date-time" },
+    "periodCovered": {
+      "type": "object",
+      "properties": {
+        "start": { "type": "string" },
+        "end": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "accessNotes": { "type": "string" }
+  },
+  "anyOf": [
+    { "required": ["path"] },
+    { "required": ["externalRef"] }
+  ]
+}

@@ -21,6 +21,12 @@ will change based on feedback and real-world use.
   Published as `schemas/v0.1/analysis-attestation.schema.json` with
   [`spec/attestations.md`](./spec/attestations.md); the CLI schema-checks
   `attestations/*.json` parts.
+- Go SDK (originally a v0.3 item): a full implementation under
+  [`sdk/go`](./sdk/go) — package container with untrusted-input
+  protections, integrity verification, every validator id from the
+  conformance table in [`spec/validations.md`](./spec/validations.md),
+  and an idempotent package builder. Its embedded schema copy is
+  drift-tested against `schemas/v0.1` in CI.
 - Intra-file evidence anchors (originally a v0.3 item): optional `anchors[]`
   on fact evidence references — composable per-chunk locators (`quote`,
   `page`, `lines`, `cells`, `charSpan`, `byteRange`, `section`, `jsonPath`,
@@ -39,10 +45,15 @@ will change based on feedback and real-world use.
 - Package conformance tests
 - Finance profile validators (assertion coverage, support coverage, review surfacing)
 - ASC 606 and digital-asset validator improvements
+- Forecast extension (`vwp-finance-forecast`) validator implementations — register
+  schema/presence, scenario-calculation and assumption-judgment linkage, input
+  freshness relative to the as-of date, horizon coverage, back-test resolution
+  (specified in [`profiles/finance/forecast.md`](./profiles/finance/forecast.md))
+  — plus a synthetic example package (e.g. a validator-rewards forecast)
 
 ## v0.3 — Ecosystem
 
-- Python and Go SDKs (currently stubs under `sdk/`)
+- Python SDK (currently a stub under `sdk/python`)
 - More domain profiles beyond finance/audit/controls/digital assets
 - Evidence locator standard (stable addressing of external evidence; the
   intra-file anchor portion — line/character spans, pages, cell ranges —

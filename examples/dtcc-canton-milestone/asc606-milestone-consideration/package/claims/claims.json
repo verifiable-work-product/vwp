@@ -1,0 +1,68 @@
+{
+  "claims": [
+    {
+      "id": "c_arrangement_exists",
+      "statement": "A milestone participation arrangement exists between DTCC and the Canton Foundation dated 2026-01-15 under which DTCC may earn up to 10,000,000 Canton Coin across three milestones.",
+      "domain": "finance",
+      "standardRefs": ["ASC 606-10-25-1"],
+      "assertions": ["occurrence", "rightsAndObligations"],
+      "supportingFacts": ["f_arrangement", "f_milestones"],
+      "supportingEvidence": ["ev_milestone_agreement"],
+      "conclusion": "Arrangement exists as of 2026-01-15; coin is earnable, not granted upfront.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "c_not_transferred_at_signing",
+      "statement": "No Canton Coin is transferred, owned, or controlled by DTCC at signing. Coin for each milestone is unminted in the Unclaimed Rewards pool until the Accountability Committee confirms the milestone and two-thirds of Super Validator operators mint it.",
+      "domain": "finance",
+      "standardRefs": ["ASC 606-10-25-30", "ASC 606-10-32-11"],
+      "assertions": ["rightsAndObligations", "occurrence"],
+      "supportingFacts": ["f_unminted_until_release", "f_committee_gate", "f_no_control_at_inception"],
+      "supportingEvidence": ["ev_milestone_agreement", "ev_cip_mechanism"],
+      "conclusion": "No asset or control at inception; the right to coin is contingent on committee-gated release.",
+      "status": "supported",
+      "requiresReview": false
+    },
+    {
+      "id": "c_arrangement_characterization",
+      "statement": "The arrangement is characterized as noncash consideration for services rendered to the network, measured at the fair value of the coin, rather than as a pure nonmonetary grant.",
+      "domain": "finance",
+      "standardRefs": ["ASC 606-10-32-21"],
+      "assertions": ["valuationAllocation"],
+      "supportingFacts": ["f_arrangement", "f_milestones"],
+      "supportingEvidence": ["ev_milestone_agreement"],
+      "judgments": ["j_arrangement_type"],
+      "conclusion": "Noncash-consideration-for-services model adopted; grant treatment recorded as rejected alternative.",
+      "status": "proposed",
+      "requiresReview": true
+    },
+    {
+      "id": "c_measurement_date",
+      "statement": "Coin fair value is measured at each milestone's Accountability Committee approval / mint date, not fixed at contract inception, because DTCC obtains neither the asset nor control until that release event.",
+      "domain": "finance",
+      "standardRefs": ["ASC 606-10-32-11", "ASC 606-10-32-21", "ASC 606-10-32-23"],
+      "assertions": ["valuationAllocation", "occurrence"],
+      "supportingFacts": ["f_unminted_until_release", "f_no_control_at_inception", "f_committee_gate"],
+      "supportingEvidence": ["ev_milestone_agreement", "ev_cip_mechanism"],
+      "judgments": ["j_measurement_date"],
+      "conclusion": "Measure and recognize milestone-by-milestone at approval/mint; inception measurement recorded as rejected alternative.",
+      "status": "proposed",
+      "requiresReview": true
+    },
+    {
+      "id": "c_consideration_amount",
+      "statement": "Using the referenced Level 3 fair value of 0.0033 USD per coin, the total earnable noncash consideration is 33,000 USD (M1 6,600; M2 19,800; M3 6,600), recognized as each milestone is approved and minted. This figure moves proportionally with the per-coin fair value and with the reviewRequired status of that input.",
+      "domain": "finance",
+      "standardRefs": ["ASC 606-10-32-21"],
+      "assertions": ["valuationAllocation"],
+      "supportingFacts": ["f_coin_fair_value", "f_milestones"],
+      "supportingEvidence": ["ev_coin_fv_package"],
+      "supportingCalculations": ["calc_milestone_consideration"],
+      "judgments": ["j_measurement_date"],
+      "conclusion": "Total 33,000 USD at 0.0033 USD/CC, per-milestone per the calculation; provisional pending the referenced fair value review and the measurement-date judgment. NOTE: at the rejected 0.0005 USD/CC gas price the total would be only 5,000 USD.",
+      "status": "proposed",
+      "requiresReview": true
+    }
+  ]
+}

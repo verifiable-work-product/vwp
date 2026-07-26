@@ -1,0 +1,32 @@
+CANTON COIN MILESTONE PARTICIPATION AGREEMENT — EXCERPT (ILLUSTRATIVE)
+Parties: DTCC (Applicant) and the Canton Foundation
+Signing date: 2026-01-15
+
+RECITAL
+  The Applicant may earn up to 10,000,000 Canton Coin (CC) by achieving the
+  milestones set out below. Canton Coin is not transferred at signing. Coin
+  associated with each milestone remains UNMINTED and held in the network's
+  Unclaimed Rewards pool until the milestone is verified and released.
+
+SECTION 2 — MILESTONES AND ASSOCIATED COIN
+  Milestone 1 — Announcement:      publication of a joint press release.        2,000,000 CC
+  Milestone 2 — Go-live:           production go-live of the Applicant's
+                                   application on Canton.                        6,000,000 CC
+  Milestone 3 — Volume threshold:  cumulative on-network settlement reaching
+                                   the stated USD volume threshold.             2,000,000 CC
+  Total earnable:                                                              10,000,000 CC
+
+SECTION 3 — RELEASE MECHANISM (ON-CHAIN, COMMITTEE-GATED)
+  3.1  For each milestone, the Applicant must present proof of successful
+       completion to the Tokenomics Working Group and must present a
+       calculation for the number of Canton Coin it should earn for meeting
+       the requirements of that milestone.
+  3.2  The Accountability Committee will confirm whether the Applicant has
+       successfully met each milestone.
+  3.3  If the Tokenomics Working Group agrees the milestone has been met and
+       agrees with the calculation, an announcement is issued and two-thirds
+       of Super Validator operators assign the approved portion of the
+       Unclaimed Rewards to be minted to the Applicant.
+  3.4  Coin is neither owned nor controlled by the Applicant, and remains
+       unminted, until the release in Section 3.3 occurs. Unearned amounts are
+       subject to removal.

@@ -1,0 +1,26 @@
+{
+  "validations": [
+    {
+      "id": "val_820_measurements_present",
+      "validator": "vwp-accounting-asc820/measurements@0.1",
+      "scope": "facts/fair-value-measurements.json",
+      "status": "pass",
+      "message": "Measurement register present with one Canton Coin measurement."
+    },
+    {
+      "id": "val_820_level3_judgment_linked",
+      "validator": "vwp-accounting-asc820/level3@0.1",
+      "scope": "m_cc_2026_01_15",
+      "status": "pass",
+      "message": "Level 3 measurement links resolvable hierarchy/unobservable-inputs judgment j_cc_fv_hierarchy."
+    },
+    {
+      "id": "val_820_fv_review",
+      "validator": "vwp-finance/requiredJudgments@0.1",
+      "scope": "j_cc_fv_hierarchy",
+      "status": "reviewRequired",
+      "severity": "high",
+      "message": "Per-coin fair value rests on a reviewRequired Level 3 input-selection judgment over thin, self-reported OTC evidence."
+    }
+  ]
+}

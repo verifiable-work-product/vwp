@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/fact.schema.json",
+  "title": "VWP Fact",
+  "description": "An extracted or computed observation supported by evidence. Facts are observations, not conclusions.",
+  "type": "object",
+  "required": ["id", "statement", "evidenceRefs"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "statement": { "type": "string", "minLength": 1 },
+    "factType": {
+      "type": "string",
+      "description": "Optional namespaced type for the fact (e.g. 'asc606.transactionPrice'). Extensions may declare fact types and validate 'value' against a declared shape, and may require specific fact types for a work product type."
+    },
+    "value": {
+      "description": "Optional structured value for the fact (number, string, boolean, or object). See spec/facts.md for conventional shapes (money, quantity, period)."
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          { "type": "string", "minLength": 1 },
+          {
+            "type": "object",
+            "required": ["evidenceId"],
+            "properties": {
+              "evidenceId": { "type": "string", "minLength": 1 },
+              "anchors": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "$ref": "#/$defs/anchor" },
+                "description": "Locations inside the cited evidence, one anchor per chunk. Fields within an anchor compose to describe a single chunk; multiple chunks are multiple anchors."
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      },
+      "description": "References to supporting evidence: either a bare evidence id, or an object with anchors locating the observation inside the evidence. The file itself is addressed by the evidence object the id resolves to (its path/sha256), never by the anchor."
+    },
+    "extractionMethod": {
+      "type": "string",
+      "description": "How the fact was obtained, e.g. 'manual', 'deterministic-parser', 'model-extraction'."
+    },
+    "extractionModel": {
+      "type": "object",
+      "description": "When a model extracted this fact, the exact model used. Lets reviewers challenge model-extracted facts with a different model than the one that produced them.",
+      "required": ["provider", "name", "version"],
+      "properties": {
+        "provider": { "type": "string", "minLength": 1 },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Exact model identifier as published by the provider, not a family or marketing name."
+        },
+        "version": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "requiresReview": { "type": "boolean" }
+  },
+  "$defs": {
+    "anchor": {
+      "type": "object",
+      "description": "Locates one chunk of the referenced evidence. All fields optional and composable; 'quote' enables deterministic verification against text evidence, the rest are advisory locators.",
+      "properties": {
+        "quote": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Verbatim excerpt from the evidence supporting the fact. For text evidence, verifiers check (after whitespace/punctuation normalization) that the quote appears in the evidence bytes."
+        },
+        "page": { "type": "integer", "minimum": 1 },
+        "lines": {
+          "type": "object",
+          "description": "1-based line range. When 'page' is also set, lines are relative to that page (a pin cite: page 7, lines 12-14); otherwise they are global to the text evidence.",
+          "required": ["from"],
+          "properties": {
+            "from": { "type": "integer", "minimum": 1 },
+            "to": { "type": "integer", "minimum": 1 }
+          },
+          "additionalProperties": false
+        },
+        "cells": {
+          "type": "object",
+          "required": ["range"],
+          "properties": {
+            "sheet": { "type": "string" },
+            "range": { "type": "string", "description": "A1-style cell or range, e.g. 'B7' or 'B7:D9'." }
+          },
+          "additionalProperties": false
+        },
+        "charSpan": {
+          "type": "object",
+          "description": "0-based character offsets into text evidence, end-exclusive.",
+          "required": ["start", "end"],
+          "properties": {
+            "start": { "type": "integer", "minimum": 0 },
+            "end": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "byteRange": {
+          "type": "object",
+          "description": "0-based byte offsets into the evidence bytes, end-exclusive.",
+          "required": ["start", "end"],
+          "properties": {
+            "start": { "type": "integer", "minimum": 0 },
+            "end": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "section": {
+          "type": "string",
+          "description": "Human-readable section/clause label, e.g. '2(a)' or 'Article IV'."
+        },
+        "jsonPath": { "type": "string" },
+        "region": {
+          "type": "object",
+          "description": "Pixel region for image evidence.",
+          "required": ["x", "y", "width", "height"],
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" },
+            "width": { "type": "number" },
+            "height": { "type": "number" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "validations": [
+    {
+      "id": "val_606_consideration_recompute",
+      "validator": "vwp-accounting-asc606/allocation@0.1",
+      "scope": "calc_milestone_consideration",
+      "status": "pass",
+      "message": "Per-milestone consideration recomputes: 2,000,000/6,000,000/2,000,000 CC x 0.0033 USD = 6,600/19,800/6,600; total 33,000 USD ties to 10,000,000 CC x 0.0033.",
+      "details": { "totalCoin": 10000000, "unitFairValue": 0.0033, "totalConsiderationUsd": 33000 }
+    },
+    {
+      "id": "val_606_arrangement_review",
+      "validator": "vwp-finance/requiredJudgments@0.1",
+      "scope": "j_arrangement_type",
+      "status": "reviewRequired",
+      "severity": "medium",
+      "message": "Arrangement characterization (noncash consideration for services vs grant) requires technical-accounting review."
+    },
+    {
+      "id": "val_606_measurement_review",
+      "validator": "vwp-finance/requiredJudgments@0.1",
+      "scope": "j_measurement_date",
+      "status": "reviewRequired",
+      "severity": "high",
+      "message": "Measurement-date judgment (each milestone approval/mint vs inception) requires technical-accounting review; drives both timing and amount."
+    },
+    {
+      "id": "val_606_referenced_fv_review",
+      "validator": "vwp-core/refgraph@0.1",
+      "scope": "ev_coin_fv_package",
+      "status": "reviewRequired",
+      "severity": "high",
+      "message": "Consideration amount depends on the referenced ASC 820 per-coin fair value (0.0033 USD/CC, Level 3), whose own judgment is reviewRequired. This package inherits that review status."
+    }
+  ]
+}

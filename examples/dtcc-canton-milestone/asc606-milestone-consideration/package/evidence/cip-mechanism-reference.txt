@@ -1,0 +1,25 @@
+CANTON IMPROVEMENT PROPOSAL (CIP) — MILESTONE/ESCROW MECHANISM REFERENCE (ILLUSTRATIVE)
+Modeled on the public Canton Improvement Proposal process for milestone-based
+Super Validator weight / Canton Coin awards (e.g. the Nasdaq CIP-0097 precedent).
+
+KEY MECHANICS (as reflected in the public CIP framework):
+  - "Total Earnable Weight: 10 (max)" — awards are capped and earned, not
+    granted upfront.
+  - "The specific deliverables and milestones ... have been agreed privately
+    with the Canton Foundation's Tokenomics and Accountability Committees."
+  - "Applicant is required to present proof of successful completed milestones
+    to the Tokenomics Working Group" and to "present a calculation for number
+    of Canton Coin it should earn for meeting the requirements of the milestone."
+  - "The Accountability Committee will confirm whether [the Applicant] has
+    successfully met each milestone."
+  - Rewards "will go to the Unclaimed Rewards pool" and "remain unminted until
+    milestones are approved, and unearned weight is subject to removal."
+  - On approval, "two-thirds of Super Validator Operators will then assign a
+    portion of the Unclaimed Rewards to be minted by the Applicant's Validator,
+    based on the calculation approved by the Tokenomics working group."
+
+ACCOUNTING-RELEVANT IMPLICATION:
+  Because coin is unminted and uncontrolled until committee confirmation and
+  the two-thirds SV minting action, the Applicant obtains neither the asset nor
+  control of it at signing. The right to the coin is contingent on a governance
+  approval event outside the Applicant's unilateral control.

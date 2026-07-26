@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/accounting-asc820/fair-value-measurements.schema.json",
+  "title": "ASC 820 Fair Value Measurement Register",
+  "description": "Extension schema for the vwp-accounting-asc820 extension: the fair value measurement register at facts/fair-value-measurements.json. Every measurement's pricing sources must resolve to evidence IDs, and every level 3 measurement must link a judgment (hierarchy leveling and unobservable inputs are professional judgment, not arithmetic) — enforced by the extension validators.",
+  "type": "object",
+  "required": ["measurements"],
+  "properties": {
+    "description": { "type": "string" },
+    "measurements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "asset", "measurementDate", "level", "fairValue", "pricingSourceEvidence"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "asset": { "type": "string", "minLength": 1 },
+          "quantity": { "type": "number" },
+          "measurementDate": { "type": "string" },
+          "level": {
+            "type": "string",
+            "enum": ["level1", "level2", "level3"],
+            "description": "Fair value hierarchy level. Level classification is a professional judgment; level3 measurements must carry a judgmentRef."
+          },
+          "valuationTechnique": { "type": "string" },
+          "fairValue": {
+            "type": "object",
+            "required": ["amount", "currency"],
+            "properties": {
+              "amount": { "type": "number" },
+              "currency": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": true
+          },
+          "pricingSourceEvidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" },
+            "description": "Evidence IDs for the pricing sources supporting this measurement."
+          },
+          "unobservableInputs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name"],
+              "properties": {
+                "name": { "type": "string", "minLength": 1 },
+                "value": {},
+                "basis": { "type": "string" }
+              },
+              "additionalProperties": true
+            },
+            "description": "Significant unobservable inputs (expected for level3 measurements)."
+          },
+          "judgmentRef": {
+            "type": "string",
+            "description": "Judgment ID covering level classification and unobservable inputs. Required by validators for level3."
+          },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

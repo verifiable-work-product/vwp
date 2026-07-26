@@ -1,0 +1,84 @@
+name: Deploy backend to Cloud Run
+
+# Deploys the Go verify API to Cloud Run in the verifiable-work-product project.
+# Authenticates via Workload Identity Federation (no long-lived JSON key).
+#
+# Required repository configuration (see backend/DEPLOY.md):
+#   Variables (Settings > Secrets and variables > Actions > Variables):
+#     GCP_PROJECT_ID        e.g. verifiable-work-product
+#     GCP_PROJECT_NUMBER    numeric project number
+#     GCP_REGION            e.g. us-central1
+#     CLOUD_RUN_SERVICE     e.g. vwp-api
+#     AR_REPO               Artifact Registry repo, e.g. vwp
+#     WIF_POOL              e.g. github-pool
+#     WIF_PROVIDER          e.g. github-provider
+#     DEPLOYER_SA           e.g. gh-deployer@verifiable-work-product.iam.gserviceaccount.com
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - backend/**
+      - sdk/go/**
+      - .github/workflows/deploy.yml
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-cloud-run
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Build & deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # required for Workload Identity Federation
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+          workload_identity_provider: projects/${{ vars.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/${{ vars.WIF_POOL }}/providers/${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.DEPLOYER_SA }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Compute image tag
+        id: img
+        run: |
+          echo "uri=${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.AR_REPO }}/${{ vars.CLOUD_RUN_SERVICE }}:${{ github.sha }}" >> "$GITHUB_OUTPUT"
+
+      # Build with Cloud Build. Context is the repo root and the Dockerfile is
+      # backend/Dockerfile, so the go.mod `replace` to sdk/go resolves.
+      - name: Build & push image (Cloud Build)
+        run: |
+          gcloud builds submit . \
+            --project "${{ vars.GCP_PROJECT_ID }}" \
+            --region "${{ vars.GCP_REGION }}" \
+            --config cloudbuild.yaml \
+            --substitutions "_IMAGE=${{ steps.img.outputs.uri }}" \
+            --quiet
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy "${{ vars.CLOUD_RUN_SERVICE }}" \
+            --project "${{ vars.GCP_PROJECT_ID }}" \
+            --region "${{ vars.GCP_REGION }}" \
+            --image "${{ steps.img.outputs.uri }}" \
+            --allow-unauthenticated \
+            --port 8080 \
+            --cpu 1 --memory 256Mi \
+            --min-instances 0 --max-instances 4 \
+            --set-env-vars "VWP_ALLOWED_ORIGINS=https://vwp.ac,https://www.vwp.ac" \
+            --quiet
+
+      - name: Show service URL
+        run: |
+          gcloud run services describe "${{ vars.CLOUD_RUN_SERVICE }}" \
+            --project "${{ vars.GCP_PROJECT_ID }}" \
+            --region "${{ vars.GCP_REGION }}" \
+            --format 'value(status.url)'

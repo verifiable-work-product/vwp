@@ -1,0 +1,18 @@
+CANTON NETWORK - PUBLISHED COIN PRICE FOR FEE DENOMINATION (SYNTHETIC / ILLUSTRATIVE)
+Source: Canton Network protocol fee-schedule reference (published on-network parameter)
+As of contract signing date: 2026-01-15
+
+Canton Coin (CC) fee-reference price: USD 0.0005 per CC  (i.e. "0.05 cents" per coin)
+
+Basis of this figure:
+  This value is the administratively/protocol-set unit price used to denominate
+  network transaction ("gas"/traffic) fees into Canton Coin. It is a utility
+  parameter used so that participants can convert a USD-denominated fee schedule
+  into a coin quantity for fee payment. It is NOT an exchange quotation and does
+  NOT represent an arm's-length transaction price between a willing buyer and a
+  willing seller. There is no order book, bid/ask, or settled trade behind this
+  number; it is set by the network for fee-conversion purposes.
+
+Notes:
+  At the signing date Canton Coin was not listed or traded on any public
+  exchange. The only published on-network number was this fee-reference price.

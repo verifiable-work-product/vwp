@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/digital-assets-wallet-ownership-control/wallets.schema.json",
+  "title": "Digital Asset Wallet Register",
+  "description": "Extension schema for the vwp-digital-assets-wallet-ownership-control extension: the structured wallet register at facts/wallets.json. This schema is structural; the conditional rules (included wallets need entity mapping evidence, included self-custody wallets need proof-of-control evidence, excluded wallets need an exclusion rationale, declared period-end balances need balance evidence) are enforced by the extension validators, which produce per-wallet messages.",
+  "type": "object",
+  "required": ["wallets"],
+  "properties": {
+    "description": { "type": "string" },
+    "wallets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "custody", "included"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "chain": { "type": "string" },
+          "addressOrAccount": { "type": "string" },
+          "custody": {
+            "type": "string",
+            "enum": ["self", "custodian", "other"]
+          },
+          "included": {
+            "type": "boolean",
+            "description": "Whether the wallet is included in the reporting population."
+          },
+          "entityId": { "type": "string" },
+          "entityMappingEvidence": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Evidence IDs supporting the wallet-to-entity mapping."
+          },
+          "proofOfControlEvidence": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Evidence IDs for proof-of-control records (e.g. a verified signed message). Demonstrates key control at a point in time, not legal or beneficial ownership."
+          },
+          "balanceEvidence": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Evidence IDs supporting the period-end balance."
+          },
+          "periodEndBalance": {
+            "type": "object",
+            "required": ["asset", "amount"],
+            "properties": {
+              "asset": { "type": "string", "minLength": 1 },
+              "amount": { "type": "number" },
+              "asOf": { "type": "string" }
+            },
+            "additionalProperties": true
+          },
+          "exclusionRationale": {
+            "type": "string",
+            "description": "Required by the extension validators when included is false."
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

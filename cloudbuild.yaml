@@ -1,0 +1,19 @@
+# Cloud Build config for the vwp-api container. Invoked by the deploy workflow:
+#   gcloud builds submit . --config cloudbuild.yaml \
+#     --substitutions _IMAGE=<region>-docker.pkg.dev/<proj>/<repo>/vwp-api:<sha>
+#
+# The build context is the repo root so backend/'s go.mod `replace` to sdk/go
+# resolves; the Dockerfile lives at backend/Dockerfile.
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -f
+      - backend/Dockerfile
+      - -t
+      - ${_IMAGE}
+      - .
+images:
+  - ${_IMAGE}
+options:
+  logging: CLOUD_LOGGING_ONLY

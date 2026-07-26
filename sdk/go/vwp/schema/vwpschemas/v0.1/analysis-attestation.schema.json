@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/analysis-attestation.schema.json",
+  "title": "VWP Analysis Attestation",
+  "description": "A structured record of a model-assisted review procedure performed over a defined evidence scope. Attestations never affect package validity; findings route to humans via required dispositions.",
+  "type": "object",
+  "required": ["id", "createdAt", "performedBy", "model", "scope"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "performedBy": {
+      "type": "object",
+      "description": "Person, team, or service that ran the review procedure. Same shape conventions as provenance createdBy.",
+      "required": ["type", "name"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["human", "agent", "system"]
+        },
+        "name": { "type": "string" },
+        "version": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "model": {
+      "type": "object",
+      "description": "The exact model that performed the analysis. Recording exact identity lets consumers confirm the challenger differs from the preparer models recorded in provenance.",
+      "required": ["provider", "name", "version"],
+      "properties": {
+        "provider": { "type": "string", "minLength": 1 },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Exact model identifier as published by the provider, not a family or marketing name."
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Model version or snapshot date; use the provider's most specific identifier available."
+        },
+        "role": {
+          "type": "string",
+          "description": "What the model did, e.g. 'challenger', 'consistency review'."
+        }
+      },
+      "additionalProperties": true
+    },
+    "scope": {
+      "type": "object",
+      "description": "The declared review scope: exactly which evidence bytes were examined and which claims were challenged.",
+      "required": ["evidenceExamined", "claimsChallenged"],
+      "properties": {
+        "evidenceExamined": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["evidenceId", "sha256"],
+            "properties": {
+              "evidenceId": { "type": "string", "minLength": 1 },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$",
+                "description": "Lowercase hex SHA-256 of the evidence bytes as examined, pinning the review to exact content."
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "claimsChallenged": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Claim ids the procedure was directed at. MAY be empty for scope-wide procedures not aimed at specific claims."
+        },
+        "procedure": {
+          "type": "string",
+          "description": "Human-readable description of the review procedure the model was asked to perform."
+        }
+      },
+      "additionalProperties": false
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "severity", "summary", "requiresDisposition"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "severity": {
+            "type": "string",
+            "enum": ["info", "low", "medium", "high", "critical"]
+          },
+          "summary": { "type": "string", "minLength": 1 },
+          "relatedClaims": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "relatedEvidence": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "requiresDisposition": {
+            "const": true,
+            "description": "Always true: every finding requires a human disposition. Findings route to humans, never silently into conclusions."
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "What the procedure could not assess (evidence out of scope, questions requiring professional judgment, model constraints)."
+    },
+    "dispositions": {
+      "type": "array",
+      "description": "Human decisions on findings. A disposition is a human act; it MUST NOT be produced by the attesting model.",
+      "items": {
+        "type": "object",
+        "required": ["findingId", "decision", "by", "at"],
+        "properties": {
+          "findingId": { "type": "string", "minLength": 1 },
+          "decision": {
+            "type": "string",
+            "enum": ["accepted", "rejected", "remediated", "acknowledged"]
+          },
+          "by": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "email": { "type": "string" }
+            },
+            "additionalProperties": true
+          },
+          "at": { "type": "string", "format": "date-time" },
+          "note": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "notes": { "type": "string" }
+  }
+}

@@ -17,7 +17,7 @@ VWP takes a different position:
 - **The structured package is the source of truth.** The rendered memo or PDF is only a derived view.
 - **AI output is not trusted directly.** AI may extract facts, draft claims, and render explanations — deterministic validators verify package integrity, schema validity, evidence links, math tie-outs, and completeness checks.
 - **Model-agnostic.** Provenance records which tools and models produced a package, but verification never requires them.
-- **Domain-extensible.** VWP Core is generic; profiles (finance) and extensions (ASC 606, wallet ownership/control, control tests) add domain vocabulary and validators.
+- **Domain-extensible.** VWP Core is generic; profiles (finance) and extensions (ASC 606, wallet ownership/control, control tests, forward-looking forecasts) add domain vocabulary and validators.
 
 ## What a `.vwp` package contains
 
@@ -92,7 +92,7 @@ A note on the wallet example: proof-of-control evidence, such as a signed wallet
 - [`schemas/v0.1/`](schemas/v0.1) — JSON Schemas (draft 2020-12) for every core object.
 - [`profiles/`](profiles) — finance, audit, accounting, digital-assets, and controls profile documentation.
 - [`cli/`](cli) — the reference TypeScript CLI (`pack`, `unpack`, `verify`, `inspect`, `diff`, `render`).
-- [`sdk/`](sdk) — TypeScript/Python/Go SDK stubs (planned; the CLI is the reference implementation).
+- [`sdk/`](sdk) — SDKs: [`sdk/go`](sdk/go) is a full Go implementation (verifier, builder, schema validation); TypeScript and Python are stubs (the CLI is the reference implementation).
 - [`testdata/`](testdata) — valid and invalid fixture packages used by the tests.
 - [`docs/decisions/`](docs/decisions) — architecture decision records.
 
@@ -109,7 +109,7 @@ A note on the wallet example: proof-of-control evidence, such as a signed wallet
 
 ## Roadmap and contributing
 
-See [ROADMAP.md](ROADMAP.md) (signatures, conformance tests, more profiles, Python/Go SDKs, validator plugin interface) and [CONTRIBUTING.md](CONTRIBUTING.md). Feedback from accounting, audit, and engineering stakeholders is the point of this draft — issues and PRs welcome.
+See [ROADMAP.md](ROADMAP.md) (signatures, conformance tests, more profiles, Python SDK, validator plugin interface) and [CONTRIBUTING.md](CONTRIBUTING.md). Feedback from accounting, audit, and engineering stakeholders is the point of this draft — issues and PRs welcome.
 
 ## License
 

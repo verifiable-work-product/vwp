@@ -63,7 +63,8 @@ A profile or extension specification SHOULD define:
    `schemas/v0.1/extensions/<extension-suffix>/` (e.g.
    `extensions/accounting-asc606/ssp-allocation.schema.json`,
    `extensions/accounting-asc820/fair-value-measurements.schema.json`,
-   `extensions/digital-assets-wallet-ownership-control/wallets.schema.json`).
+   `extensions/digital-assets-wallet-ownership-control/wallets.schema.json`,
+   `extensions/finance-forecast/forecast.schema.json`).
 4. Validators, each with an identifier and version, and the statuses/severities they emit.
 5. Any conventions for `subject`, `standardRefs`, and object field usage in the domain.
 
@@ -72,9 +73,10 @@ verification rules, or the semantics of validation statuses.
 
 ## 5. Status of named profiles
 
-`vwp-finance`, `vwp-accounting-asc606`, `vwp-accounting-asc820`, and
-`vwp-digital-assets-wallet-ownership-control` are referenced throughout v0.1 as
-motivating examples. Only the `vwp-finance` assertion vocabulary and the extension data
+`vwp-finance`, `vwp-accounting-asc606`, `vwp-accounting-asc820`,
+`vwp-digital-assets-wallet-ownership-control`, and `vwp-finance-forecast` are referenced
+throughout v0.1 as motivating examples. Only the `vwp-finance` assertion vocabulary
+(plus the `estimate` assertion added by `vwp-finance-forecast`) and the extension data
 schemas under `schemas/v0.1/extensions/` are normatively defined in v0.1 (see
 [claims.md](claims.md)); full profile and extension specifications are expected in
 later drafts.

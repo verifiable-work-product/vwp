@@ -1,0 +1,15 @@
+{
+  "id": "wp_dtcc_canton_coin_fv_2026_01_15",
+  "title": "ASC 820 Fair Value Support - Canton Coin at DTCC Contract Signing",
+  "domain": "finance",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc820",
+  "standardRefs": ["ASC 820"],
+  "entity": { "id": "entity_dtcc", "name": "DTCC (illustrative)" },
+  "period": { "start": "2026-01-15", "end": "2026-01-15" },
+  "subject": { "type": "fairValueMeasurement", "measurementDate": "2026-01-15", "positionCount": 1 },
+  "conclusionSummary": "Establishes the per-coin fair value of Canton Coin at the 2026-01-15 DTCC milestone-contract signing date for use as noncash consideration. Concludes fair value of 0.0033 USD per coin (Level 3) from informal OTC secondary-market evidence, and rejects the 0.0005 USD/CC published network fee-reference price as a non-exit-price fee-conversion parameter. Illustrative data; the OTC input is thin and self-reported and the input-selection judgment requires valuation-reviewer approval.",
+  "status": "inReview",
+  "createdBy": { "type": "agent", "name": "claude-code", "version": "opus-4-8" },
+  "reviewState": "inReview"
+}

@@ -1,0 +1,86 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_dtcc_canton_milestone_consideration_2026",
+  "createdAt": "2026-07-24T00:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc606",
+  "title": "ASC 606 Milestone Noncash Consideration - DTCC / Canton Coin Arrangement (illustrative)",
+  "subject": {
+    "type": "customerContract",
+    "id": "contract_dtcc_canton_milestone"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "role": "workproduct",
+    "sha256": "de8c348d6eaf627e3f5f814658fff7417d4de31f9dc0b636a1b919a686cef97e"
+  },
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "role": "provenance",
+    "sha256": "2afcc01825b512f2bcaadb083ee62966b38bc4d6ec4a3d9eb910edc93e3e6bc8"
+  },
+  "parts": [
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "role": "evidence-index",
+      "sha256": "cf93a98b9ba6fcb6040adb889711db9c40816ca785356a7da79800b7472da660"
+    },
+    {
+      "path": "evidence/milestone-agreement-excerpt.txt",
+      "mediaType": "text/plain",
+      "role": "evidence",
+      "sha256": "c2d282ab43fb5957ea1ca200252eaab5450e9e2c008bdc8389e5e5a595b27be9"
+    },
+    {
+      "path": "evidence/cip-mechanism-reference.txt",
+      "mediaType": "text/plain",
+      "role": "evidence",
+      "sha256": "c3fce65a9f6201570ac21e15ad2736c23159ac44ba2b915bdd4c656c14a16c18"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "role": "facts",
+      "sha256": "611848bffe9e3f319da3b752bfe40ed942dadd8a84ecde8d44468e015b43497c"
+    },
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "role": "claims",
+      "sha256": "59b3b9d9af2aa5a195a79743790f62ed1a313ed07610d1fd23502fd9635c3c7c"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "role": "judgments",
+      "sha256": "faa3c95d069b83f30bd9d78f31d26c6a5e799e65f0c03ab3d8025048760d944c"
+    },
+    {
+      "path": "calculations/milestone-consideration.json",
+      "mediaType": "application/json",
+      "role": "calculation",
+      "sha256": "8f5e5f378c2446d5a797f5d8770ada217cb45e170f0a441911c4d3452b18263d"
+    },
+    {
+      "path": "approvals/approvals.json",
+      "mediaType": "application/json",
+      "role": "approvals",
+      "sha256": "41317961f0d9f2c7b76104cd5d9801a652b4bce0ab334c2e6701994410de7d73"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "role": "validations",
+      "sha256": "793696624a0701150bf8d2b418a25511b2d93630cf9aaa50ca66363f3745b645"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "role": "rendering",
+      "sha256": "138c06ae419abaab068abebafcb380ff7b058252d6abcd1f7271135e0827fd62"
+    }
+  ]
+}

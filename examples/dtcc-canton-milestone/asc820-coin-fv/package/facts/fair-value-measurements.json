@@ -1,0 +1,24 @@
+{
+  "description": "Per-coin fair value measurement of Canton Coin at the 2026-01-15 DTCC contract signing date, for use as noncash consideration in the referencing ASC 606 milestone package. Illustrative data.",
+  "measurements": [
+    {
+      "id": "m_cc_2026_01_15",
+      "asset": "CC",
+      "quantity": 1,
+      "measurementDate": "2026-01-15",
+      "level": "level3",
+      "valuationTechnique": "Market approach. Fair value (exit price) estimated from informal OTC secondary-market quotes and self-reported trades for identical units, absent any active exchange market. The protocol fee-reference price is rejected as a fair value input because it is an administratively set fee-conversion parameter, not an arm's-length exit price. No marketability discount applied given no lock-up on the coin itself (the restriction in the referencing package is on when coin is earned, not on transfer once minted).",
+      "fairValue": { "amount": 0.0033, "currency": "USD" },
+      "pricingSourceEvidence": ["ev_otc_telegram_quotes", "ev_network_gas_price"],
+      "unobservableInputs": [
+        {
+          "name": "selectedExitPricePerCoin",
+          "value": 0.0033,
+          "basis": "Midpoint/median of the two self-reported settled OTC trades (0.0032 and 0.0033 USD/CC) within a 0.0030-0.0038 quoted range. Self-reported and thin, hence Level 3 and confidence-adjusted."
+        }
+      ],
+      "judgmentRef": "j_cc_fv_hierarchy",
+      "notes": "Selected FV 0.0033 USD/CC is ~6.6x the 0.0005 USD/CC fee-reference price, evidencing that the fee-reference price is not representative of market value."
+    }
+  ]
+}
