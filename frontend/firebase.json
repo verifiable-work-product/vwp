@@ -2,15 +2,6 @@
   "hosting": {
     "public": "public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [
-      {
-        "source": "/api/**",
-        "run": {
-          "serviceId": "vwp-api",
-          "region": "us-central1"
-        }
-      }
-    ],
     "headers": [
       {
         "source": "**/*.@(js|css)",
@@ -19,6 +10,10 @@
       {
         "source": "/index.html",
         "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+      },
+      {
+        "source": "/whitepaper.pdf",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
       }
     ]
   }

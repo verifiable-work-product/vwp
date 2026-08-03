@@ -113,6 +113,19 @@
   .tally b{font-weight:700}
   .err{color:var(--fail);font-family:var(--mono);font-size:13px;padding:14px 20px}
 
+  /* report: the chain teased apart — facts / claims / judgments / calculations / conclusion */
+  .csec{border-top:2px solid var(--ink)}
+  .csec-h{display:flex;align-items:center;gap:10px;padding:12px 20px 4px;font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+  .csec-h .count{font-family:var(--mono);color:var(--ink-soft);font-weight:400;font-size:12px;margin-left:auto}
+  .citems{list-style:none;margin:0;padding:0 0 10px}
+  .citems li{padding:10px 20px;border-top:1px solid var(--rule);font-size:15px;line-height:1.5}
+  .citems li:first-child{border-top:0}
+  .cid{font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.03em;display:block;margin-bottom:3px}
+  .cstat{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;float:right;margin-left:12px}
+  .cval{font-family:var(--mono);font-size:13.5px;white-space:nowrap}
+  .cnote{color:var(--ink-soft);font-size:14px;margin-top:4px}
+  .ckv{font-family:var(--mono);font-size:12.5px;background:var(--paper);border:1px solid var(--rule);padding:10px 12px;margin-top:8px;overflow-x:auto;white-space:pre;max-width:100%}
+
   /* ---- examples ---- */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
   .card{border:2px solid var(--ink);background:var(--paper-2);padding:20px;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;transition:transform .1s,box-shadow .15s}
@@ -151,6 +164,7 @@
       <a href="#verify">Verify</a>
       <a href="#examples">Examples</a>
       <a href="#how">How it works</a>
+      <a href="/whitepaper.pdf">Whitepaper</a>
       <a class="btn ghost" href="https://github.com/verifiable-work-product/vwp" style="padding:8px 14px;font-size:13px">GitHub</a>
     </nav>
   </div>
@@ -222,6 +236,7 @@
     </div>
     <div style="font-family:var(--mono);font-size:13px;line-height:2">
       <a href="https://github.com/verifiable-work-product/vwp">github</a><br/>
+      <a href="/whitepaper.pdf">whitepaper</a><br/>
       <a href="#verify">verify</a><br/>
       <a href="#examples">examples</a>
     </div>
@@ -229,13 +244,13 @@
 </footer>
 
 <script>
-  // API base: same-origin /api in production (Firebase rewrite -> Cloud Run),
+  // API base: api.vwp.ac in production (CORS allows the vwp.ac origin),
   // overridable for local dev via ?api= or window.VWP_API.
   const API = new URLSearchParams(location.search).get('api')
     || window.VWP_API
     || (location.hostname === 'localhost' || location.hostname === '127.0.0.1'
         ? 'http://localhost:8080'
-        : '/api');
+        : 'https://api.vwp.ac');
 
   const GLYPH = {pass:'✓', reviewRequired:'?', warning:'!', fail:'✕', notRun:'–'};
   const CLASS = {pass:'pass', reviewRequired:'review', warning:'warn', fail:'fail', notRun:'notRun'};
@@ -282,8 +297,92 @@
       </ul>
       <div class="tally">
         ${Object.entries(tally).map(([s,n])=>`<span><b style="color:var(--${CLASS[s]==='notRun'?'warn':CLASS[s]})">${n}</b> ${s}</span>`).join('')}
-      </div>`;
+      </div>
+      ${renderComponents(data.components)}`;
     el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+
+  // -- the chain, teased apart: facts / claims / judgments / calculations / conclusion --
+  function statusColor(s){
+    if(!s) return 'var(--ink-soft)';
+    if(/pass|supported|approved|final/i.test(s)) return 'var(--pass)';
+    if(/review|draft|open/i.test(s)) return 'var(--review)';
+    if(/fail|reject|unsupported/i.test(s)) return 'var(--fail)';
+    return 'var(--ink-soft)';
+  }
+  function pill(s){ return s?`<span class="cstat" style="color:${statusColor(s)}">${escapeHtml(s)}</span>`:''; }
+  function fmtVal(v){
+    if(v==null) return '';
+    if(typeof v==='object' && v.amount!=null && v.currency) return `${Number(v.amount).toLocaleString()} ${v.currency}`;
+    if(typeof v==='object') return Object.entries(v).map(([k,x])=>`${k}: ${typeof x==='number'?x.toLocaleString():typeof x==='object'?JSON.stringify(x):x}`).join(', ');
+    return String(v);
+  }
+  function csec(name, items){
+    if(!items.length) return '';
+    return `<div class="csec"><div class="csec-h">${escapeHtml(name)}<span class="count">${items.length}</span></div><ul class="citems">${items.join('')}</ul></div>`;
+  }
+  // Renders a domain register entry (measurement, wallet, ...) without
+  // knowing its shape: longest string field as the body, money-shaped
+  // field as the value, short scalars as the meta line.
+  function genericItem(it){
+    if(typeof it!=='object'||it===null) return `<li>${escapeHtml(String(it))}</li>`;
+    const long=Object.values(it).filter(v=>typeof v==='string'&&v.length>40).sort((a,b)=>b.length-a.length)[0]||'';
+    const val=it.fairValue??it.value;
+    const meta=Object.entries(it)
+      .filter(([k,v])=>k!=='id'&&v!==long&&((typeof v==='string'&&v.length<=40)||typeof v==='number'))
+      .map(([k,v])=>`${escapeHtml(k)}: ${escapeHtml(String(v))}`).join(' · ');
+    return `<li>
+      <span class="cid">${escapeHtml(it.id||'')}</span>
+      ${escapeHtml(long)}${val!=null?` <span class="cval">${escapeHtml(fmtVal(val))}</span>`:''}
+      ${meta?`<div class="cnote">${meta}</div>`:''}
+    </li>`;
+  }
+  function renderComponents(c){
+    if(!c) return '';
+    let html='';
+    html+=csec('Facts',(c.facts||[]).map(f=>{
+      const nrefs=(f.evidenceRefs||[]).length;
+      return `<li>${pill(f.requiresReview?'reviewRequired':'')}
+        <span class="cid">${escapeHtml(f.id||'')}${f.factType?' · '+escapeHtml(f.factType):''}</span>
+        ${escapeHtml(f.statement||'')}${f.value!=null?` <span class="cval">${escapeHtml(fmtVal(f.value))}</span>`:''}
+        <div class="cnote">${nrefs} evidence anchor${nrefs===1?'':'s'}</div>
+      </li>`;
+    }));
+    for(const reg of c.registers||[]){
+      const name=reg.name.replace(/([a-z])([A-Z])/g,'$1 $2');
+      html+=csec(name.charAt(0).toUpperCase()+name.slice(1),(reg.items||[]).map(genericItem));
+    }
+    html+=csec('Claims',(c.claims||[]).map(cl=>`
+      <li>${pill(cl.status)}
+        <span class="cid">${escapeHtml(cl.id||'')}${(cl.standardRefs||[]).length?' · '+escapeHtml(cl.standardRefs.join(', ')):''}</span>
+        ${escapeHtml(cl.statement||'')}
+        ${cl.conclusion?`<div class="cnote">→ ${escapeHtml(cl.conclusion)}</div>`:''}
+      </li>`));
+    html+=csec('Judgments',(c.judgments||[]).map(j=>`
+      <li>${pill(j.status)}
+        <span class="cid">${escapeHtml(j.id||'')}${j.topic?' · '+escapeHtml(j.topic):''}</span>
+        <b>${escapeHtml(j.question||'')}</b>
+        ${j.proposedConclusion?`<div class="cnote"><b>Proposed:</b> ${escapeHtml(j.proposedConclusion)}</div>`:''}
+        ${j.basis?`<div class="cnote"><b>Basis:</b> ${escapeHtml(j.basis)}</div>`:''}
+        ${(j.alternatives||[]).length?`<div class="cnote">${j.alternatives.length} alternative${j.alternatives.length===1?'':'s'} considered</div>`:''}
+      </li>`));
+    html+=csec('Calculations',(c.calculations||[]).map(k=>{
+      if(!k.outputs&&!k.inputs) return `<li><span class="cid">${escapeHtml(k.path||'')}</span><span class="cnote">${escapeHtml(k.mediaType||'')}</span></li>`;
+      return `<li>
+        <span class="cid">${escapeHtml(k.id||k.path||'')}${k.type?' · '+escapeHtml(k.type):''}</span>
+        ${k.method?escapeHtml(k.method):''}
+        ${k.outputs?`<div class="ckv">${escapeHtml(JSON.stringify(k.outputs,null,2))}</div>`:''}
+      </li>`;
+    }));
+    const wp=c.workproduct;
+    if(wp&&wp.conclusionSummary){
+      html+=csec('Conclusion',[`
+        <li>${pill(wp.reviewState||wp.status)}
+          <span class="cid">${escapeHtml(wp.id||'')}${(wp.standardRefs||[]).length?' · '+escapeHtml(wp.standardRefs.join(', ')):''}</span>
+          ${escapeHtml(wp.conclusionSummary)}
+        </li>`]);
+    }
+    return html;
   }
 
   // -- upload flow --

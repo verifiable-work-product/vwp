@@ -175,12 +175,91 @@ func handleExampleVerify(w http.ResponseWriter, r *http.Request) {
 
 // --- helpers ---
 
-func verifyBytes(data []byte, origin string) (*vwp.Report, error) {
+// verifyResponse is a verification report plus the package's human-readable
+// chain — facts, claims, judgments, calculations, and the workproduct
+// conclusion — so callers can show what was asserted, not just whether it
+// checks out. Report fields marshal at the top level for compatibility.
+type verifyResponse struct {
+	*vwp.Report
+	Components map[string]any `json:"components,omitempty"`
+}
+
+func verifyBytes(data []byte, origin string) (*verifyResponse, error) {
 	pkg, err := vwp.OpenPackageBytes(data, origin)
 	if err != nil {
 		return nil, err
 	}
-	return validators.Verify(pkg), nil
+	return &verifyResponse{
+		Report:     validators.Verify(pkg),
+		Components: extractComponents(pkg),
+	}, nil
+}
+
+// extractComponents reads the chain parts out of a package by manifest role.
+// Extraction is best-effort: a part that is missing or malformed is skipped
+// rather than failing the response — the validators report those problems.
+func extractComponents(pkg vwp.Source) map[string]any {
+	raw, err := pkg.Read(vwp.ManifestPath)
+	if err != nil {
+		return nil
+	}
+	manifest, err := vwp.ParseManifest(raw)
+	if err != nil {
+		return nil
+	}
+
+	out := map[string]any{}
+	var calcs, registers []map[string]any
+	for _, part := range manifest.AllPartRefs() {
+		switch part.Role {
+		case "facts", "claims", "judgments":
+			// Each of these parts is a JSON document keyed by its role,
+			// e.g. facts/facts.json is {"facts": [...]}. A part may also
+			// carry domain registers under other keys (measurements,
+			// wallets, ...) — surface those as named registers.
+			var doc map[string]any
+			if vwp.ReadJSON(pkg, part.Path, &doc) != nil {
+				continue
+			}
+			for key, v := range doc {
+				items, ok := v.([]any)
+				if !ok || len(items) == 0 {
+					continue
+				}
+				if key == part.Role {
+					prev, _ := out[part.Role].([]any)
+					out[part.Role] = append(prev, items...)
+					continue
+				}
+				registers = append(registers, map[string]any{"name": key, "path": part.Path, "items": items})
+			}
+		case "calculation":
+			calc := map[string]any{"path": part.Path, "mediaType": part.MediaType}
+			if part.MediaType == "application/json" {
+				var doc map[string]any
+				if vwp.ReadJSON(pkg, part.Path, &doc) == nil {
+					doc["path"] = part.Path
+					calc = doc
+				}
+			}
+			calcs = append(calcs, calc)
+		case "workproduct":
+			var doc map[string]any
+			if vwp.ReadJSON(pkg, part.Path, &doc) == nil {
+				out["workproduct"] = doc
+			}
+		}
+	}
+	if len(calcs) > 0 {
+		out["calculations"] = calcs
+	}
+	if len(registers) > 0 {
+		out["registers"] = registers
+	}
+	if len(out) == 0 {
+		return nil
+	}
+	return out
 }
 
 // readPackage extracts package bytes from a multipart "package" field, or falls

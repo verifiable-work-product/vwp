@@ -11,3 +11,6 @@ benchmark/answer-keys/
 
 # Whitepaper build intermediate (Chrome print input); source is .md, output is .pdf
 docs/whitepaper.html
+
+# Firebase CLI local deploy cache
+frontend/.firebase/
