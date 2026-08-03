@@ -94,37 +94,59 @@
   .drop p{color:var(--ink-soft);margin:0 0 20px}
   .drop .hint{font-family:var(--mono);font-size:12px;color:var(--ink-soft);margin-top:16px}
 
-  /* report */
-  .report{margin-top:26px;border:2px solid var(--ink);background:var(--paper-2);display:none}
+  /* report — styled after Wavie's verification page (deep-water dark, scoped) */
+  .report{
+    --w-abyss:#0a0e14;--w-surface:#101724;--w-surface2:#141d2e;--w-ink:#e6edf3;--w-mist:#8b98a9;
+    --w-line:#1e2936;--w-wave:#22d3ee;--w-tide:#2dd4bf;--w-pass:#34d399;--w-review:#fbbf24;--w-fail:#f87171;
+    margin-top:26px;border:1px solid var(--w-line);border-radius:16px;background:var(--w-abyss);
+    color:var(--w-ink);padding:24px;display:none;box-shadow:var(--shadow)}
   .report.show{display:block}
-  .report .rhead{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 20px;border-bottom:2px solid var(--ink);flex-wrap:wrap}
-  .report .rhead .title{font-family:var(--sans);font-weight:600;font-size:16px}
-  .report .rhead .sub{font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
-  .stamp{font-family:var(--sans);font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:14px;border:2px solid;padding:6px 14px;transform:rotate(-2deg)}
-  .stamp.valid{color:var(--pass);border-color:var(--pass)}
-  .stamp.invalid{color:var(--fail);border-color:var(--fail)}
-  .rlist{margin:0;padding:6px 0;list-style:none}
-  .rlist li{display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:start;padding:9px 20px;border-bottom:1px solid var(--rule)}
-  .rlist li:last-child{border-bottom:0}
-  .rlist .vid{font-family:var(--mono);font-size:13px}
-  .rlist .msg{font-family:var(--text);font-size:14px;color:var(--ink-soft);grid-column:2/4;margin-top:2px}
-  .rlist .stlabel{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;align-self:center}
-  .tally{display:flex;gap:18px;flex-wrap:wrap;padding:14px 20px;border-top:2px solid var(--ink);font-family:var(--mono);font-size:12px}
-  .tally b{font-weight:700}
-  .err{color:var(--fail);font-family:var(--mono);font-size:13px;padding:14px 20px}
-
-  /* report: the chain teased apart — facts / claims / judgments / calculations / conclusion */
-  .csec{border-top:2px solid var(--ink)}
-  .csec-h{display:flex;align-items:center;gap:10px;padding:12px 20px 4px;font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
-  .csec-h .count{font-family:var(--mono);color:var(--ink-soft);font-weight:400;font-size:12px;margin-left:auto}
-  .citems{list-style:none;margin:0;padding:0 0 10px}
-  .citems li{padding:10px 20px;border-top:1px solid var(--rule);font-size:15px;line-height:1.5}
-  .citems li:first-child{border-top:0}
-  .cid{font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.03em;display:block;margin-bottom:3px}
-  .cstat{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;float:right;margin-left:12px}
-  .cval{font-family:var(--mono);font-size:13.5px;white-space:nowrap}
-  .cnote{color:var(--ink-soft);font-size:14px;margin-top:4px}
-  .ckv{font-family:var(--mono);font-size:12.5px;background:var(--paper);border:1px solid var(--rule);padding:10px 12px;margin-top:8px;overflow-x:auto;white-space:pre;max-width:100%}
+  .rhead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+  .rhead .title{font-family:var(--sans);font-weight:600;font-size:20px;letter-spacing:-.01em}
+  .rhead .sub{font-family:var(--mono);font-size:12px;color:var(--w-mist);margin-top:4px}
+  .chip{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:2px 10px;border-radius:999px;border:1px solid;white-space:nowrap}
+  .chip.pass{color:var(--w-pass);border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.1)}
+  .chip.review{color:var(--w-review);border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.1)}
+  .chip.fail{color:var(--w-fail);border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.1)}
+  .chip.wave{color:var(--w-wave);border-color:rgba(34,211,238,.4);background:rgba(34,211,238,.1)}
+  .chip.mute{color:var(--w-mist);border-color:var(--w-line);background:var(--w-surface2)}
+  .wsec{margin-top:32px}
+  .wsec>h3{font-family:var(--sans);font-weight:500;font-size:19px;margin:0;letter-spacing:-.01em}
+  .wsec>h3 .count{font-size:13px;font-weight:400;color:var(--w-mist)}
+  .wsec>.hint{font-size:13px;color:var(--w-mist);margin:2px 0 0;line-height:1.5}
+  .wcard{border:1px solid var(--w-line);background:var(--w-surface);border-radius:12px;padding:16px;margin-top:10px;font-size:14px;line-height:1.55}
+  .wcard .top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+  .wcard .top .chips{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+  .wid{font-family:var(--mono);font-size:11px;color:var(--w-mist)}
+  .wname{font-weight:500}
+  .wname .wid{margin-left:8px}
+  .wbody{color:rgba(230,237,243,.9);margin:8px 0 0}
+  .wmuted{color:var(--w-mist);font-size:13px;margin:6px 0 0}
+  .wmuted b{color:rgba(230,237,243,.8);font-weight:500}
+  .wmeta{font-size:12px;color:var(--w-mist);margin:8px 0 0}
+  .wpre{background:#070b10;border:1px solid var(--w-line);border-radius:8px;padding:8px 12px;font-family:var(--mono);font-size:12px;color:rgba(230,237,243,.85);overflow-x:auto;white-space:pre;margin:4px 0 0}
+  .wgrid2{display:grid;gap:10px;grid-template-columns:1fr;margin-top:12px}
+  @media(min-width:720px){.wgrid2{grid-template-columns:1fr 1fr}}
+  .wlabel{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--w-tide)}
+  .wconc{border:1px solid rgba(45,212,191,.3);background:rgba(45,212,191,.05);border-radius:12px;padding:16px 20px;margin-top:14px}
+  .wconc p{margin:6px 0 0;font-size:14px;color:rgba(230,237,243,.9);line-height:1.6}
+  .report .tty{font-family:var(--mono);font-size:13px;line-height:1.7;background:#0c1119;border:1px solid var(--w-line);border-radius:12px;padding:16px 18px;margin-top:14px;overflow-x:auto}
+  .tty .row{display:flex;gap:12px;align-items:baseline}
+  .tty .stl{flex:none;width:56px;font-weight:600}
+  .tty .msg{color:var(--w-mist)}
+  .wrowitem{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;border:1px solid var(--w-line);background:var(--w-surface);border-radius:8px;padding:10px 16px;margin-top:8px;font-size:14px}
+  .wrowitem .right{font-size:12px;color:var(--w-mist)}
+  .wtable{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+  .wtable th{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--w-tide);text-align:left;padding:8px 10px;border-bottom:1px solid var(--w-line)}
+  .wtable td{padding:6px 10px;border-bottom:1px solid rgba(30,41,54,.6);color:rgba(230,237,243,.9)}
+  .wtable td.num{font-family:var(--mono);color:rgba(230,237,243,.8)}
+  .wtwrap{overflow-x:auto}
+  details.wrend{border:1px solid var(--w-line);background:var(--w-surface);border-radius:12px;margin-top:10px}
+  details.wrend summary{cursor:pointer;padding:10px 16px;font-family:var(--mono);font-size:12px;color:var(--w-mist)}
+  details.wrend summary:hover{color:var(--w-ink)}
+  details.wrend .wpre{border:0;border-top:1px solid var(--w-line);border-radius:0 0 12px 12px;margin:0;white-space:pre-wrap}
+  .err{color:var(--w-fail);font-family:var(--mono);font-size:13px}
+  .rload{color:var(--w-mist);font-family:var(--mono);font-size:13px}
 
   /* ---- examples ---- */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
@@ -273,123 +295,223 @@
   });
 
   // -- render a report --
+  // Statuses rendered as fixed-width labels in the checks block, Wavie-style.
+  const STATUS_LABEL={pass:'PASS',fail:'FAIL',warning:'WARN',reviewRequired:'REVIEW',notRun:'SKIP'};
+  const STATUS_VAR={pass:'--w-pass',fail:'--w-fail',warning:'--w-review',reviewRequired:'--w-review',notRun:'--w-mist'};
+
+  function summarize(results, valid){
+    const n=s=>results.filter(r=>r.status===s).length;
+    const fails=n('fail');
+    if(!valid||fails) return {text:`invalid (${fails} failure${fails===1?'':'s'})`, cls:'fail'};
+    if(n('reviewRequired')) return {text:'valid with review items', cls:'review'};
+    if(n('warning')) return {text:'valid with warnings', cls:'review'};
+    return {text:'valid', cls:'pass'};
+  }
+
   function renderReport(data, title){
     const el=document.getElementById('report');
     el.classList.add('show');
     if(data.error){ el.innerHTML=`<div class="err">✕ ${escapeHtml(data.error)}</div>`; return; }
     const results=data.results||[];
-    const tally={};
-    for(const r of results){ tally[r.status]=(tally[r.status]||0)+1; }
-    const sub = data.manifest ? `${data.manifest.profile||''}${data.manifest.extension?' · '+data.manifest.extension:''}` : '';
+    const sum=summarize(results, data.valid);
+    const m=data.manifest||{};
+    const sub=[m.packageId, m.profile, m.extension].filter(Boolean).join(' · ');
+    const c=data.components||{};
     el.innerHTML = `
       <div class="rhead">
-        <div><div class="title">${escapeHtml(title||'Verification report')}</div>
+        <div><div class="title">${escapeHtml(title||m.title||'Verification report')}</div>
         <div class="sub">${escapeHtml(sub)}</div></div>
-        <div class="stamp ${data.valid?'valid':'invalid'}">${data.valid?'✓ valid':'✕ invalid'}</div>
+        <span class="chip ${sum.cls}">${escapeHtml(sum.text)}</span>
       </div>
-      <ul class="rlist">${results.map(r=>`
-        <li>
-          <span class="st ${CLASS[r.status]}">${GLYPH[r.status]}</span>
-          <span class="vid">${escapeHtml(r.validatorId)}</span>
-          <span class="stlabel" style="color:var(--${CLASS[r.status]==='notRun'?'warn':CLASS[r.status]})">${r.status}</span>
-          ${r.message?`<span class="msg">${escapeHtml(r.message)}</span>`:''}
-        </li>`).join('')}
-      </ul>
-      <div class="tally">
-        ${Object.entries(tally).map(([s,n])=>`<span><b style="color:var(--${CLASS[s]==='notRun'?'warn':CLASS[s]})">${n}</b> ${s}</span>`).join('')}
-      </div>
-      ${renderComponents(data.components)}`;
+      ${workproductSection(c)}
+      ${claimsSection(c.claims||[])}
+      ${checksSection(results)}
+      ${factsSection(c.facts||[])}
+      ${registerSections(c.registers||[])}
+      ${calcsSection(c.calculations||[])}
+      ${judgmentsSection(c.judgments||[])}
+      ${evidenceSection(c.evidence||[], c.provenance)}`;
     el.scrollIntoView({behavior:'smooth',block:'nearest'});
   }
 
-  // -- the chain, teased apart: facts / claims / judgments / calculations / conclusion --
-  function statusColor(s){
-    if(!s) return 'var(--ink-soft)';
-    if(/pass|supported|approved|final/i.test(s)) return 'var(--pass)';
-    if(/review|draft|open/i.test(s)) return 'var(--review)';
-    if(/fail|reject|unsupported/i.test(s)) return 'var(--fail)';
-    return 'var(--ink-soft)';
+  // -- report sections, mirroring Wavie's review page --
+  function wsec(name, count, hint, body){
+    if(!body) return '';
+    return `<section class="wsec"><h3>${escapeHtml(name)}${count!=null?` <span class="count">(${count})</span>`:''}</h3>
+      <p class="hint">${escapeHtml(hint)}</p>${body}</section>`;
   }
-  function pill(s){ return s?`<span class="cstat" style="color:${statusColor(s)}">${escapeHtml(s)}</span>`:''; }
-  function fmtVal(v){
-    if(v==null) return '';
-    if(typeof v==='object' && v.amount!=null && v.currency) return `${Number(v.amount).toLocaleString()} ${v.currency}`;
-    if(typeof v==='object') return Object.entries(v).map(([k,x])=>`${k}: ${typeof x==='number'?x.toLocaleString():typeof x==='object'?JSON.stringify(x):x}`).join(', ');
-    return String(v);
+  function statusChip(s){
+    if(!s) return '';
+    const cls=/supported|pass|approved|final/i.test(s)?'pass':/fail|reject|unsupported/i.test(s)?'fail':/review|draft|open/i.test(s)?'review':'mute';
+    return `<span class="chip ${cls}">${escapeHtml(String(s))}</span>`;
   }
-  function csec(name, items){
-    if(!items.length) return '';
-    return `<div class="csec"><div class="csec-h">${escapeHtml(name)}<span class="count">${items.length}</span></div><ul class="citems">${items.join('')}</ul></div>`;
+  function jsonPre(v, color){
+    return `<pre class="wpre"${color?` style="color:${color}"`:''}>${escapeHtml(JSON.stringify(v,null,2))}</pre>`;
   }
-  // Renders a domain register entry (measurement, wallet, ...) without
-  // knowing its shape: longest string field as the body, money-shaped
-  // field as the value, short scalars as the meta line.
-  function genericItem(it){
-    if(typeof it!=='object'||it===null) return `<li>${escapeHtml(String(it))}</li>`;
-    const long=Object.values(it).filter(v=>typeof v==='string'&&v.length>40).sort((a,b)=>b.length-a.length)[0]||'';
-    const val=it.fairValue??it.value;
-    const meta=Object.entries(it)
-      .filter(([k,v])=>k!=='id'&&v!==long&&((typeof v==='string'&&v.length<=40)||typeof v==='number'))
-      .map(([k,v])=>`${escapeHtml(k)}: ${escapeHtml(String(v))}`).join(' · ');
-    return `<li>
-      <span class="cid">${escapeHtml(it.id||'')}</span>
-      ${escapeHtml(long)}${val!=null?` <span class="cval">${escapeHtml(fmtVal(val))}</span>`:''}
-      ${meta?`<div class="cnote">${meta}</div>`:''}
-    </li>`;
+
+  function workproductSection(c){
+    const wp=c.workproduct, rends=c.renderings||[];
+    if((!wp||wp.conclusionSummary==null)&&!rends.length) return '';
+    let body='';
+    if(wp&&wp.conclusionSummary!=null){
+      body+=`<div class="wconc"><span class="wlabel">Conclusion</span>
+        <p>${escapeHtml(String(wp.conclusionSummary))}</p>
+        ${wp.reviewState||wp.status?`<p class="wmeta">${statusChip(wp.reviewState||wp.status)}${(wp.standardRefs||[]).length?` <span class="wid">${escapeHtml(wp.standardRefs.join(', '))}</span>`:''}</p>`:''}
+      </div>`;
+    }
+    for(const r of rends){
+      body+=`<details class="wrend"><summary>${escapeHtml(r.path)}</summary><pre class="wpre">${escapeHtml(r.markdown)}</pre></details>`;
+    }
+    return wsec('Work product', null, 'What the preparer concluded. The rendering below is a derived view — the structured package is the source of truth.', body);
   }
-  function renderComponents(c){
-    if(!c) return '';
-    let html='';
-    html+=csec('Facts',(c.facts||[]).map(f=>{
-      const nrefs=(f.evidenceRefs||[]).length;
-      return `<li>${pill(f.requiresReview?'reviewRequired':'')}
-        <span class="cid">${escapeHtml(f.id||'')}${f.factType?' · '+escapeHtml(f.factType):''}</span>
-        ${escapeHtml(f.statement||'')}${f.value!=null?` <span class="cval">${escapeHtml(fmtVal(f.value))}</span>`:''}
-        <div class="cnote">${nrefs} evidence anchor${nrefs===1?'':'s'}</div>
-      </li>`;
-    }));
-    for(const reg of c.registers||[]){
+
+  function claimsSection(claims){
+    if(!claims.length) return '';
+    const body=claims.map(cl=>`
+      <div class="wcard">
+        <div class="top"><span class="wid">${escapeHtml(cl.id||'—')}</span>
+          <span class="chips">${(cl.assertions||[]).map(a=>`<span class="chip wave">${escapeHtml(a)}</span>`).join('')}${statusChip(cl.status)}</span>
+        </div>
+        <p class="wbody">${escapeHtml(cl.statement||'')}</p>
+        ${cl.conclusion?`<p class="wmuted"><b>Conclusion:</b> ${escapeHtml(cl.conclusion)}</p>`:''}
+        ${metaLine([['Standards',cl.standardRefs],['Facts',cl.supportingFacts],['Evidence',cl.supportingEvidence]])}
+      </div>`).join('');
+    return wsec('Claims', claims.length, 'The assertions the conclusion rests on, each linked to its support.', body);
+  }
+  function metaLine(pairs){
+    const parts=pairs.filter(([,v])=>Array.isArray(v)&&v.length).map(([k,v])=>`${k}: ${v.join(', ')}`);
+    return parts.length?`<p class="wmeta">${escapeHtml(parts.join(' · '))}</p>`:'';
+  }
+
+  function checksSection(results){
+    if(!results.length) return '';
+    const body=`<div class="tty">${results.map(r=>`
+      <div class="row"><span class="stl" style="color:var(${STATUS_VAR[r.status]||'--w-mist'})">${STATUS_LABEL[r.status]||r.status}</span>
+      <span>${escapeHtml(r.validatorId)}</span>${r.message?`<span class="msg">— ${escapeHtml(r.message)}</span>`:''}</div>`).join('')}
+    </div>`;
+    return wsec('Deterministic checks', null, 'Machine-verified: schema validity, hashes, reference integrity, tie-outs. These need no human review.', body);
+  }
+
+  function factsSection(facts){
+    if(!facts.length) return '';
+    const body=facts.map(f=>`
+      <div class="wcard">
+        <div class="top"><span class="wid">${escapeHtml(f.id||'—')}</span>
+          <span class="wid">${escapeHtml([f.extractionMethod, typeof f.confidence==='number'?`confidence ${f.confidence}`:null].filter(Boolean).join(' · '))}</span>
+        </div>
+        <p class="wbody">${escapeHtml(f.statement||'')}</p>
+        ${f.value!==undefined?jsonPre(f.value,'var(--w-tide)'):''}
+        ${(f.evidenceRefs||[]).length?`<p class="wmeta">Evidence: ${escapeHtml(f.evidenceRefs.map(evRefId).join(', '))}</p>`:''}
+      </div>`).join('');
+    return wsec('Facts', facts.length, 'Evidence-grounded observations, not conclusions.', body);
+  }
+  function evRefId(ref){ return typeof ref==='string'?ref:(ref&&ref.evidenceId)||'—'; }
+
+  function registerSections(registers){
+    return registers.map(reg=>{
       const name=reg.name.replace(/([a-z])([A-Z])/g,'$1 $2');
-      html+=csec(name.charAt(0).toUpperCase()+name.slice(1),(reg.items||[]).map(genericItem));
+      const body=(reg.items||[]).map(it=>{
+        if(typeof it!=='object'||it===null) return `<div class="wcard">${escapeHtml(String(it))}</div>`;
+        const long=Object.values(it).filter(v=>typeof v==='string'&&v.length>40).sort((a,b)=>b.length-a.length)[0]||'';
+        const val=it.fairValue!==undefined?it.fairValue:it.value;
+        const meta=Object.entries(it)
+          .filter(([k,v])=>k!=='id'&&v!==long&&((typeof v==='string'&&v.length<=40)||typeof v==='number'))
+          .map(([k,v])=>`${k}: ${v}`).join(' · ');
+        return `<div class="wcard">
+          <div class="top"><span class="wid">${escapeHtml(it.id||'—')}</span></div>
+          ${long?`<p class="wbody">${escapeHtml(long)}</p>`:''}
+          ${val!==undefined?jsonPre(val,'var(--w-tide)'):''}
+          ${meta?`<p class="wmeta">${escapeHtml(meta)}</p>`:''}
+        </div>`;
+      }).join('');
+      return wsec(name.charAt(0).toUpperCase()+name.slice(1), (reg.items||[]).length, `Domain register carried in ${reg.path}.`, body);
+    }).join('');
+  }
+
+  function calcsSection(calcs){
+    if(!calcs.length) return '';
+    const body=calcs.map(k=>{
+      if(k.csv) return csvCard(k);
+      if(!k.inputs&&!k.outputs) return `<div class="wcard"><span class="wid">${escapeHtml(k.path||'')}</span><p class="wmeta">${escapeHtml(k.mediaType||'')}</p></div>`;
+      return `<div class="wcard">
+        <div class="top"><span class="wname">${escapeHtml(k.type||k.path||'')}<span class="wid">${escapeHtml(k.id||k.path||'')}</span></span>
+          ${k.recomputable!==undefined?`<span class="chip ${k.recomputable?'pass':'mute'}">${k.recomputable?'recomputable':'not recomputable'}</span>`:''}
+        </div>
+        ${typeof k.method==='string'?`<p class="wmuted">${escapeHtml(k.method)}</p>`:''}
+        <div class="wgrid2">
+          <div><span class="wlabel">Inputs</span>${jsonPre(k.inputs||{})}</div>
+          <div><span class="wlabel">Outputs</span>${jsonPre(k.outputs||{})}</div>
+        </div>
+      </div>`;
+    }).join('');
+    return wsec('Calculations', calcs.length, 'Declared inputs and outputs; recomputable ones are re-checked by the deterministic validators above.', body);
+  }
+  function csvCard(k){
+    const rows=parseCsv(k.csv);
+    if(!rows.length) return '';
+    const headers=rows[0], data=rows.slice(1);
+    return `<div class="wcard"><span class="wid">${escapeHtml(k.path||'')}</span>
+      <div class="wtwrap"><table class="wtable">
+        <thead><tr>${headers.map(h=>`<th>${escapeHtml(h)}</th>`).join('')}</tr></thead>
+        <tbody>${data.map(r=>`<tr>${r.map(cell=>`<td${/^-?[\d,.]+$/.test(cell)?' class="num"':''}>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody>
+      </table></div></div>`;
+  }
+  function parseCsv(text){
+    const rows=[]; let row=[], cell='', q=false;
+    for(let i=0;i<text.length;i++){
+      const ch=text[i];
+      if(q){ if(ch==='"'){ if(text[i+1]==='"'){cell+='"';i++;} else q=false; } else cell+=ch; }
+      else if(ch==='"') q=true;
+      else if(ch===','){ row.push(cell); cell=''; }
+      else if(ch==='\n'){ row.push(cell.replace(/\r$/,'')); rows.push(row); row=[]; cell=''; }
+      else cell+=ch;
     }
-    html+=csec('Claims',(c.claims||[]).map(cl=>`
-      <li>${pill(cl.status)}
-        <span class="cid">${escapeHtml(cl.id||'')}${(cl.standardRefs||[]).length?' · '+escapeHtml(cl.standardRefs.join(', ')):''}</span>
-        ${escapeHtml(cl.statement||'')}
-        ${cl.conclusion?`<div class="cnote">→ ${escapeHtml(cl.conclusion)}</div>`:''}
-      </li>`));
-    html+=csec('Judgments',(c.judgments||[]).map(j=>`
-      <li>${pill(j.status)}
-        <span class="cid">${escapeHtml(j.id||'')}${j.topic?' · '+escapeHtml(j.topic):''}</span>
-        <b>${escapeHtml(j.question||'')}</b>
-        ${j.proposedConclusion?`<div class="cnote"><b>Proposed:</b> ${escapeHtml(j.proposedConclusion)}</div>`:''}
-        ${j.basis?`<div class="cnote"><b>Basis:</b> ${escapeHtml(j.basis)}</div>`:''}
-        ${(j.alternatives||[]).length?`<div class="cnote">${j.alternatives.length} alternative${j.alternatives.length===1?'':'s'} considered</div>`:''}
-      </li>`));
-    html+=csec('Calculations',(c.calculations||[]).map(k=>{
-      if(!k.outputs&&!k.inputs) return `<li><span class="cid">${escapeHtml(k.path||'')}</span><span class="cnote">${escapeHtml(k.mediaType||'')}</span></li>`;
-      return `<li>
-        <span class="cid">${escapeHtml(k.id||k.path||'')}${k.type?' · '+escapeHtml(k.type):''}</span>
-        ${k.method?escapeHtml(k.method):''}
-        ${k.outputs?`<div class="ckv">${escapeHtml(JSON.stringify(k.outputs,null,2))}</div>`:''}
-      </li>`;
-    }));
-    const wp=c.workproduct;
-    if(wp&&wp.conclusionSummary){
-      html+=csec('Conclusion',[`
-        <li>${pill(wp.reviewState||wp.status)}
-          <span class="cid">${escapeHtml(wp.id||'')}${(wp.standardRefs||[]).length?' · '+escapeHtml(wp.standardRefs.join(', ')):''}</span>
-          ${escapeHtml(wp.conclusionSummary)}
-        </li>`]);
+    if(cell!==''||row.length){ row.push(cell.replace(/\r$/,'')); rows.push(row); }
+    return rows.filter(r=>r.length>1||(r[0]||'').trim()!=='');
+  }
+
+  function judgmentsSection(judgments){
+    if(!judgments.length) return '';
+    const body=judgments.map(j=>`
+      <div class="wcard">
+        <div class="top"><span class="wname">${escapeHtml(j.topic||'')}<span class="wid">${escapeHtml(j.id||'')}${j.riskLevel?` · risk ${escapeHtml(j.riskLevel)}`:''}</span></span>
+          ${statusChip(j.status)}
+        </div>
+        <p class="wbody">${escapeHtml(j.question||'')}</p>
+        ${j.proposedConclusion?`<p class="wmuted"><b>Proposed:</b> ${escapeHtml(j.proposedConclusion)}</p>`:''}
+        ${j.basis?`<p class="wmuted"><b>Basis:</b> ${escapeHtml(j.basis)}</p>`:''}
+        ${(j.alternatives||[]).map(alt=>`<p class="wmeta"><b>Alternative:</b> ${escapeHtml(alt.conclusion||'')}${alt.notes?` — ${escapeHtml(alt.notes)}`:''}</p>`).join('')}
+      </div>`).join('');
+    return wsec('Judgment calls', judgments.length, 'Where professional discretion was applied — the part machines cannot check.', body);
+  }
+
+  function evidenceSection(evidence, provenance){
+    if(!evidence.length&&!provenance) return '';
+    let body='';
+    body+=evidence.map(item=>`
+      <div class="wrowitem">
+        <span>${escapeHtml(item.title||item.id||'—')} <span class="wid">${escapeHtml(item.id||'')}</span></span>
+        <span class="right">${escapeHtml([item.type,item.sourceSystem,item.path].filter(Boolean).join(' · '))}</span>
+      </div>`).join('');
+    if(provenance){
+      const by=provenance.createdBy||{};
+      const models=(provenance.models||[]).map(mo=>`${mo.provider||'?'}/${mo.name||'?'} (${mo.version||'?'})`).join(', ');
+      const tools=(provenance.toolchain||[]).map(t=>`${t.name||'?'} ${t.version||''}`.trim()).join(', ');
+      body+=`<div class="wcard"><span class="wlabel">Produced by</span>
+        <p class="wbody">${escapeHtml(`${by.name||'unknown'}${by.version?` v${by.version}`:''} (${by.type||'unknown'})`)}${provenance.createdAt?escapeHtml(` · ${provenance.createdAt}`):''}</p>
+        ${models?`<p class="wmeta">Models: ${escapeHtml(models)}</p>`:''}
+        ${tools?`<p class="wmeta">Toolchain: ${escapeHtml(tools)}</p>`:''}
+        ${provenance.notes?`<p class="wmeta">${escapeHtml(String(provenance.notes))}</p>`:''}
+      </div>`;
     }
-    return html;
+    return wsec('Evidence & provenance', null, 'Source records the facts anchor to, and how this package was produced.', body);
   }
 
   // -- upload flow --
   async function verifyFile(file){
     const rpt=document.getElementById('report');
     rpt.classList.add('show');
-    rpt.innerHTML=`<div class="err" style="color:var(--ink-soft)">Verifying ${escapeHtml(file.name)}…</div>`;
+    rpt.innerHTML=`<div class="rload">Verifying ${escapeHtml(file.name)}…</div>`;
     const fd=new FormData(); fd.append('package', file);
     try{
       const res=await fetch(API+'/verify',{method:'POST',body:fd});
@@ -426,7 +548,7 @@
         const id=c.dataset.id;
         const rpt=document.getElementById('report');
         document.getElementById('verify').scrollIntoView({behavior:'smooth'});
-        rpt.classList.add('show'); rpt.innerHTML=`<div class="err" style="color:var(--ink-soft)">Verifying ${id}…</div>`;
+        rpt.classList.add('show'); rpt.innerHTML=`<div class="rload">Verifying ${id}…</div>`;
         try{
           const r=await fetch(`${API}/examples/${id}/verify`);
           const d=await r.json();

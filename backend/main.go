@@ -26,6 +26,13 @@ var examplesFS embed.FS
 // .vwp packages are small; 25 MiB is generous.
 const maxUpload = 25 << 20
 
+// Caps on inlined part content in verify responses, so one oversized exhibit
+// can't balloon the JSON payload.
+const (
+	maxRenderingBytes = 200 << 10
+	maxCsvBytes       = 100 << 10
+)
+
 // example describes a pre-loaded package the marketing site can link to.
 type example struct {
 	Id          string `json:"id"`
@@ -209,9 +216,32 @@ func extractComponents(pkg vwp.Source) map[string]any {
 	}
 
 	out := map[string]any{}
-	var calcs, registers []map[string]any
+	var calcs, registers, renderings []map[string]any
 	for _, part := range manifest.AllPartRefs() {
 		switch part.Role {
+		case "evidence-index":
+			var doc map[string]any
+			if vwp.ReadJSON(pkg, part.Path, &doc) != nil {
+				continue
+			}
+			if items, ok := doc["evidence"].([]any); ok {
+				prev, _ := out["evidence"].([]any)
+				out["evidence"] = append(prev, items...)
+			}
+		case "provenance":
+			var doc map[string]any
+			if vwp.ReadJSON(pkg, part.Path, &doc) == nil {
+				out["provenance"] = doc
+			}
+		case "rendering":
+			if !strings.HasSuffix(part.Path, ".md") {
+				continue
+			}
+			raw, err := pkg.Read(part.Path)
+			if err != nil || len(raw) > maxRenderingBytes {
+				continue
+			}
+			renderings = append(renderings, map[string]any{"path": part.Path, "markdown": string(raw)})
 		case "facts", "claims", "judgments":
 			// Each of these parts is a JSON document keyed by its role,
 			// e.g. facts/facts.json is {"facts": [...]}. A part may also
@@ -241,6 +271,12 @@ func extractComponents(pkg vwp.Source) map[string]any {
 					doc["path"] = part.Path
 					calc = doc
 				}
+			} else if part.MediaType == "text/csv" {
+				// Schedules ship as CSV exhibits; include the raw text so
+				// the report can render the table itself.
+				if raw, err := pkg.Read(part.Path); err == nil && len(raw) <= maxCsvBytes {
+					calc["csv"] = string(raw)
+				}
 			}
 			calcs = append(calcs, calc)
 		case "workproduct":
@@ -255,6 +291,9 @@ func extractComponents(pkg vwp.Source) map[string]any {
 	}
 	if len(registers) > 0 {
 		out["registers"] = registers
+	}
+	if len(renderings) > 0 {
+		out["renderings"] = renderings
 	}
 	if len(out) == 0 {
 		return nil
