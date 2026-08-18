@@ -11,7 +11,11 @@ flowchart LR
     J --> V
     K --> V
     V --> X[Conclusion<br/>workproduct.json]
-    X --> R[Renderings<br/>memo / workpaper<br/>derived views only]
+    X --> R[Canonical readable<br/>Markdown<br/>derived view]
+    X --> A[Optional primary artifact<br/>embedded native work product]
+    F -. presentation map .-> R
+    C -. presentation map .-> R
+    F -. optional native locator .-> A
 ```
 
 The package is the source of truth; renderings are derived views. Validators
@@ -29,9 +33,11 @@ flowchart TD
         FA[facts/]
         JU[judgments/]
         CA[calculations/]
+        AR[artifacts/<br/>embedded native work product]
+        PM[presentation/<br/>derived object-to-artifact links]
         VA[validations/]
         AP[approvals/]
-        RE[renderings/]
+        RE[renderings/<br/>canonical readable.md in v0.2]
         SI[signatures/ - experimental]
     end
     M -->|declares + hashes| W

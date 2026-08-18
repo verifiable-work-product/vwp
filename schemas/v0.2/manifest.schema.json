@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.2/manifest.schema.json",
+  "title": "VWP Manifest",
+  "description": "Proposed v0.2 top-level manifest. Every package has a Markdown readable part, using the preferred readable role or the legacy rendering role, and may embed native artifacts.",
+  "type": "object",
+  "required": ["vwpVersion", "packageId", "createdAt", "profile", "workproduct", "provenance", "parts"],
+  "properties": {
+    "vwpVersion": { "type": "string", "const": "0.2" },
+    "packageId": { "type": "string", "minLength": 1 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "profile": { "type": "string", "minLength": 1 },
+    "extension": { "type": "string" },
+    "title": { "type": "string" },
+    "subject": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "workproduct": { "$ref": "#/$defs/packagePart" },
+    "parts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/packagePart" },
+      "allOf": [
+        {
+          "contains": { "$ref": "#/$defs/explicitReadable" },
+          "minContains": 0,
+          "maxContains": 1
+        },
+        {
+          "anyOf": [
+            {
+              "contains": { "$ref": "#/$defs/explicitReadable" },
+              "minContains": 1
+            },
+            {
+              "contains": { "$ref": "#/$defs/legacyReadable" },
+              "minContains": 1
+            }
+          ]
+        }
+      ]
+    },
+    "provenance": { "$ref": "#/$defs/packagePart" },
+    "signatures": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/packagePart" }
+    }
+  },
+  "$defs": {
+    "explicitReadable": {
+      "type": "object",
+      "required": ["path", "mediaType", "role"],
+      "properties": {
+        "path": { "pattern": "^(?:[^/]+/)*[^/]+\\.[mM][dD]$" },
+        "mediaType": { "const": "text/markdown" },
+        "role": { "const": "readable" }
+      }
+    },
+    "legacyReadable": {
+      "type": "object",
+      "required": ["path", "mediaType", "role"],
+      "properties": {
+        "path": { "pattern": "^(?:[^/]+/)*[^/]+\\.[mM][dD]$" },
+        "mediaType": { "const": "text/markdown" },
+        "role": { "const": "rendering" }
+      }
+    },
+    "packagePart": {
+      "type": "object",
+      "required": ["path", "mediaType"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?![A-Za-z]:)(?!.*\\\\)(?!\\.\\.(?:/|$))(?!.*\\/\\.\\.(?:\\/|$)).+$",
+          "description": "Forward-slash relative path within the package. MUST NOT be absolute or contain '..' segments."
+        },
+        "mediaType": { "type": "string", "minLength": 1 },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "Lowercase hex SHA-256 digest of the file contents."
+        },
+        "role": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["role"],
+            "properties": { "role": { "const": "readable" } }
+          },
+          "then": {
+            "properties": {
+              "path": { "pattern": "^(?:[^/]+/)*[^/]+\\.[mM][dD]$" },
+              "mediaType": { "const": "text/markdown" }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

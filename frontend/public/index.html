@@ -104,6 +104,10 @@
   .rhead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
   .rhead .title{font-family:var(--sans);font-weight:600;font-size:20px;letter-spacing:-.01em}
   .rhead .sub{font-family:var(--mono);font-size:12px;color:var(--w-mist);margin-top:4px}
+  .rtools{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+  .rbtn{font-family:var(--sans);font-size:12px;font-weight:600;line-height:1.2;color:var(--w-ink);background:var(--w-surface2);border:1px solid var(--w-line);border-radius:7px;padding:7px 10px;text-decoration:none;cursor:pointer;box-shadow:none}
+  .rbtn:hover{border-color:var(--w-wave);color:var(--w-wave);transform:none}
+  .rbtn:disabled{cursor:wait;opacity:.65}
   .chip{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:2px 10px;border-radius:999px;border:1px solid;white-space:nowrap}
   .chip.pass{color:var(--w-pass);border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.1)}
   .chip.review{color:var(--w-review);border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.1)}
@@ -111,6 +115,7 @@
   .chip.wave{color:var(--w-wave);border-color:rgba(34,211,238,.4);background:rgba(34,211,238,.1)}
   .chip.mute{color:var(--w-mist);border-color:var(--w-line);background:var(--w-surface2)}
   .wsec{margin-top:32px}
+  .report section.wsec{padding:0;border:0}
   .wsec>h3{font-family:var(--sans);font-weight:500;font-size:19px;margin:0;letter-spacing:-.01em}
   .wsec>h3 .count{font-size:13px;font-weight:400;color:var(--w-mist)}
   .wsec>.hint{font-size:13px;color:var(--w-mist);margin:2px 0 0;line-height:1.5}
@@ -145,6 +150,30 @@
   details.wrend summary{cursor:pointer;padding:10px 16px;font-family:var(--mono);font-size:12px;color:var(--w-mist)}
   details.wrend summary:hover{color:var(--w-ink)}
   details.wrend .wpre{border:0;border-top:1px solid var(--w-line);border-radius:0 0 12px 12px;margin:0;white-space:pre-wrap}
+  .wrender{margin-top:12px}
+  .wrender>.wid{display:block;margin-bottom:8px}
+  .wdoc{background:#f8fafc;color:#17212b;border-radius:10px;padding:clamp(20px,4vw,40px);font-family:var(--text);font-size:16px;line-height:1.68;box-shadow:inset 0 0 0 1px #d9e0e6}
+  .wdoc h1,.wdoc h2,.wdoc h3,.wdoc h4{font-family:var(--sans);color:#111c27;line-height:1.2;letter-spacing:-.015em;margin:1.45em 0 .55em}
+  .wdoc h1{font-size:clamp(24px,4vw,34px);margin-top:0;padding-bottom:.45em;border-bottom:2px solid #17212b}
+  .wdoc h2{font-size:23px;border-bottom:1px solid #d9e0e6;padding-bottom:.35em}
+  .wdoc h3{font-size:18px}
+  .wdoc p{margin:.8em 0}
+  .wdoc a{color:#08758a}
+  .wdoc blockquote{margin:1em 0;padding:10px 16px;border-left:4px solid #b7791f;background:#fff8e8;color:#4b4438}
+  .wdoc blockquote p{margin:0}
+  .wdoc ul,.wdoc ol{margin:.7em 0;padding-left:1.5em}
+  .wdoc li{margin:.36em 0;padding-left:.2em}
+  .wdoc code{font-family:var(--mono);font-size:.84em;background:#e8edf1;border-radius:3px;padding:.12em .32em;color:#243746}
+  .wdoc pre{overflow:auto;background:#111923;color:#e6edf3;border-radius:7px;padding:14px;font:12px/1.6 var(--mono)}
+  .wdoc pre code{background:transparent;color:inherit;padding:0}
+  .wdoc .md-table{overflow-x:auto;margin:1em 0}
+  .wdoc table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.45}
+  .wdoc th,.wdoc td{text-align:left;padding:8px 10px;border:1px solid #cfd8df;vertical-align:top}
+  .wdoc th{font-family:var(--sans);font-size:12px;background:#e8edf1}
+  .wdoc hr{border:0;border-top:1px solid #cfd8df;margin:2em 0}
+  .reader-note{max-width:1080px;margin:28px auto 0;padding:0 24px;color:#41525f;font:13px/1.5 var(--sans)}
+  .reader-note b{color:#14202b}
+  .reader-hash{font:11px/1.55 var(--mono);overflow-wrap:anywhere}
   .err{color:var(--w-fail);font-family:var(--mono);font-size:13px}
   .rload{color:var(--w-mist);font-family:var(--mono);font-size:13px}
 
@@ -220,7 +249,7 @@
       <p>Everything runs against the open verifier. Nothing is stored.</p>
       <button onclick="document.getElementById('file').click()">Choose file</button>
       <input id="file" type="file" accept=".vwp,application/zip" hidden />
-      <div class="hint">core · profile · extension validators — deterministic, offline</div>
+      <div class="hint">core · profile · extension validators — deterministic · processed transiently · nothing stored</div>
     </div>
     <div class="report" id="report"></div>
   </div>
@@ -308,7 +337,7 @@
     return {text:'valid', cls:'pass'};
   }
 
-  function renderReport(data, title){
+  function renderReport(data, title, source){
     const el=document.getElementById('report');
     el.classList.add('show');
     if(data.error){ el.innerHTML=`<div class="err">✕ ${escapeHtml(data.error)}</div>`; return; }
@@ -317,11 +346,16 @@
     const m=data.manifest||{};
     const sub=[m.packageId, m.profile, m.extension].filter(Boolean).join(' · ');
     const c=data.components||{};
+    const displayTitle=(c.workproduct&&c.workproduct.title)||title||m.title||'Verification report';
     el.innerHTML = `
       <div class="rhead">
-        <div><div class="title">${escapeHtml(title||m.title||'Verification report')}</div>
+        <div><div class="title">${escapeHtml(displayTitle)}</div>
         <div class="sub">${escapeHtml(sub)}</div></div>
-        <span class="chip ${sum.cls}">${escapeHtml(sum.text)}</span>
+        <div class="rtools">
+          <span class="chip ${sum.cls}">${escapeHtml(sum.text)}</span>
+          <button class="rbtn" type="button" data-reader-action="download-readable">Download readable copy</button>
+          ${source?`<button class="rbtn" type="button" data-reader-action="download-source">Download .vwp</button>`:''}
+        </div>
       </div>
       ${workproductSection(c)}
       ${claimsSection(c.claims||[])}
@@ -331,6 +365,10 @@
       ${calcsSection(c.calculations||[])}
       ${judgmentsSection(c.judgments||[])}
       ${evidenceSection(c.evidence||[], c.provenance)}`;
+    const readable=el.querySelector('[data-reader-action="download-readable"]');
+    readable.addEventListener('click',()=>downloadReadableCopy(el, data, displayTitle, source, readable));
+    const sourceButton=el.querySelector('[data-reader-action="download-source"]');
+    if(sourceButton) sourceButton.addEventListener('click',()=>downloadSource(source,sourceButton));
     el.scrollIntoView({behavior:'smooth',block:'nearest'});
   }
 
@@ -360,7 +398,9 @@
       </div>`;
     }
     for(const r of rends){
-      body+=`<details class="wrend"><summary>${escapeHtml(r.path)}</summary><pre class="wpre">${escapeHtml(r.markdown)}</pre></details>`;
+      body+=`<div class="wrender"><span class="wid">${escapeHtml(r.path)}</span>
+        <article class="wdoc">${renderMarkdown(r.markdown)}</article>
+        <details class="wrend"><summary>View source Markdown</summary><pre class="wpre">${escapeHtml(r.markdown)}</pre></details></div>`;
     }
     return wsec('Work product', null, 'What the preparer concluded. The rendering below is a derived view — the structured package is the source of truth.', body);
   }
@@ -507,6 +547,151 @@
     return wsec('Evidence & provenance', null, 'Source records the facts anchor to, and how this package was produced.', body);
   }
 
+  // Render a deliberately small, non-HTML Markdown subset. Package renderings
+  // are untrusted input, so raw HTML is always escaped and never executed.
+  function renderMarkdown(markdown){
+    const lines=String(markdown||'').replace(/\r\n?/g,'\n').split('\n');
+    const out=[];
+    let i=0;
+    while(i<lines.length){
+      const line=lines[i];
+      if(!line.trim()){ i++; continue; }
+
+      const fence=line.match(/^\s*```\s*([\w-]*)\s*$/);
+      if(fence){
+        const code=[]; i++;
+        while(i<lines.length&&!/^\s*```\s*$/.test(lines[i])) code.push(lines[i++]);
+        if(i<lines.length) i++;
+        out.push(`<pre><code>${escapeHtml(code.join('\n'))}</code></pre>`);
+        continue;
+      }
+
+      const heading=line.match(/^(#{1,6})\s+(.+)$/);
+      if(heading){ const n=heading[1].length; out.push(`<h${n}>${renderInline(heading[2])}</h${n}>`); i++; continue; }
+      if(/^\s*(?:---+|___+|\*\*\*+)\s*$/.test(line)){ out.push('<hr>'); i++; continue; }
+
+      if(/^\s*>/.test(line)){
+        const quote=[];
+        while(i<lines.length&&(/^\s*>/.test(lines[i])||(!lines[i].trim()&&i+1<lines.length&&/^\s*>/.test(lines[i+1])))){
+          if(lines[i].trim()) quote.push(lines[i].replace(/^\s*>\s?/,''));
+          i++;
+        }
+        out.push(`<blockquote><p>${renderInline(quote.join(' '))}</p></blockquote>`);
+        continue;
+      }
+
+      if(isTableAt(lines,i)){
+        const headers=splitTableRow(lines[i]);
+        i+=2;
+        const rows=[];
+        while(i<lines.length&&/^\s*\|.*\|\s*$/.test(lines[i])) rows.push(splitTableRow(lines[i++]));
+        out.push(`<div class="md-table"><table><thead><tr>${headers.map(v=>`<th>${renderInline(v)}</th>`).join('')}</tr></thead>
+          <tbody>${rows.map(row=>`<tr>${headers.map((_,n)=>`<td>${renderInline(row[n]||'')}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`);
+        continue;
+      }
+
+      const list=line.match(/^\s*([-+*]|\d+\.)\s+(.+)$/);
+      if(list){
+        const ordered=/\d+\./.test(list[1]);
+        const start=ordered?parseInt(list[1],10):1;
+        const items=[];
+        while(i<lines.length){
+          const item=lines[i].match(/^\s*([-+*]|\d+\.)\s+(.+)$/);
+          if(!item||(/\d+\./.test(item[1]))!==ordered) break;
+          let value=item[2]; i++;
+          while(i<lines.length&&lines[i].trim()&&!isBlockStart(lines,i)&&!/^\s*([-+*]|\d+\.)\s+/.test(lines[i])) value+=' '+lines[i++].trim();
+          items.push(`<li>${renderInline(value)}</li>`);
+          while(i<lines.length&&!lines[i].trim()) i++;
+        }
+        const tag=ordered?'ol':'ul';
+        out.push(`<${tag}${ordered&&start!==1?` start="${start}"`:''}>${items.join('')}</${tag}>`);
+        continue;
+      }
+
+      const para=[line.trim()]; i++;
+      while(i<lines.length&&lines[i].trim()&&!isBlockStart(lines,i)) para.push(lines[i++].trim());
+      const metadata=para.length>1&&para.every(v=>/^\*\*[^*]+:\*\*/.test(v));
+      out.push(`<p>${para.map(renderInline).join(metadata?'<br>':' ')}</p>`);
+    }
+    return out.join('');
+  }
+
+  function isBlockStart(lines,i){
+    const line=lines[i]||'';
+    return /^\s*```/.test(line)||/^#{1,6}\s+/.test(line)||/^\s*>/.test(line)||
+      /^\s*(?:---+|___+|\*\*\*+)\s*$/.test(line)||/^\s*([-+*]|\d+\.)\s+/.test(line)||isTableAt(lines,i);
+  }
+  function isTableAt(lines,i){
+    return /^\s*\|.*\|\s*$/.test(lines[i]||'')&&
+      /^\s*\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(lines[i+1]||'');
+  }
+  function splitTableRow(line){ return line.trim().replace(/^\||\|$/g,'').split('|').map(v=>v.trim()); }
+  function renderInline(value){
+    let s=escapeHtml(value);
+    s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
+    s=s.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+    s=s.replace(/(^|[^*])\*([^*]+)\*/g,'$1<em>$2</em>');
+    s=s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,(_,label,url)=>{
+      const safe=/^https?:\/\//i.test(url)?url:'';
+      return safe?`<a href="${safe}" target="_blank" rel="noopener noreferrer">${label}</a>`:`${label} <code>${url}</code>`;
+    });
+    return s;
+  }
+
+  async function downloadReadableCopy(reportEl, data, title, source, button){
+    const oldText=button.textContent;
+    button.disabled=true; button.textContent='Building copy…';
+    try{
+      const clone=reportEl.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.querySelectorAll('[data-reader-action]').forEach(node=>node.remove());
+      const generatedAt=new Date().toISOString();
+      let digest='';
+      if(source){
+        try{
+          const blob=await sourceBlob(source);
+          const hash=await crypto.subtle.digest('SHA-256',await blob.arrayBuffer());
+          digest=Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
+        }catch(e){ /* The readable copy still works if source retrieval fails. */ }
+      }
+      const m=data.manifest||{};
+      const sourceName=source&&source.filename?source.filename:(data.packageOrigin||'source .vwp');
+      const styles=document.querySelector('style').textContent;
+      const html=`<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; font-src 'none'; img-src data:">
+<title>${escapeHtml(title)} — VWP readable copy</title><style>${styles}</style></head>
+<body><div class="reader-note"><b>VWP readable copy</b> · generated ${escapeHtml(generatedAt)} from ${escapeHtml(sourceName)}.
+This static, offline view records the verification result shown at export time; open the original <code>.vwp</code> in a current verifier to re-run its checks.
+${m.packageId?`<div class="reader-hash">Package ID: ${escapeHtml(m.packageId)}${digest?` · Source SHA-256: ${digest}`:''}</div>`:''}</div>
+<main class="wrap">${clone.outerHTML}</main></body></html>`;
+      downloadBlob(new Blob([html],{type:'text/html;charset=utf-8'}),readableFilename(sourceName,title));
+    }finally{
+      button.disabled=false; button.textContent=oldText;
+    }
+  }
+  function readableFilename(sourceName,title){
+    const base=(sourceName||title||'work-product').replace(/\.vwp$/i,'').replace(/[^a-z0-9._-]+/gi,'-').replace(/^-+|-+$/g,'')||'work-product';
+    return `${base}.readable.html`;
+  }
+  async function sourceBlob(source){
+    if(source.blob) return source.blob;
+    const res=await fetch(source.url);
+    if(!res.ok) throw new Error(`Could not download source package (${res.status})`);
+    return res.blob();
+  }
+  async function downloadSource(source,button){
+    if(!source) return;
+    try{ downloadBlob(await sourceBlob(source),source.filename||'work-product.vwp'); }
+    catch(e){ button.textContent='Download failed'; button.title=e.message; }
+  }
+  function downloadBlob(blob,filename){
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download=filename; a.hidden=true;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }
+
   // -- upload flow --
   async function verifyFile(file){
     const rpt=document.getElementById('report');
@@ -516,7 +701,7 @@
     try{
       const res=await fetch(API+'/verify',{method:'POST',body:fd});
       const data=await res.json();
-      renderReport(data, file.name);
+      renderReport(data, file.name, {filename:file.name, blob:file});
     }catch(e){
       renderReport({error:'Could not reach the verifier. '+e.message}, file.name);
     }
@@ -552,7 +737,7 @@
         try{
           const r=await fetch(`${API}/examples/${id}/verify`);
           const d=await r.json();
-          renderReport(d.report, d.example.title);
+          renderReport(d.report, d.example.title, {filename:`${id}.vwp`, url:`${API}/examples/${id}/download`});
         }catch(err){ renderReport({error:err.message}); }
       }));
     }catch(e){

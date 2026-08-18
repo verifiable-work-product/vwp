@@ -331,6 +331,39 @@ func TestBuilderRejectsSchemaInvalidObjects(t *testing.T) {
 	}
 }
 
+func TestBuilderPrimaryArtifact(t *testing.T) {
+	dir := t.TempDir()
+	b := minimalScaffold(t, dir)
+	content := []byte("region,revenue\nNYC,125000\n")
+	if err := b.AddPrimaryArtifact("artifacts/revenue-allocation.csv", "text/csv", content); err != nil {
+		t.Fatalf("AddPrimaryArtifact: %v", err)
+	}
+	if err := b.AddPrimaryArtifact("artifacts/revenue-allocation.csv", "text/csv", content); err != nil {
+		t.Fatalf("idempotent AddPrimaryArtifact: %v", err)
+	}
+	if err := b.AddPrimaryArtifact("artifacts/other.csv", "text/csv", content); !errors.Is(err, builder.ErrConflict) {
+		t.Fatalf("second primary artifact = %v, want ErrConflict", err)
+	}
+	if err := b.AddPrimaryArtifact("renderings/report.csv", "text/csv", content); err == nil {
+		t.Fatal("primary artifact outside artifacts/ should fail")
+	}
+
+	var manifest vwp.Manifest
+	readJSONInto(t, filepath.Join(dir, vwp.ManifestPath), &manifest)
+	found := false
+	for _, part := range manifest.Parts {
+		if part.Role == builder.RolePrimaryArtifact {
+			found = true
+			if part.Path != "artifacts/revenue-allocation.csv" || part.SHA256 != vwp.SHA256Hex(content) {
+				t.Fatalf("primary artifact part = %#v", part)
+			}
+		}
+	}
+	if !found {
+		t.Fatal("manifest does not index primary artifact")
+	}
+}
+
 func TestScaffoldIdempotencyAndConflict(t *testing.T) {
 	dir := t.TempDir()
 	cfg := builder.ScaffoldConfig{

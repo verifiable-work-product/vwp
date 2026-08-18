@@ -40,6 +40,12 @@ will change based on feedback and real-world use.
 
 ## v0.2 — Verification depth
 
+- Required Markdown readable: new producers use one `text/markdown` `.md` part
+  with role `readable`; legacy packages using role `rendering` remain accepted.
+  Optional native XLSX/PDF/DOCX stays separate as the `primary-artifact`
+- Presentation-map schema and referential-integrity validator: bidirectional links from
+  facts, claims, calculations, and judgments to statements, pages, cells, and regions in
+  embedded native artifacts or derived renderings (ADR 0004)
 - Better signature support (beyond the v0.1 experimental placeholder)
 - Stronger package diffing (structural diffs between package versions)
 - Package conformance tests

@@ -36,7 +36,8 @@ example.vwp
   validations/                   recorded validator results
   approvals/                     review/approval events
   attestations/                  model-assisted review records (never affect validity)
-  renderings/                    human-readable views (memo.md, workpaper.md)
+  artifacts/                     optional embedded native work product (PDF, XLSX, DOCX, etc.)
+  renderings/                    human-readable views; v0.2 proposes one required readable .md
   signatures/                    experimental in v0.1
 ```
 
@@ -60,6 +61,25 @@ node dist/index.js inspect ../examples/asc606-revenue-contract/acme-asc606.vwp
 node dist/index.js render ../examples/asc606-revenue-contract/acme-asc606.vwp
 node dist/index.js unpack ../examples/asc606-revenue-contract/acme-asc606.vwp /tmp/acme-asc606
 ```
+
+The CLI can also construct a VWP without hand-authoring its manifest:
+
+```bash
+node dist/index.js init ./my-work-product --title "My Work Product"
+node dist/index.js add evidence ./my-work-product --id ev_1 --title "Source data" --file ./source.csv
+node dist/index.js add fact ./my-work-product --id f_1 --statement "Observed result." --evidence ev_1
+node dist/index.js set-readable ./my-work-product ./memo.md
+node dist/index.js embed ./my-work-product ./analysis.xlsx
+node dist/index.js build ./my-work-product ./my-work-product.vwp
+```
+
+See the [CLI construction guide](cli/README.md) for claims, calculations, JSON
+inputs, safety behavior, and the complete command reference.
+
+The browser reader in [`frontend/`](frontend) displays the rendering and the
+structured evidence chain together. After verification it can download a
+self-contained `.readable.html` copy for an offline recipient, plus the
+original `.vwp` for anyone who wants to re-run verification.
 
 `verify` output for the ASC 606 example ends with:
 
@@ -90,8 +110,10 @@ A note on the wallet example: proof-of-control evidence, such as a signed wallet
 - [`docs/whitepaper.md`](docs/whitepaper.md) — the VWP whitepaper: motivation, object model, verification model, and role in audit workflows.
 - [`spec/`](spec) — the v0.1 draft specification (package format, manifest, core objects, profiles).
 - [`schemas/v0.1/`](schemas/v0.1) — JSON Schemas (draft 2020-12) for every core object.
+- [`schemas/v0.2/`](schemas/v0.2) — proposed manifest and presentation-map schemas, including a required Markdown readable with legacy `rendering` role compatibility.
 - [`profiles/`](profiles) — finance, audit, accounting, digital-assets, and controls profile documentation.
 - [`cli/`](cli) — the reference TypeScript CLI (`pack`, `unpack`, `verify`, `inspect`, `diff`, `render`).
+- [`viewer/`](viewer) — native macOS `.vwp` viewer: double-click file association, embedded-artifact preview, and structured inspection tabs.
 - [`sdk/`](sdk) — SDKs: [`sdk/go`](sdk/go) is a full Go implementation (verifier, builder, schema validation); TypeScript and Python are stubs (the CLI is the reference implementation).
 - [`testdata/`](testdata) — valid and invalid fixture packages used by the tests.
 - [`docs/decisions/`](docs/decisions) — architecture decision records.

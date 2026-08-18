@@ -36,18 +36,20 @@ type Builder struct {
 
 // Part roles used in manifest part references.
 const (
-	RoleWorkproduct   = "workproduct"
-	RoleProvenance    = "provenance"
-	RoleClaims        = "claims"
-	RoleEvidenceIndex = "evidence-index"
-	RoleEvidence      = "evidence"
-	RoleFacts         = "facts"
-	RoleJudgments     = "judgments"
-	RoleCalculation   = "calculation"
-	RoleValidations   = "validations"
-	RoleApprovals     = "approvals"
-	RoleAttestation   = "attestation"
-	RoleRendering     = "rendering"
+	RoleWorkproduct     = "workproduct"
+	RoleProvenance      = "provenance"
+	RoleClaims          = "claims"
+	RoleEvidenceIndex   = "evidence-index"
+	RoleEvidence        = "evidence"
+	RoleFacts           = "facts"
+	RoleJudgments       = "judgments"
+	RoleCalculation     = "calculation"
+	RoleValidations     = "validations"
+	RoleApprovals       = "approvals"
+	RoleAttestation     = "attestation"
+	RoleRendering       = "rendering"
+	RoleReadable        = "readable"
+	RolePrimaryArtifact = "primary-artifact"
 )
 
 // ScaffoldConfig describes the package identity for Scaffold.
@@ -318,6 +320,25 @@ func (b *Builder) AddAttestation(att map[string]any) error {
 // content is a no-op; different existing content is ErrConflict.
 func (b *Builder) AddFilePart(relPath, mediaType, role string, content []byte) error {
 	return b.putFilePart(relPath, mediaType, role, content)
+}
+
+// AddPrimaryArtifact embeds the native file a human considers the work
+// product (for example a PDF, spreadsheet, or document). A package has at
+// most one primary artifact; derived renderings can still be added separately.
+// The artifact lives under artifacts/ and is covered by the manifest hash.
+func (b *Builder) AddPrimaryArtifact(relPath, mediaType string, content []byte) error {
+	if !strings.HasPrefix(relPath, "artifacts/") || relPath == "artifacts/" {
+		return fmt.Errorf("vwp/builder: primary artifact must be under artifacts/")
+	}
+	if mediaType == "" {
+		return fmt.Errorf("vwp/builder: primary artifact requires a media type")
+	}
+	for _, part := range b.manifest.Parts {
+		if part.Role == RolePrimaryArtifact && part.Path != relPath {
+			return fmt.Errorf("%w: package already has primary artifact %s", ErrConflict, part.Path)
+		}
+	}
+	return b.putFilePart(relPath, mediaType, RolePrimaryArtifact, content)
 }
 
 // SupportKind names a claim support link field.

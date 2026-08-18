@@ -1,56 +1,81 @@
-# vwp CLI
+# VWP CLI
 
-Reference command-line tool for VWP (Verifiable Work Product) packages. Status: experimental v0.1 draft.
+The reference CLI can construct, build, inspect, and verify Verifiable Work
+Products. Construction commands edit an unpacked package directory; `build`
+then hashes every declared part, creates the `.vwp` archive, and verifies it.
 
-## Setup
-
-```bash
-cd cli
-npm install
-npm run build
-```
-
-The CLI resolves JSON Schemas from `../schemas/v0.1` relative to the repo checkout. Set `VWP_SCHEMAS_DIR` to override.
-
-## Commands
+## Construct a package
 
 ```bash
-node dist/index.js pack <directory> <output.vwp> [--write-hashes]
-node dist/index.js unpack <package.vwp> <directory>
-node dist/index.js verify <package.vwp | directory> [--strict]
-node dist/index.js inspect <package.vwp | directory>
-node dist/index.js diff <old.vwp | dir> <new.vwp | dir>
-node dist/index.js render <package.vwp | directory>
+# Creates the manifest, work product, provenance, empty claims collection,
+# and a starter renderings/readable.md.
+vwp init ./nyc-allocation \
+  --title "NYC Revenue Allocation" \
+  --domain tax \
+  --created-by "Pat White"
+
+vwp add evidence ./nyc-allocation \
+  --id ev_revenue \
+  --title "Revenue by region" \
+  --type dataset \
+  --file ./revenue.csv
+
+vwp add fact ./nyc-allocation \
+  --id f_nyc_revenue \
+  --statement "NYC revenue was 125000 USD." \
+  --evidence ev_revenue \
+  --value '{"amount":125000,"currency":"USD"}'
+
+vwp add calculation ./nyc-allocation \
+  --id calc_nyc_share \
+  --type ratio \
+  --inputs '{"nycRevenue":125000,"totalRevenue":500000}' \
+  --outputs '{"nycShare":0.25}' \
+  --recomputable
+
+vwp add claim ./nyc-allocation \
+  --id c_nyc_share \
+  --statement "NYC revenue represents 25% of total revenue." \
+  --fact f_nyc_revenue \
+  --calculation calc_nyc_share \
+  --status supported
+
+vwp set-readable ./nyc-allocation ./memo.md
+vwp embed ./nyc-allocation ./allocation.xlsx
+vwp build ./nyc-allocation ./nyc-allocation.vwp
 ```
 
-- `pack` zips a package directory into a `.vwp` file. With `--write-hashes` it first computes SHA-256 digests for every part declared in `manifest.json` and updates the manifest in place.
-- `unpack` extracts a `.vwp` file. It refuses entries with absolute paths, drive letters, backslashes, or `..` segments (ZIP path traversal protection) and never executes package contents.
-- `verify` runs core validators (manifest presence and schema validity, required parts, declared part hashes, workproduct/claims/provenance schema validity, evidence and claim reference resolution), plus finance profile validators when `profile` is `vwp-finance`, plus demo extension validators for `vwp-accounting-asc606`, `vwp-accounting-asc820`, and `vwp-digital-assets-wallet-ownership-control`. Extension validators check their data structures against the extension schemas under `schemas/v0.1/extensions/` before running tie-outs.
-- `inspect` prints a package summary: IDs, profile, counts, validation summary, renderings.
-- `diff` prints a simple structural diff: changed workproduct fields, added/removed evidence IDs, added/removed/changed claims, changed judgment conclusions, changed calculation outputs, changed validation statuses.
-- `render` prints the package's markdown rendering (`renderings/memo.md` or `renderings/workpaper.md`). Renderings are derived views, never the source of truth.
+`init` currently emits v0.1 packages because v0.2 verifier support is still a
+draft. Its starter Markdown uses the forward-compatible `readable` role; v0.1
+tools that know only `rendering` remain supported by the readers.
 
-## Exit codes
+## Rich JSON objects
 
-- `0` — valid; no failures (warnings and review-required items allowed unless `--strict`)
-- `1` — invalid; one or more validators failed
-- `2` — usage or runtime error
-
-## Example session
+Every structured `add` command accepts a complete object when flags are too
+limited:
 
 ```bash
-node dist/index.js pack ../examples/asc606-revenue-contract/package ../examples/asc606-revenue-contract/acme-asc606.vwp
-node dist/index.js verify ../examples/asc606-revenue-contract/acme-asc606.vwp
-node dist/index.js inspect ../examples/asc606-revenue-contract/acme-asc606.vwp
-node dist/index.js unpack ../examples/asc606-revenue-contract/acme-asc606.vwp /tmp/acme-asc606
+vwp add evidence ./package --json ./evidence-record.json --file ./source.pdf
+vwp add fact ./package --json ./fact.json
+vwp add claim ./package --json ./claim.json
+vwp add calculation ./package --json ./calculation.json
 ```
 
-## Tests
+The object is validated against its VWP schema before it is written. Local
+evidence and embedded artifacts are copied into the package, hashed, and added
+to the manifest. Re-adding an identical object is safe; reusing an id or path
+with different content fails rather than overwriting it. `set-readable` is the
+explicit replacement operation for the readable Markdown.
+
+Run `vwp <command> --help` for all options.
+
+## Existing package operations
 
 ```bash
-npm test
+vwp verify package.vwp
+vwp inspect package.vwp
+vwp render package.vwp
+vwp diff old.vwp new.vwp
+vwp unpack package.vwp ./unpacked
+vwp pack ./package package.vwp --write-hashes
 ```
-
-## Limitations
-
-VWP validation means that a package conforms to specified schemas and validation rules. It does not mean the professional conclusion is correct, complete, audited, legally sufficient, or appropriate for a particular use. Professional judgment, applicable standards, and independent review still govern reliance on any VWP package.

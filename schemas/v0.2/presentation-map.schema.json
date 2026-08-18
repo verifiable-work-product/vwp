@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.2/presentation-map.schema.json",
+  "title": "VWP Presentation Map",
+  "description": "Derived bidirectional links between authoritative package objects and locations in human-readable artifacts.",
+  "type": "object",
+  "required": ["presentationMapVersion", "links"],
+  "properties": {
+    "presentationMapVersion": { "type": "string", "const": "0.1" },
+    "links": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/link" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "link": {
+      "type": "object",
+      "required": ["objectType", "objectId", "artifactPath", "anchors"],
+      "properties": {
+        "objectType": {
+          "type": "string",
+          "enum": ["fact", "claim", "calculation", "judgment"]
+        },
+        "objectId": { "type": "string", "minLength": 1 },
+        "artifactPath": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?![A-Za-z]:)(?!.*\\\\)(?!\\.\\.(?:/|$))(?!.*\\/\\.\\.(?:\\/|$)).+$"
+        },
+        "anchors": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/anchor" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "anchor": {
+      "type": "object",
+      "minProperties": 1,
+      "properties": {
+        "quote": { "type": "string", "minLength": 1 },
+        "page": { "type": "integer", "minimum": 1 },
+        "lines": { "$ref": "#/$defs/span1" },
+        "cells": {
+          "type": "object",
+          "required": ["range"],
+          "properties": {
+            "sheet": { "type": "string" },
+            "range": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        "charSpan": { "$ref": "#/$defs/span0" },
+        "section": { "type": "string", "minLength": 1 },
+        "jsonPath": { "type": "string", "minLength": 1 },
+        "fragment": { "type": "string", "minLength": 1 },
+        "bookmark": { "type": "string", "minLength": 1 },
+        "region": {
+          "type": "object",
+          "required": ["x", "y", "width", "height"],
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" },
+            "width": { "type": "number", "exclusiveMinimum": 0 },
+            "height": { "type": "number", "exclusiveMinimum": 0 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "span1": {
+      "type": "object",
+      "required": ["from"],
+      "properties": {
+        "from": { "type": "integer", "minimum": 1 },
+        "to": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "span0": {
+      "type": "object",
+      "required": ["start", "end"],
+      "properties": {
+        "start": { "type": "integer", "minimum": 0 },
+        "end": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -12,6 +12,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path"
 	"strings"
 	"time"
 
@@ -233,8 +234,8 @@ func extractComponents(pkg vwp.Source) map[string]any {
 			if vwp.ReadJSON(pkg, part.Path, &doc) == nil {
 				out["provenance"] = doc
 			}
-		case "rendering":
-			if !strings.HasSuffix(part.Path, ".md") {
+		case "readable", "rendering":
+			if !strings.EqualFold(path.Ext(part.Path), ".md") {
 				continue
 			}
 			raw, err := pkg.Read(part.Path)
