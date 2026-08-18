@@ -111,6 +111,26 @@ describe('inspect and render', () => {
     expect(renderCommand(ASC606)).toBe(0);
     expect(renderCommand(MINIMAL)).toBe(2);
   });
+
+  it('renders legacy Markdown roles at safe alternate paths and prefers an explicit readable', () => {
+    const dir = path.join(tmp, 'compatible-readable');
+    fs.mkdirSync(path.join(dir, 'legacy'), { recursive: true });
+    fs.mkdirSync(path.join(dir, 'reports'), { recursive: true });
+    fs.writeFileSync(path.join(dir, 'legacy', 'MEMO.MD'), '# Legacy\n');
+    fs.writeFileSync(path.join(dir, 'reports', 'readable.md'), '# Preferred\n');
+    fs.writeFileSync(
+      path.join(dir, 'manifest.json'),
+      JSON.stringify({
+        parts: [
+          { path: 'legacy/MEMO.MD', mediaType: 'text/markdown', role: 'rendering' },
+          { path: 'reports/readable.md', mediaType: 'text/markdown', role: 'readable' },
+        ],
+      })
+    );
+
+    expect(renderCommand(dir)).toBe(0);
+    expect(process.stdout.write).toHaveBeenCalledWith('# Preferred\n');
+  });
 });
 
 describe('diff command', () => {

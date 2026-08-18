@@ -18,6 +18,7 @@ facts/                         optional, recommended
 claims/claims.json             required for useful packages
 judgments/                     optional
 calculations/                  optional
+artifacts/                     optional — embedded native work-product files
 validations/                   optional, recommended
 approvals/                     optional
 attestations/                  optional
@@ -35,10 +36,17 @@ signatures/                    optional in v0.1
   required for useful packages.
 - `judgments/`, `calculations/`, `validations/`, `approvals/` — corresponding object
   collections. See their respective specs.
+- `artifacts/` — native files that are themselves the work product, such as a PDF,
+  spreadsheet, document, or HTML report. A package MAY identify a preferred manifest part
+  with role `primary-artifact`; viewers MAY use it as a fallback when no Markdown rendering
+  exists. Additional files MAY use role `artifact`. Artifact bytes are opaque, hash-covered
+  package parts. The v0.1 schema does not impose cardinality on these additive role hints.
 - `attestations/` — analysis attestations (one JSON object per file), records of
   model-assisted review procedures. Never affect package validity. See
   [attestations.md](attestations.md).
 - `renderings/` — derived human-readable views (Markdown, HTML, PDF). Never authoritative.
+  A package intended for human review or external sharing SHOULD include at least one
+  rendering so a recipient can read the work product without interpreting its JSON parts.
 - `provenance/provenance.json` — production provenance. See [provenance.md](provenance.md).
 - `signatures/` — detached signatures, optional in v0.1. See [signatures.md](signatures.md).
 
@@ -86,3 +94,23 @@ draft 2020-12). Non-JSON parts (evidence files, renderings) are opaque bytes ide
 Packages are untrusted input. Verifiers and viewers MUST NOT execute package contents
 (scripts, macros, embedded active content) and SHOULD apply resource limits when
 decompressing (entry counts, sizes, compression ratios) to mitigate decompression attacks.
+Viewers opening a `primary-artifact` MUST use a sandboxed or non-executing preview and MUST
+NOT run macros, scripts, or other active content embedded in that file.
+
+## 8. Proposed v0.2 readable part
+
+VWP v0.2 separates the two human-facing concerns:
+
+- Every package MUST contain a `.md`/`text/markdown` file. New producers SHOULD
+  put a lowercase filename under `renderings/` with role `readable`; role
+  `rendering`, legacy safe placement, and extension casing remain accepted.
+- A package MAY contain at most one explicit `readable`. If it has none,
+  viewers choose a legacy Markdown `rendering` deterministically.
+- A new producer SHOULD embed native files under `artifacts/` and MAY identify
+  one preferred file with role `primary-artifact`. Consumers remain permissive
+  about legacy artifact placement and duplicate role hints. A native file is
+  not a substitute for the readable Markdown.
+
+This guarantees that every v0.2 work product has a safe, portable review
+surface while still allowing an XLSX, PDF, DOCX, or other native deliverable to
+travel inside the same `.vwp` package.

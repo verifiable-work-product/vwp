@@ -6,6 +6,34 @@ on:
   pull_request:
 
 jobs:
+  frontend:
+    name: Browser reader
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - run: node frontend/test.mjs
+
+  viewer-macos:
+    name: macOS viewer
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          cache-dependency-path: viewer/helper/go.sum
+      - run: go test ./...
+        working-directory: viewer/helper
+      - run: ./viewer/build-macos.sh
+      - run: codesign --verify --deep --strict --verbose=2 "viewer/build/VWP Viewer.app"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: VWP-Viewer-macOS
+          path: viewer/build/VWP-Viewer-macOS.zip
+
   cli:
     name: TypeScript CLI
     runs-on: ubuntu-latest

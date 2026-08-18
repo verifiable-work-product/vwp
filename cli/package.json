@@ -1,7 +1,7 @@
 {
   "name": "@vwp/cli",
   "version": "0.1.0",
-  "description": "Reference CLI for VWP (Verifiable Work Product) packages: pack, unpack, verify, inspect, diff, render.",
+  "description": "Reference CLI for constructing, packing, verifying, inspecting, diffing, and rendering VWP packages.",
   "license": "Apache-2.0",
   "bin": {
     "vwp": "dist/index.js"
