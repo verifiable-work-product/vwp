@@ -1,0 +1,35 @@
+{
+  "extension": "vwp-accounting-asc820",
+  "factTypes": [
+    {
+      "factType": "asc820.fairValue",
+      "slot": "fairValue",
+      "valueShape": "money",
+      "description": "Fair value of the unit of account at the measurement date.",
+      "starter": true
+    },
+    {
+      "factType": "asc820.hierarchyLevel",
+      "slot": "hierarchyLevel",
+      "valueShape": "enum",
+      "enumValues": ["level1", "level2", "level3"],
+      "description": "Fair value hierarchy classification.",
+      "starter": true
+    },
+    {
+      "factType": "asc820.valuationTechnique",
+      "slot": "valuationTechnique",
+      "valueShape": "enum",
+      "enumValues": ["market", "income", "cost"],
+      "description": "Primary valuation technique applied.",
+      "starter": true
+    },
+    {
+      "factType": "asc820.principalMarket",
+      "slot": "principalMarket",
+      "valueShape": "string",
+      "description": "Principal (or most advantageous) market for the asset or liability.",
+      "starter": true
+    }
+  ]
+}

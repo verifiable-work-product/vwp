@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/fact-type-registry.schema.json",
+  "title": "VWP Extension Fact-Type Registry",
+  "description": "Canonical fact types an extension declares (FORMAT-GAPS Gap 2, format level): the conventional factType vocabulary and value shapes that make work products comparable across preparers and tools. Benchmark required-facts manifests bind slots to these types; platforms may seed starter manifests from entries marked `starter`.",
+  "type": "object",
+  "required": ["extension", "factTypes"],
+  "properties": {
+    "extension": { "type": "string", "minLength": 1 },
+    "factTypes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["factType", "slot", "valueShape", "description"],
+        "properties": {
+          "factType": { "type": "string", "minLength": 1 },
+          "slot": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Conventional slot name for required-facts manifests."
+          },
+          "valueShape": {
+            "type": "string",
+            "enum": ["money", "quantity", "date", "period", "string", "enum", "boolean"]
+          },
+          "unit": { "type": "string" },
+          "enumValues": { "type": "array", "items": { "type": "string" } },
+          "description": { "type": "string", "minLength": 1 },
+          "starter": {
+            "type": "boolean",
+            "description": "Include in a new engagement's starter manifest by default."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,80 @@
+{
+  "extension": "vwp-accounting-asc606",
+  "factTypes": [
+    {
+      "factType": "asc606.transactionPrice",
+      "slot": "transactionPrice",
+      "valueShape": "money",
+      "description": "Total consideration for the contract (fixed consideration; note treatment of variable amounts).",
+      "starter": true
+    },
+    {
+      "factType": "asc606.contractTerm",
+      "slot": "contractTermMonths",
+      "valueShape": "quantity",
+      "unit": "months",
+      "description": "Enforceable contract term, after analysis of termination provisions.",
+      "starter": true
+    },
+    {
+      "factType": "asc606.performanceObligationCount",
+      "slot": "performanceObligationCount",
+      "valueShape": "quantity",
+      "unit": "obligations",
+      "description": "Number of distinct performance obligations identified.",
+      "starter": true
+    },
+    {
+      "factType": "asc606.collectabilityConclusion",
+      "slot": "collectabilityConclusion",
+      "valueShape": "enum",
+      "enumValues": ["probable", "notProbable"],
+      "description": "Step-1 collectability conclusion (reassess on significant credit events).",
+      "starter": true
+    },
+    {
+      "factType": "asc606.modificationTreatment",
+      "slot": "modificationTreatment",
+      "valueShape": "enum",
+      "enumValues": ["separateContract", "cumulativeCatchUp", "prospective", "notApplicable"],
+      "description": "Accounting treatment of any contract modification.",
+      "starter": true
+    },
+    {
+      "factType": "asc606.periodRevenue",
+      "slot": "periodRevenueTotal",
+      "valueShape": "money",
+      "description": "Revenue recognized in the covered period.",
+      "starter": true
+    },
+    {
+      "factType": "asc606.deferredRevenueBalance",
+      "slot": "deferredRevenueBalance",
+      "valueShape": "money",
+      "description": "Contract liability (deferred revenue) balance at period end.",
+      "starter": true
+    },
+    {
+      "factType": "asc606.ssp.subscription",
+      "slot": "sspSubscription",
+      "valueShape": "money",
+      "description": "Standalone selling price of the subscription element.",
+      "starter": false
+    },
+    {
+      "factType": "asc606.ssp.implementation",
+      "slot": "sspImplementation",
+      "valueShape": "money",
+      "description": "Standalone selling price of the implementation/services element.",
+      "starter": false
+    },
+    {
+      "factType": "asc606.performanceObligationConclusion",
+      "slot": "performanceObligationConclusion",
+      "valueShape": "enum",
+      "enumValues": ["distinct", "notDistinct"],
+      "description": "Distinctness conclusion for a questioned promise (judgment surfaced as a keyed slot).",
+      "starter": false
+    }
+  ]
+}

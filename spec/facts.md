@@ -122,6 +122,18 @@ downstream tools can consume values without guessing:
 Extensions MAY constrain the `value` of a declared `factType` to one of these shapes (or
 a stricter one) via an extension schema.
 
+### Fact-type registries
+
+An extension SHOULD declare its canonical fact types in a **fact-type
+registry** at `schemas/v0.1/extensions/<extension>/fact-types.json`
+(conforming to `schemas/v0.1/fact-type-registry.schema.json`). Each entry
+binds a namespaced `factType` to a conventional slot name, a value shape, and
+a description; entries marked `starter: true` form a sensible default
+required-facts manifest for a new engagement in that area. Registries are the
+format-level half of the comparability design: they make the same economic
+fact land under the same `factType` across preparers, tools, and benchmarks
+(required-facts manifests and keyed-item scoring bind to these types).
+
 ## 6. Example
 
 ```json
