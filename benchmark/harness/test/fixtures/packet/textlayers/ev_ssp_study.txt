@@ -1,0 +1,35 @@
+SYNTHETIC BENCHMARK EVIDENCE - NOT A REAL DOCUMENT - VWPB-R606-7C41-07
+
+RIVERMARK EDUCATION SYSTEMS, INC.
+INTERNAL MEMORANDUM - REVENUE ACCOUNTING
+
+Subject:  Standalone selling price (SSP) study - fiscal 2026
+Date:     November 30, 2025
+Prepared: Revenue accounting; reviewed by Corporate Controller
+
+Summary of concluded standalone selling prices for arrangements executed on
+or after December 1, 2025:
+
+1. Rivermark FA Platform annual subscription (up to 25,000 End Users).
+   Concluded SSP: $180,000 per subscription year.
+   Basis: observable renewal pricing. Renewal transactions in the trailing
+   twelve months priced within a narrow band of list; list price is
+   $180,000 per year and discounting on renewals is rare.
+
+2. Implementation Services (standard package: configuration, data
+   migration, administrator training).
+   Concluded SSP: $120,000 (point estimate).
+   Observed range: $115,000 to $125,000.
+   Basis: standalone sales of the implementation package during the
+   trailing twelve months, principally to customers implementing with
+   third-party consultants who later purchased the Rivermark package, and
+   to customers purchasing re-implementation following platform migrations.
+
+3. Insight Analytics Module.
+   Concluded SSP: $4,000 per month.
+   Basis: list price; module is sold at list with minimal discounting.
+
+Prices stated in the study are for standalone sales and do not reflect
+bundled-arrangement discounting. Where a contractually stated price for a
+deliverable differs from concluded SSP, allocation for revenue recognition
+purposes should follow the relative SSP method under ASC 606-10-32-31.

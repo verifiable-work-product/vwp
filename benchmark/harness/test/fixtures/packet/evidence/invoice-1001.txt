@@ -1,0 +1,18 @@
+SYNTHETIC BENCHMARK EVIDENCE - NOT A REAL DOCUMENT - VWPB-R606-7C41-04
+
+RIVERMARK EDUCATION SYSTEMS, INC.
+INVOICE
+
+Invoice number:   INV-2026-1001
+Invoice date:     January 5, 2026
+Bill to:          Sagebrook Education, Inc.
+                  Accounts Payable
+Reference:        Order Form #OF-2026-011
+
+Description                                                    Amount (USD)
+Rivermark FA Platform - Annual Subscription fee,
+subscription year 1 (January 1, 2026 - December 31, 2026)        180,000.00
+
+TOTAL DUE                                                        180,000.00
+
+Payment terms: Net 30 days.

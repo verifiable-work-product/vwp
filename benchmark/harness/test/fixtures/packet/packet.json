@@ -1,0 +1,209 @@
+{
+  "challengeId": "rev-606-saas",
+  "title": "ASC 606 revenue recognition workpaper — Rivermark / Sagebrook SaaS arrangement",
+  "profile": "vwp-finance",
+  "briefMd": "# Engagement brief — `rev-606-saas`\n\n*All entities and documents in this challenge are synthetic. Marker:\nVWPB-R606-7C41.*\n\n## Context\n\nYou are the revenue accountant for **Rivermark Education Systems, Inc.**, a\nprivate SaaS company (calendar fiscal year, US GAAP). In December 2025,\nRivermark signed a new customer, **Sagebrook Education, Inc.**, for its\nhosted financial-aid platform, with implementation services. In April 2026,\nSagebrook added an analytics module. The first quarter of 2026 is being\nclosed and reviewed.\n\nYour task: prepare the ASC 606 revenue recognition workpaper for the\nSagebrook arrangement covering contract inception through March 31, 2026,\nplus an assessment of the April modification.\n\n## Evidence provided\n\nNine documents (numbered copies): the MSA excerpt, two order forms, two\ninvoices, the customer's remittance advice, Rivermark's SSP study summary,\nthe implementation acceptance certificate, and the Q1 usage report. Evidence\nmay contain problems — handle them as you would in practice and document\nwhat you find.\n\n## Deliverables\n\n1. **Revenue recognition memo** applying the five-step model, addressing at\n   minimum:\n   - contract identification, including your conclusion on the enforceable\n     contract term in light of the termination provisions;\n   - performance obligations, including whether implementation services are\n     distinct;\n   - transaction price, including treatment of the End User overage fees;\n   - allocation, on a relative standalone selling price basis;\n   - recognition pattern for each performance obligation;\n   - accounting for Order Form #OF-2026-047 (the April modification) under\n     the contract modification guidance;\n   - your handling of any evidence issues you identify.\n2. **Allocation schedule** showing the transaction price allocation.\n3. **Q1 2026 revenue schedule** by month and performance obligation.\n4. **Journal entries** for Q1 2026: billing, cash receipt, revenue\n   recognition, and any correcting or reclassifying entries you conclude are\n   required, with the balance in each revenue-related account at March 31,\n   2026.\n5. **Extraction worksheet** (provided) — one row per listed slot, cited to\n   the numbered evidence copies by document, page, and line.\n\n## Ground rules\n\nPer the preparer instructions (`cpa-instructions.md`): 4-hour budget (hard\nstop at 6), no generative AI, work alone, authoritative guidance and normal\ntools permitted.\n",
+  "deliverableSpecMd": "1. **Revenue recognition memo** applying the five-step model (contract identification and enforceable term; performance obligations and distinctness of implementation; transaction price including End User overage fees; relative-SSP allocation; recognition pattern per obligation; accounting for Order Form #OF-2026-047 under the modification guidance; handling of any evidence issues identified).\n2. **Allocation schedule** showing the transaction price allocation on a relative standalone selling price basis.\n3. **Q1 2026 revenue schedule** by month and performance obligation.\n4. **Journal entries** for Q1 2026: billing, cash receipt, revenue recognition, and any correcting or reclassifying entries concluded to be required, with the balance in each revenue-related account at March 31, 2026.\n5. **Required facts** — one anchored fact per required-facts manifest slot, cited to the evidence by verbatim quote.",
+  "requiredFacts": [
+    {
+      "slot": "transactionPrice",
+      "factType": "asc606.transactionPrice",
+      "valueShape": "money",
+      "description": "Total consideration in the initial contract, before the modification."
+    },
+    {
+      "slot": "contractTermMonths",
+      "factType": "asc606.contractTerm",
+      "valueShape": "quantity",
+      "unit": "months",
+      "description": "The enforceable contract term, after considering the termination-for-convenience clause."
+    },
+    {
+      "slot": "sspSubscription",
+      "factType": "asc606.ssp.subscription",
+      "valueShape": "money",
+      "description": "Standalone selling price of the SaaS subscription per the SSP study."
+    },
+    {
+      "slot": "sspImplementation",
+      "factType": "asc606.ssp.implementation",
+      "valueShape": "money",
+      "description": "Standalone selling price of the implementation services per the SSP study."
+    },
+    {
+      "slot": "implementationDistinct",
+      "factType": "asc606.performanceObligationConclusion",
+      "valueShape": "enum",
+      "enumValues": [
+        "distinct",
+        "notDistinct"
+      ],
+      "description": "Whether implementation services are distinct from the subscription. NOTE: this is a judgment conclusion surfaced as a keyed slot; the work product must also carry the judgment with its basis."
+    },
+    {
+      "slot": "modificationTreatment",
+      "factType": "asc606.modificationTreatment",
+      "valueShape": "enum",
+      "enumValues": [
+        "separateContract",
+        "cumulativeCatchUp",
+        "prospective"
+      ],
+      "description": "Accounting treatment of the mid-term upsell modification."
+    },
+    {
+      "slot": "q1RevenueTotal",
+      "factType": "asc606.periodRevenue",
+      "valueShape": "money",
+      "description": "Total revenue recognized in the first quarter."
+    },
+    {
+      "slot": "q1DeferredRevenueBalance",
+      "factType": "asc606.deferredRevenueBalance",
+      "valueShape": "money",
+      "description": "Deferred revenue balance at the end of the first quarter."
+    }
+  ],
+  "methodSteps": [
+    {
+      "key": "step1_contract",
+      "title": "Identify the contract",
+      "question": "Is there an enforceable contract with the customer, and what is its enforceable term?",
+      "authorityRefs": [
+        "ASC 606-10-25-1",
+        "ASC 606-10-25-3"
+      ],
+      "expects": [
+        "facts",
+        "judgments"
+      ],
+      "guidance": "Address termination provisions: do termination-for-convenience clauses or non-substantive penalties limit the enforceable term?"
+    },
+    {
+      "key": "step2_obligations",
+      "title": "Identify the performance obligations",
+      "question": "Which promised goods and services are distinct performance obligations?",
+      "authorityRefs": [
+        "ASC 606-10-25-14",
+        "ASC 606-10-25-19"
+      ],
+      "expects": [
+        "facts",
+        "judgments"
+      ],
+      "guidance": "For each promise: capable of being distinct, and distinct within the context of the contract?"
+    },
+    {
+      "key": "step3_price",
+      "title": "Determine the transaction price",
+      "question": "What consideration is the entity entitled to, and how is variable consideration treated?",
+      "authorityRefs": [
+        "ASC 606-10-32-2",
+        "ASC 606-10-32-11"
+      ],
+      "expects": [
+        "facts"
+      ],
+      "guidance": "Fixed vs. variable amounts, the constraint, significant financing components."
+    },
+    {
+      "key": "step4_allocation",
+      "title": "Allocate the transaction price",
+      "question": "How is the transaction price allocated to the performance obligations on a relative standalone selling price basis?",
+      "authorityRefs": [
+        "ASC 606-10-32-28",
+        "ASC 606-10-32-31"
+      ],
+      "expects": [
+        "facts",
+        "calculations"
+      ],
+      "guidance": "Are stated prices representative of SSP? If not, use estimated SSPs (e.g. from an SSP study)."
+    },
+    {
+      "key": "step5_recognition",
+      "title": "Recognize revenue",
+      "question": "When (or as) is each performance obligation satisfied, and what revenue is recognized in the period?",
+      "authorityRefs": [
+        "ASC 606-10-25-23",
+        "ASC 606-10-25-27"
+      ],
+      "expects": [
+        "facts",
+        "calculations"
+      ],
+      "guidance": "Over-time vs. point-in-time per obligation; produce the period revenue schedule and journal entries."
+    },
+    {
+      "key": "step6_modification",
+      "title": "Assess the contract modification",
+      "question": "How is Order Form #OF-2026-047 accounted for under the contract modification guidance?",
+      "authorityRefs": [
+        "ASC 606-10-25-10",
+        "ASC 606-10-25-12",
+        "ASC 606-10-25-13"
+      ],
+      "expects": [
+        "facts",
+        "judgments"
+      ],
+      "guidance": "Separate contract vs. cumulative catch-up vs. prospective: additional distinct goods/services at standalone selling price?"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_msa",
+      "type": "document",
+      "title": "Master SaaS Agreement (excerpt), Rivermark / Sagebrook, dated 2025-12-15",
+      "path": "evidence/msa-excerpt.txt"
+    },
+    {
+      "id": "ev_order_form_1",
+      "type": "document",
+      "title": "Order Form #OF-2026-011 (platform subscription and implementation)",
+      "path": "evidence/order-form-1.txt"
+    },
+    {
+      "id": "ev_order_form_2",
+      "type": "document",
+      "title": "Order Form #OF-2026-047 (Insight Analytics Module upsell)",
+      "path": "evidence/order-form-2-upsell.txt"
+    },
+    {
+      "id": "ev_invoice_1001",
+      "type": "document",
+      "title": "Invoice INV-2026-1001 (annual subscription, year 1)",
+      "path": "evidence/invoice-1001.txt"
+    },
+    {
+      "id": "ev_invoice_1002",
+      "type": "document",
+      "title": "Invoice INV-2026-1002 (implementation services)",
+      "path": "evidence/invoice-1002.txt"
+    },
+    {
+      "id": "ev_remittance",
+      "type": "document",
+      "title": "Customer remittance advice, payment dated 2026-02-02",
+      "path": "evidence/remittance-advice.txt"
+    },
+    {
+      "id": "ev_ssp_study",
+      "type": "document",
+      "title": "SSP study summary memo, dated 2025-11-30",
+      "path": "evidence/ssp-study-summary.txt"
+    },
+    {
+      "id": "ev_acceptance",
+      "type": "document",
+      "title": "Implementation acceptance certificate, dated 2026-03-27",
+      "path": "evidence/acceptance-certificate.txt"
+    },
+    {
+      "id": "ev_usage_q1",
+      "type": "export",
+      "title": "End User processing report, Q1 2026",
+      "path": "evidence/usage-report-q1.txt"
+    }
+  ]
+}

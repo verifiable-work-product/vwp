@@ -1,0 +1,30 @@
+SYNTHETIC BENCHMARK EVIDENCE - NOT A REAL CONTRACT - VWPB-R606-7C41-03
+
+RIVERMARK EDUCATION SYSTEMS, INC.
+ORDER FORM #OF-2026-047
+Governing terms: Master SaaS Agreement dated December 15, 2025
+
+Customer:           Sagebrook Education, Inc.
+Execution date:     April 20, 2026
+Service start:      May 1, 2026
+Service term:       Coterminous with Order Form #OF-2026-011 (through
+                    December 31, 2028, subject to the termination provisions
+                    of the Access Terms)
+
+PRICING AND PAYMENT TERMS
+
+1. Insight Analytics Module. Customer adds the Insight Analytics Module, a
+   standard add-on module to the Rivermark FA Platform, at a fee of $4,000
+   per month for the remainder of the service term.
+
+2. The Insight Analytics Module fee reflects Rivermark's current list price
+   for the module. No implementation services are required; the module is
+   activated by Rivermark upon the service start date.
+
+3. Invoice Schedule. The Insight Analytics Module fee is invoiced monthly in
+   advance. Payment terms: Net thirty (30) days per Section 4.1 of the
+   Access Terms.
+
+Executed by authorized representatives of the Parties:
+Rivermark Education Systems, Inc.   Date: April 20, 2026
+Sagebrook Education, Inc.           Date: April 20, 2026

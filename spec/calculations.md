@@ -58,3 +58,59 @@ result. Calculation objects live under `calculations/` and validate against
   "recomputable": true
 }
 ```
+
+## 5. Conventional calculation types
+
+Four `type` values carry format-level recomputation semantics: any conforming
+validator (the benchmark harness and the platform both implement these) can
+recompute `outputs` from `inputs` with no other context. A calculation using
+one of these types MUST use the input/output shapes below and MUST reproduce
+within an absolute tolerance of **0.01** per compared number (decimal-string
+inputs are parsed exactly; the tolerance absorbs cent-rounding, not errors).
+Numbers may be JSON numbers or decimal strings (`"1234.56"`; thousands
+separators permitted). A conventional-typed calculation is recomputable by
+construction; validators recompute it regardless of the `recomputable` flag,
+and a mismatch is a validation failure. Anything that does not fit these
+shapes belongs under another type (e.g. `custom`), not force-fitted.
+
+### 5.1 `sum`
+
+- **Inputs:** `values` — non-empty array of numbers.
+- **Outputs:** `total` — number.
+- **Recompute:** `total = Σ values[i]`.
+
+### 5.2 `schedule`
+
+A rows × columns grid (e.g. a revenue schedule: rows = performance
+obligations, columns = months).
+
+- **Inputs:** `rows` — non-empty array of `{ label?, values: number[] }`.
+- **Outputs:** `grandTotal` — number (required); `rowTotals` — number[]
+  (optional, one per row); `columnTotals` — number[] (optional, one per
+  column; ragged rows treat missing cells as 0).
+- **Recompute:** `rowTotals[i] = Σ rows[i].values`, `columnTotals[j] = Σ_i
+  rows[i].values[j]`, `grandTotal = Σ rowTotals`. Declared vectors are
+  compared element-wise; `grandTotal` is always compared.
+
+### 5.3 `journalEntries`
+
+- **Inputs:** `entries` — non-empty array of
+  `{ date?, description?, lines: [{ account, debit?, credit? }] }`, each with
+  a non-empty `lines` array; omitted `debit`/`credit` count as 0.
+- **Outputs:** `totalDebits`, `totalCredits` — numbers (both required).
+- **Recompute:** `totalDebits = Σ lines[].debit`, `totalCredits =
+  Σ lines[].credit` across all entries.
+
+### 5.4 `relativeStandaloneSellingPriceAllocation`
+
+Transaction price allocated pro rata over standalone selling prices
+(e.g. ASC 606-10-32-31).
+
+- **Inputs:** `transactionPrice` — number; `items` — non-empty array of
+  `{ name?, ssp }`.
+- **Outputs:** `allocations` — array of `{ name?, allocatedAmount }`, exactly
+  one per input item, in input order.
+- **Recompute:** `allocations[i].allocatedAmount = transactionPrice *
+  items[i].ssp / Σ items[].ssp`, plus the tie-out
+  `Σ allocations[].allocatedAmount = transactionPrice` (both within
+  tolerance).

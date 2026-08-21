@@ -1,0 +1,102 @@
+SYNTHETIC BENCHMARK EVIDENCE - NOT A REAL CONTRACT - VWPB-R606-7C41-01
+
+MASTER SAAS AGREEMENT (EXCERPT)
+
+COVER PAGE
+
+The attached documents describe the relationship between Rivermark Education
+Systems, Inc. ("Rivermark") and the customer identified below ("Customer")
+(each of Rivermark and Customer, a "Party"). The documents attached to this
+Cover Page consist of the document entitled "Terms and Conditions" (the
+"Access Terms") and any Order Forms for services, which describe and set
+forth the general legal terms governing the relationship between the Parties
+(collectively, the "Agreement"). This Agreement, including the attached
+Access Terms, will become effective when this cover page is executed by
+authorized representatives of both Parties (the "Effective Date").
+
+CUSTOMER INFORMATION:
+Name/Customer:  Sagebrook Education, Inc.
+Address:        4200 Copper Ridge Parkway, Suite 300, Boulder, CO 80301
+Billing:        Accounts Payable, ap@sagebrook-edu.example
+
+Executed by authorized representatives of the Parties:
+Rivermark Education Systems, Inc.   Date: December 15, 2025
+Sagebrook Education, Inc.           Date: December 15, 2025
+
+TERMS AND CONDITIONS (SELECTED SECTIONS)
+
+2. ACCESS AND USE OF THE SERVICES.
+
+2.1 Orders. Customer may order subscription services and professional
+    services by executing one or more order forms referencing this Agreement
+    (each, an "Order Form"). Each Order Form identifies the services
+    ordered, the applicable fees, and the period of performance.
+
+2.2 Provision of Access. Rivermark will make the hosted service available to
+    Customer during each subscription period set forth on an Order Form. The
+    hosted service is a standard, multi-tenant offering made available to
+    all subscribing customers and is not materially modified or customized
+    for Customer.
+
+3. PROFESSIONAL SERVICES.
+
+3.1 Implementation Services. Implementation services consist of initial
+    configuration of the hosted service, migration of Customer's historical
+    data, and administrator training. Implementation services are performed
+    once, are expected to be completed within ninety (90) days of the first
+    subscription start date, and conclude upon Customer's written acceptance.
+
+3.2 Alternative Providers. Rivermark publishes administrator documentation
+    and maintains a directory of certified third-party implementation
+    consultants. Customer may elect to perform implementation itself or to
+    engage a certified consultant in lieu of purchasing implementation
+    services from Rivermark.
+
+4. FEES AND PAYMENT.
+
+4.1 Fees. In consideration for the access rights granted to Customer and the
+    services performed by Rivermark under this Agreement, Customer will pay
+    to Rivermark, without offset or deduction, all fees required by the
+    applicable Order Form. All fees will be billed and paid in U.S. dollars
+    in accordance with the timing set forth in the Order Form or, if not
+    expressly set forth therein, within thirty (30) days following receipt
+    of the applicable invoice. All late payments of undisputed fees will
+    accrue interest at the rate of two percent (2%) per month. Except as
+    provided in Section 9, all fees paid by Customer to Rivermark pursuant
+    to this Agreement and any Order Form are non-refundable.
+
+4.2 Disputed Fees. If Customer disputes any fees billed by Rivermark,
+    Customer shall notify Rivermark in writing of the disputed amount within
+    thirty (30) days of the invoice date, together with any relevant
+    supporting information.
+
+9. TERM AND TERMINATION.
+
+9.1 Term. The term of this Agreement shall commence upon the Effective Date
+    and, unless earlier terminated in accordance with this Section 9, shall
+    continue in full force and effect until expiration of the latest period
+    set forth on an Order Form (the "Term").
+
+9.2 Elective Termination by Customer. Customer may, at its option, terminate
+    this Agreement and any Order Form effective on any date on or after the
+    first anniversary of the first subscription start date, upon not less
+    than sixty (60) days' prior written notice to Rivermark and payment of
+    an administrative termination fee of ten thousand dollars ($10,000).
+    Upon such termination, Rivermark shall refund any prepaid subscription
+    fees attributable to whole months following the effective date of
+    termination.
+
+9.3 Termination for Breach. Either Party may, at its option, terminate this
+    Agreement in the event of a material breach by the other Party. Such
+    termination may be effected only through a written notice to the
+    breaching Party, specifically identifying the breach or breaches on
+    which such notice of termination is based. The breaching Party will have
+    a right to cure such breach or breaches within thirty (30) days of
+    receipt of such notice, and this Agreement will terminate in the event
+    that such cure is not made within such thirty (30)-day period.
+
+9.4 Effect of Termination. Upon any termination, Customer's access to the
+    hosted service ceases as of the effective date of termination and any
+    fees then owed for services delivered remain payable.
+
+[Remaining sections omitted from this excerpt.]
