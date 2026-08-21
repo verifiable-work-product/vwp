@@ -132,6 +132,30 @@ Platform-side deltas required: packet text-layer URLs; llm-arm draft-JSON
 submission carrying `models[{provider, name, version}]` + harness version
 (rejected if absent).
 
+## 8a. Output modes: platform submit vs local artifact
+
+Two run modes, one agent loop:
+
+- **`--submit` (benchmark mode, default):** fetch the packet from a platform
+  with an enrolled key; on `submit()` post the draft; the platform assembles
+  the `.vwp` with the same assembler as the human arm and records the run in
+  the model-exposure ledger. Use for all scored runs — the upload moment is
+  what timestamps model exposure and enforces humans-before-models ordering.
+- **`--out <file.vwp> [--packet-dir <dir>]` (local-artifact mode):** run
+  against a packet directory on disk (brief, deliverable spec, manifest,
+  evidence files + text layers) with no platform contact; assemble the
+  package locally via the reference CLI and write the artifact. Use for
+  harness development, dry runs, and third-party reproduction — zero
+  model-exposure footprint. The artifact is Flow C1-compatible: it can be
+  uploaded to a platform later (provenance rules apply identically).
+
+Local-artifact mode also supports **offline pre-scoring**: `vwp verify` plus
+the structure-free machine tests (G1, G2, C1, K1, S2) and P1 against the
+public manifest need no vault material. Only keyed scoring (K2) requires the
+platform. Assembly parity note: platform-assembled and CLI-assembled packages
+are both spec-valid but may differ cosmetically; scored comparisons within a
+results table use a single mode.
+
 ## 9. Methods notes to publish with results
 
 Harness + prompt version; per-model run configs; token/step usage per run;
