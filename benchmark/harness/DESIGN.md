@@ -75,11 +75,19 @@ Writing (mirror the workbench editors):
 - `update_*` / `remove_*` variants with the same schemas
 
 Finishing:
-- `validate()` → local draft checks equivalent to the human workbench's
-  warnings: unfilled required slots, unanchored facts, unsupported assessment
-  items, calculation mismatches. Never any answer-key material; never machine
-  test results (anti-gaming parity with the human receipt).
-- `submit()` → posts the draft to the platform and ends the run.
+- `validate()` → the full **offline check battery**, i.e. everything
+  computable without vault material: package verification (schemas, link
+  resolution, verbatim-quote anchors — the CLI's core validators), the
+  structure-free machine tests (G1 evidence resolution, G2 anchor coverage,
+  C1 support, K1 recomputation of the conventional calculation types, S2
+  internal consistency), and P1 slot-fill against the public required-facts
+  manifest. Construct-and-test is the harness's mandated procedure: the
+  prompt requires a clean `validate()` before `submit()`, and validation
+  failures are returned as structured, fixable findings. Never any keyed
+  scoring (K2) or answer-key material — pre-submit feedback is limited to
+  what a diligent human can equivalently self-check.
+- `submit()` → posts the draft to the platform (or writes the local artifact)
+  and ends the run.
 
 ## 4. Evidence access: text layers only (v0.1)
 
@@ -166,7 +174,8 @@ the statement that no model-specific adjustments were made.
 
 1. Step/token budgets: fixed absolute, or scaled to provider limits? (v0.1:
    fixed absolute, documented.)
-2. Should `validate()` include package-level `vwp verify` outcomes, or only
-   workbench-warning parity? (v0.1: workbench parity only.)
+2. ~~Should `validate()` include package-level `vwp verify` outcomes?~~
+   **Resolved:** yes — the full offline battery (verify + structure-free
+   machine tests + P1); never keyed scoring.
 3. Multimodal mode criteria and labeling.
 4. Raw-CLI mode as a separate agent-competence track.
