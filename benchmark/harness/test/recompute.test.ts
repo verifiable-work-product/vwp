@@ -95,9 +95,9 @@ describe('K1 recompute — journalEntries', () => {
 describe('K1 recompute — relativeStandaloneSellingPriceAllocation', () => {
   const inputs = {
     transactionPrice: 270000,
-    items: [
-      { name: 'subscription (year 1)', ssp: 180000 },
-      { name: 'implementation', ssp: 120000 },
+    components: [
+      { id: 'subscription_y1', standaloneSellingPrice: 180000 },
+      { id: 'implementation', standaloneSellingPrice: 120000 },
     ],
   };
 
@@ -107,9 +107,10 @@ describe('K1 recompute — relativeStandaloneSellingPriceAllocation', () => {
       inputs,
       outputs: {
         allocations: [
-          { name: 'subscription (year 1)', allocatedAmount: 162000 },
-          { name: 'implementation', allocatedAmount: 108000 },
+          { componentId: 'subscription_y1', allocatedAmount: 162000 },
+          { componentId: 'implementation', allocatedAmount: 108000 },
         ],
+        totalStandaloneSellingPrice: 300000,
       },
     });
     expect(r.applicable).toBe(true);
@@ -122,22 +123,31 @@ describe('K1 recompute — relativeStandaloneSellingPriceAllocation', () => {
       inputs,
       outputs: {
         allocations: [
-          { name: 'subscription (year 1)', allocatedAmount: 162000 },
-          { name: 'implementation', allocatedAmount: 107000 },
+          { componentId: 'subscription_y1', allocatedAmount: 162000 },
+          { componentId: 'implementation', allocatedAmount: 107000 },
         ],
       },
     });
-    expect(r.problems.some((p) => p.includes('allocations[1]'))).toBe(true);
+    expect(r.problems.some((p) => p.includes('implementation'))).toBe(true);
     expect(r.problems.some((p) => p.includes('tie out'))).toBe(true);
   });
 
-  it('fails when the allocation count differs from the item count', () => {
+  it('fails when the allocation count differs from the component count', () => {
     const r = recomputeCalculation({
       type: 'relativeStandaloneSellingPriceAllocation',
       inputs,
       outputs: { allocations: [{ allocatedAmount: 270000 }] },
     });
     expect(r.problems.length).toBeGreaterThan(0);
+  });
+
+  it('rejects the retired items/ssp dialect (must match the platform K1 contract)', () => {
+    const r = recomputeCalculation({
+      type: 'relativeStandaloneSellingPriceAllocation',
+      inputs: { transactionPrice: 270000, items: [{ name: 'subscription', ssp: 270000 }] },
+      outputs: { allocations: [{ name: 'subscription', allocatedAmount: 270000 }] },
+    });
+    expect(r.problems.some((p) => p.includes('components'))).toBe(true);
   });
 });
 

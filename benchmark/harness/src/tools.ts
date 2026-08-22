@@ -614,8 +614,8 @@ export function createToolRegistry(packet: Packet, opts: CreateToolRegistryOptio
         `sum {inputs.values: number[] -> outputs.total}; ` +
         `schedule {inputs.rows: [{label?, values: number[]}] -> outputs.grandTotal (+ optional rowTotals[], columnTotals[])}; ` +
         `journalEntries {inputs.entries: [{date?, description?, lines: [{account, debit?, credit?}]}] -> outputs.totalDebits, outputs.totalCredits}; ` +
-        `relativeStandaloneSellingPriceAllocation {inputs.transactionPrice, inputs.items: [{name, ssp}] -> outputs.allocations: [{name, allocatedAmount}] (one per item, in order; must tie out to the transaction price)}. ` +
-        `Use type 'custom' for anything else. Returns the new id (calc_N).`,
+        `relativeStandaloneSellingPriceAllocation {inputs.transactionPrice, inputs.components: [{id, standaloneSellingPrice}] -> outputs.allocations: [{componentId, allocatedAmount}] (one per component, matched by componentId; must tie out to the transaction price)}. ` +
+        `Use type 'custom' for anything else — but prefer a conventional type whenever the math fits (custom calculations cannot be machine-recomputed, which weakens the package). Returns the new id (calc_N).`,
       inputSchema: {
         type: 'object',
         properties: {

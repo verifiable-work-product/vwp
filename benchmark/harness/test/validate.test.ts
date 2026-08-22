@@ -131,15 +131,15 @@ function buildCleanRegistry(): ToolRegistry {
     type: 'relativeStandaloneSellingPriceAllocation',
     inputs: {
       transactionPrice: 270000,
-      items: [
-        { name: 'subscription (year 1)', ssp: 180000 },
-        { name: 'implementation', ssp: 120000 },
+      components: [
+        { id: 'subscription_y1', standaloneSellingPrice: 180000 },
+        { id: 'implementation', standaloneSellingPrice: 120000 },
       ],
     },
     outputs: {
       allocations: [
-        { name: 'subscription (year 1)', allocatedAmount: 162000 },
-        { name: 'implementation', allocatedAmount: 108000 },
+        { componentId: 'subscription_y1', allocatedAmount: 162000 },
+        { componentId: 'implementation', allocatedAmount: 108000 },
       ],
     },
     method: 'allocatedAmount_i = transactionPrice * ssp_i / sum(ssp) per ASC 606-10-32-31',

@@ -188,21 +188,33 @@ function recomputeJournalEntries(calc: CalcLike, problems: string[]): void {
   }
 }
 
+/** Canonical shape per the format's extension schema (ssp-allocation.schema.json)
+ * and the platform's K1 runner: inputs {transactionPrice, components:
+ * [{id, standaloneSellingPrice}]} -> outputs {allocations: [{componentId,
+ * allocatedAmount}], totalStandaloneSellingPrice?}. The harness previously
+ * taught (and validated) a private items/ssp dialect — packages passed the
+ * offline battery and then FAILED the platform's K1. */
 function recomputeRsspAllocation(calc: CalcLike, problems: string[]): void {
   const inp = calc.inputs as any;
   const tp = toNumber(inp.transactionPrice);
-  const items: any[] = Array.isArray(inp.items) ? inp.items : [];
-  if (tp === undefined || items.length === 0) {
+  const components: any[] = Array.isArray(inp.components) ? inp.components : [];
+  if (tp === undefined || components.length === 0) {
     problems.push(
-      'relativeStandaloneSellingPriceAllocation: inputs must carry transactionPrice and non-empty items[{name, ssp}]'
+      'relativeStandaloneSellingPriceAllocation: inputs must carry transactionPrice and non-empty components[{id, standaloneSellingPrice}]'
     );
     return;
   }
   const ssps: number[] = [];
-  for (const [i, item] of items.entries()) {
-    const ssp = toNumber(item?.ssp);
+  for (const [i, component] of components.entries()) {
+    if (typeof component?.id !== 'string' || component.id.length === 0) {
+      problems.push(`relativeStandaloneSellingPriceAllocation: inputs.components[${i}].id is required`);
+      return;
+    }
+    const ssp = toNumber(component?.standaloneSellingPrice);
     if (ssp === undefined) {
-      problems.push(`relativeStandaloneSellingPriceAllocation: inputs.items[${i}].ssp is not numeric`);
+      problems.push(
+        `relativeStandaloneSellingPriceAllocation: inputs.components[${i}].standaloneSellingPrice is not numeric`
+      );
       return;
     }
     ssps.push(ssp);
@@ -213,20 +225,27 @@ function recomputeRsspAllocation(calc: CalcLike, problems: string[]): void {
     return;
   }
   const allocations: any[] = Array.isArray((calc.outputs as any).allocations) ? (calc.outputs as any).allocations : [];
-  if (allocations.length !== items.length) {
+  if (allocations.length !== components.length) {
     problems.push(
-      `relativeStandaloneSellingPriceAllocation: outputs.allocations should have ${items.length} entries (one per input item, in order)`
+      `relativeStandaloneSellingPriceAllocation: outputs.allocations should have ${components.length} entries (one per input component)`
     );
     return;
   }
   let allocatedTotal = 0;
-  for (const [i, alloc] of allocations.entries()) {
-    const declared = toNumber(alloc?.allocatedAmount);
+  for (const [i, component] of components.entries()) {
+    const alloc = allocations.find((a: any) => a?.componentId === component.id);
+    if (!alloc) {
+      problems.push(
+        `relativeStandaloneSellingPriceAllocation: outputs.allocations has no entry with componentId "${component.id}"`
+      );
+      continue;
+    }
+    const declared = toNumber(alloc.allocatedAmount);
     const expected = (tp * ssps[i]) / totalSSP;
     if (declared === undefined || !near(declared, expected)) {
       problems.push(
-        `relativeStandaloneSellingPriceAllocation: outputs.allocations[${i}].allocatedAmount = ${JSON.stringify(
-          alloc?.allocatedAmount
+        `relativeStandaloneSellingPriceAllocation: allocations["${component.id}"].allocatedAmount = ${JSON.stringify(
+          alloc.allocatedAmount
         )} but tp*ssp/totalSSP recomputes to ${expected.toFixed(2)}`
       );
     }
@@ -235,6 +254,14 @@ function recomputeRsspAllocation(calc: CalcLike, problems: string[]): void {
   if (!near(allocatedTotal, tp)) {
     problems.push(
       `relativeStandaloneSellingPriceAllocation: allocations sum to ${allocatedTotal} but must tie out to transactionPrice ${tp}`
+    );
+  }
+  const declaredTotalSSP = (calc.outputs as any).totalStandaloneSellingPrice;
+  if (declaredTotalSSP !== undefined && !near(toNumber(declaredTotalSSP) ?? NaN, totalSSP)) {
+    problems.push(
+      `relativeStandaloneSellingPriceAllocation: outputs.totalStandaloneSellingPrice = ${JSON.stringify(
+        declaredTotalSSP
+      )} but components sum to ${totalSSP}`
     );
   }
 }
