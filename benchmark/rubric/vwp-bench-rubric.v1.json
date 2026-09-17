@@ -1,0 +1,182 @@
+{
+  "$schema": "../schemas/rubric.schema.json",
+  "name": "VWP-Bench",
+  "version": "1.0",
+  "capMaxRating": 3,
+  "capAreaKeys": [
+    "signability"
+  ],
+  "capConditions": [
+    {
+      "key": "materiallyWrongConclusion",
+      "text": "A materially wrong conclusion"
+    },
+    {
+      "key": "unsupportedMaterialConclusion",
+      "text": "An unsupported material conclusion"
+    },
+    {
+      "key": "missingRequiredDeliverable",
+      "text": "A missing required deliverable"
+    },
+    {
+      "key": "unreproducibleMaterialCalculation",
+      "text": "An unreproducible material calculation"
+    }
+  ],
+  "areas": [
+    {
+      "key": "facts",
+      "title": "Material facts and evidence",
+      "points": 20,
+      "kind": "proportional",
+      "countSource": "Required facts in the private case key, correctly stated and supported by the source material.",
+      "preWorkTests": [
+        "K2",
+        "P1",
+        "G2"
+      ],
+      "guidance": "Proportional credit. Accept any expression that adequately captures the keyed fact, per the key’s leeway rule."
+    },
+    {
+      "key": "analysis",
+      "title": "ASC 606 analysis",
+      "points": 25,
+      "kind": "yesNoItems",
+      "items": [
+        {
+          "key": "contract",
+          "text": "Contract identification: answer and material reasoning correct",
+          "points": 5
+        },
+        {
+          "key": "obligations",
+          "text": "Performance obligations: answer and material reasoning correct",
+          "points": 5
+        },
+        {
+          "key": "transactionPrice",
+          "text": "Transaction price: answer and material reasoning correct",
+          "points": 5
+        },
+        {
+          "key": "allocation",
+          "text": "Allocation: answer and material reasoning correct",
+          "points": 5
+        },
+        {
+          "key": "recognition",
+          "text": "Timing or pattern of recognition: answer and material reasoning correct",
+          "points": 5
+        }
+      ],
+      "preWorkTests": [
+        "K2",
+        "J2"
+      ],
+      "guidance": "Both the answer and its material reasoning must be correct for credit."
+    },
+    {
+      "key": "calculations",
+      "title": "Calculations and schedules",
+      "points": 10,
+      "kind": "proportional",
+      "countSource": "Required calculations and schedules, correct within tolerances fixed before grading.",
+      "preWorkTests": [
+        "K1",
+        "K3"
+      ],
+      "guidance": "Calculations must also be reproducible."
+    },
+    {
+      "key": "traceability",
+      "title": "Traceability and documentation",
+      "points": 10,
+      "kind": "yesNoItems",
+      "items": [
+        {
+          "key": "linksResolve",
+          "text": "Source links resolve",
+          "points": 2.5
+        },
+        {
+          "key": "sourcesSupport",
+          "text": "Sources support the stated facts",
+          "points": 2.5
+        },
+        {
+          "key": "calcInputsLinked",
+          "text": "Calculations link to their inputs",
+          "points": 2.5
+        },
+        {
+          "key": "conclusionsLinked",
+          "text": "Conclusions link to facts and guidance",
+          "points": 2.5
+        }
+      ],
+      "preWorkTests": [
+        "G1",
+        "G2",
+        "C1",
+        "K1"
+      ]
+    },
+    {
+      "key": "judgments",
+      "title": "Judgments and anomaly response",
+      "points": 10,
+      "kind": "yesNoItems",
+      "items": [
+        {
+          "key": "identified",
+          "text": "The issue was identified",
+          "points": 2
+        },
+        {
+          "key": "investigated",
+          "text": "The issue was investigated",
+          "points": 2
+        },
+        {
+          "key": "contraryEvidence",
+          "text": "Considered against contrary evidence",
+          "points": 2
+        },
+        {
+          "key": "documented",
+          "text": "Documented",
+          "points": 2
+        },
+        {
+          "key": "resolved",
+          "text": "Reasonably resolved",
+          "points": 2
+        }
+      ],
+      "preWorkTests": [
+        "J1",
+        "J2",
+        "S3"
+      ]
+    },
+    {
+      "key": "memo",
+      "title": "Memo",
+      "points": 5,
+      "kind": "rating",
+      "ratingMultiplier": 1,
+      "preWorkTests": [],
+      "guidance": "0–5: does the memo clearly and accurately reflect the work recorded in the rest of the VWP?"
+    },
+    {
+      "key": "signability",
+      "title": "Overall signability",
+      "points": 20,
+      "kind": "rating",
+      "ratingMultiplier": 4,
+      "preWorkTests": [],
+      "guidance": "5 signable as submitted; 4 signable after minor/editorial comments; 3 limited substantive changes; 2 material correction or partial re-performance; 1 extensive re-performance; 0 unusable, nonresponsive, or materially incomplete."
+    }
+  ]
+}

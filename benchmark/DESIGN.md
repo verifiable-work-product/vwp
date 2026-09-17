@@ -257,6 +257,12 @@ told the human/agent mix.
 
 ### 5.3 Rubric (100 points per work product — VWP-Bench proposal)
 
+The rubric is published as data in [`rubric/vwp-bench-rubric.v1.json`](rubric/vwp-bench-rubric.v1.json)
+(schema `schemas/rubric.schema.json`); grader sheets follow
+`schemas/grade-sheet.schema.json`, and `tools/score-rubric.mjs` recomputes
+any published score from them. [`rubric/README.md`](rubric/README.md) states
+the scoring rules. The table below is the human summary.
+
 | Area | Pts | How scored |
 |---|---|---|
 | Material facts and evidence | 20 | Proportional credit for required facts correctly stated and supported by source material (private case key; e.g. 6 of 8 facts → 15/20) |
@@ -350,8 +356,12 @@ happened" — which is more than any current accounting-agent claim offers.
 benchmark/
   DESIGN.md                    this document
   rubric/
-    rubric.md                  anchored scales, keyed-item scoring rules
-    grader-instructions.md
+    README.md                  scoring rules, signability scale, publication
+    vwp-bench-rubric.v1.json   the rubric as data (schemas/rubric.schema.json)
+  fact-catalog/
+    fact-catalog.v0.1.json     public fact-type catalog both arms receive
+  tools/
+    score-rubric.mjs           recompute scores / consensus from grade sheets
   challenges/
     rev-606-saas/
       brief.md                 deliverable spec given to both arms

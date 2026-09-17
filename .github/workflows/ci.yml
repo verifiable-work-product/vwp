@@ -34,6 +34,17 @@ jobs:
           name: VWP-Viewer-macOS
           path: viewer/build/VWP-Viewer-macOS.zip
 
+  benchmark-tools:
+    name: Benchmark tools
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - run: node --test benchmark/tools/
+      - run: node benchmark/tools/score-rubric.mjs --lint benchmark/rubric/vwp-bench-rubric.v1.json
+
   cli:
     name: TypeScript CLI
     runs-on: ubuntu-latest

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/benchmark/schemas/grade-sheet.schema.json",
+  "title": "VWP-Bench grade sheet",
+  "description": "One grader's completed rubric for one blinded work product. Keys under `areas` are the rubric's area keys; each entry's `kind` must match the area's kind. A tiebreak sheet carries only the disputed entries. Published sheets let anyone recompute every score with benchmark/tools/score-rubric.mjs.",
+  "type": "object",
+  "required": ["rubricName", "rubricVersion", "areas"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "rubricName": { "type": "string", "minLength": 1 },
+    "rubricVersion": { "type": "string", "minLength": 1 },
+    "areas": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-zA-Z0-9_]+$" },
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": ["kind"],
+            "properties": {
+              "kind": { "const": "yesNoItems" },
+              "answers": {
+                "type": "object",
+                "description": "item key → true / false; null or absent = not yet answered",
+                "additionalProperties": { "type": ["boolean", "null"] }
+              },
+              "notes": { "type": "string" }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": ["kind"],
+            "properties": {
+              "kind": { "const": "proportional" },
+              "captured": { "type": ["integer", "null"], "minimum": 0, "description": "items properly captured" },
+              "total": { "type": ["integer", "null"], "minimum": 1, "description": "items in the private key" },
+              "notes": { "type": "string" }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": ["kind"],
+            "properties": {
+              "kind": { "const": "rating" },
+              "rating": { "type": ["integer", "null"], "minimum": 0, "maximum": 5 },
+              "notes": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "capFlags": {
+      "type": "object",
+      "default": {},
+      "description": "cap-condition key → flagged",
+      "additionalProperties": { "type": "boolean" }
+    },
+    "overallNotes": { "type": "string" }
+  },
+  "additionalProperties": false
+}
