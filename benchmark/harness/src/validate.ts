@@ -497,7 +497,14 @@ export function runValidation(draft: Draft, packet: Packet, opts: AssembleOption
       p1.push(`slot '${slot.slot}' (${slot.factType}): value shape '${slot.valueShape}' not satisfied — ${problem}`);
     }
   }
-  push(findings, 'P1', p1, `all ${packet.requiredFacts.length} required-fact slots are filled with conforming values`);
+  push(
+    findings,
+    'P1',
+    p1,
+    packet.requiredFacts.length === 0
+      ? 'no required-facts manifest disclosed (catalog mode) — slot fill not applicable offline'
+      : `all ${packet.requiredFacts.length} required-fact slots are filled with conforming values`
+  );
 
   const ok = verify.valid && findings.every((f) => f.status !== 'fail');
   return { ok, findings, verify };

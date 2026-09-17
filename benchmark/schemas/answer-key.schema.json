@@ -44,6 +44,36 @@
         },
         "additionalProperties": false
       }
+    },
+    "keyJudgments": {
+      "type": "array",
+      "description": "The genuine judgment points the challenge contains, each with its defensible range. J1 checks a submission recognized every required point; J2 diffs the submitted position against these positions (machine pre-work — only clear matches auto-score; the rest goes to judges).",
+      "items": {
+        "type": "object",
+        "required": ["key", "topic", "positions"],
+        "properties": {
+          "key": { "type": "string", "minLength": 1, "description": "Stable identifier for the judgment point." },
+          "topic": { "type": "string", "minLength": 1 },
+          "question": { "type": "string" },
+          "required": { "type": "boolean", "default": true, "description": "Whether the submission must address this point at all (J1)." },
+          "positions": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["conclusion", "acceptability"],
+              "properties": {
+                "conclusion": { "type": "string", "minLength": 1 },
+                "acceptability": { "type": "string", "enum": ["expected", "acceptable", "unacceptable"] },
+                "basis": { "type": "string" },
+                "requiredDocumentation": { "type": "string", "description": "What the work product must document for this position to earn credit." }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
     }
   },
   "additionalProperties": false

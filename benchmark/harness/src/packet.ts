@@ -45,6 +45,16 @@ export interface PacketEvidence {
   originalPath: string;
 }
 
+/** One entry of the public fact catalog (benchmark/schemas/fact-catalog.schema.json). */
+export interface FactCatalogEntry {
+  factType: string;
+  label: string;
+  description?: string;
+  valueShape?: string;
+  enumValues?: string[];
+  unit?: string;
+}
+
 export interface Packet {
   challengeId: string;
   title: string;
@@ -52,6 +62,10 @@ export interface Packet {
   brief: string;
   deliverableSpec: string;
   requiredFacts: RequiredFactSlot[];
+  /** Catalog-disclosure challenges (VWP-Bench proposal): the packet carries the
+   * public fact catalog instead of a required-facts manifest. The catalog names
+   * possible fact types only — which facts matter is part of the assignment. */
+  factCatalog?: FactCatalogEntry[];
   methodSteps: MethodStep[];
   evidence: PacketEvidence[];
 }
@@ -108,6 +122,19 @@ function normalizeMethodSteps(raw: any): MethodStep[] {
   }));
 }
 
+function normalizeCatalog(raw: any): FactCatalogEntry[] | undefined {
+  const entries = raw?.factCatalog?.entries ?? raw?.factCatalog;
+  if (!Array.isArray(entries) || entries.length === 0) return undefined;
+  return entries.map((e: any) => ({
+    factType: e.factType,
+    label: e.label ?? e.factType,
+    description: e.description ?? undefined,
+    valueShape: e.valueShape ?? undefined,
+    enumValues: Array.isArray(e.enumValues) ? e.enumValues : undefined,
+    unit: e.unit ?? undefined,
+  }));
+}
+
 function packetFields(raw: any): Omit<Packet, 'evidence'> {
   return {
     challengeId: raw.challengeId ?? raw.slug ?? raw.id ?? 'challenge',
@@ -116,6 +143,7 @@ function packetFields(raw: any): Omit<Packet, 'evidence'> {
     brief: raw.briefMd ?? raw.brief ?? '',
     deliverableSpec: raw.deliverableSpecMd ?? raw.deliverableSpec ?? '',
     requiredFacts: (raw.requiredFacts ?? raw.slots ?? []).map(normalizeSlot),
+    factCatalog: normalizeCatalog(raw),
     methodSteps: normalizeMethodSteps(raw),
   };
 }

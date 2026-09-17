@@ -80,7 +80,20 @@ export function renderPacketMessage(packet: Packet): string {
       if (step.guidance) lines.push(`  - Guidance: ${step.guidance}`);
     }
   }
-  lines.push('', '## Required-facts manifest', '', '```json', JSON.stringify(packet.requiredFacts, null, 2), '```');
+  if (packet.requiredFacts.length === 0 && packet.factCatalog?.length) {
+    lines.push(
+      '',
+      '## Fact catalog',
+      '',
+      'No required-facts manifest is disclosed for this challenge. The catalog below names common accounting fact types; deciding which facts are material to this case is part of the assignment. Capture every material fact as an anchored fact using the catalog factType that fits (or a reasonable namespaced factType if none does).',
+      '',
+      '```json',
+      JSON.stringify(packet.factCatalog, null, 2),
+      '```'
+    );
+  } else {
+    lines.push('', '## Required-facts manifest', '', '```json', JSON.stringify(packet.requiredFacts, null, 2), '```');
+  }
   lines.push('', '## Evidence index', '');
   for (const ev of packet.evidence) {
     lines.push(`- ${ev.id} — ${ev.title} (${ev.type}, ${ev.pages.length} page${ev.pages.length === 1 ? '' : 's'})`);

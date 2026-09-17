@@ -243,29 +243,47 @@ told the human/agent mix.
 
 ### 5.2 Graders
 
-- 3 independent CPA graders per challenge, distinct from the preparer pool,
-  senior to it (manager/senior-manager+), paid for grading time.
-- Each grader scores all 6 work products for their challenge (3 human, 3
-  agent) against the rubric and the answer key.
+- Two independent CPA graders per work product, blind, distinct from the
+  preparer pool, senior to it (manager/senior-manager+), paid for grading
+  time. If they disagree on an item, a **third CPA makes the final
+  decision** (item-level tiebreak — the third grader sees which items are
+  disputed, never the primaries' answers).
+- Graders are not told which model — or whether a CPA — prepared a work
+  product.
 - Inter-rater reliability reported (ICC on rubric totals; percent agreement
-  on keyed items). Keyed-item disputes resolved against the answer key by
-  the technical reviewer, not by grader vote.
+  on items). Keyed-item disputes resolved against the answer key by the
+  technical reviewer, not by grader vote; the key allows leeway to accept
+  any expression that adequately captures a keyed fact.
 
-### 5.3 Rubric (100 points per work product)
+### 5.3 Rubric (100 points per work product — VWP-Bench proposal)
 
-| Dimension | Pts | How scored |
+| Area | Pts | How scored |
 |---|---|---|
-| Technical conclusions | 30 | Keyed items: each conclusion right/wrong/partially-supported against the answer key (including documented acceptable alternatives) |
-| Calculation accuracy | 20 | Keyed numeric items: exact or within stated tolerance; schedules foot and tie |
-| Completeness | 15 | Checklist: every required deliverable element present and responsive |
-| Evidence & support | 15 | Are conclusions traceable to specific evidence? Are amounts sourced? Anchored 0–5 scale × 3 |
-| Judgment documentation | 10 | Basis stated, alternatives considered, authoritative support cited. Anchored 0–5 scale × 2 |
-| Clarity & professional presentation | 10 | Would this survive manager review as written? Anchored 0–5 scale × 2 |
+| Material facts and evidence | 20 | Proportional credit for required facts correctly stated and supported by source material (private case key; e.g. 6 of 8 facts → 15/20) |
+| ASC 606 analysis | 25 | Five 5-point yes/no items: contract, performance obligations, transaction price, allocation, timing/pattern of recognition. Both the answer and its material reasoning must be correct. (Other areas — 820, 350-60, … — swap in their own analysis items.) |
+| Calculations and schedules | 10 | Proportional credit for correct required calculations and schedules, within tolerances fixed before grading; must be reproducible |
+| Traceability and documentation | 10 | Four 2.5-point yes/no items: source links resolve; sources support the stated facts; calculations link to their inputs; conclusions link to facts and guidance |
+| Judgments and anomaly response | 10 | Five 2-point yes/no items: issue identified, investigated, considered against contrary evidence, documented, reasonably resolved |
+| Memo | 5 | 0–5 rating: does the memo clearly and accurately reflect the work recorded in the rest of the VWP? |
+| Overall signability | 20 | 0–5 rating × 4 (scale below) |
 
-**Seeded-anomaly detection is scored separately** (not inside the 100): for
-each seeded anomaly — detected / detected-and-resolved / missed. This is
-reported as its own metric because it is the sharpest available proxy for
-professional skepticism.
+**Signability scale:** 5 signable as submitted; 4 signable after minor or
+editorial comments; 3 limited substantive changes required; 2 material
+correction or partial re-performance required; 1 extensive re-performance
+required; 0 unusable, nonresponsive, or materially incomplete. A materially
+wrong conclusion, an unsupported material conclusion, a missing required
+deliverable, or an unreproducible material calculation **cannot receive a 4
+or 5**, regardless of the total score.
+
+Seeded-anomaly response now lives *inside* the 100 (the judgments-and-anomaly
+area); per-anomaly detail (detected / detected-and-resolved / missed) is
+still reported alongside as the skepticism metric. Safeguards prevent
+deducting several times for the same underlying mistake; the final rubric,
+weights, answer key, and tie-breaking rules are fixed before the models see
+the case. *(Superseded rubric — technical conclusions 30 / calc accuracy 20 /
+completeness 15 / evidence 15 / judgment 10 / clarity 10, anomalies outside
+the 100 — retired 2026-09; the platform stores the rubric per challenge, so
+earlier pilots remain scoreable under the rubric they froze with.)*
 
 Answer keys are authored independently by two senior CPAs, reconciled, and
 signed off by an external technical reviewer before any participant sees a
@@ -290,15 +308,19 @@ and one agent work product per challenge, 5 reviewers):
 
 Per challenge, reported separately for each arm:
 
-- Rubric total (median, range) and per-dimension scores
+- Every run's component scores, total score (/100), and signability rating —
+  published per run, never selected or repaired after scoring
+- A model's ranking score = the average of all its scheduled runs; models
+  listed highest to lowest, with the CPA control scores beside them as a
+  reference range (the CPAs are a control, not part of the ranking)
 - Keyed-item accuracy (%)
-- Seeded-anomaly detection rate
+- Seeded-anomaly detection rate (per-anomaly detail retained)
 - Preparation time and cost (CPA hours × rate vs. agent tokens/compute × 3 runs)
 - Agent-only: run-to-run variance; `vwp verify` pass rate; validator findings
 - Review task: time-to-decision, defects found, sign-off decision
 
-No single aggregate number in v0.1. The honest output is a 5-row table and a
-methods section.
+The ranking is scoped honestly: best performer *on this contract, under this
+harness and these rules* — never a claim about accounting ability in general.
 
 ---
 

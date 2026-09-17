@@ -261,13 +261,14 @@ export function createToolRegistry(packet: Packet, opts: CreateToolRegistryOptio
     {
       name: 'read_brief',
       description:
-        'Return the engagement brief, the deliverable spec, the directed method steps, and the required-facts manifest (the slots the work product must fill).',
+        'Return the engagement brief, the deliverable spec, the directed method steps, and the required-facts manifest (the slots the work product must fill) — or, for catalog-disclosure challenges, the public fact catalog instead.',
       inputSchema: { type: 'object', properties: {}, additionalProperties: false },
       handler: () => ({
         brief: packet.brief,
         deliverableSpec: packet.deliverableSpec,
         methodSteps: packet.methodSteps,
         requiredFacts: packet.requiredFacts,
+        ...(packet.factCatalog ? { factCatalog: packet.factCatalog } : {}),
       }),
     },
     {
