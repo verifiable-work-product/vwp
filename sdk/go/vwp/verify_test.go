@@ -85,6 +85,11 @@ func TestGoldenASC606Example(t *testing.T) {
 	assertStatus(t, report, vwp.ValidatorAttestationsSchemaOK, vwp.StatusPass)
 	assertStatus(t, report, vwp.ValidatorEvidenceRefsResolve, vwp.StatusPass)
 	assertStatus(t, report, vwp.ValidatorClaimRefsResolve, vwp.StatusPass)
+	assertStatus(t, report, vwp.ValidatorGraphRefsResolve, vwp.StatusPass)
+	assertStatus(t, report, vwp.ValidatorGraphAcyclic, vwp.StatusPass)
+	assertStatus(t, report, vwp.ValidatorGraphDeclaredInputs, vwp.StatusPass)
+	assertStatus(t, report, vwp.ValidatorDigestsMatch, vwp.StatusPass)
+	assertStatus(t, report, vwp.ValidatorApprovalsCurrent, vwp.StatusPass)
 	assertStatus(t, report, vwp.ValidatorSignaturesPresent, vwp.StatusWarning)
 	assertStatus(t, report, vwp.ValidatorFinanceClaimsHaveAssertions, vwp.StatusPass)
 	assertStatus(t, report, vwp.ValidatorFinanceClaimsHaveSupport, vwp.StatusPass)
@@ -166,13 +171,23 @@ func TestMinimalPackage(t *testing.T) {
 	assertStatus(t, report, vwp.ValidatorPartHashesMatch, vwp.StatusWarning)
 	assertStatus(t, report, vwp.ValidatorSignaturesPresent, vwp.StatusWarning)
 	assertStatus(t, report, vwp.ValidatorClaimRefsResolve, vwp.StatusPass)
-	// No optional collections, no attestations: those validators emit nothing.
+	assertStatus(t, report, vwp.ValidatorGraphRefsResolve, vwp.StatusPass)
+	assertStatus(t, report, vwp.ValidatorGraphAcyclic, vwp.StatusPass)
+	assertStatus(t, report, vwp.ValidatorGraphDeclaredInputs, vwp.StatusPass)
+	// No digests block: the check is reported as not run, not skipped.
+	digests := mustResult(t, report, vwp.ValidatorDigestsMatch)
+	if digests.Status != vwp.StatusNotRun || digests.Message != "no digests block" {
+		t.Errorf("digests.match = %s %q", digests.Status, digests.Message)
+	}
+	// No optional collections, no attestations, no approvals part: those
+	// validators emit nothing.
 	for _, id := range []string{
 		vwp.ValidatorEvidenceSchemaValid,
 		vwp.ValidatorFactsSchemaValid,
 		vwp.ValidatorAttestationsSchemaOK,
 		vwp.ValidatorEvidenceRefsResolve,
 		vwp.ValidatorFactAnchorsQuotesMatch,
+		vwp.ValidatorApprovalsCurrent,
 	} {
 		if _, ok := report.Result(id); ok {
 			t.Errorf("%s should not be reported for the minimal package", id)
@@ -203,6 +218,23 @@ func TestInvalidFixtures(t *testing.T) {
 		assertStatus(t, report, vwp.ValidatorFactAnchorsQuotesMatch, vwp.StatusFail)
 		// The refs themselves resolve; only the quoted text is absent.
 		assertStatus(t, report, vwp.ValidatorEvidenceRefsResolve, vwp.StatusPass)
+	})
+	t.Run("bad-digests", func(t *testing.T) {
+		report := validators.Verify(openFixture(t, "testdata", "invalid", "bad-digests"))
+		if report.Valid {
+			t.Fatal("bad-digests should be invalid")
+		}
+		res := mustResult(t, report, vwp.ValidatorDigestsMatch)
+		if res.Status != vwp.StatusFail || !strings.Contains(res.Message, "analysisRoot") || !strings.Contains(res.Message, "collections.claim") {
+			t.Errorf("digests.match = %s %q", res.Status, res.Message)
+		}
+		// The roots are the only problem: everything else matches the
+		// minimal package.
+		for _, r := range report.Results {
+			if r.Status == vwp.StatusFail && r.ValidatorId != vwp.ValidatorDigestsMatch {
+				t.Errorf("unexpected failure %s: %s", r.ValidatorId, r.Message)
+			}
+		}
 	})
 	t.Run("bad-workproduct-schema", func(t *testing.T) {
 		report := validators.Verify(openFixture(t, "testdata", "invalid", "bad-workproduct-schema"))

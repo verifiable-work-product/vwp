@@ -16,7 +16,7 @@ Packages:
 | `.../sdk/go/vwp/validators` | Built-in extension validators (ASC 606, ASC 820, wallet ownership, ASC 350-60, ASC 350-30, staking rewards, lending, cost basis, stablecoin) and the batteries-included `validators.Verify` |
 | `.../sdk/go/vwp/accountingschedule` | The executable accounting schedule artifact (`calculations/accounting-schedule.json`): parse, validate, and the reviewer's account-binding config |
 | `.../sdk/go/vwp/builder` | Incremental package builder over an unpacked directory |
-| `.../sdk/go/vwp/schema` | JSON Schema validation against the embedded v0.1 schemas |
+| `.../sdk/go/vwp/schema` | JSON Schema validation against the embedded v0.1 schemas (core parts, memo format, narrative) |
 
 ## Verify a package
 
@@ -77,6 +77,38 @@ id: re-adding an identical object is a no-op, re-using an id with different
 content returns `builder.ErrConflict` — safe under at-least-once retries
 (e.g. workflow-engine activities).
 
+## Integrity graph
+
+Every package object has a self hash (SHA-256 over its RFC 8785 canonical
+bytes, review-layer fields stripped) and a closure hash over everything it
+references; collections roll up into the analysis, content and review roots
+([`spec/integrity.md`](../../spec/integrity.md)). The builder keeps the
+manifest `digests` block current on every mutation, stamps narrative cites
+with the cited objects' closure hashes and approvals with the roots they
+were taken against; the verifier recomputes all of it
+(`core.graph.refsResolve`, `core.graph.acyclic`, `core.graph.declaredInputs`,
+`core.digests.match`, `narrative.cites.fresh`, `narrative.drift`,
+`approvals.current`).
+
+```go
+g, err := vwp.BuildGraph(pkg)          // objects by id, closure hashes, unresolved refs, cycles
+d, err := g.Digests()                  // the manifest digests block (analysis, content, review roots)
+h, err := vwp.SelfHash(vwp.KindFact, fact)
+err = vwp.VerifyDigests(pkg)           // nil when the manifest's digests match or are absent
+
+// builder: cites by id, hashes stamped for you
+err = b.SetNarrativeSection(vwp.NarrativeSection{Id: "conclusion", Paragraphs: []vwp.NarrativeParagraph{{
+    Text: "...", Role: vwp.ParagraphRoleConclusion, Cites: vwp.CiteIds("c_1", "calc_1"),
+}}})
+err = b.RecordApproval(vwp.Approval{...}) // contentRoot and reviewRoot stamped when absent
+```
+
+Declare `DependsOn` on calculations and `BasisFacts` on judgments so their
+closure hashes cover what they consumed; `core.graph.declaredInputs` warns
+when an input is recognizable but undeclared. The conformance vectors in
+[`testdata/hashing/`](../../testdata/hashing/) pin the algorithm; `go test
+./vwp -run TestIntegrityVectors -update` regenerates them.
+
 ## Required outputs
 
 `vwp.RequiredOutputs(extension)` is the per-extension contract of mandatory,
@@ -120,8 +152,10 @@ Tests run against the repository's own [`examples/`](../../examples) and
 [`testdata/`](../../testdata) fixtures — the same fixtures the reference CLI
 tests use. The six accounting-extension examples are generated with the
 builder by `go run fixturegen/main.go` (from `sdk/go`), which refuses to write
-a package that does not verify clean; re-run it and commit the result after
-changing a validator's data contract.
+a package that does not verify clean; the same run refreshes the
+hand-authored examples in place (manifest part hashes, integrity digests,
+packed `.vwp`). Re-run it and commit the result after changing a validator's
+data contract or the hashing algorithm.
 
 Module path `github.com/verifiable-work-product/vwp/sdk/go`, `go 1.23`. No
 tagged releases yet; APIs may change until the first tag.

@@ -36,6 +36,9 @@
     "startDate": "2026-04-01",
     "totalAmount": "3116.44"
   },
+  "dependsOn": [
+    "s3_interest_accrual"
+  ],
   "method": "Executable entries derived from s3_interest_accrual; amounts at amountScale, balanced semantic account-role postings.",
   "validator": "lending.accountingSchedule.tieOut",
   "recomputable": true

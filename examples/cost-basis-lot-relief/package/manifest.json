@@ -65,9 +65,15 @@
       "role": "calculation"
     },
     {
+      "path": "calculations/s3_lot_relief_wb.json",
+      "mediaType": "application/json",
+      "sha256": "b2f752724084f1da8f1a42e2226e24074cb82f2fc1cfcc908d23427a9cdfc0ef",
+      "role": "calculation"
+    },
+    {
       "path": "calculations/accounting-schedule-calculation.json",
       "mediaType": "application/json",
-      "sha256": "95da4519ee99401f48d64e32077370a2de1da5b41360f57befa328eca7a7c926",
+      "sha256": "28dbb43c26d1ac4867f8c5c1ff4e897a5fbc69841e648ea32ffeb9aef3ecc6b4",
       "role": "calculation"
     },
     {
@@ -77,27 +83,21 @@
       "role": "calculation"
     },
     {
-      "path": "calculations/s3_lot_relief_wb.json",
-      "mediaType": "application/json",
-      "sha256": "b2f752724084f1da8f1a42e2226e24074cb82f2fc1cfcc908d23427a9cdfc0ef",
-      "role": "calculation"
-    },
-    {
       "path": "calculations/s5_wallet_allocation.json",
       "mediaType": "application/json",
-      "sha256": "c81037c4daf82c5d5504dc239e2251baf75c107640d11f1ff436c35f31e038eb",
+      "sha256": "7169c9960e08d6d6714963ae50b7a12b6fc1b23e461766627fe31cae2a5acee6",
       "role": "calculation"
     },
     {
       "path": "validations/validation-report.json",
       "mediaType": "application/json",
-      "sha256": "4415d30b90a145b6b9bfe698961ce74b1703be1afd1c8ac631874baeb30ab23f",
+      "sha256": "8b01cd5c1663011916c0b94aa3702411702c556584dab2818ac79139d092b5bd",
       "role": "validations"
     },
     {
       "path": "renderings/memo.md",
       "mediaType": "text/markdown",
-      "sha256": "93ddd1614e150c5cd6bbd530f71bc38e4205ed18bdd6f3b749731f7646797ef2",
+      "sha256": "17cd4483d8179e51e4811880197f6c3ae9a047c406eb7c9d0aac336b4dcd582d",
       "role": "rendering"
     }
   ],
@@ -106,5 +106,20 @@
     "mediaType": "application/json",
     "sha256": "0739175c0538ab5702b6c7471b14be1daa020ea4ecce9d04fece34a2a330d4fc",
     "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "a72a6f769d7b07dedfe10a702154c7252d1352f37df4f17bf8388ce0f994a2c6",
+    "contentRoot": "75c29a3c0202782b500aa23698d0d47337d62a3ea3f38266d49f8c74f46384f3",
+    "reviewRoot": "a5d2b6e37afbd1f3047fee5716896908cd8c51d539f19667667f71bdd251913d",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "de441b301ce5892ed59f340b3ffed018394fc61f9c6b4c901c46ffbe03042eeb",
+      "claim": "e02073b81786ba8e98295c87acfc3a025e9550970e5800e779a5a92f536d353a",
+      "evidence": "6b5d003dd9dacfd8377614a9700b443cc633814669dc7ac5d0832552ad1013d3",
+      "fact": "0ace494f0441c5458c2c437d5108fabf311d30ab06cb90c2d4b4334283f6f57f",
+      "judgment": "95d12bcdd32f0b5b0be452fffab0ac1291232a6da17955c5c9d133b86b5b2e25",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
   }
 }

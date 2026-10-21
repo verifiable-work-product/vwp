@@ -6,65 +6,91 @@
   "extension": "vwp-controls-evidence",
   "title": "SOX Control Test - Monthly Subledger to ERP Reconciliation Review, June 2026 (synthetic stub)",
   "subject": {
-    "type": "controlTest",
     "controlId": "ctrl_da_recon_review",
-    "period": "2026-06"
+    "period": "2026-06",
+    "type": "controlTest"
   },
   "workproduct": {
     "path": "workproduct.json",
     "mediaType": "application/json",
+    "sha256": "11ec4ea5d37da46cf27890a034a0dcb856976a6b401a57df93354bf34dc5d194",
     "role": "workproduct"
-  },
-  "provenance": {
-    "path": "provenance/provenance.json",
-    "mediaType": "application/json",
-    "role": "provenance"
   },
   "parts": [
     {
       "path": "evidence/evidence.json",
       "mediaType": "application/json",
+      "sha256": "d07a00f0181f3490004963cb814245dc673a30a6e175c67ffba7d071956c67a9",
       "role": "evidence-index"
     },
     {
       "path": "evidence/reconciliation-report.txt",
       "mediaType": "text/plain",
+      "sha256": "f0caad4312a632fbb00734156c46fed797d6d1cdf3a2c4c57e5304c87795b4fa",
       "role": "evidence"
     },
     {
       "path": "evidence/reviewer-signoff.txt",
       "mediaType": "text/plain",
+      "sha256": "ef0ed19ddb5841de22970e2a0f1c5e08396016858bab86df1d9d3c628f4a724e",
       "role": "evidence"
     },
     {
       "path": "evidence/exception-log.csv",
       "mediaType": "text/csv",
+      "sha256": "a83647228f3506ea2a5170e260ec5c72f28d04d1987beb4b849be2ea99bfc035",
       "role": "evidence"
     },
     {
       "path": "facts/facts.json",
       "mediaType": "application/json",
+      "sha256": "c87106869720dafcc8f23701586b7b3345b780f18a93e7e42eb2bf06dab07cea",
       "role": "facts"
     },
     {
       "path": "claims/claims.json",
       "mediaType": "application/json",
+      "sha256": "df3f79c380ee497dd45061b3fdb1fb2257622c30bb858c0d105403376cb385a2",
       "role": "claims"
     },
     {
       "path": "validations/validation-report.json",
       "mediaType": "application/json",
+      "sha256": "c86dee7736fa95d3a204669f987c15b6f7b133d53e20cd2f937ec609205e79dc",
       "role": "validations"
     },
     {
       "path": "approvals/approvals.json",
       "mediaType": "application/json",
+      "sha256": "6dfa99b3dbc9e46cedd9d61a333b16749bb5561f94d2f7b94ebc5d54ac02d7cd",
       "role": "approvals"
     },
     {
       "path": "renderings/workpaper.md",
       "mediaType": "text/markdown",
+      "sha256": "6e65e2c0c0b08393be024b5d56966e373db95d2e7ccecb886e0dc34e858ce76c",
       "role": "rendering"
     }
-  ]
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "c0c882283482c26f272a0574a60ca3acfca8ed1d9511673e53956ad118a98434",
+    "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "efcb223eaaa2d791e564c4cd71f461906eef2d94fad465660853365dd8cfbd58",
+    "contentRoot": "a5b3f18199a23ab4c860f119bf2ad83ac92e243e545f564fd72e18488d42f27a",
+    "reviewRoot": "bedaa739e62536706d4b5775fb2d04ed1d30375457cf8671e09e6777e736eadd",
+    "collections": {
+      "approval": "cf700b526bca5acd52934816d6954cd4583a0541f9c55ece168db6f0c249b185",
+      "calculation": "6cbd3e97abde8320c0af223f9300fe4c4c0437db25010fe760641e84b7619e6f",
+      "claim": "cab89cadb235c58e4b2539b2bebe5f43358c2690a430e878d2b577bfef46053d",
+      "evidence": "06af511fe2134d46ea672f361a7920c1b37cf308bbd05068656949f9796b65f4",
+      "fact": "60c25d89bb14d79fd1efd2241bb9a502fc0de35f3419a203c501973128738fc8",
+      "judgment": "32dc3ac44a4d70438ed8e497ef5ff62862506d4d90ac561ad3eb36b712c59574",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
+  }
 }

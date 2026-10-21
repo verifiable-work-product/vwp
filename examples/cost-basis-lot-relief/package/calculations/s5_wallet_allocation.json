@@ -34,6 +34,9 @@
       }
     ]
   },
+  "dependsOn": [
+    "s5_f_allocation_record"
+  ],
   "method": "Rev. Proc. 2024-28 specific unit allocation, recorded 2024-12-20: the 190,000 USD of unused basis on the 4 BTC held at 2025-01-01 (lots L1-L3, all acquired in 2024) assigned to the wallets holding the units.",
   "validator": "costBasis.walletAllocation.tieOut",
   "recomputable": true

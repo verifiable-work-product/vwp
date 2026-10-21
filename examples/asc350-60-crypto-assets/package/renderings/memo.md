@@ -76,6 +76,10 @@ Is WDEMO, a token DemoCo created and issued, a crypto asset within ASC 350-60-15
 - `core.externalRefs.wellFormed` — notRun — no external retrieval metadata declared
 - `core.factAnchors.quotesMatch` — pass — 6 quote anchors verified
 - `core.claimRefs.resolve` — pass
+- `core.graph.refsResolve` — pass
+- `core.graph.acyclic` — pass
+- `core.graph.declaredInputs` — pass
+- `core.digests.match` — pass
 - `core.signatures.present` — warning — no package signature found
 - `finance.claims.haveAssertions` — pass
 - `finance.claims.haveSupport` — pass

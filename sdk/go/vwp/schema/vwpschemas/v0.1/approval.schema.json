@@ -27,6 +27,16 @@
       "type": "string",
       "description": "What was approved: 'package', a part path, or an object ID such as a judgment ID."
     },
+    "contentRoot": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "The package content root (spec/integrity.md) the action was taken against."
+    },
+    "reviewRoot": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "The package review root at the time of the action."
+    },
     "comments": { "type": "string" }
   }
 }

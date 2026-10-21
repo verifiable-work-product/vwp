@@ -281,7 +281,9 @@ func (b *Builder) AddClaim(c vwp.Claim) error {
 	return b.addCollectionObject(vwp.ClaimsPath, "claims", RoleClaims, c.Id, c)
 }
 
-// AddJudgment appends a judgment to judgments/judgments.json.
+// AddJudgment appends a judgment to judgments/judgments.json. Its
+// BasisFacts and BasisCalculations are its integrity graph edges; they are
+// not checked here (core.graph.refsResolve reports unknown ids).
 func (b *Builder) AddJudgment(j vwp.Judgment) error {
 	if err := validateObject(schema.Judgment, j); err != nil {
 		return err
@@ -289,12 +291,59 @@ func (b *Builder) AddJudgment(j vwp.Judgment) error {
 	return b.addCollectionObject(vwp.JudgmentsPath, "judgments", RoleJudgments, j.Id, j)
 }
 
-// RecordApproval appends an approval to approvals/approvals.json.
+// RecordApproval appends an approval to approvals/approvals.json. An
+// approval that does not carry ContentRoot and ReviewRoot is stamped with
+// the package's current roots (spec/integrity.md section 6): the content
+// the action was taken against, and the review state before the action.
+// Re-recording an approval already in the package without the stamps is
+// the idempotent no-op; the stamps it was recorded with are kept.
 func (b *Builder) RecordApproval(a vwp.Approval) error {
+	if a.ContentRoot == "" || a.ReviewRoot == "" {
+		existing, err := b.findCollectionObject(vwp.ApprovalsPath, "approvals", a.Id)
+		if err != nil {
+			return err
+		}
+		switch {
+		case existing != nil:
+			if a.ContentRoot == "" {
+				a.ContentRoot, _ = existing["contentRoot"].(string)
+			}
+			if a.ReviewRoot == "" {
+				a.ReviewRoot, _ = existing["reviewRoot"].(string)
+			}
+		default:
+			d, err := b.Digests()
+			if err != nil {
+				return fmt.Errorf("vwp/builder: failed to stamp approval %s: %w", a.Id, err)
+			}
+			if a.ContentRoot == "" {
+				a.ContentRoot = d.ContentRoot
+			}
+			if a.ReviewRoot == "" {
+				a.ReviewRoot = d.ReviewRoot
+			}
+		}
+	}
 	if err := validateObject(schema.Approval, a); err != nil {
 		return err
 	}
 	return b.addCollectionObject(vwp.ApprovalsPath, "approvals", RoleApprovals, a.Id, a)
+}
+
+// findCollectionObject returns the object with the given id in a
+// `{key: [...]}` collection part, nil when the part or the id is absent.
+func (b *Builder) findCollectionObject(relPath, key, id string) (map[string]any, error) {
+	doc, err := b.readCollectionDoc(relPath)
+	if err != nil {
+		return nil, err
+	}
+	items, _ := doc[key].([]any)
+	for _, item := range items {
+		if m, ok := item.(map[string]any); ok && m["id"] == id {
+			return m, nil
+		}
+	}
+	return nil, nil
 }
 
 // AddValidation appends a shipped validation result to
@@ -328,7 +377,7 @@ func ReplaceExisting() CalculationOption {
 }
 
 // AddCalculation writes a calculation as its own JSON part under
-// calculations/.
+// calculations/. Its DependsOn ids are its integrity graph edges.
 func (b *Builder) AddCalculation(c vwp.Calculation, opts ...CalculationOption) error {
 	cfg := calcConfig{path: "calculations/" + c.Id + ".json"}
 	for _, o := range opts {
@@ -764,7 +813,10 @@ func (b *Builder) upsertManifestPart(relPath, mediaType, role, sha string) {
 	})
 }
 
+// saveManifest refreshes the integrity roots from the parts on disk and
+// writes manifest.json, so every mutation leaves the digests block current.
 func (b *Builder) saveManifest() error {
+	b.refreshDigests()
 	if err := validateObject(schema.Manifest, b.manifest); err != nil {
 		return err
 	}

@@ -23,6 +23,7 @@ validations/                   optional, recommended
 approvals/                     optional
 attestations/                  optional
 renderings/                    optional
+narrative/                     optional — memo format snapshot and narrative (see narrative.md)
 provenance/provenance.json     required
 signatures/                    optional in v0.1
 ```

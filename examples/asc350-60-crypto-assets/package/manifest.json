@@ -73,7 +73,7 @@
     {
       "path": "calculations/accounting-schedule-calculation.json",
       "mediaType": "application/json",
-      "sha256": "32ec288809c0f2898012b2a713cf6e3d34d44b839fa759b7b0b96ffaf2eef6d9",
+      "sha256": "8cd8f1a0d834f0dcca88c79fdf4728dc8d8f868a37e255cd23ff8549fdadb02a",
       "role": "calculation"
     },
     {
@@ -91,13 +91,13 @@
     {
       "path": "validations/validation-report.json",
       "mediaType": "application/json",
-      "sha256": "470d4d0c6fb94a7bac34cb7a2e377d1e1949f9f6c86b012470bdcf5f7df4ed5d",
+      "sha256": "c8aac177c00428df4394f012bd71a0a7a817227bd853acb411ea12e95d290691",
       "role": "validations"
     },
     {
       "path": "renderings/memo.md",
       "mediaType": "text/markdown",
-      "sha256": "a3b907c6525ee7067bf96745cd305d7630ff8d0c6579a16ce8eaf8d69df57fa3",
+      "sha256": "7c37422c4fe0d5f151a4d2375b83c9bdf6d8589ceec6dc0c80a7cb377d4a7816",
       "role": "rendering"
     }
   ],
@@ -106,5 +106,20 @@
     "mediaType": "application/json",
     "sha256": "ef2a241a094f4542493e794024f78417c1fa6fae23b845b74b44d0a1e4e3527d",
     "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "41fdcf7f16ef7202d8667466f1cc8a57562da290b8e6c8375584ef926e6f4be3",
+    "contentRoot": "59c438b4d34c2120e1b4b6589617367eec2703e5561ba78975c7902712f2ad3c",
+    "reviewRoot": "5758c2acec9c9d164d33b25d8b3594bef82637da6afad2d1f751d7cfb0301890",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "e55ce86d1c96a28d4cb1e91a642931ceac5c3a1f471c522fb7e6ae7f7ff303e7",
+      "claim": "7ddbe2e516da3ba68ea6f6eba54f1d74854e9f3727b34ad781fbcb7984870081",
+      "evidence": "c96feec0eee060cf07d577a03ecf05ca4821c625827bc3be20eca954c755f234",
+      "fact": "8cf126b0278d9270087714a8609e6fd80a3bcef2ae1061827724a2b67320a8e1",
+      "judgment": "940308b95053a126facf1451b07e1ceaf21313ff7f69c13a4a352bcb82db74eb",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
   }
 }

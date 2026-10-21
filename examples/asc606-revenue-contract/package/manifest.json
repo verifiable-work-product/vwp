@@ -6,105 +6,120 @@
   "extension": "vwp-accounting-asc606",
   "title": "ASC 606 Revenue Recognition Workpaper - Acme Contract (synthetic demo)",
   "subject": {
-    "type": "customerContract",
-    "id": "contract_acme_001"
+    "id": "contract_acme_001",
+    "type": "customerContract"
   },
   "workproduct": {
     "path": "workproduct.json",
     "mediaType": "application/json",
-    "role": "workproduct",
-    "sha256": "0acfc8b9fc4c0c881e3e3218e7e8cec2e64336f53fb1f1704821cf3bbe29c625"
-  },
-  "provenance": {
-    "path": "provenance/provenance.json",
-    "mediaType": "application/json",
-    "role": "provenance",
-    "sha256": "eafa2e50445e0b41bbacc8ef7ba98efdbb87feb47d976a5248fce8667c8f57cd"
+    "sha256": "0acfc8b9fc4c0c881e3e3218e7e8cec2e64336f53fb1f1704821cf3bbe29c625",
+    "role": "workproduct"
   },
   "parts": [
     {
       "path": "evidence/evidence.json",
       "mediaType": "application/json",
-      "role": "evidence-index",
-      "sha256": "14aee756e9145a0ebd2c8b33299d566fd3fca0d62c692973154ea1fdf52f1bf2"
+      "sha256": "14aee756e9145a0ebd2c8b33299d566fd3fca0d62c692973154ea1fdf52f1bf2",
+      "role": "evidence-index"
     },
     {
       "path": "evidence/order-form.txt",
       "mediaType": "text/plain",
-      "role": "evidence",
-      "sha256": "c85066b0837cbde545fb72b49276cdc0658ad8a4474cee787ee6833364efa85b"
+      "sha256": "c85066b0837cbde545fb72b49276cdc0658ad8a4474cee787ee6833364efa85b",
+      "role": "evidence"
     },
     {
       "path": "evidence/msa-excerpt.txt",
       "mediaType": "text/plain",
-      "role": "evidence",
-      "sha256": "ac248143ad693f964e967d6434370d437ac430f1bf931692a874d5bfeeeda843"
+      "sha256": "ac248143ad693f964e967d6434370d437ac430f1bf931692a874d5bfeeeda843",
+      "role": "evidence"
     },
     {
       "path": "evidence/price-book.csv",
       "mediaType": "text/csv",
-      "role": "evidence",
-      "sha256": "27c87e8624a28c2e676ebf6759e4e00a30247bf518776a6a1cb98a0441d7f3e9"
+      "sha256": "27c87e8624a28c2e676ebf6759e4e00a30247bf518776a6a1cb98a0441d7f3e9",
+      "role": "evidence"
     },
     {
       "path": "facts/facts.json",
       "mediaType": "application/json",
-      "role": "facts",
-      "sha256": "3d5112f70ca8e001fab0111f41fbbd25ef9e21ff0b435b92da8ed5bf8f804be1"
+      "sha256": "3d5112f70ca8e001fab0111f41fbbd25ef9e21ff0b435b92da8ed5bf8f804be1",
+      "role": "facts"
     },
     {
       "path": "claims/claims.json",
       "mediaType": "application/json",
-      "role": "claims",
-      "sha256": "7b9ebbcd3f3860fddda5c87d15c3c95bb40f50cf3115ae3b5b2e12be1c5a9ad9"
+      "sha256": "7b9ebbcd3f3860fddda5c87d15c3c95bb40f50cf3115ae3b5b2e12be1c5a9ad9",
+      "role": "claims"
     },
     {
       "path": "judgments/judgments.json",
       "mediaType": "application/json",
-      "role": "judgments",
-      "sha256": "8bdc8cdc20aeaf190cfa2159dbc5b22de5e09ef299ca25271e21c114f9925783"
+      "sha256": "252f41fd207c93b13afb4148971b135e71e61bfcf1d78133b05deb21ee432cb3",
+      "role": "judgments"
     },
     {
       "path": "calculations/ssp-allocation.json",
       "mediaType": "application/json",
-      "role": "calculation",
-      "sha256": "d16709c56e4d3407e83e93de7142c6d5e2f05a8b3a16d8869e12288a08195445"
+      "sha256": "49538f22c399b0c2b0dc3c8e19f0c5a5823bd00dcaa523cbd5796857437bc58f",
+      "role": "calculation"
     },
     {
       "path": "calculations/revenue-schedule.csv",
       "mediaType": "text/csv",
-      "role": "calculation",
-      "sha256": "970c3383357c61da57465eadc66c6a14b47044f2c5fe4b157b13f567ab97526a"
+      "sha256": "970c3383357c61da57465eadc66c6a14b47044f2c5fe4b157b13f567ab97526a",
+      "role": "calculation"
     },
     {
       "path": "validations/validation-report.json",
       "mediaType": "application/json",
-      "role": "validations",
-      "sha256": "4cabc9e33b911e8ecdb25500297c2383f35b23af4653d332d23e590996fa6056"
+      "sha256": "4cabc9e33b911e8ecdb25500297c2383f35b23af4653d332d23e590996fa6056",
+      "role": "validations"
     },
     {
       "path": "approvals/approvals.json",
       "mediaType": "application/json",
-      "role": "approvals",
-      "sha256": "076ed3d7892cb4c6edd98fdeaecc45f59c250b8d26d06662375b364ba8a8ae6f"
+      "sha256": "ee58b508561d02077172b1744d1e285c48e332f4f86b403b427e6876758c3e5f",
+      "role": "approvals"
     },
     {
       "path": "attestations/att-001.json",
       "mediaType": "application/json",
-      "role": "attestation",
-      "sha256": "dbecc5bcca40eee3730ffa319f2a560883d51b0f297310ef9bbc956f3d1a7ece"
+      "sha256": "dbecc5bcca40eee3730ffa319f2a560883d51b0f297310ef9bbc956f3d1a7ece",
+      "role": "attestation"
     },
     {
       "path": "renderings/memo.md",
       "mediaType": "text/markdown",
-      "role": "rendering",
-      "sha256": "7df4056e5673f33240413ae04072907944adf8c689baacedf4fc645fa4e2dd14"
+      "sha256": "7df4056e5673f33240413ae04072907944adf8c689baacedf4fc645fa4e2dd14",
+      "role": "rendering"
     },
     {
       "path": "calculations/accounting-schedule.json",
       "mediaType": "application/json",
-      "role": "calculation",
-      "sha256": "a5527571bb5aa8a6581949a643df49afc2a54ad0bdc31f5ba5663cb6a760ad4b"
+      "sha256": "a5527571bb5aa8a6581949a643df49afc2a54ad0bdc31f5ba5663cb6a760ad4b",
+      "role": "calculation"
     }
-  ]
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "eafa2e50445e0b41bbacc8ef7ba98efdbb87feb47d976a5248fce8667c8f57cd",
+    "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "216ebb6ad30308e789e4488541d1f871e6f2d62b930e892b26974c9dc86b34b6",
+    "contentRoot": "215e9ffc43a18bb7acb82971129b7439a7e8aea44f29436b79b645c2e430b1bc",
+    "reviewRoot": "4b1e84572fee16935cafdd4f83a80e97e976bfbf7d2a6b6e5887b2c447f53ec5",
+    "collections": {
+      "approval": "fedce2d4d650727b26dd6764df597b2c624c8e5fea94a4708357eb1d7ddcf2d4",
+      "calculation": "4974a34477a3c48141ff0a6d234273f18dba370d5a1a099a115892d2d08cce03",
+      "claim": "453ddb1028f16f054c13131fa230b05f4d6cc86da580013189e400139fe7f98a",
+      "evidence": "59569eb9cb524e4967aba43ef7415b619c4a07c1a03e49b9b307ba6ea5447161",
+      "fact": "501cbdfaf9dfd6b06319fbc24654d76230074eeb6ca9f87d31c7973cf9224c53",
+      "judgment": "65a6ef2ed3fc30c66eab33f98ba2320d3523b6ec23fb130a067149d637e10de5",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
+  }
 }

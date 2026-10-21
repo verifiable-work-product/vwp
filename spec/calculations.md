@@ -18,6 +18,7 @@ result. Calculation objects live under `calculations/` and validate against
 | `type` | string | yes | Kind of calculation (e.g. `sum`, `reconciliation`, `variance`, `thresholdTest`, `custom`). |
 | `inputs` | array / object | yes | Input values, or references to facts and evidence supplying them. |
 | `outputs` | array / object | yes | Computed results. |
+| `dependsOn` | array | no | Ids of the facts, calculations or evidence the computation consumed. Dependency edges in the integrity graph ([integrity.md](integrity.md)); producers SHOULD declare every input. |
 | `method` | string | no | Description or identifier of the computation method (formula, algorithm, spec reference). |
 | `validator` | string | no | Identifier of a validator capable of recomputing this calculation. |
 | `recomputable` | boolean | no | True when a verifier can recompute outputs from inputs deterministically. |

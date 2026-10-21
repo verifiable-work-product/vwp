@@ -22,7 +22,9 @@ validate against `https://vwp.dev/schemas/v0.1/judgment.schema.json`.
 | `alternatives` | array | no | Alternatives considered, each with a description and (optionally) why it was not selected. |
 | `riskLevel` | string | no | e.g. `low`, `medium`, `high`. Signals required scrutiny. |
 | `requiredApproverRole` | string | no | Role that must approve this judgment (e.g. `controller`, `partner`). |
-| `status` | string | no | e.g. `proposed`, `approved`, `rejected`, `superseded`. |
+| `basisFacts` | array | no | Ids of the facts the judgment weighed. Dependency edges in the integrity graph ([integrity.md](integrity.md)). |
+| `basisCalculations` | array | no | Ids of the calculations the judgment weighed. |
+| `status` | string | no | e.g. `proposed`, `approved`, `rejected`, `superseded`. Review-layer field: stripped before hashing. |
 
 ## 3. Semantics
 

@@ -22,6 +22,8 @@ certification, or any regulatory attestation.
 | `action` | string | yes | One of `approved`, `rejected`, `requestedChanges`, `acknowledged`. |
 | `timestamp` | string | yes | RFC 3339 timestamp of the action. |
 | `scope` | string / object | no | What was reviewed: whole package, specific claim/judgment `id`s, or part paths. Absent scope means the whole package. |
+| `contentRoot` | string | no | The package content root the action was taken against ([integrity.md](integrity.md)). An approval whose root no longer matches is reported as superseded. |
+| `reviewRoot` | string | no | The review root at the time of the action. |
 | `comments` | string | no | Free-form reviewer comments. |
 
 ## 3. Actions

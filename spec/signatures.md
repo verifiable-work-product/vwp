@@ -19,7 +19,8 @@ v0.1 allows two forms of signature record:
    so the manifest is not duplicated. The record stores the JWS, the signing algorithm,
    and signer metadata (identity, role, timestamp). Because the manifest carries the
    `sha256` of each declared part, a valid manifest signature extends integrity to all
-   declared parts. Parts without declared digests are NOT covered.
+   declared parts, and when it carries a `digests` block ([integrity.md](integrity.md))
+   the signature covers the whole object graph. Parts without declared digests are NOT covered.
 2. **Placeholder signature records.** A structured record naming an intended or asserted
    signer without cryptographic material, for workflows where signing infrastructure does
    not yet exist. Placeholder records carry no integrity or authenticity guarantee, and

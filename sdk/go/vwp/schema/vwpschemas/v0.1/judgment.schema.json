@@ -22,6 +22,16 @@
         "additionalProperties": true
       }
     },
+    "basisFacts": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Ids of the facts the judgment weighed. Dependency edges in the integrity graph (see spec/integrity.md)."
+    },
+    "basisCalculations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Ids of the calculations the judgment weighed."
+    },
     "riskLevel": {
       "type": "string",
       "enum": ["low", "medium", "high"]

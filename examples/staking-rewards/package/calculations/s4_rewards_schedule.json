@@ -61,6 +61,12 @@
     "totalFairValue": 3750,
     "totalUnits": 1.5
   },
+  "dependsOn": [
+    "s4_f_chain_total",
+    "s4_f_price_0410",
+    "s4_f_price_0420",
+    "s4_f_price_0430"
+  ],
   "method": "Each reward at units x closing price on its recognition date (credit coincides with the end of each duty period, so inception, recognition and receipt fall on the same day); totals tie to the beacon-chain export; no unreceived balance at either period end.",
   "validator": "staking.rewards.recompute",
   "recomputable": true

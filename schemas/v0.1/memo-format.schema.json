@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/memo-format.schema.json",
+  "title": "VWP Memo Format",
+  "description": "An organization's memo layout, snapshotted into the package at narrative/format.json so the narrative and the rendering follow it offline (spec/narrative.md).",
+  "type": "object",
+  "required": [
+    "version",
+    "sections"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "enum": [
+        1
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "filename": {
+          "type": "string"
+        },
+        "mediaType": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "header": {
+      "type": "array",
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "required": [
+          "label",
+          "source"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "title",
+              "entity",
+              "period",
+              "subject",
+              "status",
+              "preparer",
+              "approvers",
+              "literal"
+            ]
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 40,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "heading",
+          "level",
+          "kind"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1
+          },
+          "level": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "narrative",
+              "conclusion",
+              "alternatives",
+              "claims",
+              "judgments",
+              "calculations",
+              "sources",
+              "signoff",
+              "validations",
+              "attestations",
+              "boilerplate"
+            ]
+          },
+          "templateSection": {
+            "type": "string"
+          },
+          "guidance": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 16384
+          },
+          "required": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "footer": {
+      "type": "string",
+      "maxLength": 4096
+    }
+  },
+  "additionalProperties": false
+}

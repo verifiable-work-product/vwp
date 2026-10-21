@@ -19,6 +19,10 @@
     "accruedUnits": 1.2465753425,
     "days": 91
   },
+  "dependsOn": [
+    "s1_f_terms",
+    "s3_f_fee_price"
+  ],
   "method": "accruedUnits = principalUnits x annualRate x days / dayCountBasis; days = accrualEnd - accrualStart; accruedFairValue = accruedUnits x unitPrice at the last accrued day.",
   "validator": "lending.accrual.recompute",
   "recomputable": true

@@ -52,6 +52,9 @@
     "startDate": "2026-04-01",
     "totalAmount": "150000.00"
   },
+  "dependsOn": [
+    "s3_roll_forward"
+  ],
   "method": "Executable entries derived from s3_roll_forward; amounts at amountScale, balanced semantic account-role postings.",
   "validator": "asc35060.accountingSchedule.tieOut",
   "recomputable": true

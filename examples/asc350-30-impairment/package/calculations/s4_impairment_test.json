@@ -39,6 +39,10 @@
     ],
     "totalImpairmentLoss": 15000
   },
+  "dependsOn": [
+    "s3_f_lot1_fv",
+    "s3_f_lot2_fv"
+  ],
   "method": "Per lot: impairmentLoss = max(0, carryingAmount - fairValue); carryingAmountAfter = carryingAmount - impairmentLoss (ASC 350-30-35-19).",
   "validator": "asc35030.impairment.recompute",
   "recomputable": true

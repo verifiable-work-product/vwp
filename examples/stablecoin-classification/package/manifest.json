@@ -73,13 +73,13 @@
     {
       "path": "validations/validation-report.json",
       "mediaType": "application/json",
-      "sha256": "819f76961a9de089230917e967e4b45d5260cef0062f16d50e7935337fd7fa66",
+      "sha256": "405ba5416094f8de9152b5f155644cde3e0a513f2a17c4bbe50514387f8e4e64",
       "role": "validations"
     },
     {
       "path": "renderings/memo.md",
       "mediaType": "text/markdown",
-      "sha256": "3e73e6c35b91b3aa3bf87ac4ee57c85f2b1172620a79967bf1ec135e8ff43570",
+      "sha256": "c126fc55d7e4cc122c42e0690fa7c81f59a23d339f34a98ba144eb5f7ca15e84",
       "role": "rendering"
     }
   ],
@@ -88,5 +88,20 @@
     "mediaType": "application/json",
     "sha256": "efeab2c14350fa8300234eccf2e09247966cc8e1e675353a7bfb1294b6e883fa",
     "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "d6706f1d2da46ddfe7441a693a0c7a602fdd8b5444b8cad805792fa5b1618183",
+    "contentRoot": "f198caf24b3cc2398e1555e7ae8e7b018d92bd9f5a865d213b18edd8333773a6",
+    "reviewRoot": "280aa887e4ac730b5ce0db0edbf26e2508377393e30fe7e3cf29a913d25ce19c",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "6cbd3e97abde8320c0af223f9300fe4c4c0437db25010fe760641e84b7619e6f",
+      "claim": "ede6894de3008055b4fb4261ec38434b70e5f2a7ba8520ba0e1580f1b08237d5",
+      "evidence": "5b9dc866d14b218213536967a82c52eec9b8090d61fb3836ee934f41969d535f",
+      "fact": "89882d0d09d69faa7ed1a75d7f15d4e248d9b51f935565a20cdf3642bc7a43ee",
+      "judgment": "2e081960f80857146a5dd750388c04cb372d7c5501620966bcf5bec47dd16950",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
   }
 }

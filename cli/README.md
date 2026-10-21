@@ -78,4 +78,29 @@ vwp render package.vwp
 vwp diff old.vwp new.vwp
 vwp unpack package.vwp ./unpacked
 vwp pack ./package package.vwp --write-hashes
+vwp digests package.vwp --objects
 ```
+
+## Integrity graph
+
+`vwp verify` recomputes the integrity graph of `spec/integrity.md`: a self
+hash per object (RFC 8785 canonical JSON, review fields stripped), a closure
+hash over each object's support chain, collection roots, and the analysis,
+content and review roots. On top of the schema and reference checks it
+reports:
+
+| Validator | On a problem | Meaning |
+|---|---|---|
+| `core.graph.refsResolve` | fail | every dependency id resolves to exactly one object |
+| `core.graph.acyclic` | fail | no dependency cycle |
+| `core.graph.declaredInputs` | warning | a calculation input or judgment basis fact the closure hash is blind to |
+| `core.digests.match` | fail | the manifest `digests` block equals the recomputed roots (skipped without one) |
+| `approvals.current` | reviewRequired | an `approved` action whose `contentRoot` is no longer the content root |
+| `narrative.schemaValid`, `narrative.sections`, `narrative.citations`, `narrative.roles` | fail / reviewRequired | the memo prose follows the memo format and cites what it rests on |
+| `narrative.cites.fresh` | fail | every cited hash is the object's current closure hash |
+| `narrative.drift` | reviewRequired | cites are fresh but the analysis root moved since the narrative was written |
+
+`vwp digests <package>` prints the recomputed roots as JSON in the shape of
+the manifest `digests` block; `--objects` adds every object's self and
+closure hash, for cross-checking with another implementation. The shared
+conformance vectors live in `testdata/hashing/vectors.json`.

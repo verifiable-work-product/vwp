@@ -61,13 +61,13 @@
     {
       "path": "calculations/s3_interest_accrual.json",
       "mediaType": "application/json",
-      "sha256": "6a9ede37325aa32d1a8dba0b3214d250ddfb3e9cf8a48725ee77477053f3d348",
+      "sha256": "f922597b47602e34f6f23c0a9238b460cdc0f9cff6776a19e5647a8f326318a3",
       "role": "calculation"
     },
     {
       "path": "calculations/accounting-schedule-calculation.json",
       "mediaType": "application/json",
-      "sha256": "93587de00231ae099404a37c95ce969bbd15e633ec4e786df809958c7fef17c9",
+      "sha256": "1ec6280b68594ec23d6823b3dd3df2302b1620b635bee0aa0d748a6c7b60ba62",
       "role": "calculation"
     },
     {
@@ -79,19 +79,19 @@
     {
       "path": "calculations/s4_collateral_coverage.json",
       "mediaType": "application/json",
-      "sha256": "1fa43c6401a2f939f2a3251c79066e7487f6630e80d755467251e72751b154fa",
+      "sha256": "4fdce06c18e1b09fbbba9a03a17e4543476083b30c0a2b4b3f319762b52a9163",
       "role": "calculation"
     },
     {
       "path": "validations/validation-report.json",
       "mediaType": "application/json",
-      "sha256": "ca8389b29075afd463729692f6185efb623d4b212446e083ecb9170c2f86fcd3",
+      "sha256": "5dbec91e24659220dbd4700079075a1cd495ec8875fe0ee234b308dc1c2915e3",
       "role": "validations"
     },
     {
       "path": "renderings/memo.md",
       "mediaType": "text/markdown",
-      "sha256": "5f281d7f2452a4b14315ca74189fe186023ebed02efa1c3687e06370b10b6494",
+      "sha256": "fe80c35d4d19556c62668864490ddd570a5222502a5b7d3bd711d91c0b775cef",
       "role": "rendering"
     }
   ],
@@ -100,5 +100,20 @@
     "mediaType": "application/json",
     "sha256": "fcd9a8490bebc6e808a458f50dc577560b72175b9cf399d3d8f3b60f09b06dc5",
     "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "c22d5a28ac8c5f7c1c13cacdfc17efe2f047df4692d926a2351b2da6dd6275cb",
+    "contentRoot": "9c492b1f1f6b59cb2fff56e13a9b465825e216179c2c1d9a78b57ff9dbb89604",
+    "reviewRoot": "ec86a2cdf7ec84523b23aca86448c93fa1fd7c93874f347db529928cfb11b3df",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "d105a42e91d568024ab835af4293787948b8b0429aaa73b92e737d1252c3e567",
+      "claim": "5b8606c06bc3f5c33db1ca2233914066a73c3ab2357a733f6366e7a24d0c5bce",
+      "evidence": "e2cf97bdabbe58b778ddb661850e60a9ccfcd32dfed3c6b7540be3322f9e8e66",
+      "fact": "cb8e5b2aaebbaf9dc19a0bc87a4e22a470a817fae3dd1d79fb7bba32f9636194",
+      "judgment": "c002ed239db657d8227c09d2ee3968fefb6a83b4c10bca56de53ece79805debf",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
   }
 }

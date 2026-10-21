@@ -37,6 +37,24 @@ const (
 	ValidatorClaimRefsResolve       = "core.claimRefs.resolve"
 	ValidatorSignaturesPresent      = "core.signatures.present"
 
+	// Integrity graph validators (spec/integrity.md section 7); see
+	// verify_graph.go. core.graph.refsResolve subsumes core.claimRefs.resolve,
+	// which is still emitted for compatibility.
+	ValidatorGraphRefsResolve    = "core.graph.refsResolve"
+	ValidatorGraphAcyclic        = "core.graph.acyclic"
+	ValidatorGraphDeclaredInputs = "core.graph.declaredInputs"
+	ValidatorDigestsMatch        = "core.digests.match"
+	ValidatorApprovalsCurrent    = "approvals.current"
+
+	// Narrative validators run only when the package carries a narrative
+	// part (narrative/narrative.json); see verify_narrative.go.
+	ValidatorNarrativeSchemaValid = "narrative.schemaValid"
+	ValidatorNarrativeSections    = "narrative.sections"
+	ValidatorNarrativeCitations   = "narrative.citations"
+	ValidatorNarrativeRoles       = "narrative.roles"
+	ValidatorNarrativeCitesFresh  = "narrative.cites.fresh"
+	ValidatorNarrativeDrift       = "narrative.drift"
+
 	ValidatorFinanceClaimsHaveAssertions  = "finance.claims.haveAssertions"
 	ValidatorFinanceClaimsHaveSupport     = "finance.claims.haveSupport"
 	ValidatorFinanceRequiredJudgmentsDone = "finance.requiredJudgments.complete"
@@ -277,6 +295,10 @@ func Verify(pkg Source, opts ...VerifyOption) *Report {
 		verifyClaimRefs(pkg, add, claims, facts, judgments)
 	}
 
+	// core.graph.refsResolve, core.graph.acyclic, core.graph.declaredInputs,
+	// core.digests.match
+	graph, digests := verifyGraph(pkg, manifest, add)
+
 	// core.signatures.present — informational in v0.1.
 	hasSignature := false
 	for _, p := range pkg.List() {
@@ -290,6 +312,12 @@ func Verify(pkg Source, opts ...VerifyOption) *Report {
 	} else {
 		add(ValidationResult{ValidatorId: ValidatorSignaturesPresent, Status: StatusWarning, Message: "no package signature found"})
 	}
+
+	// narrative.* run only when the package carries a narrative part.
+	verifyNarrative(pkg, graph, digests, add, evidence, facts, claims, judgments)
+
+	// approvals.current
+	verifyApprovalsCurrent(pkg, graph, digests, add)
 
 	// Profile validators.
 	if manifest.Profile == ProfileFinance {
@@ -618,19 +646,7 @@ func verifyFactAnchors(pkg Source, add func(ValidationResult), facts, evidence [
 func verifyClaimRefs(pkg Source, add func(ValidationResult), claims, facts, judgments []any) {
 	factIds := idSet(facts)
 	judgmentIds := idSet(judgments)
-	calcIds := map[string]bool{}
-	for _, p := range pkg.List() {
-		if !strings.HasPrefix(p, "calculations/") || !strings.HasSuffix(p, ".json") {
-			continue
-		}
-		var doc map[string]any
-		if err := ReadJSON(pkg, p, &doc); err != nil {
-			continue
-		}
-		if id := getString(doc, "id"); id != "" {
-			calcIds[id] = true
-		}
-	}
+	calcIds := calculationIds(pkg)
 	var problems []string
 	check := func(claim map[string]any, key string, ids map[string]bool, kind string) {
 		for _, ref := range getSlice(claim, key) {
@@ -651,6 +667,25 @@ func verifyClaimRefs(pkg Source, add func(ValidationResult), claims, facts, judg
 	} else {
 		add(ValidationResult{ValidatorId: ValidatorClaimRefsResolve, Status: StatusFail, Message: joinCapped(problems, 5)})
 	}
+}
+
+// calculationIds collects the ids of the calculation objects under
+// calculations/.
+func calculationIds(pkg Source) map[string]bool {
+	calcIds := map[string]bool{}
+	for _, p := range pkg.List() {
+		if !strings.HasPrefix(p, "calculations/") || !strings.HasSuffix(p, ".json") {
+			continue
+		}
+		var doc map[string]any
+		if err := ReadJSON(pkg, p, &doc); err != nil {
+			continue
+		}
+		if id := getString(doc, "id"); id != "" {
+			calcIds[id] = true
+		}
+	}
+	return calcIds
 }
 
 // financeValidators implements the vwp-finance profile: assertion and support

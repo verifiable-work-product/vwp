@@ -106,66 +106,90 @@
     },
     {
       "id": "v_018",
+      "validator": "core.graph.refsResolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_019",
+      "validator": "core.graph.acyclic",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_020",
+      "validator": "core.graph.declaredInputs",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_021",
+      "validator": "core.digests.match",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_022",
       "validator": "core.signatures.present",
       "scope": "package",
       "status": "warning",
       "message": "no package signature found"
     },
     {
-      "id": "v_019",
+      "id": "v_023",
       "validator": "finance.claims.haveAssertions",
       "scope": "package",
       "status": "pass"
     },
     {
-      "id": "v_020",
+      "id": "v_024",
       "validator": "finance.claims.haveSupport",
       "scope": "package",
       "status": "pass"
     },
     {
-      "id": "v_021",
+      "id": "v_025",
       "validator": "finance.requiredJudgments.complete",
       "scope": "package",
       "status": "pass"
     },
     {
-      "id": "v_022",
+      "id": "v_026",
       "validator": "asc35030.impairment.schemaValid",
       "scope": "package",
       "status": "pass",
       "message": "calculations/s4_impairment_test.json"
     },
     {
-      "id": "v_023",
+      "id": "v_027",
       "validator": "asc35030.impairment.recompute",
       "scope": "package",
       "status": "pass",
       "message": "2 lot tests recompute; total impairment loss 15000"
     },
     {
-      "id": "v_024",
+      "id": "v_028",
       "validator": "asc35030.impairment.noReversal",
       "scope": "package",
       "status": "pass",
       "message": "no lot is written up above its carrying amount"
     },
     {
-      "id": "v_025",
+      "id": "v_029",
       "validator": "asc35030.impairment.fairValueEvidence",
       "scope": "package",
       "status": "pass",
       "message": "every lot's fair value equals the value of the fact it cites"
     },
     {
-      "id": "v_026",
+      "id": "v_030",
       "validator": "asc35030.impairment.continuity",
       "scope": "package",
       "status": "pass",
       "message": "lots tested more than once carry forward the earlier test's carrying amount"
     },
     {
-      "id": "v_027",
+      "id": "v_031",
       "validator": "asc35030.accountingSchedule.tieOut",
       "scope": "package",
       "status": "pass",

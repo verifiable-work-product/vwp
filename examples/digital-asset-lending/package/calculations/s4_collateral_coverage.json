@@ -17,6 +17,10 @@
     "shortfall": 0,
     "unsecuredPortion": 0
   },
+  "dependsOn": [
+    "s4_f_collateral",
+    "s4_f_required_ratio"
+  ],
   "method": "coverageRatio = collateralFairValue / loanFairValue; shortfall = max(0, loanFairValue x requiredCoverageRatio - collateralFairValue) is the margin-call measure; unsecuredPortion = max(0, loanFairValue - collateralFairValue) is the ASC 326-20-35-6 expected credit loss basis.",
   "validator": "lending.collateral.recompute",
   "recomputable": true

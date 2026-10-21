@@ -36,6 +36,9 @@
     "startDate": "2026-06-30",
     "totalAmount": "15000.00"
   },
+  "dependsOn": [
+    "s4_impairment_test"
+  ],
   "method": "Executable entries derived from s4_impairment_test; amounts at amountScale, balanced semantic account-role postings.",
   "validator": "asc35030.accountingSchedule.tieOut",
   "recomputable": true

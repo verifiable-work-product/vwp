@@ -17,6 +17,8 @@ export const SCHEMA_NAMES = [
   'provenance',
   'signature',
   'analysis-attestation',
+  'narrative',
+  'memo-format',
 ] as const;
 
 export type SchemaName = (typeof SCHEMA_NAMES)[number];

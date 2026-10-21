@@ -9,6 +9,7 @@ import { verifyCommand } from '../src/commands/verify';
 import { inspectCommand } from '../src/commands/inspect';
 import { renderCommand } from '../src/commands/render';
 import { diffCommand } from '../src/commands/diff';
+import { digestsCommand } from '../src/commands/digests';
 
 const REPO_ROOT = path.resolve(__dirname, '..', '..');
 const MINIMAL = path.join(REPO_ROOT, 'testdata', 'valid', 'minimal-package');
@@ -147,7 +148,50 @@ describe('diff command', () => {
   });
 });
 
+describe('digests command', () => {
+  function printed(): any {
+    const calls = (console.log as unknown as { mock: { calls: unknown[][] } }).mock.calls;
+    return JSON.parse(String(calls[calls.length - 1][0]));
+  }
+
+  it('prints the manifest digests shape, with per-object hashes on request', () => {
+    expect(digestsCommand(ASC606, {})).toBe(0);
+    const out = printed();
+    expect(out.algorithm).toBe('vwp-dag/1');
+    expect(Object.keys(out)).toEqual(['algorithm', 'analysisRoot', 'contentRoot', 'reviewRoot', 'collections']);
+    expect(Object.keys(out.collections)).toEqual(['evidence', 'fact', 'calculation', 'judgment', 'claim', 'narrative', 'approval']);
+
+    expect(digestsCommand(ASC606, { objects: true })).toBe(0);
+    const withObjects = printed();
+    expect(withObjects.objects.calc_ssp_allocation.kind).toBe('calculation');
+    expect(withObjects.objects.calc_ssp_allocation.closureHash).toMatch(/^[0-9a-f]{64}$/);
+    const kinds = new Set(Object.values<any>(withObjects.objects).map((o) => o.kind));
+    expect([...kinds].sort()).toEqual(['approval', 'attestation', 'calculation', 'claim', 'evidence', 'fact', 'judgment']);
+  });
+
+  it('prints the problems and exits 1 when the graph is incomplete', () => {
+    const dir = path.join(tmp, 'pkg');
+    fs.cpSync(MINIMAL, dir, { recursive: true });
+    const claims = { claims: [{ id: 'c_dangling', statement: 'Rests on nothing.', status: 'proposed', supportingFacts: ['f_missing'] }] };
+    fs.writeFileSync(path.join(dir, 'claims', 'claims.json'), JSON.stringify(claims));
+    expect(digestsCommand(dir, {})).toBe(1);
+    const out = printed();
+    expect(out.analysisRoot).toBeUndefined();
+    expect(out.error).toMatch(/unresolved reference/);
+    expect(out.problems).toEqual([
+      { kind: 'unresolved', from: 'claim c_dangling', id: 'f_missing', message: 'claim c_dangling: unknown supportingFacts ref f_missing' },
+    ]);
+  });
+});
+
 describe('CLI entry (dist smoke test)', () => {
+  it('dispatches digests through the packaged binary', () => {
+    const out = execFileSync('node', [path.join(REPO_ROOT, 'cli', 'dist', 'index.js'), 'digests', MINIMAL], {
+      encoding: 'utf8',
+    });
+    expect(JSON.parse(out).algorithm).toBe('vwp-dag/1');
+  });
+
   it('dispatches verify through the packaged binary', () => {
     const out = execFileSync('node', [path.join(REPO_ROOT, 'cli', 'dist', 'index.js'), 'verify', MINIMAL], {
       encoding: 'utf8',

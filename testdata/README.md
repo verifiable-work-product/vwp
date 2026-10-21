@@ -10,6 +10,8 @@ verifier.
 - `invalid/missing-provenance` — the declared provenance part is absent; `core.requiredParts.exist` must fail.
 - `invalid/bad-anchor-quote` — a fact's anchor quote does not appear in the cited text evidence; `core.factAnchors.quotesMatch` must fail while `core.evidenceRefs.resolve` passes.
 - `invalid/bad-workproduct-schema` — the workproduct is missing required fields and uses an invalid status; `core.workproduct.schemaValid` must fail.
+- `invalid/bad-digests` — the minimal package with a manifest `digests` block whose roots are wrong; `core.digests.match` must fail (a package without the block, like `valid/minimal-package`, skips the check).
+- `hashing/vectors.json` — integrity graph conformance vectors (self hashes, closure hashes, roots) every implementation must reproduce; see `hashing/README.md`.
 
 ZIP-safety cases (path traversal, decompression limits) are crafted
 in-memory by the test suites rather than checked in as binary fixtures.

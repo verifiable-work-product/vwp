@@ -95,6 +95,12 @@ that reports from different verifiers are comparable.
 | `core.externalRefs.wellFormed` | Offline shape check of `externalRef.retrieval`: `url`/`discovery` are valid URIs when `locatorType` is `url`, `auth.scheme` is recognized (`bearer`/`none` warn otherwise), and — critically — `auth.tokenHint` is a source reference, not a literal secret. An embedded secret **fails**; a malformed URL or unknown scheme **warns**. Never accesses the network. |
 | `core.factAnchors.quotesMatch` | Quote anchors appear in the cited text evidence after normalization; warns on quotes against binary or external evidence. |
 | `core.claimRefs.resolve` | Claim `supportingFacts`, `judgments`, and `supportingCalculations` resolve to objects in the package. |
+| `core.graph.refsResolve` | fail | every dependency edge (facts, calculations, judgments, claims, narrative cites) resolves to an object; see [integrity.md](integrity.md) |
+| `core.graph.acyclic` | fail | the dependency graph has no cycle |
+| `core.graph.declaredInputs` | warning | a calculation or judgment uses a recognizable input it did not declare in `dependsOn` or `basisFacts` |
+| `core.digests.match` | fail / notRun | the manifest `digests` block equals the recomputed roots; notRun without a block |
+| `approvals.current` | reviewRequired / notRun | an `approved` action whose `contentRoot` is no longer the package's content root is superseded |
+| `narrative.schemaValid`, `narrative.sections`, `narrative.citations`, `narrative.roles`, `narrative.cites.fresh`, `narrative.drift` | see [narrative.md](narrative.md) and [integrity.md](integrity.md) | the memo narrative holds to the structured parts it cites |
 | `core.signatures.present` | Warns when the package carries no signature (informational in v0.1). |
 | `core.requiredOutputs.exist` | For extensions with a required-output contract (see [`profiles/accounting/accounting-schedule.md`](../profiles/accounting/accounting-schedule.md)): every unconditional required output is present, and every present required output is declared exactly once in `manifest.parts` with role `calculation`, its media type and a hash. |
 | `accountingSchedule.valid` | `calculations/accounting-schedule.json` parses and satisfies the executable accounting schedule contract (balanced decimal entries at the declared scale, allowed roles for its kind, bounded size). Reported when the artifact is present, or when the extension requires it unconditionally. |

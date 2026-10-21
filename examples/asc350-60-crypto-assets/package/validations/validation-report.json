@@ -106,107 +106,131 @@
     },
     {
       "id": "v_018",
+      "validator": "core.graph.refsResolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_019",
+      "validator": "core.graph.acyclic",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_020",
+      "validator": "core.graph.declaredInputs",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_021",
+      "validator": "core.digests.match",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_022",
       "validator": "core.signatures.present",
       "scope": "package",
       "status": "warning",
       "message": "no package signature found"
     },
     {
-      "id": "v_019",
+      "id": "v_023",
       "validator": "finance.claims.haveAssertions",
       "scope": "package",
       "status": "pass"
     },
     {
-      "id": "v_020",
+      "id": "v_024",
       "validator": "finance.claims.haveSupport",
       "scope": "package",
       "status": "pass"
     },
     {
-      "id": "v_021",
+      "id": "v_025",
       "validator": "finance.requiredJudgments.complete",
       "scope": "package",
       "status": "pass"
     },
     {
-      "id": "v_022",
+      "id": "v_026",
       "validator": "asc35060.scope.registerPresent",
       "scope": "package",
       "status": "pass",
       "message": "3 assets in scope register"
     },
     {
-      "id": "v_023",
+      "id": "v_027",
       "validator": "asc35060.scope.schemaValid",
       "scope": "package",
       "status": "pass"
     },
     {
-      "id": "v_024",
+      "id": "v_028",
       "validator": "asc35060.scope.consistent",
       "scope": "package",
       "status": "pass",
       "message": "3 assets: inScope agrees with the criteria; out-of-scope assets name their treatment"
     },
     {
-      "id": "v_025",
+      "id": "v_029",
       "validator": "asc35060.scope.judgmentLinked",
       "scope": "package",
       "status": "pass",
       "message": "every out-of-scope asset links a resolvable scoping judgment"
     },
     {
-      "id": "v_026",
+      "id": "v_030",
       "validator": "asc35060.rollForward.schemaValid",
       "scope": "package",
       "status": "pass",
       "message": "calculations/s3_roll_forward.json"
     },
     {
-      "id": "v_027",
+      "id": "v_031",
       "validator": "asc35060.rollForward.tieOut",
       "scope": "package",
       "status": "pass",
       "message": "1 roll-forward(s) tie and chain by scope and period"
     },
     {
-      "id": "v_028",
+      "id": "v_032",
       "validator": "asc35060.rollForward.assetsInScope",
       "scope": "package",
       "status": "pass",
       "message": "every roll-forward line is an in-scope asset"
     },
     {
-      "id": "v_029",
+      "id": "v_033",
       "validator": "asc35060.accountingSchedule.tieOut",
       "scope": "package",
       "status": "pass",
       "message": "2 entries tie to 1 calculation(s) as fair_value_remeasurement in USD"
     },
     {
-      "id": "v_030",
+      "id": "v_034",
       "validator": "asc35060.significantHoldings.schemaValid",
       "scope": "package",
       "status": "pass",
       "message": "calculations/s5_significant_holdings.json"
     },
     {
-      "id": "v_031",
+      "id": "v_035",
       "validator": "asc35060.significantHoldings.tieOut",
       "scope": "package",
       "status": "pass",
       "message": "significant and other fair value and cost basis recompute from the holdings; total fair value 1550000"
     },
     {
-      "id": "v_032",
+      "id": "v_036",
       "validator": "asc35060.significantHoldings.assetsInScope",
       "scope": "package",
       "status": "pass",
       "message": "every holding is an in-scope asset"
     },
     {
-      "id": "v_033",
+      "id": "v_037",
       "validator": "asc35060.significantHoldings.tiesToRollForward",
       "scope": "package",
       "status": "pass",

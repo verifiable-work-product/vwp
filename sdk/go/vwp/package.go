@@ -356,7 +356,10 @@ func Pack(dir, output string, opts ...PackOption) error {
 
 // WriteManifestHashes recomputes SHA-256 digests for every part declared in
 // the manifest of the unpacked package at dir and rewrites manifest.json.
-// It fails if the manifest declares a part that does not exist on disk.
+// A manifest that carries an integrity digests block gets it recomputed
+// too (dropped when the graph is incomplete, so stale roots are never
+// written). It fails if the manifest declares a part that does not exist
+// on disk.
 func WriteManifestHashes(dir string) error {
 	manifestPath := filepath.Join(dir, ManifestPath)
 	raw, err := os.ReadFile(manifestPath)
@@ -389,6 +392,15 @@ func WriteManifestHashes(dir string) error {
 			return fmt.Errorf("vwp: manifest declares part that does not exist: %s", ref.Path)
 		}
 		ref.SHA256 = SHA256Hex(data)
+	}
+	if m.Digests != nil {
+		src, err := openDir(dir)
+		if err != nil {
+			return err
+		}
+		if m.Digests, err = ComputeDigests(src); err != nil {
+			m.Digests = nil
+		}
 	}
 	encoded, err := m.Encode()
 	if err != nil {

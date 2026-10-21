@@ -45,6 +45,9 @@ type Manifest struct {
 	Parts       []PartRef      `json:"parts,omitempty"`
 	Provenance  *PartRef       `json:"provenance"`
 	Signatures  []PartRef      `json:"signatures,omitempty"`
+	// Digests carries the integrity graph roots (spec/integrity.md) when
+	// the producer wrote them; verifiers recompute and compare them.
+	Digests *Digests `json:"digests,omitempty"`
 }
 
 // ParseManifest decodes manifest.json bytes.

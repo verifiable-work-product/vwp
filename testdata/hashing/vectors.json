@@ -1,0 +1,697 @@
+{
+  "description": "VWP integrity graph conformance vectors (spec/integrity.md). `self` lists objects with their RFC 8785 canonical bytes after review-field stripping and the expected self hash sha256(\"vwp/1/self/\" + kind + \"\\n\" + canonical). `strip` shows the review-layer stripping cases: input, stripped object, canonical bytes, self hash. `evidenceClosure` lists evidence entries with their self hash and closure hash, whose single dependency line is \"bytes:\" + sha256 (package-local), \"bytes:\" + externalRef.retrieval.contentHash (external), or \"bytes:-\". `closure.package` is a complete small package keyed by part path; `closure.objects` lists every object of it (narrative sections have kind narrative and id = section id) with its sorted dependency ids, self hash and closure hash sha256(\"vwp/1/closure/\" + kind + \"\\n\" + selfHash + \"\\n\" + join(sorted \"id:closureHash\", \"\\n\")); `closure.collections` are the collection roots sha256(\"vwp/1/root/\" + kind + \"\\n\" + join(sorted \"id:closureHash\", \"\\n\")), `closure.formatHash` the self hash of narrative/format.json with kind memo-format, and `closure.analysisRoot`, `closure.contentRoot`, `closure.reviewRoot` the roots of section 5. See testdata/hashing/README.md.",
+  "algorithm": "vwp-dag/1",
+  "self": [
+    {
+      "name": "fact",
+      "kind": "fact",
+      "object": {
+        "evidenceRefs": [
+          "ev_1"
+        ],
+        "id": "f_1",
+        "statement": "Total contract value is 300,000 USD."
+      },
+      "canonical": "{\"evidenceRefs\":[\"ev_1\"],\"id\":\"f_1\",\"statement\":\"Total contract value is 300,000 USD.\"}",
+      "selfHash": "dba8056a06468d1450a4fcf057643ea8a7bfaf94c43b025daf0dd0b00f9ddd8a"
+    },
+    {
+      "name": "judgment with status (stripped)",
+      "kind": "judgment",
+      "object": {
+        "basisFacts": [
+          "f_1"
+        ],
+        "id": "j_1",
+        "proposedConclusion": "Yes",
+        "question": "Is it distinct?",
+        "status": "reviewed",
+        "topic": "Distinct"
+      },
+      "canonical": "{\"basisFacts\":[\"f_1\"],\"id\":\"j_1\",\"proposedConclusion\":\"Yes\",\"question\":\"Is it distinct?\",\"topic\":\"Distinct\"}",
+      "selfHash": "1eb2c9eee4144f3326f0b3707271430fbefbbc031c92393342c2767f2728da9b"
+    },
+    {
+      "name": "workproduct with conclusionSummary (stripped)",
+      "kind": "workproduct",
+      "object": {
+        "conclusionSummary": "Written by the narrative.",
+        "domain": "finance",
+        "id": "wp_1",
+        "profile": "vwp-finance",
+        "status": "draft",
+        "title": "Memo"
+      },
+      "canonical": "{\"domain\":\"finance\",\"id\":\"wp_1\",\"profile\":\"vwp-finance\",\"status\":\"draft\",\"title\":\"Memo\"}",
+      "selfHash": "30867477285b34b0b2d62592af26b1c300ccafa93a5e9e9115462ef04441e274"
+    },
+    {
+      "name": "claim with unicode and escaping",
+      "kind": "claim",
+      "object": {
+        "id": "c_1",
+        "statement": "Résumé naïve ✓ 日本語 😀 \"quoted\" <tag> & back\\slash\nnewline\ttab",
+        "supportingFacts": [
+          "f_1"
+        ]
+      },
+      "canonical": "{\"id\":\"c_1\",\"statement\":\"Résumé naïve ✓ 日本語 😀 \\\"quoted\\\" <tag> & back\\\\slash\\nnewline\\ttab\",\"supportingFacts\":[\"f_1\"]}",
+      "selfHash": "0854a12e82720fa5682b8660aab9c319cd0db03d669e61a99a646e21cff4fdca"
+    },
+    {
+      "name": "calculation with numbers",
+      "kind": "calculation",
+      "object": {
+        "dependsOn": [
+          "f_1"
+        ],
+        "id": "calc_1",
+        "inputs": {
+          "amount": 1500000,
+          "large": 1e+21,
+          "negative": -2.5,
+          "rate": 0.1,
+          "small": 1e-7,
+          "third": 0.3333333333333333,
+          "whole": 150000,
+          "zero": 0
+        },
+        "outputs": {
+          "total": 150000
+        },
+        "type": "allocation"
+      },
+      "canonical": "{\"dependsOn\":[\"f_1\"],\"id\":\"calc_1\",\"inputs\":{\"amount\":1500000,\"large\":1e+21,\"negative\":-2.5,\"rate\":0.1,\"small\":1e-7,\"third\":0.3333333333333333,\"whole\":150000,\"zero\":0},\"outputs\":{\"total\":150000},\"type\":\"allocation\"}",
+      "selfHash": "ecbebcefe21bd98dd0cb0e1f42adeca4976ee6ef9a14e39c47c397b54f1bd4f7"
+    },
+    {
+      "name": "key ordering by UTF-16 code units",
+      "kind": "fact",
+      "object": {
+        "B": 1,
+        "Z": 6,
+        "_c": 2,
+        "a": 3,
+        "aa": 4,
+        "evidenceRefs": [],
+        "id": "f_order",
+        "statement": "Keys sort by UTF-16 code units.",
+        "é": 5,
+        "～": 8,
+        "😀": 7
+      },
+      "canonical": "{\"B\":1,\"Z\":6,\"_c\":2,\"a\":3,\"aa\":4,\"evidenceRefs\":[],\"id\":\"f_order\",\"statement\":\"Keys sort by UTF-16 code units.\",\"é\":5,\"😀\":7,\"～\":8}",
+      "selfHash": "5a3def14c72312e5eccd64f6841fe521b4d2815a16a10e1c1ec703fc3b78cd4e"
+    },
+    {
+      "name": "evidence with nested arrays",
+      "kind": "evidence",
+      "object": {
+        "id": "ev_1",
+        "path": "evidence/order-form.txt",
+        "retrievedAt": "2026-01-01T00:00:00Z",
+        "sha256": "6a2b9f5ab8bb6f22f7c5d6b1e2f4e1d9c0b8a7f6e5d4c3b2a1908f7e6d5c4b3a",
+        "tags": [
+          [
+            "a",
+            1
+          ],
+          [
+            true,
+            null,
+            {
+              "k": []
+            }
+          ]
+        ],
+        "title": "Order form",
+        "type": "contractDocument"
+      },
+      "canonical": "{\"id\":\"ev_1\",\"path\":\"evidence/order-form.txt\",\"retrievedAt\":\"2026-01-01T00:00:00Z\",\"sha256\":\"6a2b9f5ab8bb6f22f7c5d6b1e2f4e1d9c0b8a7f6e5d4c3b2a1908f7e6d5c4b3a\",\"tags\":[[\"a\",1],[true,null,{\"k\":[]}]],\"title\":\"Order form\",\"type\":\"contractDocument\"}",
+      "selfHash": "740cfa1f7347a79ee268ecfe0a1f738341efdd022666c32dfe9f0110b5344d7a"
+    },
+    {
+      "name": "approval",
+      "kind": "approval",
+      "object": {
+        "action": "approved",
+        "approver": {
+          "name": "Reviewer"
+        },
+        "id": "a_1",
+        "scope": "package",
+        "timestamp": "2026-10-20T01:00:00Z"
+      },
+      "canonical": "{\"action\":\"approved\",\"approver\":{\"name\":\"Reviewer\"},\"id\":\"a_1\",\"scope\":\"package\",\"timestamp\":\"2026-10-20T01:00:00Z\"}",
+      "selfHash": "fa2c186966703275fd5662c15b7268c193f1e57373808e6d2b03de55bf76db38"
+    },
+    {
+      "name": "attestation",
+      "kind": "attestation",
+      "object": {
+        "findings": [],
+        "id": "att_1",
+        "performedBy": {
+          "name": "reviewer",
+          "type": "agent"
+        },
+        "type": "adversarialReview"
+      },
+      "canonical": "{\"findings\":[],\"id\":\"att_1\",\"performedBy\":{\"name\":\"reviewer\",\"type\":\"agent\"},\"type\":\"adversarialReview\"}",
+      "selfHash": "637bbacc09fb86749b77128726ebc1c687a976c91ff1b1a8af3c2a5037189310"
+    },
+    {
+      "name": "provenance",
+      "kind": "provenance",
+      "object": {
+        "createdAt": "2026-10-20T00:00:00Z",
+        "createdBy": {
+          "name": "vectorgen",
+          "type": "agent",
+          "version": "1"
+        }
+      },
+      "canonical": "{\"createdAt\":\"2026-10-20T00:00:00Z\",\"createdBy\":{\"name\":\"vectorgen\",\"type\":\"agent\",\"version\":\"1\"}}",
+      "selfHash": "ce2b8ae492123d27e99d765430b9df1dabcd38a663c201d8eaa656de55440fa9"
+    },
+    {
+      "name": "narrative section",
+      "kind": "narrative",
+      "object": {
+        "id": "conclusion",
+        "paragraphs": [
+          {
+            "cites": [
+              {
+                "hash": "abababababababababababababababababababababababababababababababab",
+                "id": "c_2"
+              }
+            ],
+            "role": "conclusion",
+            "text": "Revenue is recognized monthly."
+          }
+        ]
+      },
+      "canonical": "{\"id\":\"conclusion\",\"paragraphs\":[{\"cites\":[{\"hash\":\"abababababababababababababababababababababababababababababababab\",\"id\":\"c_2\"}],\"role\":\"conclusion\",\"text\":\"Revenue is recognized monthly.\"}]}",
+      "selfHash": "eaaaa7d15a3425092f3bb47674a37db6697ac2467de9c66c62b6efd160a8691e"
+    },
+    {
+      "name": "memo format",
+      "kind": "memo-format",
+      "object": {
+        "name": "House style",
+        "sections": [
+          {
+            "heading": "Conclusion",
+            "id": "conclusion",
+            "kind": "conclusion",
+            "level": 1
+          }
+        ],
+        "version": 1
+      },
+      "canonical": "{\"name\":\"House style\",\"sections\":[{\"heading\":\"Conclusion\",\"id\":\"conclusion\",\"kind\":\"conclusion\",\"level\":1}],\"version\":1}",
+      "selfHash": "82755baad780741ccd40e89c9d821b0886da1dd670a3cf9bd7b13c82be950f25"
+    }
+  ],
+  "strip": [
+    {
+      "name": "judgment without status",
+      "kind": "judgment",
+      "input": {
+        "id": "j_1",
+        "proposedConclusion": "Yes",
+        "question": "Is it distinct?",
+        "topic": "Distinct"
+      },
+      "stripped": {
+        "id": "j_1",
+        "proposedConclusion": "Yes",
+        "question": "Is it distinct?",
+        "topic": "Distinct"
+      },
+      "canonical": "{\"id\":\"j_1\",\"proposedConclusion\":\"Yes\",\"question\":\"Is it distinct?\",\"topic\":\"Distinct\"}",
+      "selfHash": "fab6982c2e577e02e49b8f44c4ece2a5358cb2bc67db99e2b79b2e5195038755"
+    },
+    {
+      "name": "judgment with status",
+      "kind": "judgment",
+      "input": {
+        "id": "j_1",
+        "proposedConclusion": "Yes",
+        "question": "Is it distinct?",
+        "status": "reviewed",
+        "topic": "Distinct"
+      },
+      "stripped": {
+        "id": "j_1",
+        "proposedConclusion": "Yes",
+        "question": "Is it distinct?",
+        "topic": "Distinct"
+      },
+      "canonical": "{\"id\":\"j_1\",\"proposedConclusion\":\"Yes\",\"question\":\"Is it distinct?\",\"topic\":\"Distinct\"}",
+      "selfHash": "fab6982c2e577e02e49b8f44c4ece2a5358cb2bc67db99e2b79b2e5195038755"
+    },
+    {
+      "name": "workproduct without conclusionSummary",
+      "kind": "workproduct",
+      "input": {
+        "domain": "finance",
+        "id": "wp_1",
+        "profile": "vwp-finance",
+        "status": "draft",
+        "title": "Memo"
+      },
+      "stripped": {
+        "domain": "finance",
+        "id": "wp_1",
+        "profile": "vwp-finance",
+        "status": "draft",
+        "title": "Memo"
+      },
+      "canonical": "{\"domain\":\"finance\",\"id\":\"wp_1\",\"profile\":\"vwp-finance\",\"status\":\"draft\",\"title\":\"Memo\"}",
+      "selfHash": "30867477285b34b0b2d62592af26b1c300ccafa93a5e9e9115462ef04441e274"
+    },
+    {
+      "name": "workproduct with conclusionSummary",
+      "kind": "workproduct",
+      "input": {
+        "conclusionSummary": "Written by the narrative.",
+        "domain": "finance",
+        "id": "wp_1",
+        "profile": "vwp-finance",
+        "status": "draft",
+        "title": "Memo"
+      },
+      "stripped": {
+        "domain": "finance",
+        "id": "wp_1",
+        "profile": "vwp-finance",
+        "status": "draft",
+        "title": "Memo"
+      },
+      "canonical": "{\"domain\":\"finance\",\"id\":\"wp_1\",\"profile\":\"vwp-finance\",\"status\":\"draft\",\"title\":\"Memo\"}",
+      "selfHash": "30867477285b34b0b2d62592af26b1c300ccafa93a5e9e9115462ef04441e274"
+    },
+    {
+      "name": "fact with a status field (not stripped)",
+      "kind": "fact",
+      "input": {
+        "evidenceRefs": [],
+        "id": "f_1",
+        "statement": "A fact is never stripped.",
+        "status": "reviewed"
+      },
+      "stripped": {
+        "evidenceRefs": [],
+        "id": "f_1",
+        "statement": "A fact is never stripped.",
+        "status": "reviewed"
+      },
+      "canonical": "{\"evidenceRefs\":[],\"id\":\"f_1\",\"statement\":\"A fact is never stripped.\",\"status\":\"reviewed\"}",
+      "selfHash": "647a57bcf99f39ac8a0acdbc880ca5ad6d502ed6636163fb6c95db1bf7d0c25f"
+    }
+  ],
+  "evidenceClosure": [
+    {
+      "name": "package-local bytes",
+      "object": {
+        "id": "ev_local",
+        "path": "evidence/order-form.txt",
+        "sha256": "f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2",
+        "title": "Order form",
+        "type": "contractDocument"
+      },
+      "bytesLine": "bytes:f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2",
+      "selfHash": "29c0776ff532a91c149829d018a47cba9b078570d429221de5537a244fcca5fc",
+      "closureHash": "c76d9e9d098fa2c66e4aec913283cb0517dc6442eaa1b13badf86c9786c5c2a8"
+    },
+    {
+      "name": "external contentHash",
+      "object": {
+        "externalRef": {
+          "locator": "https://example.com/ledger.csv",
+          "locatorType": "url",
+          "retrieval": {
+            "contentHash": "0a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f9",
+            "url": "https://example.com/ledger.csv"
+          }
+        },
+        "id": "ev_external",
+        "title": "Ledger export",
+        "type": "systemExport"
+      },
+      "bytesLine": "bytes:0a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f9",
+      "selfHash": "f6383fc9c118ad3c9dc3216d7741e77fef2dd497bcde723e35540f6611f61546",
+      "closureHash": "76a91c2b844d45d976401f49875be8267da4d51b3926c2033e54b39b811533f2"
+    },
+    {
+      "name": "no byte hash (sentinel)",
+      "object": {
+        "externalRef": {
+          "locator": "TICKET-42",
+          "locatorType": "opaque"
+        },
+        "id": "ev_opaque",
+        "title": "Ticket",
+        "type": "other"
+      },
+      "bytesLine": "bytes:-",
+      "selfHash": "817a672962116222876db898e98b541161d97a4d4c92dd8180f1cd8a38f887bb",
+      "closureHash": "1adf1a4a95362bf7b8338942987664c7288d5057e7a0bc194f1af6d76c79e5be"
+    }
+  ],
+  "closure": {
+    "package": {
+      "approvals/approvals.json": {
+        "approvals": [
+          {
+            "action": "approved",
+            "approver": {
+              "name": "Reviewer"
+            },
+            "contentRoot": "40830b5ca14fa1736f11f60e22fdc6d18978a0c5399953ba4b999203a37ce2a9",
+            "id": "a_1",
+            "reviewRoot": "4f56cc1f5259cefd399d31f0a979c8c5ca76667d370afc1b265607786f93a857",
+            "scope": "package",
+            "timestamp": "2026-10-20T01:00:00Z"
+          }
+        ]
+      },
+      "calculations/calc_1.json": {
+        "dependsOn": [
+          "f_1",
+          "f_2"
+        ],
+        "id": "calc_1",
+        "inputs": {
+          "months": 24,
+          "total": 300000
+        },
+        "outputs": {
+          "monthly": 12500
+        },
+        "type": "allocation"
+      },
+      "claims/claims.json": {
+        "claims": [
+          {
+            "id": "c_1",
+            "statement": "A contract exists.",
+            "supportingEvidence": [
+              "ev_1"
+            ],
+            "supportingFacts": [
+              "f_1"
+            ]
+          },
+          {
+            "id": "c_2",
+            "judgments": [
+              "j_1"
+            ],
+            "statement": "Revenue is recognized monthly.",
+            "supportingCalculations": [
+              "calc_1"
+            ],
+            "supportingFacts": [
+              "f_2"
+            ]
+          }
+        ]
+      },
+      "evidence/evidence.json": {
+        "evidence": [
+          {
+            "id": "ev_1",
+            "path": "evidence/order-form.txt",
+            "sha256": "f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2",
+            "title": "Order form",
+            "type": "contractDocument"
+          }
+        ]
+      },
+      "facts/facts.json": {
+        "facts": [
+          {
+            "evidenceRefs": [
+              {
+                "anchors": [
+                  {
+                    "quote": "300,000 USD"
+                  }
+                ],
+                "evidenceId": "ev_1"
+              }
+            ],
+            "id": "f_1",
+            "statement": "Total contract value is 300,000 USD."
+          },
+          {
+            "evidenceRefs": [
+              "ev_1"
+            ],
+            "id": "f_2",
+            "statement": "The term is 24 months."
+          }
+        ]
+      },
+      "judgments/judgments.json": {
+        "judgments": [
+          {
+            "basisFacts": [
+              "f_2"
+            ],
+            "id": "j_1",
+            "proposedConclusion": "Yes",
+            "question": "Is the term fixed?",
+            "status": "reviewRequired",
+            "topic": "Term"
+          }
+        ]
+      },
+      "narrative/format.json": {
+        "name": "Vectors style",
+        "sections": [
+          {
+            "heading": "Background",
+            "id": "background",
+            "kind": "narrative",
+            "level": 1
+          },
+          {
+            "heading": "Conclusion",
+            "id": "conclusion",
+            "kind": "conclusion",
+            "level": 1
+          }
+        ],
+        "version": 1
+      },
+      "narrative/narrative.json": {
+        "analysisRoot": "8274536765b2ba768feef098af0a58a7d08f9fa43349bf9c0c6eda825dc6668e",
+        "formatHash": "97e843378394ec07f79bfda3f6d3b00f2856bd6ecb41535a17dda22a0621ccdb",
+        "sections": [
+          {
+            "id": "background",
+            "paragraphs": [
+              {
+                "cites": [
+                  {
+                    "hash": "f25fcb2ec6d28d48302a3ee1e95b1fe275b882ff999accfc6c55a84aa97e5f82",
+                    "id": "f_1"
+                  },
+                  {
+                    "hash": "c686f464c798db1a4505be90c2e3f9c45a29412e29b34cdd5f067e6241863f5c",
+                    "id": "f_2"
+                  },
+                  {
+                    "hash": "a74dec7c2b0ef62ec2b0709556799a9b75980dc744922ff35945905def951382",
+                    "id": "ev_1"
+                  }
+                ],
+                "role": "analysis",
+                "text": "The order form fixes the price and the term."
+              }
+            ]
+          },
+          {
+            "id": "conclusion",
+            "paragraphs": [
+              {
+                "cites": [
+                  {
+                    "hash": "ad7b97a995f0ca5d42058f7c0d34b1588d6926fd4e396d49aa1b9a81a32b5223",
+                    "id": "c_2"
+                  },
+                  {
+                    "hash": "f25fcb2ec6d28d48302a3ee1e95b1fe275b882ff999accfc6c55a84aa97e5f82",
+                    "id": "f_1"
+                  }
+                ],
+                "role": "conclusion",
+                "text": "Revenue is recognized monthly."
+              }
+            ],
+            "subsections": [
+              {
+                "heading": "Basis",
+                "id": "basis",
+                "paragraphs": [
+                  {
+                    "cites": [
+                      {
+                        "hash": "fb72ab0f6fd3063465e14aca0c912f6a427afce9ca0a8cbefe37e41a9bbd1f55",
+                        "id": "c_1"
+                      }
+                    ],
+                    "role": "analysis",
+                    "text": "A contract exists."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "provenance/provenance.json": {
+        "createdAt": "2026-10-20T00:00:00Z",
+        "createdBy": {
+          "name": "vectorgen",
+          "type": "agent"
+        }
+      },
+      "workproduct.json": {
+        "conclusionSummary": "Ignored by the hash.",
+        "domain": "finance",
+        "id": "wp_vectors",
+        "profile": "vwp-finance",
+        "status": "draft",
+        "title": "Vectors"
+      }
+    },
+    "objects": [
+      {
+        "id": "a_1",
+        "kind": "approval",
+        "deps": [],
+        "selfHash": "00dec6b50db41b17dfb191687769c585239c2162b3fda9f8dec37293ce4e6b17",
+        "closureHash": "c37d83ce611822c0fd4796ddf4a7f6ab2354252e11881011ad24112c7c6ada6a"
+      },
+      {
+        "id": "calc_1",
+        "kind": "calculation",
+        "deps": [
+          "f_1",
+          "f_2"
+        ],
+        "selfHash": "0a825e8fc22d18a545b555a27143b3e6396071b82100c26a5d4dd0d81dda9d91",
+        "closureHash": "d4d8aab56cd9fe129167d942922c05537ec8468e650fbc369d590122f979d618"
+      },
+      {
+        "id": "c_1",
+        "kind": "claim",
+        "deps": [
+          "ev_1",
+          "f_1"
+        ],
+        "selfHash": "60c446a570189007804d388e2215302142161b8e4a24003e0e9879657132fb84",
+        "closureHash": "fb72ab0f6fd3063465e14aca0c912f6a427afce9ca0a8cbefe37e41a9bbd1f55"
+      },
+      {
+        "id": "c_2",
+        "kind": "claim",
+        "deps": [
+          "calc_1",
+          "f_2",
+          "j_1"
+        ],
+        "selfHash": "873766f9e932960f80e3d08d39012099cded33d1b8b593974d1be195e31f7a94",
+        "closureHash": "ad7b97a995f0ca5d42058f7c0d34b1588d6926fd4e396d49aa1b9a81a32b5223"
+      },
+      {
+        "id": "ev_1",
+        "kind": "evidence",
+        "deps": [],
+        "selfHash": "ae7f56da1885fb731aeffcd13bca25feb5cc125483d387f631e9c1140572e2bd",
+        "closureHash": "a74dec7c2b0ef62ec2b0709556799a9b75980dc744922ff35945905def951382"
+      },
+      {
+        "id": "f_1",
+        "kind": "fact",
+        "deps": [
+          "ev_1"
+        ],
+        "selfHash": "0e88a0db7da3a7a220af073465ef18c5e9edf087a557969f952e424836969613",
+        "closureHash": "f25fcb2ec6d28d48302a3ee1e95b1fe275b882ff999accfc6c55a84aa97e5f82"
+      },
+      {
+        "id": "f_2",
+        "kind": "fact",
+        "deps": [
+          "ev_1"
+        ],
+        "selfHash": "8a5bd55f43340300b95b2e4a57b997378a0ec40b6cebb1baafb3053d85d98701",
+        "closureHash": "c686f464c798db1a4505be90c2e3f9c45a29412e29b34cdd5f067e6241863f5c"
+      },
+      {
+        "id": "j_1",
+        "kind": "judgment",
+        "deps": [
+          "f_2"
+        ],
+        "selfHash": "dc018fca1ab1325bd78153197aa5fa70e5079139fcccf4b9e419acdc9472489a",
+        "closureHash": "64b60c61538c4d48c46e0c0b941400c13e6d4b2e51d078bdfcf76e8155a21043"
+      },
+      {
+        "id": "background",
+        "kind": "narrative",
+        "deps": [
+          "ev_1",
+          "f_1",
+          "f_2"
+        ],
+        "selfHash": "f870ce3d0fdab0bd2c306fc4d63fcde1c38c93c782bf228fe10cacc6b0d15ae9",
+        "closureHash": "50a8c647f29e2570a49ac92445a71f76a721a5f900154058b92b851ae8137ac3"
+      },
+      {
+        "id": "conclusion",
+        "kind": "narrative",
+        "deps": [
+          "c_1",
+          "c_2",
+          "f_1"
+        ],
+        "selfHash": "20b86f22eff8fa6791d4f24f09297544c23fbbff8b17a5525eda6d91a0939f7a",
+        "closureHash": "358fdf1ed6a963eb2dc7f770ed3915ff05f2c34d908a74a1773ed7c30b07f0df"
+      },
+      {
+        "id": "",
+        "kind": "provenance",
+        "deps": [],
+        "selfHash": "0b45d20dd8b49fc96e50efc532b2468dfd65cd0113bccca22809998ad133c8e2",
+        "closureHash": ""
+      },
+      {
+        "id": "",
+        "kind": "workproduct",
+        "deps": [],
+        "selfHash": "64a2dd0117dbd4250248fdb77c045f7b8a82d494bca0a175bf92f3567b6ad4ff",
+        "closureHash": ""
+      }
+    ],
+    "collections": {
+      "approval": "da2354a204621dcbe546eeaff7dee80aa94fcc9c655d06c3ed3a4ab694d8e355",
+      "calculation": "d09617bc04529de385334f33ae7df9de50f17c0e020528fbc2f62941b050befa",
+      "claim": "a2cd7f6278d0af50473220f68b2dea1e3a03ed24b45c887d9d0a796d580c0841",
+      "evidence": "0d1096ef6ad4bc9e599f786e94c074609be2425f024ce4b3175b0416142bdcb6",
+      "fact": "4e1399eac53560aefd47a1d20c94fbab3679cc78fa8bc0fb96713d4f55e2e982",
+      "judgment": "8c26cf1937d0bc2a8b1d229816efa89b2c8aa1e797765d377074590e8f3008ee",
+      "narrative": "802f7de824203aa7f29d337e10fcba09b2e1fca207c7fc7b8de9825f5111f6ed"
+    },
+    "formatHash": "97e843378394ec07f79bfda3f6d3b00f2856bd6ecb41535a17dda22a0621ccdb",
+    "analysisRoot": "8274536765b2ba768feef098af0a58a7d08f9fa43349bf9c0c6eda825dc6668e",
+    "contentRoot": "40830b5ca14fa1736f11f60e22fdc6d18978a0c5399953ba4b999203a37ce2a9",
+    "reviewRoot": "a8b391df8e9d8480752203b349cbe225b524139477ef7c8eeb14fbf99d4d663b"
+  }
+}

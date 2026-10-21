@@ -22,6 +22,7 @@ It MUST validate against `https://vwp.dev/schemas/v0.1/manifest.schema.json`.
 | `parts` | array of part refs | no | All other indexed package parts. |
 | `provenance` | part ref | yes | Reference to `provenance/provenance.json`. |
 | `signatures` | array of part refs | no | References to signature records under `signatures/`. |
+| `digests` | object | no | Integrity graph roots (`algorithm`, `analysisRoot`, `contentRoot`, `reviewRoot`, `collections`). Recomputed by verifiers; see [integrity.md](integrity.md). |
 
 Required fields: `vwpVersion`, `packageId`, `createdAt`, `profile`, `workproduct`,
 `provenance`.

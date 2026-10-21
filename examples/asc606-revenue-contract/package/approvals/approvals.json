@@ -10,6 +10,8 @@
       "action": "acknowledged",
       "timestamp": "2026-07-07T15:05:00Z",
       "scope": "package",
+      "contentRoot": "215e9ffc43a18bb7acb82971129b7439a7e8aea44f29436b79b645c2e430b1bc",
+      "reviewRoot": "66a59552709c227ca8fcfe909adbc8266700679a15f176bf4f862871e971abe1",
       "comments": "Draft prepared and submitted for review. Judgment j_impl_distinct pending revenue-manager review."
     }
   ]

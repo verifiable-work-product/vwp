@@ -106,66 +106,90 @@
     },
     {
       "id": "v_018",
+      "validator": "core.graph.refsResolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_019",
+      "validator": "core.graph.acyclic",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_020",
+      "validator": "core.graph.declaredInputs",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_021",
+      "validator": "core.digests.match",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_022",
       "validator": "core.signatures.present",
       "scope": "package",
       "status": "warning",
       "message": "no package signature found"
     },
     {
-      "id": "v_019",
+      "id": "v_023",
       "validator": "finance.claims.haveAssertions",
       "scope": "package",
       "status": "pass"
     },
     {
-      "id": "v_020",
+      "id": "v_024",
       "validator": "finance.claims.haveSupport",
       "scope": "package",
       "status": "pass"
     },
     {
-      "id": "v_021",
+      "id": "v_025",
       "validator": "finance.requiredJudgments.complete",
       "scope": "package",
       "status": "pass"
     },
     {
-      "id": "v_022",
+      "id": "v_026",
       "validator": "lending.accrual.schemaValid",
       "scope": "package",
       "status": "pass",
       "message": "calculations/s3_interest_accrual.json"
     },
     {
-      "id": "v_023",
+      "id": "v_027",
       "validator": "lending.accrual.recompute",
       "scope": "package",
       "status": "pass",
       "message": "1 accrual(s) recompute from the terms their facts state"
     },
     {
-      "id": "v_024",
+      "id": "v_028",
       "validator": "lending.accountingSchedule.tieOut",
       "scope": "package",
       "status": "pass",
       "message": "1 entry tie to 1 calculation(s) as interest_accrual in USD"
     },
     {
-      "id": "v_025",
+      "id": "v_029",
       "validator": "lending.collateral.schemaValid",
       "scope": "package",
       "status": "pass",
       "message": "calculations/s4_collateral_coverage.json"
     },
     {
-      "id": "v_026",
+      "id": "v_030",
       "validator": "lending.collateral.recompute",
       "scope": "package",
       "status": "pass",
       "message": "1 coverage calculation(s) recompute"
     },
     {
-      "id": "v_027",
+      "id": "v_031",
       "validator": "lending.derecognition.claimJudged",
       "scope": "package",
       "status": "pass",

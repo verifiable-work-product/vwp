@@ -6,82 +6,97 @@
   "extension": "vwp-digital-assets-wallet-ownership-control",
   "title": "Wallet Ownership and Control Workpaper - DemoCo Treasury LLC 2026-Q2 (synthetic demo)",
   "subject": {
-    "type": "walletPopulation",
     "entityId": "entity_democo_treasury",
-    "period": "2026-Q2"
+    "period": "2026-Q2",
+    "type": "walletPopulation"
   },
   "workproduct": {
     "path": "workproduct.json",
     "mediaType": "application/json",
-    "role": "workproduct",
-    "sha256": "22414865d82369ef81d61b29b833de7a9b3c3a657cbaed1e1e2a17facd0addda"
-  },
-  "provenance": {
-    "path": "provenance/provenance.json",
-    "mediaType": "application/json",
-    "role": "provenance",
-    "sha256": "6a7ff80b0cf51daac98df92d535aa7dc73c69de51ddde1922f8736a01bb01627"
+    "sha256": "22414865d82369ef81d61b29b833de7a9b3c3a657cbaed1e1e2a17facd0addda",
+    "role": "workproduct"
   },
   "parts": [
     {
       "path": "evidence/evidence.json",
       "mediaType": "application/json",
-      "role": "evidence-index",
-      "sha256": "92a46faa6b6ff21271e44d8bdc988b123a2d5145f2abbc1ae96daa25dcaacf91"
+      "sha256": "92a46faa6b6ff21271e44d8bdc988b123a2d5145f2abbc1ae96daa25dcaacf91",
+      "role": "evidence-index"
     },
     {
       "path": "evidence/wallet-inventory.csv",
       "mediaType": "text/csv",
-      "role": "evidence",
-      "sha256": "f636324bbc5fd65f6fd1f6c040a773b9f1580675bff23867285d07baa81b178d"
+      "sha256": "f636324bbc5fd65f6fd1f6c040a773b9f1580675bff23867285d07baa81b178d",
+      "role": "evidence"
     },
     {
       "path": "evidence/signed-message.txt",
       "mediaType": "text/plain",
-      "role": "evidence",
-      "sha256": "bd814d186108c5957b026a7e912a98862194c8e6ebc184cdd2c5f5665f5c7d2e"
+      "sha256": "bd814d186108c5957b026a7e912a98862194c8e6ebc184cdd2c5f5665f5c7d2e",
+      "role": "evidence"
     },
     {
       "path": "evidence/custodian-statement.txt",
       "mediaType": "text/plain",
-      "role": "evidence",
-      "sha256": "c76518b17bac4378e67ff0498fa821c8e9b07834420e947a94e14365369e6955"
+      "sha256": "c76518b17bac4378e67ff0498fa821c8e9b07834420e947a94e14365369e6955",
+      "role": "evidence"
     },
     {
       "path": "evidence/entity-mapping.csv",
       "mediaType": "text/csv",
-      "role": "evidence",
-      "sha256": "fa407756f8f0570956723dda099927ee11b5e23cdf2a067813eed1d6e0be9ccb"
+      "sha256": "fa407756f8f0570956723dda099927ee11b5e23cdf2a067813eed1d6e0be9ccb",
+      "role": "evidence"
     },
     {
       "path": "facts/facts.json",
       "mediaType": "application/json",
-      "role": "facts",
-      "sha256": "cc9d07dcae65bbd07625a548963c3ed77b4332235b7f39637c7dca15e501e6a9"
+      "sha256": "cc9d07dcae65bbd07625a548963c3ed77b4332235b7f39637c7dca15e501e6a9",
+      "role": "facts"
     },
     {
       "path": "facts/wallets.json",
       "mediaType": "application/json",
-      "role": "facts",
-      "sha256": "6d55ed362653fd4afe80c232a7b71d4d3869c99748db744ed40750e024c8805c"
+      "sha256": "6d55ed362653fd4afe80c232a7b71d4d3869c99748db744ed40750e024c8805c",
+      "role": "facts"
     },
     {
       "path": "claims/claims.json",
       "mediaType": "application/json",
-      "role": "claims",
-      "sha256": "a820e39a84bbd9ead1acf6ad6c105c8c15d76a0aaa63cf5beed46696601cc218"
+      "sha256": "a820e39a84bbd9ead1acf6ad6c105c8c15d76a0aaa63cf5beed46696601cc218",
+      "role": "claims"
     },
     {
       "path": "validations/validation-report.json",
       "mediaType": "application/json",
-      "role": "validations",
-      "sha256": "5649365b918c3cbba006f831e7c020fc451d82e4da04249e1ce76307f286c34c"
+      "sha256": "5649365b918c3cbba006f831e7c020fc451d82e4da04249e1ce76307f286c34c",
+      "role": "validations"
     },
     {
       "path": "renderings/workpaper.md",
       "mediaType": "text/markdown",
-      "role": "rendering",
-      "sha256": "3019b6706e44e042957c147e8823bf755081ec400a03a77672caa45e0acfd7f7"
+      "sha256": "3019b6706e44e042957c147e8823bf755081ec400a03a77672caa45e0acfd7f7",
+      "role": "rendering"
     }
-  ]
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "6a7ff80b0cf51daac98df92d535aa7dc73c69de51ddde1922f8736a01bb01627",
+    "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "386a1e209c81c5831916b2ad7cf0e00024bc3ff30fd81b3913439712d84c1b18",
+    "contentRoot": "dcb187463a84203a76b4677745be3b78dfc75d4aed74ea70bc25896968b51ac2",
+    "reviewRoot": "9170616293bef0ae6382254b83b14dda8703639862fbb5a1266e37039f74337c",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "6cbd3e97abde8320c0af223f9300fe4c4c0437db25010fe760641e84b7619e6f",
+      "claim": "01bc9d1fd97e74dfa658c1f1fe18d8c1bb8dc581d931ebcfb45abbb5db3ff5bb",
+      "evidence": "b1bc9d8a401e9dd02af31edf14e509ed314c085dd739ce02af20fd07d6a37d15",
+      "fact": "c408da6578ef04f38e3d600bd54f5d739bc5d908a3111a23d5405c1db8c9158e",
+      "judgment": "32dc3ac44a4d70438ed8e497ef5ff62862506d4d90ac561ad3eb36b712c59574",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
+  }
 }

@@ -61,13 +61,13 @@
     {
       "path": "calculations/s4_rewards_schedule.json",
       "mediaType": "application/json",
-      "sha256": "4f1362ef6ea0572f05df7f9e4ef79c909d7c6e51219fd2f7a7c356d2725a03ad",
+      "sha256": "196518501bdf6bc69d0bfab58d4ee29a6d89b27dfdad52287052b21c5186ba97",
       "role": "calculation"
     },
     {
       "path": "calculations/accounting-schedule-calculation.json",
       "mediaType": "application/json",
-      "sha256": "d4d1ba6774c0984f567467c272741b121a10fe350aab81acbb1775dad336e1ae",
+      "sha256": "fd93ee8554695cf51704fc5d871341593aaefc97a27d486bfb51dfef457aad4c",
       "role": "calculation"
     },
     {
@@ -79,13 +79,13 @@
     {
       "path": "validations/validation-report.json",
       "mediaType": "application/json",
-      "sha256": "f79b148b98c35e3e6aef4966c63b822c17d4c45c38940559f8c95a5d2cc756d5",
+      "sha256": "b6e13efa62a70350b29ac77616b363c5550799b2539b04739d65c558ec0ace45",
       "role": "validations"
     },
     {
       "path": "renderings/memo.md",
       "mediaType": "text/markdown",
-      "sha256": "27f98b98d7c8c6c694bc6215c24528a45d7b622bbc1615d4b6d065d78189de2b",
+      "sha256": "465ff83d11dcc4a8bd8b4c54947ae7e5f2fbea67756fb96950326643440b4f14",
       "role": "rendering"
     }
   ],
@@ -94,5 +94,20 @@
     "mediaType": "application/json",
     "sha256": "f2feaa9a7d16d71c94a5d3bedee2e52f0b847295a43db3b72b33a1ca9457516f",
     "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "a36a77679601b86d1df071e9155781a2d08b4b1354de7168be4530dceed1531e",
+    "contentRoot": "76c33bda1b7d481dd782bdd19a768be2cfe13bf0814f6b0cfe7eb9fd2a47235b",
+    "reviewRoot": "e33a5a2760d4c2fb3c7ba19cd7c31ab907106caf88085d2993e8091ee3552c6e",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "11f68208f6cb35926a45b0db3cc723a6e918e61c79af099ce0cafaedf76341cb",
+      "claim": "5ad2e134635bd793b20b2c3a49165cf14fcc3e47b643caf071a0ad3924d52083",
+      "evidence": "fc241a10e46ad7c8cef25ac7130dc424d3a528afa27f141af8d2f5f71623b67a",
+      "fact": "62415b6b68bcbefecc9875f884cc462e9393435f5c53ab615d4217fd7d802c98",
+      "judgment": "78e52f54db0c4b70db86c6eab00020544f74598717faa754a87f783b275845d6",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
   }
 }

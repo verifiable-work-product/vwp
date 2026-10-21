@@ -12,6 +12,11 @@
           "notes": "Would apply if the implementation significantly customizes or integrates the hosted service. Combined treatment would recognize the implementation allocation over the subscription term."
         }
       ],
+      "basisFacts": [
+        "f_components",
+        "f_impl_timing",
+        "f_ssp_impl"
+      ],
       "riskLevel": "medium",
       "requiredApproverRole": "revenue-manager",
       "status": "reviewRequired"

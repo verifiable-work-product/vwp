@@ -41,6 +41,10 @@
     "startDate": "2025-03-20",
     "totalAmount": "162500.00"
   },
+  "dependsOn": [
+    "s3_lot_relief",
+    "s3_lot_relief_wb"
+  ],
   "method": "Executable entries derived from s3_lot_relief, s3_lot_relief_wb; amounts at amountScale, balanced semantic account-role postings.",
   "validator": "costBasis.accountingSchedule.tieOut",
   "recomputable": true

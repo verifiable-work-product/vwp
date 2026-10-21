@@ -6,54 +6,78 @@
   "extension": "vwp-accounting-asc842",
   "title": "ASC 842 Lease Workpaper - Demo Office Lease (synthetic stub)",
   "subject": {
-    "type": "leaseAgreement",
-    "id": "lease_demo_hq_001"
+    "id": "lease_demo_hq_001",
+    "type": "leaseAgreement"
   },
   "workproduct": {
     "path": "workproduct.json",
     "mediaType": "application/json",
+    "sha256": "da04af2e98b9bab94193ab52e8c00f20254d17b3273b5a30e82f4b90b74a58bd",
     "role": "workproduct"
-  },
-  "provenance": {
-    "path": "provenance/provenance.json",
-    "mediaType": "application/json",
-    "role": "provenance"
   },
   "parts": [
     {
       "path": "evidence/evidence.json",
       "mediaType": "application/json",
+      "sha256": "95d0e0b4dce06d9e4f9a6a2f6e5a8a89b5ff23b10ea65dc117d86629ae456f9e",
       "role": "evidence-index"
     },
     {
       "path": "evidence/lease-summary.txt",
       "mediaType": "text/plain",
+      "sha256": "22dc790f5e96ab333e2de8ee58a7d2a330656a092054fd18ede4d62037bb3f9b",
       "role": "evidence"
     },
     {
       "path": "facts/facts.json",
       "mediaType": "application/json",
+      "sha256": "66beac7ec1443f762aa0eda9082220707f47106feccd1e6034605abcd3fc10b7",
       "role": "facts"
     },
     {
       "path": "claims/claims.json",
       "mediaType": "application/json",
+      "sha256": "7422a83887e73ccbacae4a218019aa2faee696be419294d9bad4c8213cbd9740",
       "role": "claims"
     },
     {
       "path": "calculations/lease-liability.json",
       "mediaType": "application/json",
+      "sha256": "1fd8dcf9a0e284c93f1b47fc20d8fa341109436892d6b779071d3c028f5932ab",
       "role": "calculation"
     },
     {
       "path": "validations/validation-report.json",
       "mediaType": "application/json",
+      "sha256": "c906a63617f9a8b8eec7b1f81cc4f4201f7dcec6ebb56fca9d5d9eee43ac825e",
       "role": "validations"
     },
     {
       "path": "renderings/memo.md",
       "mediaType": "text/markdown",
+      "sha256": "44d9168e45540300e784db796831d792285dfcf2ffb73bf3617312c63982d952",
       "role": "rendering"
     }
-  ]
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "4ad0b6116fb619781838eaff11a9a621aac0835520d851e81e0605a640bc66b3",
+    "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "d4f3977601dffa2370c0ff87e7aac44e4dc3943ce9be371a66ecf8b96d314aff",
+    "contentRoot": "5b59138ab98ee1d66b8a1287623499ef524f740629bdc17c5f253c9203c4e9b8",
+    "reviewRoot": "9170616293bef0ae6382254b83b14dda8703639862fbb5a1266e37039f74337c",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "ffcd785774beff22ace6d1d1be8530f72eb4d7e1518146ee01b97905b04aa2c4",
+      "claim": "6d9f732415b8076ba1ea9635085eedd0d5966c1e08b813cc947c47308441c5de",
+      "evidence": "6df3890a5f645b4c6b1a429c53daa4b2ad453f8d87780869a7cb26fdb0b4e9e9",
+      "fact": "68da99ba1e5a8b1536f64dc7a11769e2e142ff4e99509e3d0a824cbd6146eefa",
+      "judgment": "32dc3ac44a4d70438ed8e497ef5ff62862506d4d90ac561ad3eb36b712c59574",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
+  }
 }

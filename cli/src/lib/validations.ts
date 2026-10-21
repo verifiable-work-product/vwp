@@ -1,6 +1,17 @@
 import { PackageSource, readJson } from './package';
 import { sha256Hex } from './hashes';
 import { extensionSchemaErrors, schemaErrors, SchemaName } from './schema';
+import {
+  buildGraph,
+  compareIds,
+  computeDigests,
+  DIGEST_ALGORITHM,
+  Digests,
+  IntegrityGraph,
+  MEMO_FORMAT_PATH,
+  NARRATIVE_PATH,
+  selfHash,
+} from './integrity';
 
 export type OutcomeStatus = 'pass' | 'fail' | 'warning' | 'reviewRequired' | 'notRun';
 
@@ -438,6 +449,13 @@ export function verifyPackage(pkg: PackageSource): VerifyReport {
         : { id: 'core.claimRefs.resolve', status: 'fail', message: problems.slice(0, 5).join('; ') }
     );
   }
+
+  // Integrity graph (spec/integrity.md): reference resolution, acyclicity,
+  // undeclared inputs, manifest digests; then the approval and narrative
+  // commitments that rest on the recomputed roots.
+  const graph = graphValidators(outcomes, pkg, manifest);
+  approvalsCurrent(outcomes, graph);
+  narrativeValidators(outcomes, pkg, graph);
 
   // core.signatures.present — informational in v0.1.
   const hasSignature = pkg.list().some((p) => p.startsWith('signatures/'));
@@ -951,6 +969,433 @@ function asc820Validators(outcomes: Outcome[], pkg: PackageSource, evidence: any
           id: 'asc820.level3.judgmentLinked',
           status: 'fail',
           message: `level3 measurements without a resolvable judgmentRef: ${unjudged.join(', ')}`,
+        }
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* Integrity graph validators (spec/integrity.md section 7)                  */
+/* ------------------------------------------------------------------------ */
+
+function capped(items: string[], limit = 5): string {
+  return items.length > limit ? `${items.slice(0, limit).join('; ')}; and ${items.length - limit} more` : items.join('; ');
+}
+
+/** Characters that can be part of an object id; a fact id mentioned in prose is a whole token. */
+const ID_CHAR = 'A-Za-z0-9_\\-';
+
+function mentionsId(text: string, id: string): boolean {
+  const escaped = id.replace(/[.*+?^${}()|[\]\\/-]/g, '\\$&');
+  return new RegExp(`(?<![${ID_CHAR}])${escaped}(?![${ID_CHAR}])`).test(text);
+}
+
+/** Every string value (not key) under a JSON value, in document order. */
+function stringValues(value: unknown, out: string[] = []): string[] {
+  if (typeof value === 'string') out.push(value);
+  else if (Array.isArray(value)) for (const v of value) stringValues(v, out);
+  else if (value && typeof value === 'object') for (const v of Object.values(value)) stringValues(v, out);
+  return out;
+}
+
+function stringList(value: unknown): string[] {
+  return Array.isArray(value) ? value.filter((v): v is string => typeof v === 'string') : [];
+}
+
+/**
+ * core.graph.refsResolve, core.graph.acyclic, core.graph.declaredInputs and
+ * core.digests.match. Returns the built graph for the validators that
+ * follow.
+ */
+function graphValidators(outcomes: Outcome[], pkg: PackageSource, manifest: any): IntegrityGraph {
+  const graph = buildGraph(pkg);
+
+  const unresolved = graph.problems.filter((p) => p.kind === 'unresolved' || p.kind === 'duplicate').map((p) => p.message);
+  outcomes.push(
+    unresolved.length === 0
+      ? { id: 'core.graph.refsResolve', status: 'pass' }
+      : { id: 'core.graph.refsResolve', status: 'fail', message: capped(unresolved) }
+  );
+
+  const cycles = graph.problems.filter((p) => p.kind === 'cycle').map((p) => p.message);
+  outcomes.push(
+    cycles.length === 0
+      ? { id: 'core.graph.acyclic', status: 'pass' }
+      : { id: 'core.graph.acyclic', status: 'fail', message: `dependency cycles: ${capped(cycles)}` }
+  );
+
+  // core.graph.declaredInputs: an input the closure hash is blind to.
+  const inputKinds = new Set(['fact', 'calculation', 'evidence']);
+  const warnings: string[] = [];
+  for (const calc of graph.byKind.calculation) {
+    const declared = new Set(calc.deps);
+    const used = [...new Set(stringValues(calc.obj?.inputs))].filter((s) => {
+      const node = graph.objects.get(s);
+      return node !== undefined && inputKinds.has(node.kind) && s !== calc.id;
+    });
+    const missing = used.filter((id) => !declared.has(id)).sort(compareIds);
+    if (missing.length > 0) {
+      warnings.push(`calculation ${calc.id}: inputs reference ${missing.join(', ')} not declared in dependsOn`);
+    }
+  }
+  const factIds = graph.byKind.fact.map((f) => f.id).sort(compareIds);
+  for (const judgment of graph.byKind.judgment) {
+    const basis = typeof judgment.obj?.basis === 'string' ? judgment.obj.basis : '';
+    if (basis.length === 0) continue;
+    const declared = new Set(stringList(judgment.obj?.basisFacts));
+    const missing = factIds.filter((id) => !declared.has(id) && mentionsId(basis, id));
+    if (missing.length > 0) {
+      warnings.push(`judgment ${judgment.id}: basis mentions ${missing.join(', ')} not declared in basisFacts`);
+    }
+  }
+  outcomes.push(
+    warnings.length === 0
+      ? { id: 'core.graph.declaredInputs', status: 'pass' }
+      : { id: 'core.graph.declaredInputs', status: 'warning', message: capped(warnings) }
+  );
+
+  // core.digests.match
+  const declaredDigests = manifest?.digests;
+  if (!declaredDigests || typeof declaredDigests !== 'object') {
+    outcomes.push({ id: 'core.digests.match', status: 'notRun', message: 'manifest declares no digests block' });
+  } else if (declaredDigests.algorithm !== DIGEST_ALGORITHM) {
+    outcomes.push({
+      id: 'core.digests.match',
+      status: 'fail',
+      message: `unknown digests algorithm "${declaredDigests.algorithm}" (this verifier implements ${DIGEST_ALGORITHM})`,
+    });
+  } else {
+    let computed: Digests | undefined;
+    try {
+      computed = computeDigests(graph);
+    } catch (err) {
+      // The manifest commits to roots that are undefined for this package.
+      outcomes.push({ id: 'core.digests.match', status: 'fail', message: (err as Error).message });
+    }
+    if (computed) {
+      const mismatches: string[] = [];
+      for (const key of ['analysisRoot', 'contentRoot', 'reviewRoot'] as const) {
+        if (declaredDigests[key] !== computed[key]) mismatches.push(key);
+      }
+      for (const kind of Object.keys(declaredDigests.collections ?? {}).sort(compareIds)) {
+        const expected = (computed.collections as Record<string, string | undefined>)[kind];
+        if (declaredDigests.collections[kind] !== expected) mismatches.push(`collections.${kind}`);
+      }
+      outcomes.push(
+        mismatches.length === 0
+          ? { id: 'core.digests.match', status: 'pass' }
+          : {
+              id: 'core.digests.match',
+              status: 'fail',
+              message: `manifest digests do not match the recomputed roots: ${mismatches.join(', ')}`,
+            }
+      );
+    }
+  }
+  return graph;
+}
+
+/** approvals.current: an approved action whose contentRoot is no longer the content root is superseded. */
+function approvalsCurrent(outcomes: Outcome[], graph: IntegrityGraph): void {
+  if (!graph.present.approval) return;
+  const withRoot = graph.byKind.approval.filter((a) => typeof a.obj?.contentRoot === 'string');
+  if (withRoot.length === 0) {
+    outcomes.push({ id: 'approvals.current', status: 'notRun', message: 'no approval records a contentRoot' });
+    return;
+  }
+  let current: string;
+  try {
+    current = computeDigests(graph).contentRoot;
+  } catch (err) {
+    outcomes.push({ id: 'approvals.current', status: 'notRun', message: `content root not recomputable: ${(err as Error).message}` });
+    return;
+  }
+  const superseded = withRoot.filter((a) => a.obj.action === 'approved' && a.obj.contentRoot !== current).map((a) => a.id);
+  outcomes.push(
+    superseded.length === 0
+      ? { id: 'approvals.current', status: 'pass' }
+      : {
+          id: 'approvals.current',
+          status: 'reviewRequired',
+          message: `the content changed after these approvals were recorded; they are superseded and a new approval is required: ${superseded.join(', ')}`,
+        }
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* Narrative validators (spec/narrative.md section 6)                        */
+/* ------------------------------------------------------------------------ */
+
+const PROSE_KINDS = new Set(['narrative', 'conclusion']);
+const CITABLE_KINDS = new Set(['fact', 'claim', 'judgment', 'calculation', 'evidence']);
+
+/**
+ * The layout of a package whose organization never configured a memo
+ * format (spec/narrative.md section 5). A narrative written against it
+ * without a snapshot is checked against this object's self hash.
+ */
+export const DEFAULT_MEMO_FORMAT = {
+  version: 1,
+  name: 'Bitwave default',
+  sections: [
+    { id: 'conclusion', heading: 'Conclusion', level: 1, kind: 'conclusion' },
+    { id: 'claims', heading: 'Claims', level: 1, kind: 'claims' },
+    { id: 'judgments', heading: 'Judgments', level: 1, kind: 'judgments' },
+    { id: 'validations', heading: 'Validations', level: 1, kind: 'validations' },
+    { id: 'review-actions', heading: 'Review actions', level: 1, kind: 'signoff' },
+    { id: 'attestations', heading: 'Analysis attestations', level: 1, kind: 'attestations' },
+  ],
+};
+
+/** No line breaks or other control characters: the shape of a heading. */
+export function isSingleLine(s: string): boolean {
+  return !/[\x00-\x1f\x7f]/.test(s);
+}
+
+/** No control characters other than line breaks and tabs: the shape of prose. */
+export function isPlainText(s: string): boolean {
+  return !/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/.test(s);
+}
+
+interface MemoFormatInUse {
+  format: any;
+  /** selfHash('memo-format', format), the value a narrative's formatHash must equal. */
+  hash?: string;
+  error?: string;
+}
+
+function memoFormatInUse(pkg: PackageSource): MemoFormatInUse {
+  if (!pkg.has(MEMO_FORMAT_PATH)) {
+    return { format: DEFAULT_MEMO_FORMAT, hash: selfHash('memo-format', DEFAULT_MEMO_FORMAT) };
+  }
+  let format: any;
+  try {
+    format = readJson(pkg, MEMO_FORMAT_PATH);
+  } catch (err) {
+    return { format: undefined, error: `${MEMO_FORMAT_PATH} is not valid JSON: ${err}` };
+  }
+  const errors = schemaErrors('memo-format', format);
+  if (errors.length === 0) {
+    if (!(format.sections as any[]).some((s) => PROSE_KINDS.has(s?.kind))) {
+      errors.push('at least one section of kind narrative or conclusion is required');
+    }
+    for (const s of format.sections as any[]) {
+      if (!isSingleLine(s.heading)) errors.push(`section "${s.id}" heading must be a single line`);
+    }
+  }
+  if (errors.length > 0) return { format, error: `${MEMO_FORMAT_PATH}: ${capped(errors)}` };
+  return { format, hash: selfHash('memo-format', format) };
+}
+
+interface ParagraphVisit {
+  sectionId: string;
+  paragraph: any;
+}
+
+/** Every paragraph with the id of the top-level section it belongs to. */
+function paragraphsOf(narrative: any): ParagraphVisit[] {
+  const out: ParagraphVisit[] = [];
+  const walk = (top: string, section: any) => {
+    for (const paragraph of section?.paragraphs ?? []) out.push({ sectionId: top, paragraph });
+    for (const sub of section?.subsections ?? []) walk(top, sub);
+  };
+  for (const s of narrative?.sections ?? []) if (typeof s?.id === 'string') walk(s.id, s);
+  return out;
+}
+
+function narrativeShapeErrors(narrative: any): string[] {
+  const errors: string[] = [];
+  const seen = new Set<string>();
+  const walk = (section: any) => {
+    if (typeof section?.heading === 'string' && !isSingleLine(section.heading)) {
+      errors.push(`section "${section.id}" heading must be a single line`);
+    }
+    (section?.paragraphs ?? []).forEach((p: any, i: number) => {
+      if (typeof p?.text === 'string' && !isPlainText(p.text)) {
+        errors.push(`section "${section.id}" paragraph ${i + 1} contains control characters`);
+      }
+    });
+    for (const sub of section?.subsections ?? []) walk(sub);
+  };
+  for (const s of narrative?.sections ?? []) {
+    if (typeof s?.id === 'string') {
+      if (seen.has(s.id)) errors.push(`duplicate section id "${s.id}"`);
+      seen.add(s.id);
+    }
+    walk(s);
+  }
+  return errors;
+}
+
+function formatSection(format: any, id: string): any | undefined {
+  return (format?.sections ?? []).find((s: any) => s?.id === id);
+}
+
+function narrativeSections(outcomes: Outcome[], narrative: any | undefined, inUse: MemoFormatInUse): void {
+  const problems: string[] = [];
+  if (inUse.error) {
+    problems.push(inUse.error);
+  } else {
+    if (narrative !== undefined && narrative?.formatHash !== inUse.hash) {
+      problems.push('narrative was written against a different memo format (formatHash mismatch)');
+    }
+    for (const s of narrative?.sections ?? []) {
+      const fs = formatSection(inUse.format, s?.id);
+      if (!fs) problems.push(`section "${s?.id}" is not a section of the memo format`);
+      else if (!PROSE_KINDS.has(fs.kind)) problems.push(`section "${s.id}" is of kind ${fs.kind}, not prose`);
+    }
+    const counts = new Map<string, number>();
+    for (const { sectionId } of paragraphsOf(narrative)) counts.set(sectionId, (counts.get(sectionId) ?? 0) + 1);
+    for (const fs of inUse.format.sections ?? []) {
+      if (fs?.required === true && PROSE_KINDS.has(fs.kind) && !(counts.get(fs.id) ?? 0)) {
+        problems.push(`required section "${fs.id}" has no paragraphs`);
+      }
+    }
+  }
+  outcomes.push(
+    problems.length === 0
+      ? { id: 'narrative.sections', status: 'pass' }
+      : { id: 'narrative.sections', status: 'fail', message: capped(problems) }
+  );
+}
+
+function narrativeValidators(outcomes: Outcome[], pkg: PackageSource, graph: IntegrityGraph): void {
+  const hasNarrative = pkg.has(NARRATIVE_PATH);
+  if (!hasNarrative && !pkg.has(MEMO_FORMAT_PATH)) return;
+  const inUse = memoFormatInUse(pkg);
+  if (!hasNarrative) {
+    // A format snapshot that demands prose still has to be honored.
+    narrativeSections(outcomes, undefined, inUse);
+    return;
+  }
+
+  // narrative.schemaValid
+  let narrative: any;
+  try {
+    narrative = readJson(pkg, NARRATIVE_PATH);
+  } catch (err) {
+    outcomes.push({ id: 'narrative.schemaValid', status: 'fail', message: `${NARRATIVE_PATH} is not valid JSON: ${err}` });
+    return;
+  }
+  const shapeErrors = [...schemaErrors('narrative', narrative), ...narrativeShapeErrors(narrative)];
+  outcomes.push(
+    shapeErrors.length === 0
+      ? { id: 'narrative.schemaValid', status: 'pass' }
+      : { id: 'narrative.schemaValid', status: 'fail', message: capped(shapeErrors) }
+  );
+  if (!narrative || typeof narrative !== 'object' || !Array.isArray(narrative.sections)) return;
+
+  // narrative.sections
+  narrativeSections(outcomes, narrative, inUse);
+
+  const paragraphs = paragraphsOf(narrative);
+  const kindOf = (id: string): string | undefined => {
+    const node = graph.objects.get(id);
+    return node && CITABLE_KINDS.has(node.kind) ? node.kind : undefined;
+  };
+  const cites = (p: any): any[] => (Array.isArray(p?.cites) ? p.cites : []);
+
+  // narrative.citations
+  const citeProblems: string[] = [];
+  const cited = new Set<string>();
+  for (const { sectionId, paragraph } of paragraphs) {
+    if (cites(paragraph).length === 0) citeProblems.push(`section "${sectionId}": a paragraph cites nothing`);
+    for (const c of cites(paragraph)) {
+      if (typeof c?.id !== 'string' || kindOf(c.id) === undefined) {
+        citeProblems.push(`section "${sectionId}": unknown cite ${typeof c?.id === 'string' ? c.id : JSON.stringify(c)}`);
+      } else {
+        cited.add(c.id);
+      }
+    }
+  }
+  if (citeProblems.length > 0) {
+    outcomes.push({ id: 'narrative.citations', status: 'fail', message: capped(citeProblems) });
+  } else {
+    const uncited = graph.byKind.claim.map((c) => c.id).filter((id) => !cited.has(id));
+    outcomes.push(
+      uncited.length === 0
+        ? { id: 'narrative.citations', status: 'pass' }
+        : { id: 'narrative.citations', status: 'reviewRequired', message: `claims not cited by the narrative: ${uncited.join(', ')}` }
+    );
+  }
+
+  // narrative.roles
+  const roleFailures: string[] = [];
+  const roleReviews: string[] = [];
+  for (const { sectionId, paragraph } of paragraphs) {
+    if (paragraph?.role !== 'conclusion') continue;
+    const ok = cites(paragraph).some((c) => {
+      const k = typeof c?.id === 'string' ? kindOf(c.id) : undefined;
+      return k === 'claim' || k === 'judgment';
+    });
+    if (!ok) roleFailures.push(`section "${sectionId}": a conclusion paragraph cites no claim or judgment`);
+  }
+  for (const s of narrative.sections) {
+    const fs = formatSection(inUse.format, s?.id);
+    if (!fs || typeof fs.templateSection !== 'string' || fs.templateSection.length === 0) continue;
+    const prefix = `${fs.templateSection}_`;
+    const found = paragraphsOf({ sections: [s] }).some(({ paragraph }) =>
+      cites(paragraph).some((c) => typeof c?.id === 'string' && c.id.startsWith(prefix))
+    );
+    if (!found) {
+      roleReviews.push(`section "${s.id}" covers template section ${fs.templateSection} but cites nothing with id prefix ${prefix}`);
+    }
+  }
+  if (roleFailures.length > 0) {
+    outcomes.push({ id: 'narrative.roles', status: 'fail', message: capped([...roleFailures, ...roleReviews]) });
+  } else if (roleReviews.length > 0) {
+    outcomes.push({ id: 'narrative.roles', status: 'reviewRequired', message: capped(roleReviews) });
+  } else {
+    outcomes.push({ id: 'narrative.roles', status: 'pass' });
+  }
+
+  // narrative.cites.fresh: every cited hash equals the object's current
+  // closure hash. Unresolved and tainted objects are skipped here:
+  // narrative.citations and core.graph.refsResolve report them.
+  const staleSections = new Map<string, string[]>();
+  let hashed = 0;
+  for (const { sectionId, paragraph } of paragraphs) {
+    for (const c of cites(paragraph)) {
+      if (typeof c?.id !== 'string' || typeof c?.hash !== 'string' || c.hash.length === 0) continue;
+      const node = graph.objects.get(c.id);
+      if (!node || node.tainted || !CITABLE_KINDS.has(node.kind)) continue;
+      hashed++;
+      if (node.closureHash !== c.hash) {
+        const sections = staleSections.get(c.id) ?? [];
+        if (!sections.includes(sectionId)) sections.push(sectionId);
+        staleSections.set(c.id, sections);
+      }
+    }
+  }
+  if (hashed === 0) {
+    outcomes.push({ id: 'narrative.cites.fresh', status: 'notRun', message: 'no cite hashes recorded' });
+  } else if (staleSections.size > 0) {
+    const stale = [...staleSections.keys()].sort(compareIds).map((id) => `${id} (cited by ${staleSections.get(id)!.join(', ')})`);
+    outcomes.push({
+      id: 'narrative.cites.fresh',
+      status: 'fail',
+      message: `cited objects changed after the narrative was written; rewrite the sections citing them: ${capped(stale)}`,
+    });
+    outcomes.push({ id: 'narrative.drift', status: 'notRun', message: 'not evaluated while narrative.cites.fresh fails' });
+    return;
+  } else {
+    outcomes.push({ id: 'narrative.cites.fresh', status: 'pass' });
+  }
+
+  // narrative.drift: cites are fresh but the analysis root moved.
+  let current: string;
+  try {
+    current = computeDigests(graph).analysisRoot;
+  } catch (err) {
+    outcomes.push({ id: 'narrative.drift', status: 'notRun', message: `analysis root not recomputable: ${(err as Error).message}` });
+    return;
+  }
+  outcomes.push(
+    narrative.analysisRoot === current
+      ? { id: 'narrative.drift', status: 'pass' }
+      : {
+          id: 'narrative.drift',
+          status: 'reviewRequired',
+          message: 'the analysis changed since the narrative was written (analysis root moved): something new and uncited exists; review the narrative',
         }
   );
 }

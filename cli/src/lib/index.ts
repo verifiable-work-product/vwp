@@ -16,3 +16,24 @@ export { verifyPackage, type Outcome, type OutcomeStatus, type VerifyReport } fr
 export { diffPackages, type DiffLine } from './diff';
 export { sha256Hex } from './hashes';
 export { schemaErrors, extensionSchemaErrors, findSchemasDir, SCHEMA_NAMES, type SchemaName } from './schema';
+export { canonicalJson, stripReviewFields, type ObjectKind } from './canonical';
+export {
+  buildGraph,
+  computeDigests,
+  selfHash,
+  closureHash,
+  collectionRoot,
+  analysisRoot,
+  contentRoot,
+  reviewRoot,
+  dependencyIds,
+  evidenceBytesSha256,
+  evidenceClosureHash,
+  DIGEST_ALGORITHM,
+  COLLECTION_KINDS,
+  type CollectionKind,
+  type Digests,
+  type GraphObject,
+  type GraphProblem,
+  type IntegrityGraph,
+} from './integrity';

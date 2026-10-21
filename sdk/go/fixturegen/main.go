@@ -9,8 +9,11 @@
 //	go run fixturegen/main.go [root]
 //
 // The hand-authored examples (asc606-revenue-contract, asc820-fair-value,
-// digital-assets-wallet-ownership) and the testdata/ trees are NOT touched
-// here. All content below is synthetic demo data.
+// digital-assets-wallet-ownership, asc842-lease, sox-control-test and the
+// two dtcc-canton-milestone packages) keep their content but are refreshed
+// in place: manifest part hashes, the integrity digests block
+// (spec/integrity.md) and, where one ships, the packed .vwp. The testdata/
+// trees are NOT touched here. All content below is synthetic demo data.
 package main
 
 import (
@@ -18,6 +21,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	vwp "github.com/verifiable-work-product/vwp/sdk/go/vwp"
@@ -100,6 +104,63 @@ func main() {
 		}
 		fmt.Printf("%s: %d validations, valid\n", f.dir, len(report.Results))
 	}
+	for _, h := range handAuthored {
+		if err := refreshHandAuthored(root, h); err != nil {
+			fail(h.dir, err)
+		}
+	}
+}
+
+// handAuthored lists the example packages whose content is maintained by
+// hand, with the packed archive each ships (empty when none).
+var handAuthored = []struct{ dir, pack string }{
+	{"asc606-revenue-contract", "acme-asc606.vwp"},
+	{"asc820-fair-value", "asc820-fair-value.vwp"},
+	{"digital-assets-wallet-ownership", "wallet-ownership.vwp"},
+	{"asc842-lease", ""},
+	{"sox-control-test", ""},
+	{"dtcc-canton-milestone/asc606-milestone-consideration", "dtcc-milestone.vwp"},
+	{"dtcc-canton-milestone/asc820-coin-fv", "canton-coin-fv.vwp"},
+}
+
+// refreshHandAuthored rewrites a hand-authored example's manifest part
+// hashes and integrity digests from its parts on disk and repacks it.
+// Failing validators are printed as warnings rather than aborting: the
+// content is maintained by hand, and a refresh must not leave it half
+// done.
+func refreshHandAuthored(root string, h struct{ dir, pack string }) error {
+	dir := filepath.Join(root, filepath.FromSlash(h.dir), "package")
+	if err := vwp.WriteManifestHashes(dir); err != nil {
+		return err
+	}
+	b, err := builder.Open(dir)
+	if err != nil {
+		return err
+	}
+	if err := b.RefreshDigests(); err != nil {
+		return err
+	}
+	pkg, err := vwp.OpenPackage(dir)
+	if err != nil {
+		return err
+	}
+	report := validators.Verify(pkg)
+	status := "valid"
+	if !report.Valid {
+		status = "NOT valid (pre-existing content problem, refreshed anyway)"
+		for _, r := range report.Results {
+			if r.Status == vwp.StatusFail {
+				fmt.Fprintf(os.Stderr, "  WARN %s: %s: %s\n", h.dir, r.ValidatorId, r.Message)
+			}
+		}
+	}
+	if h.pack != "" {
+		if err := vwp.Pack(dir, filepath.Join(root, filepath.FromSlash(h.dir), h.pack)); err != nil {
+			return err
+		}
+	}
+	fmt.Printf("%s: refreshed, %d validations, %s\n", h.dir, len(report.Results), status)
+	return nil
 }
 
 func period(f fixture) map[string]any {
@@ -130,16 +191,97 @@ func fact(b *builder.Builder, id, statement, factType string, value any, evidenc
 	})
 }
 
+// judgment records a judgment whose basisFacts are the facts its basis
+// text names: the integrity graph edges a producer declares.
 func judgment(b *builder.Builder, id, topic, question, conclusion, basis string, alt vwp.JudgmentAlternative, risk string) error {
+	known, err := knownIds(b)
+	if err != nil {
+		return err
+	}
+	var basisFacts []string
+	for _, fid := range sortedIds(known) {
+		if known[fid] == vwp.KindFact && strings.Contains(basis, fid) {
+			basisFacts = append(basisFacts, fid)
+		}
+	}
 	return b.AddJudgment(vwp.Judgment{
-		Id: id, Topic: topic, Question: question, ProposedConclusion: conclusion, Basis: basis,
+		Id: id, Topic: topic, Question: question, ProposedConclusion: conclusion, Basis: basis, BasisFacts: basisFacts,
 		Alternatives: []vwp.JudgmentAlternative{alt}, RiskLevel: risk, RequiredApproverRole: "technical-accounting-reviewer", Status: "reviewed",
 	})
 }
 
+// calc records a calculation whose dependsOn lists every fact, calculation
+// or evidence id its inputs name.
 func calc(b *builder.Builder, id, typ, method, validator string, inputs, outputs map[string]any) error {
+	deps, err := inputDeps(b, id, inputs)
+	if err != nil {
+		return err
+	}
 	t := true
-	return b.AddCalculation(vwp.Calculation{Id: id, Type: typ, Inputs: inputs, Outputs: outputs, Method: method, Validator: validator, Recomputable: &t})
+	return b.AddCalculation(vwp.Calculation{Id: id, Type: typ, Inputs: inputs, Outputs: outputs, DependsOn: deps, Method: method, Validator: validator, Recomputable: &t})
+}
+
+// knownIds maps every referenceable id already in the package to its kind.
+func knownIds(b *builder.Builder) (map[string]string, error) {
+	g, err := b.Graph()
+	if err != nil {
+		return nil, err
+	}
+	known := map[string]string{}
+	for id, o := range g.Objects {
+		known[id] = o.Kind
+	}
+	return known, nil
+}
+
+func sortedIds(known map[string]string) []string {
+	ids := make([]string, 0, len(known))
+	for id := range known {
+		ids = append(ids, id)
+	}
+	sort.Strings(ids)
+	return ids
+}
+
+// inputDeps collects the known fact, calculation and evidence ids that
+// appear as strings anywhere under a calculation's inputs.
+func inputDeps(b *builder.Builder, self string, inputs map[string]any) ([]string, error) {
+	known, err := knownIds(b)
+	if err != nil {
+		return nil, err
+	}
+	seen := map[string]bool{}
+	var walk func(v any)
+	walk = func(v any) {
+		switch t := v.(type) {
+		case string:
+			switch known[t] {
+			case vwp.KindFact, vwp.KindCalculation, vwp.KindEvidence:
+				if t != self {
+					seen[t] = true
+				}
+			}
+		case []any:
+			for _, item := range t {
+				walk(item)
+			}
+		case []string:
+			for _, item := range t {
+				walk(item)
+			}
+		case map[string]any:
+			for _, item := range t {
+				walk(item)
+			}
+		}
+	}
+	walk(inputs)
+	var deps []string
+	for id := range seen {
+		deps = append(deps, id)
+	}
+	sort.Strings(deps)
+	return deps, nil
 }
 
 func register(b *builder.Builder, name string, doc map[string]any) error {
@@ -163,8 +305,13 @@ func schedule(b *builder.Builder, id, validator string, derivedFrom []string, a 
 		return err
 	}
 	t := true
+	inputs := m("derivedFrom", derivedFrom, "currency", a.Currency, "amountScale", a.AmountScale)
+	deps, err := inputDeps(b, id, inputs)
+	if err != nil {
+		return err
+	}
 	c := vwp.Calculation{Id: id, Type: vwp.CalcTypeAccountingSchedule, Method: "Executable entries derived from " + strings.Join(derivedFrom, ", ") + "; amounts at amountScale, balanced semantic account-role postings.",
-		Inputs: m("derivedFrom", derivedFrom, "currency", a.Currency, "amountScale", a.AmountScale), Outputs: outputs, Validator: validator, Recomputable: &t}
+		Inputs: inputs, Outputs: outputs, DependsOn: deps, Validator: validator, Recomputable: &t}
 	if err := b.AddCalculation(c, builder.WithCalculationPath("calculations/accounting-schedule-calculation.json")); err != nil {
 		return err
 	}
@@ -692,15 +839,6 @@ var fixtures = []fixture{
 							"remainingLots", []any{m("lotId", "L2", "units", 0.5, "costBasis", 25000)}))
 				},
 				func() error {
-					return schedule(b, "s3_accounting_schedule", validators.ValidatorCostBasisAccountingScheduleTieOut, []string{"s3_lot_relief", "s3_lot_relief_wb"}, accountingschedule.Artifact{
-						SchemaVersion: 1, Name: "BTC disposals 2025, realized gain or loss", Kind: accountingschedule.KindRealizedGainLoss, Currency: "USD", AmountScale: 2,
-						StartDate: "2025-03-20", EndDate: "2025-03-20", TotalAmount: "162500.00",
-						Entries: []accountingschedule.Entry{
-							entry("D1-2025-03-20", "2025-03-20", "Disposal D1: 2.5 BTC for 162,500.00, FIFO basis relieved 105,000.00", "D1", dr(validators.RoleDisposalProceeds, "162500.00"), cr(validators.RoleCryptoAsset, "105000.00"), cr(validators.RoleRealizedGainLoss, "57500.00")),
-						},
-					})
-				},
-				func() error {
 					return calc(b, "s3_lot_relief_wb", "lotRelief",
 						"FIFO within wallet W-B: no disposals in the period; the lot carries forward.",
 						validators.ValidatorCostBasisLotReliefRecompute,
@@ -708,6 +846,15 @@ var fixtures = []fixture{
 							m("lotId", "L3", "acquiredAt", "2024-11-05", "units", 1, "costBasis", 60000, "wallet", "W-B"),
 						}, "disposals", []any{}),
 						m("disposals", []any{}, "totalRealizedGainLoss", 0, "remainingLots", []any{m("lotId", "L3", "units", 1, "costBasis", 60000)}))
+				},
+				func() error {
+					return schedule(b, "s3_accounting_schedule", validators.ValidatorCostBasisAccountingScheduleTieOut, []string{"s3_lot_relief", "s3_lot_relief_wb"}, accountingschedule.Artifact{
+						SchemaVersion: 1, Name: "BTC disposals 2025, realized gain or loss", Kind: accountingschedule.KindRealizedGainLoss, Currency: "USD", AmountScale: 2,
+						StartDate: "2025-03-20", EndDate: "2025-03-20", TotalAmount: "162500.00",
+						Entries: []accountingschedule.Entry{
+							entry("D1-2025-03-20", "2025-03-20", "Disposal D1: 2.5 BTC for 162,500.00, FIFO basis relieved 105,000.00", "D1", dr(validators.RoleDisposalProceeds, "162500.00"), cr(validators.RoleCryptoAsset, "105000.00"), cr(validators.RoleRealizedGainLoss, "57500.00")),
+						},
+					})
 				},
 				func() error {
 					return calc(b, "s5_wallet_allocation", "walletBasisAllocation",

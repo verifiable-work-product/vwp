@@ -1111,10 +1111,15 @@ func TestASC606AcceptsJSONRevenueSchedule(t *testing.T) {
 
 // --- manifest-aware fixture surgery ---
 
+// editManifestParts rewrites the manifest part index by hand. The integrity
+// digests block is dropped with it: these edits bypass the builder, so the
+// roots it recorded no longer describe the package (core.digests.match
+// skips a manifest without the block).
 func editManifestParts(t *testing.T, dir string, edit func(parts []any) []any) {
 	t.Helper()
 	editJSON(t, filepath.Join(dir, "manifest.json"), func(doc map[string]any) {
 		doc["parts"] = edit(doc["parts"].([]any))
+		delete(doc, "digests")
 	})
 }
 

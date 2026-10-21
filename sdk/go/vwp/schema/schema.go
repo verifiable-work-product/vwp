@@ -40,6 +40,8 @@ const (
 	Provenance          = "provenance"
 	Signature           = "signature"
 	AnalysisAttestation = "analysis-attestation"
+	MemoFormat          = "memo-format"
+	Narrative           = "narrative"
 )
 
 // Names returns the core schema names accepted by Validate.
@@ -47,7 +49,7 @@ func Names() []string {
 	return []string{
 		Manifest, Workproduct, EvidenceSchema, Fact, Claim, Judgment,
 		Calculation, Validation, Approval, Provenance, Signature,
-		AnalysisAttestation,
+		AnalysisAttestation, MemoFormat, Narrative,
 	}
 }
 

@@ -94,65 +94,89 @@
     },
     {
       "id": "v_016",
+      "validator": "core.graph.refsResolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_017",
+      "validator": "core.graph.acyclic",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_018",
+      "validator": "core.graph.declaredInputs",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_019",
+      "validator": "core.digests.match",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_020",
       "validator": "core.signatures.present",
       "scope": "package",
       "status": "warning",
       "message": "no package signature found"
     },
     {
-      "id": "v_017",
+      "id": "v_021",
       "validator": "finance.claims.haveAssertions",
       "scope": "package",
       "status": "pass"
     },
     {
-      "id": "v_018",
+      "id": "v_022",
       "validator": "finance.claims.haveSupport",
       "scope": "package",
       "status": "pass"
     },
     {
-      "id": "v_019",
+      "id": "v_023",
       "validator": "finance.requiredJudgments.complete",
       "scope": "package",
       "status": "pass"
     },
     {
-      "id": "v_020",
+      "id": "v_024",
       "validator": "stablecoin.holdings.registerPresent",
       "scope": "package",
       "status": "pass",
       "message": "3 holdings in register"
     },
     {
-      "id": "v_021",
+      "id": "v_025",
       "validator": "stablecoin.holdings.schemaValid",
       "scope": "package",
       "status": "pass"
     },
     {
-      "id": "v_022",
+      "id": "v_026",
       "validator": "stablecoin.classification.judgmentLinked",
       "scope": "package",
       "status": "pass",
       "message": "every holding links a resolvable classification judgment"
     },
     {
-      "id": "v_023",
+      "id": "v_027",
       "validator": "stablecoin.redemption.evidence",
       "scope": "package",
       "status": "pass",
       "message": "cash-like classifications rest on an evidenced redemption right"
     },
     {
-      "id": "v_024",
+      "id": "v_028",
       "validator": "stablecoin.classification.cashEquivalentChallenged",
       "scope": "package",
       "status": "pass",
       "message": "no holding is classified as cash or a cash equivalent"
     },
     {
-      "id": "v_025",
+      "id": "v_029",
       "validator": "stablecoin.classification.consistent",
       "scope": "package",
       "status": "pass",

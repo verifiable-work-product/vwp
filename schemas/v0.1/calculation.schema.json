@@ -16,6 +16,11 @@
       "type": "object",
       "additionalProperties": true
     },
+    "dependsOn": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Ids of the facts, calculations or evidence the computation consumed. Dependency edges in the integrity graph (see spec/integrity.md)."
+    },
     "method": {
       "type": "string",
       "description": "Human-readable description of the computation method."

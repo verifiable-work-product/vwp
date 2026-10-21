@@ -68,6 +68,9 @@
     "startDate": "2026-04-01",
     "totalAmount": "3750.00"
   },
+  "dependsOn": [
+    "s4_rewards_schedule"
+  ],
   "method": "Executable entries derived from s4_rewards_schedule; amounts at amountScale, balanced semantic account-role postings.",
   "validator": "staking.accountingSchedule.tieOut",
   "recomputable": true

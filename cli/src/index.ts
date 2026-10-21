@@ -7,6 +7,7 @@ import { unpackCommand } from './commands/unpack';
 import { diffCommand } from './commands/diff';
 import { renderCommand } from './commands/render';
 import { originsCommand } from './commands/origins';
+import { digestsCommand } from './commands/digests';
 import {
   addCalculationCommand,
   addClaimCommand,
@@ -164,6 +165,13 @@ program
   .option('--strict', 'treat warnings and review-required items as failures')
   .option('--online', 'also run online checks (fetch externalRef URLs with their declared auth and verify contentHash)')
   .action((input: string, options: { strict?: boolean; online?: boolean }) => run(() => verifyCommand(input, options)));
+
+program
+  .command('digests')
+  .description('print the integrity graph roots (manifest digests shape) recomputed from a package')
+  .argument('<package>', '.vwp file or package directory')
+  .option('--objects', "also print every object's self and closure hash")
+  .action((input: string, options: { objects?: boolean }) => run(() => digestsCommand(input, options)));
 
 program
   .command('origins')

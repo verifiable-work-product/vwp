@@ -211,26 +211,33 @@ type JudgmentAlternative struct {
 
 // Judgment is a professional judgment point in judgments/judgments.json.
 type Judgment struct {
-	Id                   string                `json:"id"`
-	Topic                string                `json:"topic"`
-	Question             string                `json:"question"`
-	ProposedConclusion   string                `json:"proposedConclusion,omitempty"`
-	Basis                string                `json:"basis,omitempty"`
-	Alternatives         []JudgmentAlternative `json:"alternatives,omitempty"`
-	RiskLevel            string                `json:"riskLevel,omitempty"`
-	RequiredApproverRole string                `json:"requiredApproverRole,omitempty"`
-	Status               string                `json:"status,omitempty"`
+	Id                 string                `json:"id"`
+	Topic              string                `json:"topic"`
+	Question           string                `json:"question"`
+	ProposedConclusion string                `json:"proposedConclusion,omitempty"`
+	Basis              string                `json:"basis,omitempty"`
+	Alternatives       []JudgmentAlternative `json:"alternatives,omitempty"`
+	// BasisFacts and BasisCalculations are the ids the judgment weighed:
+	// its dependency edges in the integrity graph.
+	BasisFacts           []string `json:"basisFacts,omitempty"`
+	BasisCalculations    []string `json:"basisCalculations,omitempty"`
+	RiskLevel            string   `json:"riskLevel,omitempty"`
+	RequiredApproverRole string   `json:"requiredApproverRole,omitempty"`
+	Status               string   `json:"status,omitempty"`
 }
 
 // Calculation is a recomputable computation under calculations/.
 type Calculation struct {
-	Id           string         `json:"id"`
-	Type         string         `json:"type"`
-	Inputs       map[string]any `json:"inputs"`
-	Outputs      map[string]any `json:"outputs"`
-	Method       string         `json:"method,omitempty"`
-	Validator    string         `json:"validator,omitempty"`
-	Recomputable *bool          `json:"recomputable,omitempty"`
+	Id      string         `json:"id"`
+	Type    string         `json:"type"`
+	Inputs  map[string]any `json:"inputs"`
+	Outputs map[string]any `json:"outputs"`
+	// DependsOn lists the ids of the facts, calculations or evidence the
+	// computation consumed: its dependency edges in the integrity graph.
+	DependsOn    []string `json:"dependsOn,omitempty"`
+	Method       string   `json:"method,omitempty"`
+	Validator    string   `json:"validator,omitempty"`
+	Recomputable *bool    `json:"recomputable,omitempty"`
 }
 
 // Validation is a shipped validator result in validations/validation-report.json.
@@ -261,7 +268,11 @@ type Approval struct {
 	Action    string   `json:"action"`
 	Timestamp string   `json:"timestamp"`
 	Scope     string   `json:"scope,omitempty"`
-	Comments  string   `json:"comments,omitempty"`
+	// ContentRoot and ReviewRoot are the package roots at the time of the
+	// action (spec/integrity.md section 6); the builder stamps them.
+	ContentRoot string `json:"contentRoot,omitempty"`
+	ReviewRoot  string `json:"reviewRoot,omitempty"`
+	Comments    string `json:"comments,omitempty"`
 }
 
 // Approval actions.
