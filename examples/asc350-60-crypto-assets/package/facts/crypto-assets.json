@@ -1,0 +1,58 @@
+{
+  "assets": [
+    {
+      "asset": "BTC",
+      "chain": "bitcoin",
+      "criteria": {
+        "distributedLedger": true,
+        "fungible": true,
+        "intangibleAsset": true,
+        "noEnforceableRightsToGoodsOrServices": true,
+        "notCreatedOrIssuedByReportingEntity": true,
+        "securedThroughCryptography": true
+      },
+      "criteriaEvidence": [
+        "ev_holdings_extract"
+      ],
+      "id": "ca_btc",
+      "inScope": true
+    },
+    {
+      "asset": "ETH",
+      "chain": "ethereum",
+      "criteria": {
+        "distributedLedger": true,
+        "fungible": true,
+        "intangibleAsset": true,
+        "noEnforceableRightsToGoodsOrServices": true,
+        "notCreatedOrIssuedByReportingEntity": true,
+        "securedThroughCryptography": true
+      },
+      "criteriaEvidence": [
+        "ev_holdings_extract"
+      ],
+      "id": "ca_eth",
+      "inScope": true
+    },
+    {
+      "asset": "WDEMO",
+      "chain": "demo-chain",
+      "criteria": {
+        "distributedLedger": true,
+        "fungible": true,
+        "intangibleAsset": true,
+        "noEnforceableRightsToGoodsOrServices": false,
+        "notCreatedOrIssuedByReportingEntity": false,
+        "securedThroughCryptography": true
+      },
+      "criteriaEvidence": [
+        "ev_wdemo_terms"
+      ],
+      "id": "ca_wdemo",
+      "inScope": false,
+      "outOfScopeTreatment": "Not an asset of the issuer; token issuance analysed under the token issuance work product",
+      "scopeJudgmentRef": "s1_j_wdemo_scope"
+    }
+  ],
+  "description": "ASC 350-60 scope register for DemoCo holdings at 2026-06-30. Synthetic data."
+}

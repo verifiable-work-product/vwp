@@ -1,0 +1,28 @@
+{
+  "id": "wp_demo_staking_rewards",
+  "title": "Staking Rewards Recognition - DemoCo ETH Validator April 2026",
+  "domain": "accounting.stakingRewards",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-staking-rewards",
+  "standardRefs": [
+    "ASC 606-10-15-3",
+    "ASC 606-10-55-36",
+    "ASC 350-30-30-1"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2026-06-30",
+    "start": "2026-04-01"
+  },
+  "conclusionSummary": "DemoCo operates its own validator and is the principal; rewards are recognized as other income when received, measured at the receipt-date fair value. April 2026 rewards of 1.5 ETH tie to the beacon-chain record and total 3,750 USD.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

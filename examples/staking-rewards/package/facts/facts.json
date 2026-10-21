@@ -1,0 +1,153 @@
+{
+  "facts": [
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "DemoCo operates validator 0xDEMO on the Ethereum consensus layer using its own 32 ETH stake and its own signing keys."
+            }
+          ],
+          "evidenceId": "ev_staking_terms"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_own_validator",
+      "requiresReview": false,
+      "statement": "DemoCo runs the validator with its own stake and keys; no staking provider is involved.",
+      "value": "self-operated"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "No third-party staking provider is engaged and no rewards are shared."
+            }
+          ],
+          "evidenceId": "ev_staking_terms"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_no_sharing",
+      "requiresReview": false,
+      "statement": "No rewards are shared with a third party.",
+      "value": "no sharing"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Rewards accrue to the withdrawal address controlled by DemoCo treasury."
+            }
+          ],
+          "evidenceId": "ev_staking_terms"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s3_f_withdrawal_control",
+      "requiresReview": false,
+      "statement": "Rewards accrue to a withdrawal address controlled by DemoCo treasury.",
+      "value": "control"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "TOTAL,1.50000000,april-2026"
+            }
+          ],
+          "evidenceId": "ev_validator_rewards"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "quantity",
+      "id": "s4_f_chain_total",
+      "requiresReview": false,
+      "statement": "The beacon-chain record shows 1.5 ETH of rewards received in April 2026.",
+      "value": {
+        "periodEnd": "2026-04-30",
+        "periodStart": "2026-04-01",
+        "units": 1.5
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "2026-04-10,2400.00,demo-exchange"
+            }
+          ],
+          "evidenceId": "ev_eth_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "price",
+      "id": "s4_f_price_0410",
+      "requiresReview": false,
+      "statement": "ETH closed at 2,400.00 USD on 2026-04-10.",
+      "value": {
+        "currency": "USD",
+        "date": "2026-04-10",
+        "price": 2400
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "2026-04-20,2500.00,demo-exchange"
+            }
+          ],
+          "evidenceId": "ev_eth_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "price",
+      "id": "s4_f_price_0420",
+      "requiresReview": false,
+      "statement": "ETH closed at 2,500.00 USD on 2026-04-20.",
+      "value": {
+        "currency": "USD",
+        "date": "2026-04-20",
+        "price": 2500
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "2026-04-30,2600.00,demo-exchange"
+            }
+          ],
+          "evidenceId": "ev_eth_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "price",
+      "id": "s4_f_price_0430",
+      "requiresReview": false,
+      "statement": "ETH closed at 2,600.00 USD on 2026-04-30.",
+      "value": {
+        "currency": "USD",
+        "date": "2026-04-30",
+        "price": 2600
+      }
+    }
+  ]
+}

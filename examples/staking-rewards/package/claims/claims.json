@@ -1,0 +1,110 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "rightsAndObligations"
+      ],
+      "conclusion": "Arrangement facts established.",
+      "domain": "finance",
+      "id": "s1_c_arrangement",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 606-10-55-36"
+      ],
+      "statement": "DemoCo self-operates an Ethereum validator with its own stake and keys and shares no rewards with any provider.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_staking_terms"
+      ],
+      "supportingFacts": [
+        "s1_f_own_validator",
+        "s1_f_no_sharing"
+      ]
+    },
+    {
+      "assertions": [
+        "occurrence",
+        "presentationDisclosure"
+      ],
+      "conclusion": "Principal; ASC 606 by analogy; other income caption.",
+      "domain": "finance",
+      "id": "s2_c_principal",
+      "judgments": [
+        "s2_j_principal"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 606-10-55-36",
+        "ASC 606-10-15-3"
+      ],
+      "statement": "DemoCo is the principal; with no customer identified, ASC 606 is applied by analogy and the rewards are presented as other income.",
+      "status": "supported",
+      "supportingFacts": [
+        "s1_f_own_validator"
+      ]
+    },
+    {
+      "assertions": [
+        "occurrence"
+      ],
+      "conclusion": "Recognize on credit; recognition-date price.",
+      "domain": "finance",
+      "id": "s3_c_timing",
+      "judgments": [
+        "s3_j_timing"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 606-10-25-30",
+        "ASC 606-10-32-21"
+      ],
+      "statement": "Rewards are recognized when credited to the DemoCo-controlled withdrawal address, which coincides with the end of each duty period, and measured at that date's price.",
+      "status": "supported",
+      "supportingFacts": [
+        "s3_f_withdrawal_control"
+      ]
+    },
+    {
+      "assertions": [
+        "completeness",
+        "valuationAllocation"
+      ],
+      "conclusion": "Schedule recomputes and ties to chain.",
+      "domain": "finance",
+      "id": "s4_c_measurement",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 606-10-32-21",
+        "ASC 350-30-30-1"
+      ],
+      "statement": "April 2026 rewards of 1.5 ETH are measured at recognition-date fair value totalling 3,750 USD and tie to the beacon-chain record.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s4_rewards_schedule"
+      ],
+      "supportingFacts": [
+        "s4_f_chain_total",
+        "s4_f_price_0410",
+        "s4_f_price_0420",
+        "s4_f_price_0430"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Subsequent accounting under ASC 350-60.",
+      "domain": "finance",
+      "id": "s5_c_subsequent",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-60-35-1"
+      ],
+      "statement": "Received ETH rewards are in-scope crypto assets subsequently measured at fair value under ASC 350-60, with remeasurement in net income.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s4_rewards_schedule"
+      ]
+    }
+  ]
+}

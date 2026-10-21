@@ -1,0 +1,28 @@
+{
+  "evidence": [
+    {
+      "id": "ev_holdings_extract",
+      "path": "evidence/holdings-extract.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Digital asset subledger holdings extract as of 2026-06-30 (synthetic)",
+      "type": "subledgerExtract"
+    },
+    {
+      "id": "ev_period_end_prices",
+      "path": "evidence/period-end-prices.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Period-end prices from the principal market, 2026-06-30 (synthetic)",
+      "type": "pricingRecord"
+    },
+    {
+      "id": "ev_wdemo_terms",
+      "path": "evidence/wdemo-token-terms.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "WDEMO token terms excerpt (synthetic)",
+      "type": "contractDocument"
+    }
+  ]
+}

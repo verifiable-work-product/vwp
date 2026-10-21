@@ -1,0 +1,36 @@
+{
+  "evidence": [
+    {
+      "id": "ev_dusd_terms",
+      "path": "evidence/issuer-terms-excerpt.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "DUSD issuer terms of service excerpt (synthetic)",
+      "type": "contractDocument"
+    },
+    {
+      "id": "ev_reserve_attestation",
+      "path": "evidence/reserve-attestation.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "DUSD monthly reserve attestation, June 2026 (synthetic)",
+      "type": "attestationReport"
+    },
+    {
+      "id": "ev_balances",
+      "path": "evidence/stablecoin-balances.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Stablecoin balances by wallet at 2026-06-30 (synthetic)",
+      "type": "subledgerExtract"
+    },
+    {
+      "id": "ev_xeur_docs",
+      "path": "evidence/xeur-protocol-docs.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "XEUR protocol documentation excerpt (synthetic)",
+      "type": "protocolDocumentation"
+    }
+  ]
+}

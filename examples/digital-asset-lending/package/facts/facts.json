@@ -1,0 +1,144 @@
+{
+  "facts": [
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "3. Fee: 5.00% per annum, accrued in ETH on an actual/365 basis, payable at maturity."
+            }
+          ],
+          "evidenceId": "ev_loan_agreement"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_terms",
+      "requiresReview": false,
+      "statement": "The loan is 100 ETH at 5.00% per annum, actual/365, from 2026-04-01 to 2026-07-01.",
+      "value": {
+        "annualRate": 0.05,
+        "dayCountBasis": 365,
+        "principalUnits": 100
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "2. Term: 2026-04-01 to 2026-07-01 (91 days)."
+            }
+          ],
+          "evidenceId": "ev_loan_agreement"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "date",
+      "id": "s1_f_term_dates",
+      "requiresReview": false,
+      "statement": "The loan term runs 2026-04-01 to 2026-07-01.",
+      "value": "2026-04-01/2026-07-01"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "5. Use: Borrower may sell, lend or re-pledge the ETH without restriction during the term."
+            }
+          ],
+          "evidenceId": "ev_loan_agreement"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s2_f_rehypothecation",
+      "requiresReview": false,
+      "statement": "The borrower may sell, lend or re-pledge the ETH without restriction.",
+      "value": "unrestricted use"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "USDC balance: 400,000.00"
+            }
+          ],
+          "evidenceId": "ev_collateral_statement"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s4_f_collateral",
+      "requiresReview": false,
+      "statement": "Collateral of 400,000.00 USDC was held at 2026-06-30.",
+      "value": 400000
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "4. Collateral: Borrower posts USDC equal to at least 150% of the loan value, marked daily."
+            }
+          ],
+          "evidenceId": "ev_loan_agreement"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "ratio",
+      "id": "s4_f_required_ratio",
+      "requiresReview": false,
+      "statement": "Collateral must be at least 150% of the loan value.",
+      "value": 1.5
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "ETH/USD close 2026-06-30: 2,500.00"
+            }
+          ],
+          "evidenceId": "ev_eth_price"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s4_f_eth_price",
+      "requiresReview": false,
+      "statement": "ETH closed at 2,500.00 USD on 2026-06-30.",
+      "value": 2500
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "ETH/USD close 2026-06-30: 2,500.00"
+            }
+          ],
+          "evidenceId": "ev_eth_price"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "price",
+      "id": "s3_f_fee_price",
+      "requiresReview": false,
+      "statement": "The accrued fee is measured at the ETH close of 2,500.00 USD on 2026-06-30, the last accrued day of the quarter.",
+      "value": {
+        "date": "2026-06-30",
+        "price": 2500
+      }
+    }
+  ]
+}

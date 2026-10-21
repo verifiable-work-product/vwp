@@ -1,0 +1,67 @@
+{
+  "id": "s4_rewards_schedule",
+  "type": "stakingRewardsSchedule",
+  "inputs": {
+    "arrangement": "validator-0xDEMO",
+    "asset": "ETH",
+    "chainObservedFact": "s4_f_chain_total",
+    "chainObservedUnits": 1.5,
+    "currency": "USD",
+    "periodEnd": "2026-04-30",
+    "periodStart": "2026-04-01",
+    "pricingDateBasis": "recognitionDate",
+    "rewards": [
+      {
+        "date": "2026-04-10",
+        "measurementDate": "2026-04-10",
+        "priceFact": "s4_f_price_0410",
+        "receivedOn": "2026-04-10",
+        "reference": "epoch-281000",
+        "unitPrice": 2400,
+        "units": 0.5
+      },
+      {
+        "date": "2026-04-20",
+        "measurementDate": "2026-04-20",
+        "priceFact": "s4_f_price_0420",
+        "receivedOn": "2026-04-20",
+        "reference": "epoch-283250",
+        "unitPrice": 2500,
+        "units": 0.5
+      },
+      {
+        "date": "2026-04-30",
+        "measurementDate": "2026-04-30",
+        "priceFact": "s4_f_price_0430",
+        "receivedOn": "2026-04-30",
+        "reference": "epoch-285500",
+        "unitPrice": 2600,
+        "units": 0.5
+      }
+    ]
+  },
+  "outputs": {
+    "rows": [
+      {
+        "date": "2026-04-10",
+        "fairValue": 1200,
+        "units": 0.5
+      },
+      {
+        "date": "2026-04-20",
+        "fairValue": 1250,
+        "units": 0.5
+      },
+      {
+        "date": "2026-04-30",
+        "fairValue": 1300,
+        "units": 0.5
+      }
+    ],
+    "totalFairValue": 3750,
+    "totalUnits": 1.5
+  },
+  "method": "Each reward at units x closing price on its recognition date (credit coincides with the end of each duty period, so inception, recognition and receipt fall on the same day); totals tie to the beacon-chain export; no unreceived balance at either period end.",
+  "validator": "staking.rewards.recompute",
+  "recomputable": true
+}

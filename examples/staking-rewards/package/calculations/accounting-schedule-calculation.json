@@ -1,0 +1,74 @@
+{
+  "id": "s4_accounting_schedule",
+  "type": "accountingSchedule",
+  "inputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "derivedFrom": [
+      "s4_rewards_schedule"
+    ]
+  },
+  "outputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "endDate": "2026-04-30",
+    "entries": [
+      {
+        "date": "2026-04-10",
+        "description": "0.5 ETH staking reward, epoch 281000, at 2,400.00",
+        "id": "epoch-281000",
+        "obligationId": "epoch-281000",
+        "postings": [
+          {
+            "accountRole": "crypto_asset",
+            "debit": "1200.00"
+          },
+          {
+            "accountRole": "staking_reward_income",
+            "credit": "1200.00"
+          }
+        ]
+      },
+      {
+        "date": "2026-04-20",
+        "description": "0.5 ETH staking reward, epoch 283250, at 2,500.00",
+        "id": "epoch-283250",
+        "obligationId": "epoch-283250",
+        "postings": [
+          {
+            "accountRole": "crypto_asset",
+            "debit": "1250.00"
+          },
+          {
+            "accountRole": "staking_reward_income",
+            "credit": "1250.00"
+          }
+        ]
+      },
+      {
+        "date": "2026-04-30",
+        "description": "0.5 ETH staking reward, epoch 285500, at 2,600.00",
+        "id": "epoch-285500",
+        "obligationId": "epoch-285500",
+        "postings": [
+          {
+            "accountRole": "crypto_asset",
+            "debit": "1300.00"
+          },
+          {
+            "accountRole": "staking_reward_income",
+            "credit": "1300.00"
+          }
+        ]
+      }
+    ],
+    "kind": "staking_rewards",
+    "name": "April 2026 staking reward income",
+    "schemaVersion": 1,
+    "startDate": "2026-04-01",
+    "totalAmount": "3750.00"
+  },
+  "method": "Executable entries derived from s4_rewards_schedule; amounts at amountScale, balanced semantic account-role postings.",
+  "validator": "staking.accountingSchedule.tieOut",
+  "recomputable": true
+}

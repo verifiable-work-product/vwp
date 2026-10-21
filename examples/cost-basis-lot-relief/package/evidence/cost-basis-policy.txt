@@ -1,0 +1,4 @@
+DemoCo Digital Asset Cost Basis Policy (excerpt)
+
+Lot relief method: FIFO, applied wallet by wallet.
+Specific unit allocation of unused basis to wallets under Rev. Proc. 2024-28 recorded on 2024-12-20, effective 2025-01-01: 3 BTC (130,000.00 USD) to W-A, 1 BTC (60,000.00 USD) to W-B.

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "name": "2026-06-30 NFT impairment",
+  "kind": "impairment",
+  "currency": "USD",
+  "amountScale": 2,
+  "startDate": "2026-06-30",
+  "endDate": "2026-06-30",
+  "totalAmount": "15000.00",
+  "entries": [
+    {
+      "id": "NFT-001-2026-06-30",
+      "date": "2026-06-30",
+      "description": "Impairment of DemoPunks #4821 to fair value",
+      "obligationId": "NFT-001",
+      "postings": [
+        {
+          "accountRole": "impairment_loss",
+          "debit": "15000.00"
+        },
+        {
+          "accountRole": "intangible_asset",
+          "credit": "15000.00"
+        }
+      ]
+    }
+  ]
+}

@@ -18,6 +18,12 @@ Extensions use identifiers of the form `vwp-accounting-<standard>`:
 | `vwp-accounting-asc606` | ASC 606 — Revenue from contracts with customers | [`asc606.md`](./asc606.md) |
 | `vwp-accounting-asc842` | ASC 842 — Leases | [`asc842.md`](./asc842.md) |
 | `vwp-accounting-asc820` | ASC 820 — Fair value measurement | [`asc820.md`](./asc820.md) |
+| `vwp-accounting-asc350-60` | ASC 350-60 — Crypto assets | [`asc350-60.md`](./asc350-60.md) |
+| `vwp-accounting-asc350-30` | ASC 350-30 — Indefinite-lived intangible impairment (digital assets outside 350-60) | [`asc350-30.md`](./asc350-30.md) |
+
+Extensions whose calculations book ledger entries (ASC 606, 350-60, 350-30, and the
+digital-asset staking, lending and cost-basis extensions) also require the executable
+[accounting schedule](./accounting-schedule.md) as a verified output.
 
 A package declares its extension in the manifest (`extension` field) alongside its
 profile (typically `vwp-finance`). Claims reference the standard informatively via

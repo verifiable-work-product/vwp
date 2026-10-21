@@ -1,0 +1,20 @@
+{
+  "evidence": [
+    {
+      "id": "ev_nft_register",
+      "path": "evidence/nft-lot-register.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "NFT lot register as of 2026-06-30 (synthetic)",
+      "type": "subledgerExtract"
+    },
+    {
+      "id": "ev_floor_prices",
+      "path": "evidence/floor-price-observations.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Lowest observable floor price per collection during Q2 2026 (synthetic)",
+      "type": "pricingRecord"
+    }
+  ]
+}

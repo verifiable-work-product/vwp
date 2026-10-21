@@ -1,0 +1,47 @@
+{
+  "id": "s3_accounting_schedule",
+  "type": "accountingSchedule",
+  "inputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "derivedFrom": [
+      "s3_lot_relief",
+      "s3_lot_relief_wb"
+    ]
+  },
+  "outputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "endDate": "2025-03-20",
+    "entries": [
+      {
+        "date": "2025-03-20",
+        "description": "Disposal D1: 2.5 BTC for 162,500.00, FIFO basis relieved 105,000.00",
+        "id": "D1-2025-03-20",
+        "obligationId": "D1",
+        "postings": [
+          {
+            "accountRole": "disposal_proceeds",
+            "debit": "162500.00"
+          },
+          {
+            "accountRole": "crypto_asset",
+            "credit": "105000.00"
+          },
+          {
+            "accountRole": "realized_gain_loss",
+            "credit": "57500.00"
+          }
+        ]
+      }
+    ],
+    "kind": "realized_gain_loss",
+    "name": "BTC disposals 2025, realized gain or loss",
+    "schemaVersion": 1,
+    "startDate": "2025-03-20",
+    "totalAmount": "162500.00"
+  },
+  "method": "Executable entries derived from s3_lot_relief, s3_lot_relief_wb; amounts at amountScale, balanced semantic account-role postings.",
+  "validator": "costBasis.accountingSchedule.tieOut",
+  "recomputable": true
+}

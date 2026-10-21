@@ -65,10 +65,13 @@ affects any validation status.
 
 ## 5. Implemented validator ids
 
-The validator ids below are implemented today by the reference TypeScript CLI
-(`cli/src/lib/validations.ts`) and by the Go SDK in this repository (`sdk/go`).
-Independent implementations MUST agree on these ids and their semantics, so that
-reports from different verifiers are comparable.
+The validator ids below are implemented today by the Go SDK in this repository
+(`sdk/go`); the reference TypeScript CLI (`cli/src/lib/validations.ts`) implements the
+core, finance, ASC 606, ASC 820 and wallet-ownership ids, and does not yet implement
+the required-output checks, the accounting-schedule tie-outs, or the ASC 350-60,
+ASC 350-30, staking, lending, cost-basis and stablecoin extensions (it reports no result
+for those). Independent implementations MUST agree on these ids and their semantics, so
+that reports from different verifiers are comparable.
 
 ### Core validators
 
@@ -93,6 +96,8 @@ reports from different verifiers are comparable.
 | `core.factAnchors.quotesMatch` | Quote anchors appear in the cited text evidence after normalization; warns on quotes against binary or external evidence. |
 | `core.claimRefs.resolve` | Claim `supportingFacts`, `judgments`, and `supportingCalculations` resolve to objects in the package. |
 | `core.signatures.present` | Warns when the package carries no signature (informational in v0.1). |
+| `core.requiredOutputs.exist` | For extensions with a required-output contract (see [`profiles/accounting/accounting-schedule.md`](../profiles/accounting/accounting-schedule.md)): every unconditional required output is present, and every present required output is declared exactly once in `manifest.parts` with role `calculation`, its media type and a hash. |
+| `accountingSchedule.valid` | `calculations/accounting-schedule.json` parses and satisfies the executable accounting schedule contract (balanced decimal entries at the declared scale, allowed roles for its kind, bounded size). Reported when the artifact is present, or when the extension requires it unconditionally. |
 
 ### Profile validators (`vwp-finance`)
 
@@ -106,9 +111,10 @@ reports from different verifiers are comparable.
 
 | Id | Semantics |
 |---|---|
-| `asc606.allocation.schemaValid` | `calculations/ssp-allocation.json` validates against the SSP-allocation extension schema. |
-| `asc606.allocation.tieOut` | Allocated amounts sum to the transaction price (0.01 tolerance). |
-| `asc606.revenueSchedule.total` | The revenue-schedule CSV `total` column sums to the allocated consideration. |
+| `asc606.allocation.schemaValid` | `calculations/ssp-allocation.json` (or a calculation of type `relativeStandaloneSellingPriceAllocation`) validates against the SSP-allocation extension schema. **Fails** when absent: the allocation is a required output. |
+| `asc606.allocation.tieOut` | Allocated amounts sum to the transaction price (0.01 tolerance). Fails when the allocation is absent or schema-invalid. |
+| `asc606.revenueSchedule.total` | The revenue-schedule CSV `total` column (or the `outputs.rows[].total` of a `revenueSchedule` calculation) sums to the allocated consideration. Fails when the schedule or a valid allocation is absent. |
+| `asc606.accountingSchedule.tieOut` | The executable `revenue_recognition` schedule's amounts match the SSP allocation and every obligation/month amount in the recognition CSV. |
 
 ### Extension validators (`vwp-accounting-asc820`)
 
@@ -129,6 +135,80 @@ reports from different verifiers are comparable.
 | `digitalAssets.wallets.proofOfControl` | Every included self-custody wallet has resolvable proof-of-control evidence. |
 | `digitalAssets.wallets.exclusionRationale` | Every excluded wallet records an exclusion rationale. |
 | `digitalAssets.wallets.balanceEvidence` | Every included wallet with a period-end balance has resolvable balance evidence. |
+
+### Extension validators (`vwp-accounting-asc350-60`)
+
+| Id | Semantics |
+|---|---|
+| `asc35060.scope.registerPresent` | Fails when `facts/crypto-assets.json` is missing or contains no assets. |
+| `asc35060.scope.schemaValid` | The scope register validates against the crypto-assets extension schema. |
+| `asc35060.scope.consistent` | `inScope` agrees with the six ASC 350-60-15-1 criteria for every asset; out-of-scope assets name their treatment. |
+| `asc35060.scope.judgmentLinked` | Every out-of-scope asset links a resolvable scope judgment. |
+| `asc35060.rollForward.schemaValid` | Every `cryptoAssetRollForward` calculation validates against the extension schema. |
+| `asc35060.rollForward.tieOut` | Each roll-forward line and the totals tie; roll-forwards chain by scope and period. |
+| `asc35060.rollForward.assetsInScope` | Only in-scope assets appear in a roll-forward. |
+| `asc35060.significantHoldings.schemaValid` | Every `significantCryptoHoldings` calculation validates against the extension schema. |
+| `asc35060.significantHoldings.tieOut` | Significant and "other" fair value and cost basis recompute from the holdings. |
+| `asc35060.significantHoldings.assetsInScope` | Only in-scope assets appear in a holdings table. |
+| `asc35060.significantHoldings.tiesToRollForward` | Per asset, holdings fair value equals the roll-forward closing balance on that date. |
+| `asc35060.accountingSchedule.tieOut` | The `fair_value_remeasurement` schedule books each period's gain or loss per asset in the right direction, and nothing else. |
+
+### Extension validators (`vwp-accounting-asc350-30`)
+
+| Id | Semantics |
+|---|---|
+| `asc35030.impairment.schemaValid` | Every `indefiniteLivedIntangibleImpairmentTest` calculation validates against the extension schema. |
+| `asc35030.impairment.recompute` | Per lot, loss = max(0, carrying − fair value); no lot tested twice in one test; no duplicate output rows. |
+| `asc35030.impairment.noReversal` | The new carrying amount never exceeds the old one (ASC 350-30-35-20). |
+| `asc35030.impairment.fairValueEvidence` | Each lot's fair value equals the value of the fact it cites. |
+| `asc35030.impairment.continuity` | A lot tested again later starts from the carrying amount the earlier test left it at. |
+| `asc35030.accountingSchedule.tieOut` | The `impairment` schedule books one loss per impaired lot on its test date. |
+
+### Extension validators (`vwp-digital-assets-staking-rewards`)
+
+| Id | Semantics |
+|---|---|
+| `staking.rewards.schemaValid` | Every `stakingRewardsSchedule` calculation validates against the extension schema. |
+| `staking.rewards.recompute` | Each row's fair value is units × unit price; totals sum. |
+| `staking.rewards.pricingEvidence` | Each row's measurement date is the date its `pricingDateBasis` fixes, and the cited price fact states that price as of that date. |
+| `staking.rewards.chainTieOut` | Recognized units reconcile to chain-observed receipts through the declared unreceived balances and reconciling items. |
+| `staking.rewards.population` | Recognition dates lie in the period; reward references are unique per asset and arrangement; schedules never overlap. |
+| `staking.accountingSchedule.tieOut` | The `staking_rewards` schedule books each reward as income on its recognition date. |
+
+### Extension validators (`vwp-digital-assets-lending`)
+
+| Id | Semantics |
+|---|---|
+| `lending.accrual.schemaValid` | Every `digitalAssetLoanInterestAccrual` calculation validates against the extension schema. |
+| `lending.accrual.recompute` | Each accrual is principal × rate × days / basis, and those terms match the cited terms fact. |
+| `lending.collateral.schemaValid` | Every `collateralCoverage` calculation validates against the extension schema. |
+| `lending.collateral.recompute` | Coverage ratio, margin shortfall and unsecured portion recompute. |
+| `lending.derecognition.claimJudged` | A claim concludes on derecognition, citing a derecognition paragraph family, and links a judgment. |
+| `lending.accountingSchedule.tieOut` | The `interest_accrual` schedule books one accrual per window on its last accrued day at the stated fair value. |
+
+### Extension validators (`vwp-digital-assets-cost-basis`)
+
+| Id | Semantics |
+|---|---|
+| `costBasis.lotRelief.schemaValid` | Every `lotRelief` calculation validates against the extension schema. |
+| `costBasis.lotRelief.unitsConserved` | Units are conserved from the lot population through every relief into the remaining lots. |
+| `costBasis.lotRelief.recompute` | Basis relieved and realized gain/loss recompute from the lots; no disposal relieves a lot acquired after it. |
+| `costBasis.lotRelief.methodOrder` | The relief order follows the declared method. |
+| `costBasis.walletAllocation.schemaValid` | Every `walletBasisAllocation` calculation validates against the extension schema. |
+| `costBasis.walletAllocation.tieOut` | Each allocation ties to its declared basis and units. |
+| `costBasis.walletAllocation.eligibility` | The allocation is dated 2025-01-01 and equals the units and basis of lots acquired before it; warns when no lot population is present. |
+| `costBasis.accountingSchedule.tieOut` | The `realized_gain_loss` schedule books one entry per disposal: proceeds, cost basis relieved, realized gain or loss. |
+
+### Extension validators (`vwp-digital-assets-stablecoin`)
+
+| Id | Semantics |
+|---|---|
+| `stablecoin.holdings.registerPresent` | Fails when `facts/stablecoin-holdings.json` is missing or contains no holdings. |
+| `stablecoin.holdings.schemaValid` | The register validates against the extension schema. |
+| `stablecoin.classification.judgmentLinked` | Every holding links a resolvable classification judgment. |
+| `stablecoin.redemption.evidence` | Cash-like classifications rest on evidenced redemption rights. |
+| `stablecoin.classification.consistent` | One token from one issuer is classified the same way everywhere it is held. |
+| `stablecoin.classification.cashEquivalentChallenged` | `reviewRequired` for holdings classified as cash or cash equivalent despite having no maturity. |
 
 ## 6. Limitations
 

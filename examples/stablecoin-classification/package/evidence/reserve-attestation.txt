@@ -1,0 +1,5 @@
+Independent accountant's attestation, DUSD reserves as of 2026-06-30
+
+Tokens outstanding: 4,000,000,000 DUSD
+Reserve assets at fair value: 4,012,500,000 USD
+Reserves exceed tokens outstanding.

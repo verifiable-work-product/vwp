@@ -79,6 +79,21 @@
       },
       "additionalProperties": false
     },
+    "subject": {
+      "type": "object",
+      "description": "The exact package content this review examined, stamped by the server (never supplied by the attesting model). A review speaks only for the content it saw: when the package changes afterwards, consumers enforcing a review requirement MUST treat this attestation as stale rather than carrying it forward.",
+      "properties": {
+        "contentDigest": {
+          "type": "string",
+          "description": "Digest of the package CONTENT parts (excluding approvals, renderings and validations) as examined."
+        },
+        "versionHash": {
+          "type": "string",
+          "description": "The package version pinned at review time, when one existed."
+        }
+      },
+      "additionalProperties": true
+    },
     "findings": {
       "type": "array",
       "items": {

@@ -1,0 +1,25 @@
+{
+  "id": "s3_interest_accrual",
+  "type": "digitalAssetLoanInterestAccrual",
+  "inputs": {
+    "accrualEnd": "2026-07-01",
+    "accrualStart": "2026-04-01",
+    "annualRate": 0.05,
+    "asset": "ETH",
+    "currency": "USD",
+    "dayCountBasis": 365,
+    "loanId": "L-2026-04",
+    "priceFact": "s3_f_fee_price",
+    "principalUnits": 100,
+    "termsFact": "s1_f_terms",
+    "unitPrice": 2500
+  },
+  "outputs": {
+    "accruedFairValue": 3116.44,
+    "accruedUnits": 1.2465753425,
+    "days": 91
+  },
+  "method": "accruedUnits = principalUnits x annualRate x days / dayCountBasis; days = accrualEnd - accrualStart; accruedFairValue = accruedUnits x unitPrice at the last accrued day.",
+  "validator": "lending.accrual.recompute",
+  "recomputable": true
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/accounting-asc350-60/crypto-assets.schema.json",
+  "title": "ASC 350-60 Crypto Asset Scope Register",
+  "description": "Extension schema for the vwp-accounting-asc350-60 extension: the scope register at facts/crypto-assets.json. One entry per asset held, recording the six ASC 350-60-15-1 scope criteria as explicit booleans. The validators check that inScope agrees with the criteria and that every out-of-scope asset names its alternative treatment and links a scoping judgment.",
+  "type": "object",
+  "required": ["assets"],
+  "properties": {
+    "description": { "type": "string" },
+    "assets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "asset", "criteria", "inScope"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "asset": { "type": "string", "minLength": 1, "description": "Asset symbol or coin id as used in the roll-forward and holdings calculations." },
+          "chain": { "type": "string" },
+          "criteria": {
+            "type": "object",
+            "description": "The ASC 350-60-15-1 criteria, each answered explicitly.",
+            "required": [
+              "intangibleAsset",
+              "noEnforceableRightsToGoodsOrServices",
+              "distributedLedger",
+              "securedThroughCryptography",
+              "fungible",
+              "notCreatedOrIssuedByReportingEntity"
+            ],
+            "properties": {
+              "intangibleAsset": { "type": "boolean" },
+              "noEnforceableRightsToGoodsOrServices": { "type": "boolean" },
+              "distributedLedger": { "type": "boolean" },
+              "securedThroughCryptography": { "type": "boolean" },
+              "fungible": { "type": "boolean" },
+              "notCreatedOrIssuedByReportingEntity": { "type": "boolean" }
+            },
+            "additionalProperties": false
+          },
+          "inScope": { "type": "boolean", "description": "Must equal the conjunction of the six criteria." },
+          "scopeJudgmentRef": { "type": "string", "description": "Judgment id for the scoping conclusion. Required by the validators for every out-of-scope asset." },
+          "criteriaEvidence": { "type": "array", "items": { "type": "string" }, "description": "Evidence ids supporting the criteria answers (whitepaper, token terms, explorer)." },
+          "outOfScopeTreatment": { "type": "string", "description": "The standard that applies instead (e.g. 'ASC 350-30 indefinite-lived intangible'). Required by the validators when inScope is false." },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

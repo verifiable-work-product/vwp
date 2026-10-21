@@ -1,0 +1,5 @@
+DemoCo Validator Operations (excerpt)
+
+DemoCo operates validator 0xDEMO on the Ethereum consensus layer using its own 32 ETH stake and its own signing keys.
+No third-party staking provider is engaged and no rewards are shared.
+Rewards accrue to the withdrawal address controlled by DemoCo treasury.

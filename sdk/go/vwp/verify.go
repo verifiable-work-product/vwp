@@ -9,6 +9,7 @@ import (
 
 	"golang.org/x/text/unicode/norm"
 
+	"github.com/verifiable-work-product/vwp/sdk/go/vwp/accountingschedule"
 	"github.com/verifiable-work-product/vwp/sdk/go/vwp/schema"
 )
 
@@ -47,6 +48,12 @@ const (
 	ExtensionASC606        = "vwp-accounting-asc606"
 	ExtensionASC820        = "vwp-accounting-asc820"
 	ExtensionWalletControl = "vwp-digital-assets-wallet-ownership-control"
+	ExtensionASC35060      = "vwp-accounting-asc350-60"
+	ExtensionASC35030      = "vwp-accounting-asc350-30"
+	ExtensionStakingReward = "vwp-digital-assets-staking-rewards"
+	ExtensionLending       = "vwp-digital-assets-lending"
+	ExtensionCostBasis     = "vwp-digital-assets-cost-basis"
+	ExtensionStablecoin    = "vwp-digital-assets-stablecoin"
 )
 
 // requiredParts are the parts every valid package must contain.
@@ -162,6 +169,26 @@ func Verify(pkg Source, opts ...VerifyOption) *Report {
 		manifest = &Manifest{}
 	}
 	report.Manifest = manifest
+
+	// Required extension outputs are enforced by core verification even when
+	// the caller has not registered the financial extension validators.
+	verifyRequiredOutputs(pkg, manifest, add)
+
+	// An extension that requires the executable schedule unconditionally
+	// (ASC 606) must carry a valid one; every other package validates the
+	// artifact when it includes one, and the extension's tie-out decides
+	// whether a conditionally required schedule had to be written.
+	if pkg.Has(accountingschedule.ArtifactPath) || requiresAccountingScheduleUnconditionally(manifest.Extension) {
+		raw, err := pkg.Read(accountingschedule.ArtifactPath)
+		if err == nil {
+			_, err = accountingschedule.Parse(raw)
+		}
+		result := ValidationResult{ValidatorId: ValidatorAccountingScheduleValid, Status: StatusPass, Refs: []string{accountingschedule.ArtifactPath}}
+		if err != nil {
+			result.Status, result.Message = StatusFail, err.Error()
+		}
+		add(result)
+	}
 
 	// core.requiredParts.exist
 	var missing []string

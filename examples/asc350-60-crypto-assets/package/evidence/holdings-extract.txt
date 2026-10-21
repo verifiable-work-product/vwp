@@ -1,0 +1,7 @@
+DemoCo digital asset holdings as of 2026-06-30
+
+BTC units held: 10.00000000
+ETH units held: 400.00000000
+WDEMO units held: 5000000.00000000 (DemoCo-issued utility token)
+
+Q2 2026 activity: 100 ETH sold on 2026-05-15 for 250,000.00 USD; no BTC activity.

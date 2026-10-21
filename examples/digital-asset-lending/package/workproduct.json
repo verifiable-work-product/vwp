@@ -1,0 +1,27 @@
+{
+  "id": "wp_demo_digital_asset_lending",
+  "title": "Digital Asset Loan Accounting - DemoCo 100 ETH Loan to Borrower X",
+  "domain": "accounting.lending",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-lending",
+  "standardRefs": [
+    "ASC 860-10-40-5",
+    "ASC 326-20-35-6"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2026-06-30",
+    "start": "2026-04-01"
+  },
+  "conclusionSummary": "DemoCo lent 100 ETH for a 91-day term at 5% in kind; the borrower may rehypothecate, so control was surrendered (ASC 860-10-40-5 by analogy) and the ETH is derecognized for a crypto asset loan receivable measured at the fair value of the ETH to be returned, with a separate ASC 326 allowance. The fee accrues to 1.2466 ETH over the term; collateral of 400,000 USDC, marked daily, covers the 250,000 USD receivable at 1.6x against a 1.5x maintenance requirement, so the ASC 326-20-35-6 collateral maintenance expedient yields no allowance.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

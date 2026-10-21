@@ -1,0 +1,4 @@
+WDEMO Token Terms (excerpt)
+
+1. Issuer. WDEMO is created and issued by DemoCo Inc. on the Demo Chain.
+2. Utility. WDEMO grants holders discounted access to DemoCo services.

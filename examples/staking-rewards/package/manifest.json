@@ -1,0 +1,98 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_staking_rewards",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-staking-rewards",
+  "title": "Staking Rewards Recognition - DemoCo ETH Validator April 2026",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "09036b8cbfc5263429da1646b27105c55bfb539ac57975d81e0bc47948075bae",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "f5847ad019b02b54cb6aa645943cbfda5573f33a2d317dca15e71b5b8f3c5d71",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/validator-rewards.csv",
+      "mediaType": "text/csv",
+      "sha256": "cf1cf8cbd2c2ffb1e3b8a058e1fb85773818103934021121227bff6bf4d3ee56",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "00a78a855597c1b02a7f3f3db8f4e2be1a8a21d9498feee38285e477bd61f1d8",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/eth-daily-prices.csv",
+      "mediaType": "text/csv",
+      "sha256": "4f6fec51a705766646c537d48a407400113c01b8522dd0051f105133eefa08f6",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/staking-terms.txt",
+      "mediaType": "text/plain",
+      "sha256": "6ea674de945e7a9c64db4af12ddfb957dd7738589d03716ce7843a7d539ee3b1",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "435d9cfd7d9b2524b970467360a7d45294ea1940d3d2a623e7ffdc4255a1d357",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "1aabd39d432c984405a36a6e348722899976a7081c054fafdcba4cfd5d838e72",
+      "role": "judgments"
+    },
+    {
+      "path": "calculations/s4_rewards_schedule.json",
+      "mediaType": "application/json",
+      "sha256": "4f1362ef6ea0572f05df7f9e4ef79c909d7c6e51219fd2f7a7c356d2725a03ad",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule-calculation.json",
+      "mediaType": "application/json",
+      "sha256": "d4d1ba6774c0984f567467c272741b121a10fe350aab81acbb1775dad336e1ae",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "sha256": "4acb57efc0f61dde6b29f52b87ccb6a91ebd81c425b6a4f83cb5dc73ceac5955",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "f79b148b98c35e3e6aef4966c63b822c17d4c45c38940559f8c95a5d2cc756d5",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "27f98b98d7c8c6c694bc6215c24528a45d7b622bbc1615d4b6d065d78189de2b",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "f2feaa9a7d16d71c94a5d3bedee2e52f0b847295a43db3b72b33a1ca9457516f",
+    "role": "provenance"
+  }
+}

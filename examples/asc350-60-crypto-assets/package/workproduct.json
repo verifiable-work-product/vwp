@@ -1,0 +1,27 @@
+{
+  "id": "wp_demo_asc350_60_crypto_assets",
+  "title": "ASC 350-60 Crypto Asset Accounting - DemoCo Q2 2026",
+  "domain": "accounting.cryptoAssets",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc350-60",
+  "standardRefs": [
+    "ASC 350-60",
+    "ASC 350-30-30-1"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2026-06-30",
+    "start": "2026-04-01"
+  },
+  "conclusionSummary": "BTC and ETH are in scope of ASC 350-60 and measured at fair value; the self-issued WDEMO token is out of scope. The Q2 roll-forward ties from 1,850,000 USD to 1,550,000 USD and both holdings are significant for disclosure.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

@@ -2,7 +2,6 @@ package vwp_test
 
 import (
 	"encoding/json"
-	"io/fs"
 	"os"
 	"path/filepath"
 	"strings"
@@ -20,8 +19,10 @@ func statuses(r *vwp.Report) map[string]vwp.Status {
 	return out
 }
 
-// repoRoot locates the repository root from this package directory; test
-// fixtures are the repository's own examples/ and testdata/ trees.
+// repoRoot is where the fixture trees live (examples/<name>/package,
+// testdata/valid, testdata/invalid): the repository root in the canonical VWP
+// checkout, the mirrored testdata/ tree in the Bitwave monorepo. The test
+// files are identical in both apart from this constant.
 const repoRoot = "../../.."
 
 func fixturePath(parts ...string) string {
@@ -41,32 +42,10 @@ func openFixture(t *testing.T, parts ...string) vwp.Source {
 func copyFixture(t *testing.T, parts ...string) string {
 	t.Helper()
 	dst := t.TempDir()
-	copyDir(t, fixturePath(parts...), dst)
-	return dst
-}
-
-// copyDir is a minimal recursive copy (os.CopyFS needs go 1.23; this module
-// targets go 1.22).
-func copyDir(t *testing.T, src, dst string) {
-	t.Helper()
-	srcFS := os.DirFS(src)
-	err := fs.WalkDir(srcFS, ".", func(rel string, d fs.DirEntry, err error) error {
-		if err != nil {
-			return err
-		}
-		target := filepath.Join(dst, filepath.FromSlash(rel))
-		if d.IsDir() {
-			return os.MkdirAll(target, 0o755)
-		}
-		data, err := fs.ReadFile(srcFS, rel)
-		if err != nil {
-			return err
-		}
-		return os.WriteFile(target, data, 0o644)
-	})
-	if err != nil {
+	if err := os.CopyFS(dst, os.DirFS(fixturePath(parts...))); err != nil {
 		t.Fatalf("copy fixture: %v", err)
 	}
+	return dst
 }
 
 func mustResult(t *testing.T, r *vwp.Report, validatorId string) vwp.ValidationResult {
@@ -156,8 +135,10 @@ func TestGoldenASC820Example(t *testing.T) {
 	if level3.Status != vwp.StatusPass || level3.Message != "1 level3 measurement links a hierarchy/unobservable-inputs judgment" {
 		t.Errorf("level3 = %s %q", level3.Status, level3.Message)
 	}
-	if _, ok := report.Result("asc820.measurements.present"); ok {
-		t.Error("measurements.present should only be reported on failure")
+	// Unlike the reference CLI, presence is reported on success as well so
+	// a completion contract can require it.
+	if res, ok := report.Result("asc820.measurements.present"); !ok || res.Status != vwp.StatusPass {
+		t.Errorf("measurements.present = %+v, want pass", res)
 	}
 }
 

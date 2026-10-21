@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "name": "Loan L-2026-04 fee accrual, Q2 2026",
+  "kind": "interest_accrual",
+  "currency": "USD",
+  "amountScale": 2,
+  "startDate": "2026-04-01",
+  "endDate": "2026-06-30",
+  "totalAmount": "3116.44",
+  "entries": [
+    {
+      "id": "L-2026-04-2026-06-30",
+      "date": "2026-06-30",
+      "description": "1.2466 ETH fee accrued 2026-04-01 to 2026-06-30 at 2,500.00",
+      "obligationId": "L-2026-04",
+      "postings": [
+        {
+          "accountRole": "interest_receivable",
+          "debit": "3116.44"
+        },
+        {
+          "accountRole": "interest_income",
+          "credit": "3116.44"
+        }
+      ]
+    }
+  ]
+}

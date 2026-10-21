@@ -1,0 +1,28 @@
+{
+  "id": "wp_demo_stablecoin_classification",
+  "title": "Stablecoin Classification - DemoCo Holdings at 2026-06-30",
+  "domain": "accounting.stablecoins",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-stablecoin",
+  "standardRefs": [
+    "ASC 305-10-20",
+    "ASC 230-10-20",
+    "ASC 350-60-15-1"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2026-06-30",
+    "start": "2026-04-01"
+  },
+  "conclusionSummary": "DUSD held directly with issuer redemption rights at par is a financial asset — a receivable-like claim on the issuer — in both wallets, not cash or a cash equivalent (it has no maturity; AICPA Practice Aid view); XEUR, an algorithmic token with no redemption right, is an ASC 350-60 crypto asset at fair value.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

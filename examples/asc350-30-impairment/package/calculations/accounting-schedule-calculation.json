@@ -1,0 +1,42 @@
+{
+  "id": "s4_accounting_schedule",
+  "type": "accountingSchedule",
+  "inputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "derivedFrom": [
+      "s4_impairment_test"
+    ]
+  },
+  "outputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "endDate": "2026-06-30",
+    "entries": [
+      {
+        "date": "2026-06-30",
+        "description": "Impairment of DemoPunks #4821 to fair value",
+        "id": "NFT-001-2026-06-30",
+        "obligationId": "NFT-001",
+        "postings": [
+          {
+            "accountRole": "impairment_loss",
+            "debit": "15000.00"
+          },
+          {
+            "accountRole": "intangible_asset",
+            "credit": "15000.00"
+          }
+        ]
+      }
+    ],
+    "kind": "impairment",
+    "name": "2026-06-30 NFT impairment",
+    "schemaVersion": 1,
+    "startDate": "2026-06-30",
+    "totalAmount": "15000.00"
+  },
+  "method": "Executable entries derived from s4_impairment_test; amounts at amountScale, balanced semantic account-role postings.",
+  "validator": "asc35030.accountingSchedule.tieOut",
+  "recomputable": true
+}

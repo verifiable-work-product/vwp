@@ -1,0 +1,115 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "rightsAndObligations"
+      ],
+      "conclusion": "Instrument terms established from issuer and protocol documentation.",
+      "domain": "finance",
+      "id": "s1_c_terms",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 305-10-20"
+      ],
+      "statement": "DUSD carries a direct, at-par, T+1 redemption right for verified customers backed by short-dated reserves; XEUR carries no redemption right.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_dusd_terms",
+        "ev_xeur_docs",
+        "ev_reserve_attestation"
+      ],
+      "supportingFacts": [
+        "s1_f_dusd_redemption",
+        "s1_f_dusd_settlement",
+        "s1_f_dusd_reserves",
+        "s1_f_xeur_no_redemption"
+      ]
+    },
+    {
+      "assertions": [
+        "rightsAndObligations"
+      ],
+      "conclusion": "Scope split by redemption right.",
+      "domain": "finance",
+      "id": "s2_c_scope",
+      "judgments": [
+        "s2_j_dusd_scope",
+        "s3_j_xeur_class"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-60-15-1"
+      ],
+      "statement": "DUSD is outside ASC 350-60 because of its enforceable redemption right; XEUR is within ASC 350-60.",
+      "status": "supported",
+      "supportingFacts": [
+        "s1_f_dusd_redemption",
+        "s1_f_xeur_no_redemption"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure",
+        "valuationAllocation"
+      ],
+      "conclusion": "Classification consistent across wallets.",
+      "domain": "finance",
+      "id": "s3_c_classification",
+      "judgments": [
+        "s3_j_dusd_class",
+        "s3_j_xeur_class"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 230-10-20",
+        "ASC 310-10-20",
+        "ASC 350-60-35-1"
+      ],
+      "statement": "All 1,250,000 DUSD is a financial asset (a receivable-like claim on the issuer at par), not cash or a cash equivalent; 100,000 XEUR is a crypto asset at fair value.",
+      "status": "supported",
+      "supportingFacts": [
+        "s1_f_balances"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Measurement follows classification.",
+      "domain": "finance",
+      "id": "s4_c_measurement",
+      "judgments": [
+        "s3_j_dusd_class"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 326-20-30",
+        "ASC 350-60-35-1"
+      ],
+      "statement": "DUSD is carried at par as a receivable with a nil ASC 326 allowance given attested over-reserving and T+1 settlement; XEUR is remeasured at fair value through net income.",
+      "status": "supported",
+      "supportingFacts": [
+        "s1_f_dusd_reserves"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "Presentation per ASC 210, ASC 230 and ASC 275.",
+      "domain": "finance",
+      "id": "s5_c_presentation",
+      "judgments": [
+        "s3_j_dusd_class"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 210-10-45",
+        "ASC 230-10-45",
+        "ASC 275-10-50"
+      ],
+      "statement": "DUSD is presented as a separate financial asset line (stablecoin receivable), outside cash and cash equivalents, and XEUR within crypto assets; the stablecoin concentration with one issuer is disclosed.",
+      "status": "supported"
+    }
+  ]
+}

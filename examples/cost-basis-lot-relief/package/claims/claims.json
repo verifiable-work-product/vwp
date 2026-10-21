@@ -1,0 +1,112 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "Method elected and documented.",
+      "domain": "finance",
+      "id": "s1_c_policy",
+      "judgments": [
+        "s1_j_method"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-60-50-2",
+        "Treas. Reg. 1.1012-1(j)"
+      ],
+      "statement": "DemoCo's cost basis method is FIFO applied wallet by wallet, disclosed under ASC 350-60-50-2.",
+      "status": "supported",
+      "supportingFacts": [
+        "s1_f_method"
+      ]
+    },
+    {
+      "assertions": [
+        "completeness"
+      ],
+      "conclusion": "Lot population complete from the subledger.",
+      "domain": "finance",
+      "id": "s2_c_lots",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-60-50-2"
+      ],
+      "statement": "The lot population at 2025-01-01 is three lots acquired in 2024 totalling 4 BTC with 190,000 USD of basis: L1 and L2 in W-A, L3 in W-B.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_lot_ledger"
+      ],
+      "supportingFacts": [
+        "s2_f_lot1",
+        "s2_f_lot2",
+        "s2_f_lot3"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Relief follows FIFO within the wallet and conserves units.",
+      "domain": "finance",
+      "id": "s3_c_relief",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 610-20-40-1",
+        "Treas. Reg. 1.1012-1(j)"
+      ],
+      "statement": "Disposal D1 relieves L1 in full and 0.5 BTC of L2 under FIFO within wallet W-A, for 105,000 USD of basis; wallet W-B had no disposals.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_lot_relief",
+        "s3_lot_relief_wb"
+      ],
+      "supportingFacts": [
+        "s3_f_disposal"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation",
+        "occurrence"
+      ],
+      "conclusion": "Gain recomputes.",
+      "domain": "finance",
+      "id": "s4_c_gain",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-60-45-2",
+        "ASC 350-60-50-3"
+      ],
+      "statement": "The realized gain on D1 is 57,500 USD (proceeds 162,500 less basis 105,000).",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_lot_relief"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Allocation ties to the pre-2025 lot population.",
+      "domain": "finance",
+      "id": "s5_c_wallet_allocation",
+      "judgments": [
+        "s1_j_method"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "Rev. Proc. 2024-28",
+        "Treas. Reg. 1.1012-1(j)"
+      ],
+      "statement": "Under the Rev. Proc. 2024-28 specific unit allocation recorded on 2024-12-20, the 190,000 USD of unused basis on 4 BTC held at 2025-01-01 is allocated 130,000 USD to W-A (3 BTC) and 60,000 USD to W-B (1 BTC); no unit acquired on or after 2025-01-01 is in the allocation.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s5_wallet_allocation"
+      ],
+      "supportingFacts": [
+        "s5_f_allocation_record"
+      ]
+    }
+  ]
+}

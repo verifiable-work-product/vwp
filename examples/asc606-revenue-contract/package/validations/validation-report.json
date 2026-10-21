@@ -25,6 +25,30 @@
       "message": "Revenue schedule total of 300,000 USD equals allocated consideration."
     },
     {
+      "id": "v_required_outputs",
+      "validator": "core.requiredOutputs.exist",
+      "scope": "manifest.json",
+      "status": "pass",
+      "severity": "high",
+      "message": "The SSP allocation, recognition CSV, and version-1 accounting schedule are present at their canonical paths and declared as hashed calculation parts."
+    },
+    {
+      "id": "v_accounting_schedule_valid",
+      "validator": "accountingSchedule.valid",
+      "scope": "calculations/accounting-schedule.json",
+      "status": "pass",
+      "severity": "high",
+      "message": "The version-1 accounting schedule has explicit dates, exact decimal amounts, and balanced posting lines."
+    },
+    {
+      "id": "v_accounting_schedule_tieout",
+      "validator": "asc606.accountingSchedule.tieOut",
+      "scope": "calculations/accounting-schedule.json",
+      "status": "pass",
+      "severity": "high",
+      "message": "Accounting schedule amounts match the SSP allocation and every obligation/month amount in the recognition CSV."
+    },
+    {
       "id": "v_judgments_review",
       "validator": "finance.requiredJudgments.complete",
       "scope": "j_impl_distinct",
@@ -32,7 +56,9 @@
       "severity": "medium",
       "message": "Judgment j_impl_distinct (implementation services distinctness) requires review by revenue-manager.",
       "details": {
-        "judgmentIds": ["j_impl_distinct"]
+        "judgmentIds": [
+          "j_impl_distinct"
+        ]
       }
     }
   ]

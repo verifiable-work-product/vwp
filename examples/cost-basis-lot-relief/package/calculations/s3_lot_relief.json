@@ -1,0 +1,64 @@
+{
+  "id": "s3_lot_relief",
+  "type": "lotRelief",
+  "inputs": {
+    "asset": "BTC",
+    "currency": "USD",
+    "disposals": [
+      {
+        "date": "2025-03-20",
+        "disposalId": "D1",
+        "proceeds": 162500,
+        "reliefs": [
+          {
+            "lotId": "L1",
+            "units": 2
+          },
+          {
+            "lotId": "L2",
+            "units": 0.5
+          }
+        ],
+        "units": 2.5
+      }
+    ],
+    "lots": [
+      {
+        "acquiredAt": "2024-06-15",
+        "costBasis": 80000,
+        "lotId": "L1",
+        "units": 2,
+        "wallet": "W-A"
+      },
+      {
+        "acquiredAt": "2024-09-10",
+        "costBasis": 50000,
+        "lotId": "L2",
+        "units": 1,
+        "wallet": "W-A"
+      }
+    ],
+    "method": "FIFO",
+    "pool": "W-A"
+  },
+  "outputs": {
+    "disposals": [
+      {
+        "basisRelieved": 105000,
+        "disposalId": "D1",
+        "realizedGainLoss": 57500
+      }
+    ],
+    "remainingLots": [
+      {
+        "costBasis": 25000,
+        "lotId": "L2",
+        "units": 0.5
+      }
+    ],
+    "totalRealizedGainLoss": 57500
+  },
+  "method": "FIFO within wallet W-A: D1 relieves L1 (2 BTC, 80,000) then 0.5 BTC of L2 (25,000). basisRelieved = sum(units x lot unit basis); gain = proceeds - basisRelieved.",
+  "validator": "costBasis.lotRelief.recompute",
+  "recomputable": true
+}

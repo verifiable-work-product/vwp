@@ -1,0 +1,28 @@
+{
+  "evidence": [
+    {
+      "id": "ev_validator_rewards",
+      "path": "evidence/validator-rewards.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Validator reward receipts, April 2026 (beacon-chain export) (synthetic)",
+      "type": "chainRecord"
+    },
+    {
+      "id": "ev_eth_prices",
+      "path": "evidence/eth-daily-prices.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "ETH daily closing prices, April 2026 (synthetic)",
+      "type": "pricingRecord"
+    },
+    {
+      "id": "ev_staking_terms",
+      "path": "evidence/staking-terms.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Validator operations memo (synthetic)",
+      "type": "contractDocument"
+    }
+  ]
+}

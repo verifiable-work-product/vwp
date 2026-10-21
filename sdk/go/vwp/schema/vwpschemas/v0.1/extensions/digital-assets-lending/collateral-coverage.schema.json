@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/digital-assets-lending/collateral-coverage.schema.json",
+  "title": "Digital Asset Loan Collateral Coverage",
+  "description": "Extension schema for the vwp-digital-assets-lending extension. Constrains a core calculation object of type 'collateralCoverage': the receivable's carrying amount before allowance against the fair value of collateral held, the contractual required coverage ratio, and three distinct outputs \u2014 the coverage ratio, the margin SHORTFALL against the contractual requirement (a margin-call measure, never the allowance), and the UNSECURED PORTION (carrying amount less collateral fair value, floored at zero), which is the expected credit loss basis under the ASC 326-20-35-6 collateral maintenance expedient. Located by type under calculations/.",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "inputs",
+    "outputs"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "const": "collateralCoverage"
+    },
+    "inputs": {
+      "type": "object",
+      "required": [
+        "loanFairValue",
+        "collateralFairValue",
+        "requiredCoverageRatio"
+      ],
+      "properties": {
+        "currency": {
+          "type": "string"
+        },
+        "asOf": {
+          "type": "string"
+        },
+        "loanFairValue": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "The receivable's carrying amount before any allowance (its fair value under the SEC staff / AICPA model)."
+        },
+        "collateralFairValue": {
+          "type": "number",
+          "minimum": 0
+        },
+        "requiredCoverageRatio": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Contractual minimum collateral-to-loan ratio, e.g. 1.2."
+        },
+        "loanId": {
+          "type": "string"
+        },
+        "loanFairValueFact": {
+          "type": "string",
+          "description": "Fact id the loan fair value is taken from; checked against the fact's value when present."
+        },
+        "collateralFairValueFact": {
+          "type": "string",
+          "description": "Fact id the collateral fair value is taken from; checked when present."
+        },
+        "requiredCoverageRatioFact": {
+          "type": "string",
+          "description": "Fact id the required ratio is taken from; checked when present."
+        }
+      },
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "required": [
+        "coverageRatio",
+        "shortfall",
+        "unsecuredPortion",
+        "adequatelyCollateralized"
+      ],
+      "properties": {
+        "coverageRatio": {
+          "type": "number",
+          "minimum": 0
+        },
+        "shortfall": {
+          "type": "number",
+          "minimum": 0,
+          "description": "max(0, loanFairValue \u00d7 requiredCoverageRatio \u2212 collateralFairValue): how much collateral the borrower must post to be back at the contractual ratio. A margin-call measure \u2014 NOT the allowance."
+        },
+        "adequatelyCollateralized": {
+          "type": "boolean"
+        },
+        "unsecuredPortion": {
+          "type": "number",
+          "minimum": 0,
+          "description": "max(0, loanFairValue \u2212 collateralFairValue): the portion of the carrying amount not covered by collateral fair value. Under ASC 326-20-35-6 expected credit losses are measured on this amount (zero when collateral covers the carrying amount)."
+        }
+      },
+      "additionalProperties": true
+    },
+    "roundingTolerance": {
+      "type": "number",
+      "minimum": 0
+    },
+    "method": {
+      "type": "string"
+    },
+    "validator": {
+      "type": "string"
+    },
+    "recomputable": {
+      "type": "boolean"
+    }
+  }
+}

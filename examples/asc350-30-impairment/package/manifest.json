@@ -1,0 +1,92 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_asc350_30_impairment",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc350-30",
+  "title": "ASC 350-30 Impairment Test - DemoCo NFT Holdings Q2 2026",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "f6e96b6c0795e60d2ebfe3a5dbd378f413186373f2c641ea8ad8b0a80536a2a9",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "1089e5fc2faa8dba05c00793502f479f46b0e686c9e14606bbf31c83c462a9d2",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/nft-lot-register.txt",
+      "mediaType": "text/plain",
+      "sha256": "afa1e4ad2b4b8e0111315199dfb9a6c68fdf22fc37f34578d0e5d0d882b2c496",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "4fe7d5907cc3bf4fc4e19134a3560f8e7aa07fd1351cadc2c1c1a82287470b85",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/floor-price-observations.csv",
+      "mediaType": "text/csv",
+      "sha256": "201a912f0a8bcd94ddbd681a768d98238704535cbec034f01298e5ee06684d6d",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "22034f85fb600721d817df02de5394e3af00eb59a070bdedf95f0caa8c54fdf8",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "f94063197b0d5b659b7ccb44586055f604d887ae1f266815849fcad69e07b853",
+      "role": "judgments"
+    },
+    {
+      "path": "calculations/s4_impairment_test.json",
+      "mediaType": "application/json",
+      "sha256": "2c9827cfdd80f5cce3ca990c9fc88fcba0f3cf7017a59d161bad86b3672c5d82",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule-calculation.json",
+      "mediaType": "application/json",
+      "sha256": "2f17b0c74dfb556f280c500593948523c423d6c857c18b3fd5953db90c37566c",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "sha256": "306ecf97eeafdecc36f7fcb656bf54fea8099d2a1144bfe278a45586167d8151",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "d63066d9fa4db589c3f8fe1d093b763028733fd43d18f481ebc97ff6d0c0f842",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "7835eeb256bcb4e1fcf1a5b78d0962c016ba248f495c291026c3a8759569ff69",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "20e68917e43bb6925a3b793b9cfbd473ecae4085a48e61579b9de149c64a4490",
+    "role": "provenance"
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "validations": [
+    {
+      "id": "v_001",
+      "validator": "core.package.safePaths",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_002",
+      "validator": "core.manifest.exists",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_003",
+      "validator": "core.manifest.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_004",
+      "validator": "core.requiredOutputs.exist",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_005",
+      "validator": "accountingSchedule.valid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_006",
+      "validator": "core.requiredParts.exist",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_007",
+      "validator": "core.partHashes.match",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_008",
+      "validator": "core.workproduct.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_009",
+      "validator": "core.claims.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_010",
+      "validator": "core.provenance.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_011",
+      "validator": "core.evidence.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_012",
+      "validator": "core.facts.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_013",
+      "validator": "core.judgments.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_014",
+      "validator": "core.evidenceRefs.resolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_015",
+      "validator": "core.externalRefs.wellFormed",
+      "scope": "package",
+      "status": "notRun",
+      "message": "no external retrieval metadata declared"
+    },
+    {
+      "id": "v_016",
+      "validator": "core.factAnchors.quotesMatch",
+      "scope": "package",
+      "status": "pass",
+      "message": "6 quote anchors verified"
+    },
+    {
+      "id": "v_017",
+      "validator": "core.claimRefs.resolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_018",
+      "validator": "core.signatures.present",
+      "scope": "package",
+      "status": "warning",
+      "message": "no package signature found"
+    },
+    {
+      "id": "v_019",
+      "validator": "finance.claims.haveAssertions",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_020",
+      "validator": "finance.claims.haveSupport",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_021",
+      "validator": "finance.requiredJudgments.complete",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_022",
+      "validator": "asc35060.scope.registerPresent",
+      "scope": "package",
+      "status": "pass",
+      "message": "3 assets in scope register"
+    },
+    {
+      "id": "v_023",
+      "validator": "asc35060.scope.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_024",
+      "validator": "asc35060.scope.consistent",
+      "scope": "package",
+      "status": "pass",
+      "message": "3 assets: inScope agrees with the criteria; out-of-scope assets name their treatment"
+    },
+    {
+      "id": "v_025",
+      "validator": "asc35060.scope.judgmentLinked",
+      "scope": "package",
+      "status": "pass",
+      "message": "every out-of-scope asset links a resolvable scoping judgment"
+    },
+    {
+      "id": "v_026",
+      "validator": "asc35060.rollForward.schemaValid",
+      "scope": "package",
+      "status": "pass",
+      "message": "calculations/s3_roll_forward.json"
+    },
+    {
+      "id": "v_027",
+      "validator": "asc35060.rollForward.tieOut",
+      "scope": "package",
+      "status": "pass",
+      "message": "1 roll-forward(s) tie and chain by scope and period"
+    },
+    {
+      "id": "v_028",
+      "validator": "asc35060.rollForward.assetsInScope",
+      "scope": "package",
+      "status": "pass",
+      "message": "every roll-forward line is an in-scope asset"
+    },
+    {
+      "id": "v_029",
+      "validator": "asc35060.accountingSchedule.tieOut",
+      "scope": "package",
+      "status": "pass",
+      "message": "2 entries tie to 1 calculation(s) as fair_value_remeasurement in USD"
+    },
+    {
+      "id": "v_030",
+      "validator": "asc35060.significantHoldings.schemaValid",
+      "scope": "package",
+      "status": "pass",
+      "message": "calculations/s5_significant_holdings.json"
+    },
+    {
+      "id": "v_031",
+      "validator": "asc35060.significantHoldings.tieOut",
+      "scope": "package",
+      "status": "pass",
+      "message": "significant and other fair value and cost basis recompute from the holdings; total fair value 1550000"
+    },
+    {
+      "id": "v_032",
+      "validator": "asc35060.significantHoldings.assetsInScope",
+      "scope": "package",
+      "status": "pass",
+      "message": "every holding is an in-scope asset"
+    },
+    {
+      "id": "v_033",
+      "validator": "asc35060.significantHoldings.tiesToRollForward",
+      "scope": "package",
+      "status": "pass",
+      "message": "every holdings table reconciles per asset to the roll-forward closing on its date; total 1550000"
+    }
+  ]
+}

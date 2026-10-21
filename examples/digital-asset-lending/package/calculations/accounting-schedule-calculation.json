@@ -1,0 +1,42 @@
+{
+  "id": "s3_accounting_schedule",
+  "type": "accountingSchedule",
+  "inputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "derivedFrom": [
+      "s3_interest_accrual"
+    ]
+  },
+  "outputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "endDate": "2026-06-30",
+    "entries": [
+      {
+        "date": "2026-06-30",
+        "description": "1.2466 ETH fee accrued 2026-04-01 to 2026-06-30 at 2,500.00",
+        "id": "L-2026-04-2026-06-30",
+        "obligationId": "L-2026-04",
+        "postings": [
+          {
+            "accountRole": "interest_receivable",
+            "debit": "3116.44"
+          },
+          {
+            "accountRole": "interest_income",
+            "credit": "3116.44"
+          }
+        ]
+      }
+    ],
+    "kind": "interest_accrual",
+    "name": "Loan L-2026-04 fee accrual, Q2 2026",
+    "schemaVersion": 1,
+    "startDate": "2026-04-01",
+    "totalAmount": "3116.44"
+  },
+  "method": "Executable entries derived from s3_interest_accrual; amounts at amountScale, balanced semantic account-role postings.",
+  "validator": "lending.accountingSchedule.tieOut",
+  "recomputable": true
+}

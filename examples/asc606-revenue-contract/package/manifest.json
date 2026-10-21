@@ -74,13 +74,13 @@
       "path": "calculations/revenue-schedule.csv",
       "mediaType": "text/csv",
       "role": "calculation",
-      "sha256": "7d66adb4d39c991845a2ed34c6530b6a65447fb35b6d46c94f66efcd9ede921c"
+      "sha256": "970c3383357c61da57465eadc66c6a14b47044f2c5fe4b157b13f567ab97526a"
     },
     {
       "path": "validations/validation-report.json",
       "mediaType": "application/json",
       "role": "validations",
-      "sha256": "094a226d3c8cbe79867733462c1174d5d7e6518fde73396667f7f2cca0f134ae"
+      "sha256": "4cabc9e33b911e8ecdb25500297c2383f35b23af4653d332d23e590996fa6056"
     },
     {
       "path": "approvals/approvals.json",
@@ -99,6 +99,12 @@
       "mediaType": "text/markdown",
       "role": "rendering",
       "sha256": "7df4056e5673f33240413ae04072907944adf8c689baacedf4fc645fa4e2dd14"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "role": "calculation",
+      "sha256": "a5527571bb5aa8a6581949a643df49afc2a54ad0bdc31f5ba5663cb6a760ad4b"
     }
   ]
 }

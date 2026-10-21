@@ -38,6 +38,7 @@ func ASC820(pkg vwp.Source, ctx *vwp.ExtensionContext) []vwp.ValidationResult {
 		})
 		return results
 	}
+	add(vwp.ValidationResult{ValidatorId: ValidatorASC820MeasurementsPresent, Status: vwp.StatusPass, Message: fairValueRegisterPath + " present"})
 	errs, err := schema.ValidateExtension(fairValueRegisterSchemaRef, registerDoc)
 	if err != nil {
 		errs = []string{err.Error()}

@@ -1,0 +1,36 @@
+{
+  "judgments": [
+    {
+      "alternatives": [
+        {
+          "conclusion": "Finite-lived intangible amortized over a licence term",
+          "notes": "Rejected: the licence has no term and no economic factor limits the useful life."
+        }
+      ],
+      "basis": "Token terms and licence (collection documentation); ASC 350-60-15-1(e); ASC 350-30-35-1 to 35-4 useful-life factors; ASC 350-30-35-18 impairment of indefinite-lived intangibles.",
+      "id": "s1_j_scope",
+      "proposedConclusion": "Each NFT conveys only ownership of the token and a non-exclusive display licence; no right to goods, services, royalties or other assets. They fail ASC 350-60-15-1(e) (not fungible) and are intangible assets under ASC 350-30 with an indefinite useful life (ASC 350-30-35-4: no legal, contractual or economic limit), so they are carried at cost less impairment and tested under ASC 350-30-35-18.",
+      "question": "What rights does each NFT convey, which standard applies, and is the useful life indefinite?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "Standard, rights and useful life of the NFT holdings"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Period-end floor price only",
+          "notes": "Rejected: an impairment indicator during the period cannot be reversed by a later recovery (ASC 350-30-35-20)."
+        }
+      ],
+      "basis": "ASC 350-30-35-19 compares carrying amount to fair value; ASC 820 principal-market pricing; floor price is the most representative observable input for a unique asset.",
+      "id": "s3_j_fair_value_basis",
+      "proposedConclusion": "The lowest observable floor price for the collection during the period on the principal marketplace, consistent with the practice of testing at the lowest intraday observable price.",
+      "question": "Which observable price is the fair value for the impairment test of each NFT?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Fair value basis for the impairment test"
+    }
+  ]
+}

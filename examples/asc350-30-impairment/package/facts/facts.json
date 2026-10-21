@@ -1,0 +1,99 @@
+{
+  "facts": [
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Each NFT is unique and non-fungible."
+            }
+          ],
+          "evidenceId": "ev_nft_register"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_non_fungible",
+      "requiresReview": false,
+      "statement": "Each NFT held is unique and non-fungible.",
+      "value": "non-fungible"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Lot NFT-001: DemoPunks #4821, carrying amount 40,000.00 USD"
+            }
+          ],
+          "evidenceId": "ev_nft_register"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s2_f_lot1_carrying",
+      "requiresReview": false,
+      "statement": "Lot NFT-001 has a carrying amount of 40,000.00 USD.",
+      "value": 40000
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Lot NFT-002: DemoApes #77, carrying amount 15,000.00 USD"
+            }
+          ],
+          "evidenceId": "ev_nft_register"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s2_f_lot2_carrying",
+      "requiresReview": false,
+      "statement": "Lot NFT-002 has a carrying amount of 15,000.00 USD.",
+      "value": 15000
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "NFT-001,DemoPunks,25000.00,2026-05-21T14:05:00Z,demo-marketplace"
+            }
+          ],
+          "evidenceId": "ev_floor_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s3_f_lot1_fv",
+      "requiresReview": false,
+      "statement": "The lowest observed floor price for NFT-001's collection in Q2 2026 was 25,000.00 USD.",
+      "value": 25000
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "NFT-002,DemoApes,18000.00,2026-06-02T09:30:00Z,demo-marketplace"
+            }
+          ],
+          "evidenceId": "ev_floor_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s3_f_lot2_fv",
+      "requiresReview": false,
+      "statement": "The lowest observed floor price for NFT-002's collection in Q2 2026 was 18,000.00 USD.",
+      "value": 18000
+    }
+  ]
+}

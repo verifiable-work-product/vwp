@@ -1,0 +1,45 @@
+{
+  "id": "s4_impairment_test",
+  "type": "indefiniteLivedIntangibleImpairmentTest",
+  "inputs": {
+    "currency": "USD",
+    "fairValueBasis": "lowest observable floor price in the principal market during Q2 2026",
+    "lots": [
+      {
+        "asset": "DemoPunks #4821",
+        "carryingAmount": 40000,
+        "fairValue": 25000,
+        "fairValueFact": "s3_f_lot1_fv",
+        "lotId": "NFT-001",
+        "units": 1
+      },
+      {
+        "asset": "DemoApes #77",
+        "carryingAmount": 15000,
+        "fairValue": 18000,
+        "fairValueFact": "s3_f_lot2_fv",
+        "lotId": "NFT-002",
+        "units": 1
+      }
+    ],
+    "testDate": "2026-06-30"
+  },
+  "outputs": {
+    "lots": [
+      {
+        "carryingAmountAfter": 25000,
+        "impairmentLoss": 15000,
+        "lotId": "NFT-001"
+      },
+      {
+        "carryingAmountAfter": 15000,
+        "impairmentLoss": 0,
+        "lotId": "NFT-002"
+      }
+    ],
+    "totalImpairmentLoss": 15000
+  },
+  "method": "Per lot: impairmentLoss = max(0, carryingAmount - fairValue); carryingAmountAfter = carryingAmount - impairmentLoss (ASC 350-30-35-19).",
+  "validator": "asc35030.impairment.recompute",
+  "recomputable": true
+}

@@ -16,6 +16,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"regexp"
 	"strings"
 	"time"
 
@@ -174,6 +175,42 @@ func reopenScaffold(dir string, want *vwp.Manifest, cfg ScaffoldConfig) (*Builde
 	return b, nil
 }
 
+// SetIdentity renames the package and records an extension it was scaffolded
+// without, in both the manifest and workproduct.json. It is how a package
+// started before its template was chosen takes on the template's identity.
+// An empty title keeps the current one; an extension can be added but never
+// swapped for another (it decides which validators define done), so a
+// different existing extension is ErrConflict.
+func (b *Builder) SetIdentity(title, extension string) error {
+	if extension != "" && b.manifest.Extension != "" && b.manifest.Extension != extension {
+		return fmt.Errorf("%w: package extension is %s, not %s", ErrConflict, b.manifest.Extension, extension)
+	}
+	var wp vwp.Workproduct
+	if err := readJSONFile(b.path(vwp.WorkproductPath), &wp); err != nil {
+		return err
+	}
+	if title != "" {
+		b.manifest.Title = title
+		wp.Title = title
+	}
+	if extension != "" {
+		b.manifest.Extension = extension
+		wp.Extension = extension
+	}
+	if err := validateObject(schema.Workproduct, wp); err != nil {
+		return err
+	}
+	data, err := vwp.EncodeJSON(wp)
+	if err != nil {
+		return err
+	}
+	if err := b.writePart(vwp.WorkproductPath, data); err != nil {
+		return err
+	}
+	b.upsertManifestPart(vwp.WorkproductPath, "application/json", RoleWorkproduct, vwp.SHA256Hex(data))
+	return b.saveManifest()
+}
+
 // Open opens an existing unpacked package directory for editing. The
 // directory must contain a parseable manifest.json.
 func Open(dir string) (*Builder, error) {
@@ -272,12 +309,22 @@ func (b *Builder) AddValidation(v vwp.Validation) error {
 // CalculationOption configures AddCalculation.
 type CalculationOption func(*calcConfig)
 
-type calcConfig struct{ path string }
+type calcConfig struct {
+	path    string
+	replace bool
+}
 
 // WithCalculationPath overrides the calculation part path (default
 // calculations/<id>.json).
 func WithCalculationPath(relPath string) CalculationOption {
 	return func(c *calcConfig) { c.path = relPath }
+}
+
+// ReplaceExisting lets AddCalculation overwrite a calculation already stored
+// at its path instead of returning ErrConflict: a corrected recompute
+// supersedes the earlier attempt rather than sitting beside it.
+func ReplaceExisting() CalculationOption {
+	return func(c *calcConfig) { c.replace = true }
 }
 
 // AddCalculation writes a calculation as its own JSON part under
@@ -293,6 +340,9 @@ func (b *Builder) AddCalculation(c vwp.Calculation, opts ...CalculationOption) e
 	data, err := vwp.EncodeJSON(c)
 	if err != nil {
 		return err
+	}
+	if cfg.replace {
+		return b.ReplaceFilePart(cfg.path, "application/json", RoleCalculation, data)
 	}
 	return b.putFilePart(cfg.path, "application/json", RoleCalculation, data)
 }
@@ -322,6 +372,19 @@ func (b *Builder) AddFilePart(relPath, mediaType, role string, content []byte) e
 	return b.putFilePart(relPath, mediaType, role, content)
 }
 
+// ReplaceFilePart writes an opaque part, overwriting any existing content at
+// relPath, and indexes it in the manifest with the new digest.
+func (b *Builder) ReplaceFilePart(relPath, mediaType, role string, content []byte) error {
+	if vwp.IsUnsafePath(relPath) {
+		return fmt.Errorf("vwp/builder: unsafe part path: %s", relPath)
+	}
+	if err := b.writePart(relPath, content); err != nil {
+		return err
+	}
+	b.upsertManifestPart(relPath, mediaType, role, vwp.SHA256Hex(content))
+	return b.saveManifest()
+}
+
 // AddPrimaryArtifact embeds the native file a human considers the work
 // product (for example a PDF, spreadsheet, or document). A package has at
 // most one primary artifact; derived renderings can still be added separately.
@@ -339,6 +402,50 @@ func (b *Builder) AddPrimaryArtifact(relPath, mediaType string, content []byte) 
 		}
 	}
 	return b.putFilePart(relPath, mediaType, RolePrimaryArtifact, content)
+}
+
+// registerNameRe bounds register names to one lower-case path segment.
+var registerNameRe = regexp.MustCompile(`^[a-z0-9][a-z0-9-]*$`)
+
+// AddRegister writes a structured fact register at facts/<name>.json — a
+// typed collection of facts an extension's validators consume (the wallet
+// population, the fair value measurement table). When the package's
+// extension defines the named register the document must satisfy its
+// extension schema; when the extension defines registers but not this
+// name the write is refused so a typo never produces a part the validators
+// silently ignore. Extensions without registers accept any object.
+func (b *Builder) AddRegister(name string, doc any) error {
+	name = strings.TrimSpace(name)
+	if !registerNameRe.MatchString(name) {
+		return fmt.Errorf("vwp/builder: invalid register name %q: use lower-case letters, digits and dashes", name)
+	}
+	value, err := toJSONValue(doc)
+	if err != nil {
+		return fmt.Errorf("vwp/builder: register %s: %w", name, err)
+	}
+	if _, isObject := value.(map[string]any); !isObject {
+		return fmt.Errorf("vwp/builder: register %s: document must be a JSON object", name)
+	}
+	ext := b.manifest.Extension
+	if schemaRef, ok := validators.RegisterSchema(ext, name); ok {
+		errs, err := schema.ValidateExtension(schemaRef, value)
+		if err != nil {
+			return fmt.Errorf("vwp/builder: register %s: %w", name, err)
+		}
+		if len(errs) > 0 {
+			if len(errs) > 8 {
+				errs = append(errs[:8], fmt.Sprintf("… %d more", len(errs)-8))
+			}
+			return fmt.Errorf("vwp/builder: register %s does not satisfy the %s schema: %s", name, ext, strings.Join(errs, "; "))
+		}
+	} else if known := validators.RegisterNames(ext); len(known) > 0 {
+		return fmt.Errorf("vwp/builder: extension %s defines no register named %q (known: %s)", ext, name, strings.Join(known, ", "))
+	}
+	data, err := vwp.EncodeJSON(value)
+	if err != nil {
+		return err
+	}
+	return b.putFilePart(validators.RegisterPath(name), "application/json", RoleFacts, data)
 }
 
 // SupportKind names a claim support link field.

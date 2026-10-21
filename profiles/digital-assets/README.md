@@ -20,8 +20,14 @@ Digital asset extensions may cover, among other areas:
   and general ledger balances. See [`balance-tie-out.md`](./balance-tie-out.md).
 - **Fair value support** — pricing sources and valuation tie-outs for digital assets.
   See [`fair-value-support.md`](./fair-value-support.md).
-- **Staking rewards** — reward accrual and receipt, with on-chain support.
-- **Cost basis** — lot tracking, disposition methodology, and gain/loss calculations.
+- **Staking rewards** — reward accrual and receipt, with on-chain support. See
+  [`staking-rewards.md`](./staking-rewards.md).
+- **Lending** — in-kind interest accrual, collateral coverage and the derecognition
+  conclusion for lent assets. See [`lending.md`](./lending.md).
+- **Cost basis** — lot tracking, disposition methodology, gain/loss calculations and
+  the Rev. Proc. 2024-28 allocation. See [`cost-basis.md`](./cost-basis.md).
+- **Stablecoin classification** — classification of each holding and the redemption
+  right it rests on. See [`stablecoin.md`](./stablecoin.md).
 - **Subledger reconciliation** — completeness of transaction populations between chain
   data, subledger, and ledger.
 

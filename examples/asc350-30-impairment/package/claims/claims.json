@@ -1,0 +1,71 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "existence",
+        "rightsAndObligations"
+      ],
+      "conclusion": "ASC 350-30 applies; indefinite useful life.",
+      "domain": "finance",
+      "id": "s1_c_scope",
+      "judgments": [
+        "s1_j_scope"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-60-15-1",
+        "ASC 350-30-35-4",
+        "ASC 350-30-35-18"
+      ],
+      "statement": "The NFT holdings are indefinite-lived intangible assets under ASC 350-30, outside ASC 350-60 because they are not fungible.",
+      "status": "supported",
+      "supportingFacts": [
+        "s1_f_non_fungible"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Total impairment loss 15,000 USD; no reversal of prior impairments.",
+      "domain": "finance",
+      "id": "s4_c_impairment",
+      "judgments": [
+        "s3_j_fair_value_basis"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-30-35-19",
+        "ASC 350-30-35-20"
+      ],
+      "statement": "NFT-001 is impaired by 15,000 USD to a new carrying amount of 25,000 USD; NFT-002's fair value exceeds its carrying amount and no impairment is recorded.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s4_impairment_test"
+      ],
+      "supportingFacts": [
+        "s2_f_lot1_carrying",
+        "s2_f_lot2_carrying",
+        "s3_f_lot1_fv",
+        "s3_f_lot2_fv"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "Presentation per ASC 350-30-45-1.",
+      "domain": "finance",
+      "id": "s5_c_presentation",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-30-45-1"
+      ],
+      "statement": "The impairment loss is presented within income from continuing operations and the carrying amount after impairment becomes the new cost basis.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s4_impairment_test"
+      ]
+    }
+  ]
+}

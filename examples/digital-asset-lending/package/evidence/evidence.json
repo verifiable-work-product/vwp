@@ -1,0 +1,28 @@
+{
+  "evidence": [
+    {
+      "id": "ev_loan_agreement",
+      "path": "evidence/loan-agreement-excerpt.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Master loan agreement excerpt (synthetic)",
+      "type": "contractDocument"
+    },
+    {
+      "id": "ev_collateral_statement",
+      "path": "evidence/collateral-statement.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Collateral account statement as of 2026-06-30 (synthetic)",
+      "type": "custodianStatement"
+    },
+    {
+      "id": "ev_eth_price",
+      "path": "evidence/eth-price-2026-06-30.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "ETH price at 2026-06-30 (synthetic)",
+      "type": "pricingRecord"
+    }
+  ]
+}

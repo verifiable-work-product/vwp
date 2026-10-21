@@ -1,0 +1,20 @@
+{
+  "judgments": [
+    {
+      "alternatives": [
+        {
+          "conclusion": "In scope, measured at fair value",
+          "notes": "Rejected: criterion (f) is explicit; self-issued tokens held in treasury are not assets of the issuer."
+        }
+      ],
+      "basis": "ASC 350-60-15-1(f) excludes assets created or issued by the reporting entity or its related parties. Token terms section 1 establishes DemoCo as issuer.",
+      "id": "s1_j_wdemo_scope",
+      "proposedConclusion": "No. WDEMO fails criterion (f): it was created by the reporting entity. It is not recognized as an asset of the issuer; the issuance is analysed separately.",
+      "question": "Is WDEMO, a token DemoCo created and issued, a crypto asset within ASC 350-60-15-1?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "ASC 350-60 scope of the self-issued WDEMO token"
+    }
+  ]
+}

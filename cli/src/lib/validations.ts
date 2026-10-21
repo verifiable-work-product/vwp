@@ -720,15 +720,15 @@ function asc606Validators(outcomes: Outcome[], pkg: PackageSource): void {
   if (allocation === undefined) {
     outcomes.push({
       id: 'asc606.allocation.schemaValid',
-      status: 'notRun',
+      status: 'fail',
       message: 'calculations/ssp-allocation.json not present',
     });
-    outcomes.push({ id: 'asc606.allocation.tieOut', status: 'notRun', message: 'calculations/ssp-allocation.json not present' });
+    outcomes.push({ id: 'asc606.allocation.tieOut', status: 'fail', message: 'calculations/ssp-allocation.json not present' });
   } else {
     const errs = extensionSchemaErrors('extensions/accounting-asc606/ssp-allocation.schema.json', allocation);
     if (errs.length > 0) {
       outcomes.push({ id: 'asc606.allocation.schemaValid', status: 'fail', message: errs.slice(0, 5).join('; ') });
-      outcomes.push({ id: 'asc606.allocation.tieOut', status: 'notRun', message: 'allocation failed extension schema validation' });
+      outcomes.push({ id: 'asc606.allocation.tieOut', status: 'fail', message: 'allocation failed extension schema validation' });
     } else {
       outcomes.push({ id: 'asc606.allocation.schemaValid', status: 'pass' });
       allocationValid = true;
@@ -750,7 +750,7 @@ function asc606Validators(outcomes: Outcome[], pkg: PackageSource): void {
   if (!pkg.has('calculations/revenue-schedule.csv')) {
     outcomes.push({
       id: 'asc606.revenueSchedule.total',
-      status: 'notRun',
+      status: 'fail',
       message: 'calculations/revenue-schedule.csv not present',
     });
     return;
@@ -758,7 +758,7 @@ function asc606Validators(outcomes: Outcome[], pkg: PackageSource): void {
   if (!allocationValid) {
     outcomes.push({
       id: 'asc606.revenueSchedule.total',
-      status: 'notRun',
+      status: 'fail',
       message: 'requires a schema-valid calculations/ssp-allocation.json to tie against',
     });
     return;

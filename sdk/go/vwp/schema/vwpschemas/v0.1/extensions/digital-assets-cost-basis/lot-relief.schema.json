@@ -1,0 +1,227 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/digital-assets-cost-basis/lot-relief.schema.json",
+  "title": "Digital Asset Lot Relief",
+  "description": "Extension schema for the vwp-digital-assets-cost-basis extension. Constrains a core calculation object of type 'lotRelief': the lot population of one asset in one pool, the disposals and which lot units each relieved, and the resulting basis relieved, realized gain or loss and remaining lots. The validators recompute the arithmetic, conserve units from lots through reliefs to remaining lots, reject reliefs of lots acquired after the disposal, and check the relief order against the declared method. Located by type under calculations/; one schedule per asset and pool.",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "inputs",
+    "outputs"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "const": "lotRelief"
+    },
+    "inputs": {
+      "type": "object",
+      "required": [
+        "asset",
+        "method",
+        "lots",
+        "disposals"
+      ],
+      "properties": {
+        "asset": {
+          "type": "string",
+          "minLength": 1
+        },
+        "currency": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "FIFO",
+            "LIFO",
+            "HIFO",
+            "specificIdentification"
+          ]
+        },
+        "lots": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "lotId",
+              "acquiredAt",
+              "units",
+              "costBasis"
+            ],
+            "properties": {
+              "lotId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "acquiredAt": {
+                "type": "string",
+                "minLength": 1,
+                "description": "ISO date or date-time; ordering key for FIFO/LIFO."
+              },
+              "units": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "costBasis": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Total cost basis of the lot in the reporting currency."
+              },
+              "wallet": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "disposals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "disposalId",
+              "date",
+              "units",
+              "proceeds",
+              "reliefs"
+            ],
+            "properties": {
+              "disposalId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "date": {
+                "type": "string",
+                "minLength": 1
+              },
+              "units": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "proceeds": {
+                "type": "number",
+                "minimum": 0
+              },
+              "reliefs": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "lotId",
+                    "units"
+                  ],
+                  "properties": {
+                    "lotId": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "units": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "pool": {
+          "type": "string",
+          "description": "The pool the method is applied within (a wallet, an account, or 'universal'). One schedule per asset and pool; two schedules declaring the same asset and pool are rejected."
+        }
+      },
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "required": [
+        "disposals",
+        "totalRealizedGainLoss",
+        "remainingLots"
+      ],
+      "properties": {
+        "disposals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "disposalId",
+              "basisRelieved",
+              "realizedGainLoss"
+            ],
+            "properties": {
+              "disposalId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "basisRelieved": {
+                "type": "number",
+                "minimum": 0
+              },
+              "realizedGainLoss": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "totalRealizedGainLoss": {
+          "type": "number"
+        },
+        "remainingLots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "lotId",
+              "units",
+              "costBasis"
+            ],
+            "properties": {
+              "lotId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "units": {
+                "type": "number",
+                "minimum": 0
+              },
+              "costBasis": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "roundingTolerance": {
+      "type": "number",
+      "minimum": 0
+    },
+    "unitTolerance": {
+      "type": "number",
+      "minimum": 0
+    },
+    "method": {
+      "type": "string"
+    },
+    "validator": {
+      "type": "string"
+    },
+    "recomputable": {
+      "type": "boolean"
+    }
+  }
+}

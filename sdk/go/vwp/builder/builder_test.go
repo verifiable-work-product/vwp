@@ -8,9 +8,11 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"strings"
 	"testing"
 
 	vwp "github.com/verifiable-work-product/vwp/sdk/go/vwp"
+	"github.com/verifiable-work-product/vwp/sdk/go/vwp/accountingschedule"
 	"github.com/verifiable-work-product/vwp/sdk/go/vwp/builder"
 	"github.com/verifiable-work-product/vwp/sdk/go/vwp/validators"
 )
@@ -149,6 +151,10 @@ func rebuildASC606(t *testing.T, dir string) *builder.Builder {
 	if err := b.AddFilePart("calculations/revenue-schedule.csv", "text/csv", builder.RoleCalculation,
 		mustRead(t, filepath.Join(asc606Fixture, "calculations/revenue-schedule.csv"))); err != nil {
 		t.Fatalf("AddFilePart schedule: %v", err)
+	}
+	if err := b.AddFilePart(accountingschedule.ArtifactPath, "application/json", builder.RoleCalculation,
+		mustRead(t, filepath.Join(asc606Fixture, accountingschedule.ArtifactPath))); err != nil {
+		t.Fatalf("AddFilePart accounting schedule: %v", err)
 	}
 
 	var validationsDoc struct {
@@ -567,5 +573,108 @@ func TestRenderOverwritesExistingRendering(t *testing.T) {
 	}
 	if report := verifyDir(t, dir); !report.Valid {
 		t.Fatalf("package invalid after render; statuses: %v", statuses(report))
+	}
+}
+
+func TestAddCalculationReplaceExisting(t *testing.T) {
+	dir := t.TempDir()
+	b := minimalScaffold(t, dir)
+	first := vwp.Calculation{Id: "calc-1", Type: "sum", Inputs: map[string]any{"a": 1.0}, Outputs: map[string]any{"total": 1.0}}
+	if err := b.AddCalculation(first); err != nil {
+		t.Fatal(err)
+	}
+	corrected := first
+	corrected.Outputs = map[string]any{"total": 2.0}
+	if err := b.AddCalculation(corrected); !errors.Is(err, builder.ErrConflict) {
+		t.Fatalf("without ReplaceExisting = %v, want ErrConflict", err)
+	}
+	if err := b.AddCalculation(corrected, builder.ReplaceExisting()); err != nil {
+		t.Fatalf("ReplaceExisting: %v", err)
+	}
+	got, err := os.ReadFile(filepath.Join(dir, "calculations", "calc-1.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Contains(got, []byte(`"total": 2`)) {
+		t.Fatalf("calculation not replaced: %s", got)
+	}
+	if res, _ := verifyDir(t, dir).Result(vwp.ValidatorPartHashesMatch); res.Status != vwp.StatusPass {
+		t.Fatalf("manifest digest not updated: %+v", res)
+	}
+}
+
+func TestSetIdentity(t *testing.T) {
+	dir := t.TempDir()
+	b := minimalScaffold(t, dir)
+	if err := b.SetIdentity("ASC 606 memo: Northwind order form", vwp.ExtensionASC606); err != nil {
+		t.Fatal(err)
+	}
+	m := b.Manifest()
+	if m.Title != "ASC 606 memo: Northwind order form" || m.Extension != vwp.ExtensionASC606 {
+		t.Fatalf("manifest = %+v", m)
+	}
+	var wp vwp.Workproduct
+	readJSONInto(t, filepath.Join(dir, "workproduct.json"), &wp)
+	if wp.Title != m.Title || wp.Extension != vwp.ExtensionASC606 {
+		t.Fatalf("workproduct.json = %+v", wp)
+	}
+	if res, _ := verifyDir(t, dir).Result(vwp.ValidatorPartHashesMatch); res.Status != vwp.StatusPass {
+		t.Fatalf("manifest digest not updated: %+v", res)
+	}
+	if err := b.SetIdentity("", "vwp-accounting-asc820"); !errors.Is(err, builder.ErrConflict) {
+		t.Fatalf("swapping the extension = %v, want ErrConflict", err)
+	}
+}
+
+func TestAddRegisterValidatesAgainstTheExtension(t *testing.T) {
+	dir := t.TempDir()
+	b, err := builder.Scaffold(dir, builder.ScaffoldConfig{
+		PackageId: "pkg_reg", Profile: vwp.ProfileFinance, Extension: vwp.ExtensionASC820, Title: "t",
+		Workproduct: vwp.Workproduct{Id: "wp", Title: "t", Domain: "finance", Status: "draft"},
+		Provenance:  vwp.Provenance{CreatedAt: "2026-01-01T00:00:00Z", CreatedBy: vwp.ProvenanceAgent{Type: "agent", Name: "test"}},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := b.AddRegister("Bad Name", map[string]any{}); err == nil || !strings.Contains(err.Error(), "invalid register name") {
+		t.Fatalf("bad name: %v", err)
+	}
+	if err := b.AddRegister("fair-value-measurements", []any{1}); err == nil || !strings.Contains(err.Error(), "JSON object") {
+		t.Fatalf("non-object: %v", err)
+	}
+	if err := b.AddRegister("wallets", map[string]any{"wallets": []any{}}); err == nil || !strings.Contains(err.Error(), "known: fair-value-measurements") {
+		t.Fatalf("unknown register: %v", err)
+	}
+	if err := b.AddRegister("fair-value-measurements", map[string]any{"measurements": []any{map[string]any{"id": "m1"}}}); err == nil || !strings.Contains(err.Error(), "schema") {
+		t.Fatalf("schema failure: %v", err)
+	}
+	doc := map[string]any{"measurements": []any{map[string]any{
+		"id": "m1", "asset": "ETH", "measurementDate": "2026-06-30", "level": "level1",
+		"fairValue": map[string]any{"amount": 1.0, "currency": "USD"}, "pricingSourceEvidence": []any{"ev_q"},
+	}}}
+	if err := b.AddRegister("fair-value-measurements", doc); err != nil {
+		t.Fatal(err)
+	}
+	if err := b.AddRegister("fair-value-measurements", doc); err != nil {
+		t.Fatalf("identical rewrite must be a no-op: %v", err)
+	}
+	doc["description"] = "changed"
+	if err := b.AddRegister("fair-value-measurements", doc); !errors.Is(err, builder.ErrConflict) {
+		t.Fatalf("changed register must conflict, got %v", err)
+	}
+	found := false
+	for _, p := range b.Manifest().Parts {
+		if p.Path == "facts/fair-value-measurements.json" && p.Role == builder.RoleFacts {
+			found = true
+		}
+	}
+	if !found {
+		t.Fatal("register not indexed in the manifest with role facts")
+	}
+
+	// Extensions without registers accept a free-form facts register.
+	b2 := minimalScaffold(t, t.TempDir())
+	if err := b2.AddRegister("counterparties", map[string]any{"counterparties": []any{}}); err != nil {
+		t.Fatalf("free-form register: %v", err)
 	}
 }

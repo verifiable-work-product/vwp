@@ -41,6 +41,7 @@ func WalletOwnership(pkg vwp.Source, ctx *vwp.ExtensionContext) []vwp.Validation
 		})
 		return results
 	}
+	add(vwp.ValidationResult{ValidatorId: ValidatorWalletsRegisterPresent, Status: vwp.StatusPass, Message: strconv.Itoa(len(wallets)) + " wallets in register"})
 	errs, err := schema.ValidateExtension(walletRegisterSchemaRef, registerDoc)
 	if err != nil {
 		errs = []string{err.Error()}

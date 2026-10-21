@@ -1,0 +1,175 @@
+{
+  "validations": [
+    {
+      "id": "v_001",
+      "validator": "core.package.safePaths",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_002",
+      "validator": "core.manifest.exists",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_003",
+      "validator": "core.manifest.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_004",
+      "validator": "core.requiredOutputs.exist",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_005",
+      "validator": "accountingSchedule.valid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_006",
+      "validator": "core.requiredParts.exist",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_007",
+      "validator": "core.partHashes.match",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_008",
+      "validator": "core.workproduct.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_009",
+      "validator": "core.claims.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_010",
+      "validator": "core.provenance.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_011",
+      "validator": "core.evidence.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_012",
+      "validator": "core.facts.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_013",
+      "validator": "core.judgments.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_014",
+      "validator": "core.evidenceRefs.resolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_015",
+      "validator": "core.externalRefs.wellFormed",
+      "scope": "package",
+      "status": "notRun",
+      "message": "no external retrieval metadata declared"
+    },
+    {
+      "id": "v_016",
+      "validator": "core.factAnchors.quotesMatch",
+      "scope": "package",
+      "status": "pass",
+      "message": "7 quote anchors verified"
+    },
+    {
+      "id": "v_017",
+      "validator": "core.claimRefs.resolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_018",
+      "validator": "core.signatures.present",
+      "scope": "package",
+      "status": "warning",
+      "message": "no package signature found"
+    },
+    {
+      "id": "v_019",
+      "validator": "finance.claims.haveAssertions",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_020",
+      "validator": "finance.claims.haveSupport",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_021",
+      "validator": "finance.requiredJudgments.complete",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_022",
+      "validator": "lending.accrual.schemaValid",
+      "scope": "package",
+      "status": "pass",
+      "message": "calculations/s3_interest_accrual.json"
+    },
+    {
+      "id": "v_023",
+      "validator": "lending.accrual.recompute",
+      "scope": "package",
+      "status": "pass",
+      "message": "1 accrual(s) recompute from the terms their facts state"
+    },
+    {
+      "id": "v_024",
+      "validator": "lending.accountingSchedule.tieOut",
+      "scope": "package",
+      "status": "pass",
+      "message": "1 entry tie to 1 calculation(s) as interest_accrual in USD"
+    },
+    {
+      "id": "v_025",
+      "validator": "lending.collateral.schemaValid",
+      "scope": "package",
+      "status": "pass",
+      "message": "calculations/s4_collateral_coverage.json"
+    },
+    {
+      "id": "v_026",
+      "validator": "lending.collateral.recompute",
+      "scope": "package",
+      "status": "pass",
+      "message": "1 coverage calculation(s) recompute"
+    },
+    {
+      "id": "v_027",
+      "validator": "lending.derecognition.claimJudged",
+      "scope": "package",
+      "status": "pass",
+      "message": "1 derecognition claim(s) link a judgment"
+    }
+  ]
+}

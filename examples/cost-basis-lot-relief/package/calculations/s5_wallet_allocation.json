@@ -1,0 +1,40 @@
+{
+  "id": "s5_wallet_allocation",
+  "type": "walletBasisAllocation",
+  "inputs": {
+    "allocationMethod": "specificUnit",
+    "asOf": "2025-01-01",
+    "asset": "BTC",
+    "currency": "USD",
+    "methodRecordFact": "s5_f_allocation_record",
+    "totalUnallocatedBasis": 190000,
+    "totalUnits": 4,
+    "wallets": [
+      {
+        "units": 3,
+        "walletId": "W-A"
+      },
+      {
+        "units": 1,
+        "walletId": "W-B"
+      }
+    ]
+  },
+  "outputs": {
+    "allocations": [
+      {
+        "allocatedBasis": 130000,
+        "units": 3,
+        "walletId": "W-A"
+      },
+      {
+        "allocatedBasis": 60000,
+        "units": 1,
+        "walletId": "W-B"
+      }
+    ]
+  },
+  "method": "Rev. Proc. 2024-28 specific unit allocation, recorded 2024-12-20: the 190,000 USD of unused basis on the 4 BTC held at 2025-01-01 (lots L1-L3, all acquired in 2024) assigned to the wallets holding the units.",
+  "validator": "costBasis.walletAllocation.tieOut",
+  "recomputable": true
+}

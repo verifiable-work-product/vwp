@@ -1,0 +1,23 @@
+{
+  "id": "s4_collateral_coverage",
+  "type": "collateralCoverage",
+  "inputs": {
+    "asOf": "2026-06-30",
+    "collateralFairValue": 400000,
+    "collateralFairValueFact": "s4_f_collateral",
+    "currency": "USD",
+    "loanFairValue": 250000,
+    "loanId": "L-2026-04",
+    "requiredCoverageRatio": 1.5,
+    "requiredCoverageRatioFact": "s4_f_required_ratio"
+  },
+  "outputs": {
+    "adequatelyCollateralized": true,
+    "coverageRatio": 1.6,
+    "shortfall": 0,
+    "unsecuredPortion": 0
+  },
+  "method": "coverageRatio = collateralFairValue / loanFairValue; shortfall = max(0, loanFairValue x requiredCoverageRatio - collateralFairValue) is the margin-call measure; unsecuredPortion = max(0, loanFairValue - collateralFairValue) is the ASC 326-20-35-6 expected credit loss basis.",
+  "validator": "lending.collateral.recompute",
+  "recomputable": true
+}

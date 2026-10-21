@@ -1,0 +1,20 @@
+{
+  "judgments": [
+    {
+      "alternatives": [
+        {
+          "conclusion": "Specific identification",
+          "notes": "Considered: permitted, but the policy elects FIFO and the subledger does not tag disposals to lots."
+        }
+      ],
+      "basis": "ASC 350-60-50-2 requires disclosure of the cost basis method; Treas. Reg. 1.1012-1(j) requires wallet-by-wallet identification for units held on or after 2025-01-01.",
+      "id": "s1_j_method",
+      "proposedConclusion": "FIFO applied wallet by wallet, consistent with the policy and with the Treas. Reg. 1.1012-1(j) wallet-based identification requirement for tax; the same method is used for book to avoid a book-tax lot divergence.",
+      "question": "Which lot relief method applies, and is it applied per wallet or across all wallets?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "Lot relief method election"
+    }
+  ]
+}

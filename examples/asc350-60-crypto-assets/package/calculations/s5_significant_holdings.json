@@ -1,0 +1,36 @@
+{
+  "id": "s5_significant_holdings",
+  "type": "significantCryptoHoldings",
+  "inputs": {
+    "asOf": "2026-06-30",
+    "currency": "USD",
+    "holdings": [
+      {
+        "asset": "BTC",
+        "costBasis": 450000,
+        "fairValue": 650000,
+        "restricted": false,
+        "significant": true,
+        "units": 10
+      },
+      {
+        "asset": "ETH",
+        "costBasis": 800000,
+        "fairValue": 900000,
+        "restricted": false,
+        "significant": true,
+        "units": 400
+      }
+    ],
+    "totalFairValue": 1550000
+  },
+  "outputs": {
+    "otherCostBasis": 0,
+    "otherFairValue": 0,
+    "significantCostBasis": 1250000,
+    "significantFairValue": 1550000
+  },
+  "method": "Each holding at units x period-end price; significant = more than 5% of total crypto asset fair value (ASC 350-60-50-1).",
+  "validator": "asc35060.significantHoldings.tieOut",
+  "recomputable": true
+}

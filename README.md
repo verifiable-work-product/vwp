@@ -17,7 +17,7 @@ VWP takes a different position:
 - **The structured package is the source of truth.** The rendered memo or PDF is only a derived view.
 - **AI output is not trusted directly.** AI may extract facts, draft claims, and render explanations — deterministic validators verify package integrity, schema validity, evidence links, math tie-outs, and completeness checks.
 - **Model-agnostic.** Provenance records which tools and models produced a package, but verification never requires them.
-- **Domain-extensible.** VWP Core is generic; profiles (finance) and extensions (ASC 606, wallet ownership/control, control tests, forward-looking forecasts) add domain vocabulary and validators.
+- **Domain-extensible.** VWP Core is generic; profiles (finance) and extensions (ASC 606, ASC 820, ASC 350-60 crypto assets, ASC 350-30 impairment, wallet ownership/control, staking rewards, digital asset lending, cost basis, stablecoin classification, control tests, forward-looking forecasts) add domain vocabulary and validators.
 
 ## What a `.vwp` package contains
 
@@ -100,6 +100,12 @@ Exit codes: `0` valid (warnings/review items allowed unless `--strict`), `1` inv
 - [`examples/asc606-revenue-contract`](examples/asc606-revenue-contract) — a revenue recognition workpaper: five-step claims, an SSP allocation calculation that must tie out, a distinctness judgment left in review, and a memo rendering.
 - [`examples/digital-assets-wallet-ownership`](examples/digital-assets-wallet-ownership) — wallet ownership/control for a treasury entity: proof-of-control evidence, entity mapping, completeness with exclusion rationale, and balance tie-outs.
 - [`examples/asc820-fair-value`](examples/asc820-fair-value) — fair value support: a level 1 position priced from exchange quotes and a level 3 restricted token whose hierarchy classification and marketability discount are judgment-linked.
+- [`examples/asc350-60-crypto-assets`](examples/asc350-60-crypto-assets) — ASC 350-60 crypto assets: a scope register judged against the six criteria, a per-asset roll-forward and significant-holdings table that tie to each other, and the remeasurement accounting schedule.
+- [`examples/asc350-30-impairment`](examples/asc350-30-impairment) — indefinite-lived intangible impairment of NFT lots outside ASC 350-60, with the impairment accounting schedule.
+- [`examples/staking-rewards`](examples/staking-rewards) — staking income at fair value on recognition, reconciled to chain-observed receipts, with the income accounting schedule.
+- [`examples/digital-asset-lending`](examples/digital-asset-lending) — in-kind interest accrual and collateral coverage on a crypto loan, a judged derecognition conclusion, and the accrual accounting schedule.
+- [`examples/cost-basis-lot-relief`](examples/cost-basis-lot-relief) — FIFO lot relief with realized gain/loss and the Rev. Proc. 2024-28 wallet-by-wallet allocation, with the gain/loss accounting schedule.
+- [`examples/stablecoin-classification`](examples/stablecoin-classification) — a stablecoin holdings register whose classifications are judgment-linked and consistent per token and issuer.
 - [`examples/asc842-lease`](examples/asc842-lease) — minimal lease workpaper stub.
 - [`examples/sox-control-test`](examples/sox-control-test) — minimal internal-control evidence stub.
 

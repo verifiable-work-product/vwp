@@ -3,7 +3,7 @@ package vwp_test
 import (
 	"testing"
 
-	"github.com/verifiable-work-product/vwp/sdk/go/vwp"
+	vwp "github.com/verifiable-work-product/vwp/sdk/go/vwp"
 	"github.com/verifiable-work-product/vwp/sdk/go/vwp/validators"
 )
 

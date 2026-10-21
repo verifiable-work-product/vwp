@@ -1,0 +1,92 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_stablecoin_classification",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-stablecoin",
+  "title": "Stablecoin Classification - DemoCo Holdings at 2026-06-30",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "cec0226cc479dc7a6f9598efc62d8320cfe850ea8d99c6cb7ea82b327d1e712c",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "a36dae6aeb339d0b89d1b3913af6ea2d5280dece9aedac80bb4d4872ddd39fe7",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/issuer-terms-excerpt.txt",
+      "mediaType": "text/plain",
+      "sha256": "a0698ce12de796efffc77f12324ce443f2d0de4b195f598bf076eff2afe62ca4",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "621ce6c27d6b1057a9a8bd6eda75e0e4873cb4b0417e11ba6af0c00dc102fed8",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/reserve-attestation.txt",
+      "mediaType": "text/plain",
+      "sha256": "bb9a9446c76a91cf1592251bf3cb53441740c78317a77dd117ebb744b482543b",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/stablecoin-balances.csv",
+      "mediaType": "text/csv",
+      "sha256": "2cb2ac835450d7279d8882ccbc1c45d3f406793d31a3ca8da02943aee1e97e5f",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/xeur-protocol-docs.txt",
+      "mediaType": "text/plain",
+      "sha256": "21245b8c52d31e79992cd995ac456b785db4a177da2d869e6f675075c32392af",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "d92abba9e457f9ab99c4c0274e0a2cdf48e748b03d7faf4e84f843fccad45d02",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "2413c2f6f80c0e434065dd2a96856afa40fd662c98b4642eed8e754ef655d6fc",
+      "role": "judgments"
+    },
+    {
+      "path": "facts/stablecoin-holdings.json",
+      "mediaType": "application/json",
+      "sha256": "38e2bc87cf48eb34572f74dfd3c01b970337c3df065778f600f28bd76d9356c1",
+      "role": "facts"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "819f76961a9de089230917e967e4b45d5260cef0062f16d50e7935337fd7fa66",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "3e73e6c35b91b3aa3bf87ac4ee57c85f2b1172620a79967bf1ec135e8ff43570",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "efeab2c14350fa8300234eccf2e09247966cc8e1e675353a7bfb1294b6e883fa",
+    "role": "provenance"
+  }
+}

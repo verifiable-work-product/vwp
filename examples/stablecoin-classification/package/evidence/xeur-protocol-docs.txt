@@ -1,0 +1,4 @@
+XEUR Protocol (excerpt)
+
+XEUR targets a 1 EUR peg through an algorithmic mint-and-burn mechanism against the protocol's governance token.
+There is no issuer and no right to redeem XEUR for euros or any other asset.

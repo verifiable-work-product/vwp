@@ -1,6 +1,8 @@
 module github.com/verifiable-work-product/vwp/backend
 
-go 1.22
+go 1.23
+
+toolchain go1.24.0
 
 require github.com/verifiable-work-product/vwp/sdk/go v0.0.0
 

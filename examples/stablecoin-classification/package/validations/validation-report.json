@@ -1,0 +1,162 @@
+{
+  "validations": [
+    {
+      "id": "v_001",
+      "validator": "core.package.safePaths",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_002",
+      "validator": "core.manifest.exists",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_003",
+      "validator": "core.manifest.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_004",
+      "validator": "core.requiredParts.exist",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_005",
+      "validator": "core.partHashes.match",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_006",
+      "validator": "core.workproduct.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_007",
+      "validator": "core.claims.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_008",
+      "validator": "core.provenance.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_009",
+      "validator": "core.evidence.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_010",
+      "validator": "core.facts.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_011",
+      "validator": "core.judgments.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_012",
+      "validator": "core.evidenceRefs.resolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_013",
+      "validator": "core.externalRefs.wellFormed",
+      "scope": "package",
+      "status": "notRun",
+      "message": "no external retrieval metadata declared"
+    },
+    {
+      "id": "v_014",
+      "validator": "core.factAnchors.quotesMatch",
+      "scope": "package",
+      "status": "pass",
+      "message": "5 quote anchors verified"
+    },
+    {
+      "id": "v_015",
+      "validator": "core.claimRefs.resolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_016",
+      "validator": "core.signatures.present",
+      "scope": "package",
+      "status": "warning",
+      "message": "no package signature found"
+    },
+    {
+      "id": "v_017",
+      "validator": "finance.claims.haveAssertions",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_018",
+      "validator": "finance.claims.haveSupport",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_019",
+      "validator": "finance.requiredJudgments.complete",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_020",
+      "validator": "stablecoin.holdings.registerPresent",
+      "scope": "package",
+      "status": "pass",
+      "message": "3 holdings in register"
+    },
+    {
+      "id": "v_021",
+      "validator": "stablecoin.holdings.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_022",
+      "validator": "stablecoin.classification.judgmentLinked",
+      "scope": "package",
+      "status": "pass",
+      "message": "every holding links a resolvable classification judgment"
+    },
+    {
+      "id": "v_023",
+      "validator": "stablecoin.redemption.evidence",
+      "scope": "package",
+      "status": "pass",
+      "message": "cash-like classifications rest on an evidenced redemption right"
+    },
+    {
+      "id": "v_024",
+      "validator": "stablecoin.classification.cashEquivalentChallenged",
+      "scope": "package",
+      "status": "pass",
+      "message": "no holding is classified as cash or a cash equivalent"
+    },
+    {
+      "id": "v_025",
+      "validator": "stablecoin.classification.consistent",
+      "scope": "package",
+      "status": "pass",
+      "message": "2 token/issuer pairs classified consistently"
+    }
+  ]
+}

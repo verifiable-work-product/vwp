@@ -2,7 +2,6 @@ package validators_test
 
 import (
 	"encoding/json"
-	"io/fs"
 	"os"
 	"path/filepath"
 	"strings"
@@ -12,29 +11,13 @@ import (
 	"github.com/verifiable-work-product/vwp/sdk/go/vwp/validators"
 )
 
-// repoRoot locates the repository root from this package directory.
+// repoRoot is where the fixture trees live (see verify_test.go in the root package).
 const repoRoot = "../../../.."
 
 func copyFixture(t *testing.T, parts ...string) string {
 	t.Helper()
 	dst := t.TempDir()
-	src := filepath.Join(append([]string{repoRoot}, parts...)...)
-	srcFS := os.DirFS(src)
-	err := fs.WalkDir(srcFS, ".", func(rel string, d fs.DirEntry, err error) error {
-		if err != nil {
-			return err
-		}
-		target := filepath.Join(dst, filepath.FromSlash(rel))
-		if d.IsDir() {
-			return os.MkdirAll(target, 0o755)
-		}
-		data, err := fs.ReadFile(srcFS, rel)
-		if err != nil {
-			return err
-		}
-		return os.WriteFile(target, data, 0o644)
-	})
-	if err != nil {
+	if err := os.CopyFS(dst, os.DirFS(filepath.Join(append([]string{repoRoot}, parts...)...))); err != nil {
 		t.Fatalf("copy fixture: %v", err)
 	}
 	return dst
@@ -103,7 +86,7 @@ func TestASC606TieOutFailure(t *testing.T) {
 	}
 }
 
-func TestASC606NotRunWithoutAllocation(t *testing.T) {
+func TestASC606FailsWithoutAllocation(t *testing.T) {
 	dir := copyFixture(t, "examples", "asc606-revenue-contract", "package")
 	if err := os.Remove(filepath.Join(dir, "calculations", "ssp-allocation.json")); err != nil {
 		t.Fatal(err)
@@ -116,9 +99,41 @@ func TestASC606NotRunWithoutAllocation(t *testing.T) {
 		"asc606.revenueSchedule.total":  "requires a schema-valid calculations/ssp-allocation.json to tie against",
 	} {
 		res := result(t, report, id)
-		if res.Status != vwp.StatusNotRun || res.Message != wantMsg {
+		if res.Status != vwp.StatusFail || res.Message != wantMsg {
 			t.Errorf("%s = %s %q", id, res.Status, res.Message)
 		}
+	}
+}
+
+func TestASC606RequiredSchedulesCannotBeSkipped(t *testing.T) {
+	for _, tc := range []struct {
+		path      string
+		validator string
+	}{
+		{"calculations/revenue-schedule.csv", validators.ValidatorASC606RevenueScheduleTotal},
+		{"calculations/accounting-schedule.json", "asc606.accountingSchedule.tieOut"},
+	} {
+		t.Run(tc.path, func(t *testing.T) {
+			dir := copyFixture(t, "examples", "asc606-revenue-contract", "package")
+			if err := os.Remove(filepath.Join(dir, tc.path)); err != nil {
+				t.Fatal(err)
+			}
+			pkg, err := vwp.OpenPackage(dir)
+			if err != nil {
+				t.Fatal(err)
+			}
+			// Call the extension directly: failure must not depend on a
+			// separate core manifest or hash check noticing the missing file.
+			for _, res := range validators.ASC606(pkg, nil) {
+				if res.ValidatorId == tc.validator {
+					if res.Status != vwp.StatusFail {
+						t.Fatalf("missing mandatory output: %+v", res)
+					}
+					return
+				}
+			}
+			t.Fatalf("required validator %s did not run", tc.validator)
+		})
 	}
 }
 
@@ -146,7 +161,7 @@ func TestASC606AllocationSchemaFailure(t *testing.T) {
 		t.Errorf("allocation.schemaValid = %s %q", res.Status, res.Message)
 	}
 	tieOut := result(t, report, "asc606.allocation.tieOut")
-	if tieOut.Status != vwp.StatusNotRun || tieOut.Message != "allocation failed extension schema validation" {
+	if tieOut.Status != vwp.StatusFail || tieOut.Message != "allocation failed extension schema validation" {
 		t.Errorf("tieOut = %s %q", tieOut.Status, tieOut.Message)
 	}
 }

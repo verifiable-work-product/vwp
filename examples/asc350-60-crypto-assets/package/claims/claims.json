@@ -1,0 +1,115 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "existence",
+        "rightsAndObligations"
+      ],
+      "conclusion": "Scope register complete; one asset out of scope with a judgment.",
+      "domain": "finance",
+      "id": "s1_c_scope",
+      "judgments": [
+        "s1_j_wdemo_scope"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-60-15-1"
+      ],
+      "statement": "BTC and ETH meet all six ASC 350-60-15-1 criteria and are accounted for under ASC 350-60; WDEMO is excluded as a self-issued token.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_holdings_extract",
+        "ev_wdemo_terms"
+      ],
+      "supportingFacts": [
+        "s1_f_btc_units",
+        "s1_f_eth_units",
+        "s1_f_wdemo_issuer"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Initial measurement per other GAAP; subsequent Level 1 fair value from the principal market.",
+      "domain": "finance",
+      "id": "s2_c_measurement",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-30-30-1",
+        "ASC 350-60-35-1",
+        "ASC 820-10-35-5"
+      ],
+      "statement": "In-scope crypto assets were initially measured at cost including transaction costs under ASC 350-30-30-1 and are subsequently measured at fair value under ASC 350-60-35-1 using principal-market quoted prices at 2026-06-30: BTC 650,000 USD and ETH 900,000 USD.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_period_end_prices"
+      ],
+      "supportingFacts": [
+        "s1_f_btc_units",
+        "s1_f_eth_units",
+        "s2_f_btc_price",
+        "s2_f_eth_price"
+      ]
+    },
+    {
+      "assertions": [
+        "completeness",
+        "valuationAllocation"
+      ],
+      "conclusion": "Roll-forward ties per asset and in total.",
+      "domain": "finance",
+      "id": "s3_c_roll_forward",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-60-50-3"
+      ],
+      "statement": "The Q2 2026 crypto asset roll-forward reconciles opening 1,850,000 USD to closing 1,550,000 USD through 250,000 USD of dispositions, 50,000 USD of gains and 100,000 USD of losses.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_roll_forward"
+      ],
+      "supportingFacts": [
+        "s3_f_eth_sale"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "Presentation follows ASC 350-60-45-1 and 45-2.",
+      "domain": "finance",
+      "id": "s4_c_presentation",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-60-45-1",
+        "ASC 350-60-45-2"
+      ],
+      "statement": "Crypto assets are presented separately from other intangible assets on the balance sheet, and remeasurement gains and losses are presented separately in net income.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_roll_forward"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "Significant holdings table ties to total fair value and to the roll-forward.",
+      "domain": "finance",
+      "id": "s5_c_disclosure",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-60-50-1",
+        "ASC 350-60-50-2",
+        "ASC 350-60-50-6"
+      ],
+      "statement": "Both holdings are significant and are disclosed with units, cost basis and fair value; no holding is subject to a contractual sale restriction; the cost basis method for realized gains and losses is FIFO.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s5_significant_holdings",
+        "s3_roll_forward"
+      ]
+    }
+  ]
+}

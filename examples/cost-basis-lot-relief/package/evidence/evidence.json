@@ -1,0 +1,28 @@
+{
+  "evidence": [
+    {
+      "id": "ev_lot_ledger",
+      "path": "evidence/lot-ledger.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "BTC lot ledger at 2025-01-01 (synthetic)",
+      "type": "subledgerExtract"
+    },
+    {
+      "id": "ev_disposals",
+      "path": "evidence/disposals.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "BTC disposals, Q1 2025 (synthetic)",
+      "type": "subledgerExtract"
+    },
+    {
+      "id": "ev_policy",
+      "path": "evidence/cost-basis-policy.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Digital asset cost basis policy (synthetic)",
+      "type": "policyDocument"
+    }
+  ]
+}

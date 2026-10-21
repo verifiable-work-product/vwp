@@ -1,0 +1,34 @@
+{
+  "id": "s3_lot_relief_wb",
+  "type": "lotRelief",
+  "inputs": {
+    "asset": "BTC",
+    "currency": "USD",
+    "disposals": [],
+    "lots": [
+      {
+        "acquiredAt": "2024-11-05",
+        "costBasis": 60000,
+        "lotId": "L3",
+        "units": 1,
+        "wallet": "W-B"
+      }
+    ],
+    "method": "FIFO",
+    "pool": "W-B"
+  },
+  "outputs": {
+    "disposals": [],
+    "remainingLots": [
+      {
+        "costBasis": 60000,
+        "lotId": "L3",
+        "units": 1
+      }
+    ],
+    "totalRealizedGainLoss": 0
+  },
+  "method": "FIFO within wallet W-B: no disposals in the period; the lot carries forward.",
+  "validator": "costBasis.lotRelief.recompute",
+  "recomputable": true
+}

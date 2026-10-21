@@ -271,7 +271,7 @@ func VerifyExternalRefsReachable(pkg Source, resolve CredentialResolver) []Valid
 			continue
 		}
 		body, _ := io.ReadAll(res.Body)
-		res.Body.Close()
+		_ = res.Body.Close()
 		if res.StatusCode < 200 || res.StatusCode >= 300 {
 			challenge := res.Header.Get("WWW-Authenticate")
 			msg := fmt.Sprintf("evidence %s: %d %s", id, res.StatusCode, http.StatusText(res.StatusCode))

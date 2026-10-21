@@ -1,0 +1,58 @@
+{
+  "id": "s3_accounting_schedule",
+  "type": "accountingSchedule",
+  "inputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "derivedFrom": [
+      "s3_roll_forward"
+    ]
+  },
+  "outputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "endDate": "2026-06-30",
+    "entries": [
+      {
+        "date": "2026-06-30",
+        "description": "BTC remeasurement gain for Q2 2026",
+        "id": "BTC-2026-06-30-gain",
+        "obligationId": "BTC",
+        "postings": [
+          {
+            "accountRole": "crypto_asset",
+            "debit": "50000.00"
+          },
+          {
+            "accountRole": "crypto_asset_gain_loss",
+            "credit": "50000.00"
+          }
+        ]
+      },
+      {
+        "date": "2026-06-30",
+        "description": "ETH remeasurement loss for Q2 2026",
+        "id": "ETH-2026-06-30-loss",
+        "obligationId": "ETH",
+        "postings": [
+          {
+            "accountRole": "crypto_asset_gain_loss",
+            "debit": "100000.00"
+          },
+          {
+            "accountRole": "crypto_asset",
+            "credit": "100000.00"
+          }
+        ]
+      }
+    ],
+    "kind": "fair_value_remeasurement",
+    "name": "Q2 2026 crypto asset remeasurement",
+    "schemaVersion": 1,
+    "startDate": "2026-04-01",
+    "totalAmount": "150000.00"
+  },
+  "method": "Executable entries derived from s3_roll_forward; amounts at amountScale, balanced semantic account-role postings.",
+  "validator": "asc35060.accountingSchedule.tieOut",
+  "recomputable": true
+}

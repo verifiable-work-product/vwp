@@ -1,0 +1,102 @@
+{
+  "facts": [
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "4.1 Verified customers may redeem DUSD 1:1 for US dollars directly with the issuer on any business day."
+            }
+          ],
+          "evidenceId": "ev_dusd_terms"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_dusd_redemption",
+      "requiresReview": false,
+      "statement": "Verified customers may redeem DUSD 1:1 for US dollars directly with the issuer on any business day.",
+      "value": "direct redemption at par"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "4.2 Redemptions settle within one business day by wire to the customer's bank account."
+            }
+          ],
+          "evidenceId": "ev_dusd_terms"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_dusd_settlement",
+      "requiresReview": false,
+      "statement": "DUSD redemptions settle within one business day.",
+      "value": "T+1 settlement"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Reserves exceed tokens outstanding."
+            }
+          ],
+          "evidenceId": "ev_reserve_attestation"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_dusd_reserves",
+      "requiresReview": false,
+      "statement": "DUSD reserves at 2026-06-30 exceeded tokens outstanding.",
+      "value": "fully reserved"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "There is no issuer and no right to redeem XEUR for euros or any other asset."
+            }
+          ],
+          "evidenceId": "ev_xeur_docs"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_xeur_no_redemption",
+      "requiresReview": false,
+      "statement": "XEUR has no issuer and no right of redemption.",
+      "value": "no redemption right"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "treasury-main,DUSD,Demo Dollar Inc,1000000.00,2026-06-30"
+            }
+          ],
+          "evidenceId": "ev_balances"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "quantity",
+      "id": "s1_f_balances",
+      "requiresReview": false,
+      "statement": "DemoCo held 1,000,000 DUSD in treasury-main, 250,000 DUSD in ops-hot and 100,000 XEUR in defi-vault at 2026-06-30.",
+      "value": {
+        "DUSD": 1250000,
+        "XEUR": 100000
+      }
+    }
+  ]
+}

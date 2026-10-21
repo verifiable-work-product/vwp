@@ -1,0 +1,110 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_cost_basis_lot_relief",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-cost-basis",
+  "title": "Cost Basis and Lot Relief - DemoCo BTC Q1 2025",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "5a57171d11dec95d972ff8dbff823355aed0d9918993aa34513ee8d6be910880",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "5b7714b980d58c27b6c53e81d9d68f669f7d1a61f96dd3391c8d885fbecabd34",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/lot-ledger.csv",
+      "mediaType": "text/csv",
+      "sha256": "8cfed7ce427d2269c90ac391137121e32ba9fa308ddc99f5736413a4fd545453",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "ee00e69682033f6f335872a5cc2303fd3dbd7294a5494c012559652cef916672",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/disposals.csv",
+      "mediaType": "text/csv",
+      "sha256": "25e7bcbb18e5843033b8640d2365680b2fd0c502e4751817852b0b08750290fb",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/cost-basis-policy.txt",
+      "mediaType": "text/plain",
+      "sha256": "98d0469cf6eb28625b78ac0d8a6b9099835250b759fef2111433fe8f87443037",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "b85ff3c58337314dff443f66d1e0cbc3e399d61243f1d64afa737c29ed2f7173",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "56f9ebcf052b781d0b8076766c39d31562076ab4ca58dda499c5418a67e488b0",
+      "role": "judgments"
+    },
+    {
+      "path": "calculations/s3_lot_relief.json",
+      "mediaType": "application/json",
+      "sha256": "412b18d517a3a62f60252aedadb4dcbd4dc04b0c46e90922a8f26d2a54290acb",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule-calculation.json",
+      "mediaType": "application/json",
+      "sha256": "95da4519ee99401f48d64e32077370a2de1da5b41360f57befa328eca7a7c926",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "sha256": "e7d8fda502b53ca9ffe58cc12526a9405142a1621c757a3c5489eac6c92d1501",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/s3_lot_relief_wb.json",
+      "mediaType": "application/json",
+      "sha256": "b2f752724084f1da8f1a42e2226e24074cb82f2fc1cfcc908d23427a9cdfc0ef",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/s5_wallet_allocation.json",
+      "mediaType": "application/json",
+      "sha256": "c81037c4daf82c5d5504dc239e2251baf75c107640d11f1ff436c35f31e038eb",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "4415d30b90a145b6b9bfe698961ce74b1703be1afd1c8ac631874baeb30ab23f",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "93ddd1614e150c5cd6bbd530f71bc38e4205ed18bdd6f3b749731f7646797ef2",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "0739175c0538ab5702b6c7471b14be1daa020ea4ecce9d04fece34a2a330d4fc",
+    "role": "provenance"
+  }
+}

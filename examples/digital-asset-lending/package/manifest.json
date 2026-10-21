@@ -1,0 +1,104 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_digital_asset_lending",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-lending",
+  "title": "Digital Asset Loan Accounting - DemoCo 100 ETH Loan to Borrower X",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "41f0b398af69762d1e921f781a7946c09bed9796bdf93732e7b1abbb409f5567",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "c69ec8f8a3681ec9044268fd3a653523913a4ab229ef5b58bd635dff938218ac",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/loan-agreement-excerpt.txt",
+      "mediaType": "text/plain",
+      "sha256": "12a9cb9c57ffdecc5fc356ef9ccdbbfb2b6d730f116b87887d47533fff4ea708",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "f361e0b468909e1a974d5c6118a2f044e6fc2693b5e5c416e22dc74f5176111d",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/collateral-statement.txt",
+      "mediaType": "text/plain",
+      "sha256": "e3a11cef4ee1a7a56189d2d07ed78959c3105c8547691c1e14e0259a794b0d95",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/eth-price-2026-06-30.txt",
+      "mediaType": "text/plain",
+      "sha256": "7c942b040208f317334b5f0040601d14d2f799fedf15a83a61073c51673e42ef",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "9d7c10753895eadd4ba73d2013a7f9e1e71cfab7b12cf8303537dc095a963f27",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "0b4dc251fa4a5716505e464fdc308d46d55ea76ca1c656fcdf12cbeafe00a84f",
+      "role": "judgments"
+    },
+    {
+      "path": "calculations/s3_interest_accrual.json",
+      "mediaType": "application/json",
+      "sha256": "6a9ede37325aa32d1a8dba0b3214d250ddfb3e9cf8a48725ee77477053f3d348",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule-calculation.json",
+      "mediaType": "application/json",
+      "sha256": "93587de00231ae099404a37c95ce969bbd15e633ec4e786df809958c7fef17c9",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "sha256": "0bfbb5a1a87323c48b55d325306b5136c5c8cb731e724177d31e6680f9e3a446",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/s4_collateral_coverage.json",
+      "mediaType": "application/json",
+      "sha256": "1fa43c6401a2f939f2a3251c79066e7487f6630e80d755467251e72751b154fa",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "ca8389b29075afd463729692f6185efb623d4b212446e083ecb9170c2f86fcd3",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "5f281d7f2452a4b14315ca74189fe186023ebed02efa1c3687e06370b10b6494",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "fcd9a8490bebc6e808a458f50dc577560b72175b9cf399d3d8f3b60f09b06dc5",
+    "role": "provenance"
+  }
+}

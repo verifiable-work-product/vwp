@@ -1,0 +1,4 @@
+wallet,token,issuer,units,asof
+treasury-main,DUSD,Demo Dollar Inc,1000000.00,2026-06-30
+ops-hot,DUSD,Demo Dollar Inc,250000.00,2026-06-30
+defi-vault,XEUR,XEUR Protocol,100000.00,2026-06-30

@@ -1,0 +1,6 @@
+DemoCo NFT lots as of 2026-06-30
+
+Lot NFT-001: DemoPunks #4821, carrying amount 40,000.00 USD, acquired 2025-11-02
+Lot NFT-002: DemoApes #77, carrying amount 15,000.00 USD, acquired 2026-02-14
+
+Each NFT is unique and non-fungible.

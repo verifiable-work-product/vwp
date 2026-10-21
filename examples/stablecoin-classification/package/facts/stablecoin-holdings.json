@@ -1,0 +1,56 @@
+{
+  "description": "Stablecoin holdings classification register at 2026-06-30. Synthetic data.",
+  "holdings": [
+    {
+      "asOf": "2026-06-30",
+      "chain": "ethereum",
+      "classification": "financialAssetReceivable",
+      "classificationJudgmentRef": "s3_j_dusd_class",
+      "id": "h_dusd_treasury",
+      "issuer": "Demo Dollar Inc",
+      "measurementBasis": "par (1 USD per DUSD) less ASC 326 allowance",
+      "redemptionRight": "holderDirect",
+      "redemptionTermsEvidence": [
+        "ev_dusd_terms"
+      ],
+      "reserveEvidence": [
+        "ev_reserve_attestation"
+      ],
+      "token": "DUSD",
+      "units": 1000000,
+      "wallet": "treasury-main"
+    },
+    {
+      "asOf": "2026-06-30",
+      "chain": "ethereum",
+      "classification": "financialAssetReceivable",
+      "classificationJudgmentRef": "s3_j_dusd_class",
+      "id": "h_dusd_ops",
+      "issuer": "Demo Dollar Inc",
+      "measurementBasis": "par (1 USD per DUSD) less ASC 326 allowance",
+      "redemptionRight": "holderDirect",
+      "redemptionTermsEvidence": [
+        "ev_dusd_terms"
+      ],
+      "reserveEvidence": [
+        "ev_reserve_attestation"
+      ],
+      "token": "DUSD",
+      "units": 250000,
+      "wallet": "ops-hot"
+    },
+    {
+      "asOf": "2026-06-30",
+      "chain": "ethereum",
+      "classification": "cryptoAsset",
+      "classificationJudgmentRef": "s3_j_xeur_class",
+      "id": "h_xeur_vault",
+      "issuer": "XEUR Protocol",
+      "measurementBasis": "fair value (ASC 820 level 1)",
+      "redemptionRight": "none",
+      "token": "XEUR",
+      "units": 100000,
+      "wallet": "defi-vault"
+    }
+  ]
+}

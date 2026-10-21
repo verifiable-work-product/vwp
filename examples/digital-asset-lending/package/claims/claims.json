@@ -1,0 +1,115 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "rightsAndObligations"
+      ],
+      "conclusion": "Arrangement terms established from the agreement.",
+      "domain": "finance",
+      "id": "s1_c_terms",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 860-10-05"
+      ],
+      "statement": "DemoCo lent 100 ETH for 91 days at a 5% in-kind fee, collateralized at 150% in USDC.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_loan_agreement"
+      ],
+      "supportingFacts": [
+        "s1_f_terms",
+        "s1_f_term_dates"
+      ]
+    },
+    {
+      "assertions": [
+        "existence",
+        "rightsAndObligations"
+      ],
+      "conclusion": "Derecognize; recognize a crypto asset loan receivable.",
+      "domain": "finance",
+      "id": "s2_c_derecognition",
+      "judgments": [
+        "s2_j_derecognition"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "AICPA Digital Assets Practice Aid — derecognition of lent crypto assets (SEC staff view)",
+        "ASC 860-10-40-5 (by analogy)"
+      ],
+      "statement": "The lent ETH is derecognized and a crypto asset loan receivable for 100 ETH is recognized: the borrower obtained the right to use, sell and re-pledge the ETH and DemoCo's recall right is for equivalent units, not the units transferred (SEC staff / AICPA Practice Aid analysis for crypto intangibles; ASC 860-10-40-5 considered by analogy).",
+      "status": "supported",
+      "supportingFacts": [
+        "s2_f_rehypothecation"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation",
+        "completeness"
+      ],
+      "conclusion": "Receivable at fair value of the lent asset; accrual recomputes from the agreement terms.",
+      "domain": "finance",
+      "id": "s3_c_accrual",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 820-10-35-1",
+        "AICPA Digital Assets Practice Aid (crypto lending)"
+      ],
+      "statement": "The receivable is measured at the fair value of the ETH to be returned (250,000 USD at 2026-06-30) and the in-kind fee accrues to 1.2466 ETH over the 91-day term, measured at the same ETH price.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_interest_accrual",
+        "s3_accounting_schedule"
+      ],
+      "supportingFacts": [
+        "s1_f_terms",
+        "s4_f_eth_price",
+        "s3_f_fee_price"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Collateral maintenance expedient; no allowance.",
+      "domain": "finance",
+      "id": "s4_c_credit_loss",
+      "judgments": [
+        "s4_j_credit_loss"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 326-20-35-6"
+      ],
+      "statement": "The receivable of 250,000 USD is covered 1.6x by 400,000 USDC of daily-marked collateral against a 1.5x maintenance requirement; under the ASC 326-20-35-6 collateral maintenance expedient the unsecured portion (carrying amount less collateral fair value) is zero and no allowance is recorded at 2026-06-30.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s4_collateral_coverage"
+      ],
+      "supportingFacts": [
+        "s4_f_collateral",
+        "s4_f_required_ratio",
+        "s4_f_eth_price"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "Disclosure per ASC 860-30-50 and ASC 326-20-50.",
+      "domain": "finance",
+      "id": "s5_c_disclosure",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 860-30-50-1",
+        "ASC 326-20-50"
+      ],
+      "statement": "The receivable, its collateral and the borrower concentration are disclosed.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s4_collateral_coverage"
+      ]
+    }
+  ]
+}

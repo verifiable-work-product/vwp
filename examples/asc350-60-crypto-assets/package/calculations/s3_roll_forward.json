@@ -1,0 +1,42 @@
+{
+  "id": "s3_roll_forward",
+  "type": "cryptoAssetRollForward",
+  "inputs": {
+    "currency": "USD",
+    "lines": [
+      {
+        "additions": 0,
+        "asset": "BTC",
+        "closingBalance": 650000,
+        "dispositions": 0,
+        "gains": 50000,
+        "losses": 0,
+        "openingBalance": 600000
+      },
+      {
+        "additions": 0,
+        "asset": "ETH",
+        "closingBalance": 900000,
+        "dispositions": 250000,
+        "gains": 0,
+        "losses": 100000,
+        "openingBalance": 1250000
+      }
+    ],
+    "periodEnd": "2026-06-30",
+    "periodStart": "2026-04-01"
+  },
+  "outputs": {
+    "totals": {
+      "additions": 0,
+      "closingBalance": 1550000,
+      "dispositions": 250000,
+      "gains": 50000,
+      "losses": 100000,
+      "openingBalance": 1850000
+    }
+  },
+  "method": "Per asset: openingBalance + additions - dispositions + gains - losses = closingBalance (ASC 350-60-50-3). Opening at 2026-03-31 fair values (BTC 60,000; ETH 2,500), closing at 2026-06-30 fair values.",
+  "validator": "asc35060.rollForward.tieOut",
+  "recomputable": true
+}

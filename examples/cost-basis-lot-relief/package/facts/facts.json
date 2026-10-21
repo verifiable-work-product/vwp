@@ -1,0 +1,133 @@
+{
+  "facts": [
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Lot relief method: FIFO, applied wallet by wallet."
+            }
+          ],
+          "evidenceId": "ev_policy"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_method",
+      "requiresReview": false,
+      "statement": "The elected lot relief method is FIFO applied wallet by wallet.",
+      "value": "FIFO"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "L1,2024-06-15,2.00000000,80000.00,W-A"
+            }
+          ],
+          "evidenceId": "ev_lot_ledger"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "lot",
+      "id": "s2_f_lot1",
+      "requiresReview": false,
+      "statement": "Lot L1: 2 BTC acquired 2024-06-15 for 80,000.00 USD in wallet W-A.",
+      "value": {
+        "costBasis": 80000,
+        "units": 2
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "L2,2024-09-10,1.00000000,50000.00,W-A"
+            }
+          ],
+          "evidenceId": "ev_lot_ledger"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "lot",
+      "id": "s2_f_lot2",
+      "requiresReview": false,
+      "statement": "Lot L2: 1 BTC acquired 2024-09-10 for 50,000.00 USD in wallet W-A.",
+      "value": {
+        "costBasis": 50000,
+        "units": 1
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "L3,2024-11-05,1.00000000,60000.00,W-B"
+            }
+          ],
+          "evidenceId": "ev_lot_ledger"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "lot",
+      "id": "s2_f_lot3",
+      "requiresReview": false,
+      "statement": "Lot L3: 1 BTC acquired 2024-11-05 for 60,000.00 USD in wallet W-B.",
+      "value": {
+        "costBasis": 60000,
+        "units": 1
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "D1,2025-03-20,2.50000000,162500.00,W-A"
+            }
+          ],
+          "evidenceId": "ev_disposals"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "disposal",
+      "id": "s3_f_disposal",
+      "requiresReview": false,
+      "statement": "Disposal D1 sold 2.5 BTC from wallet W-A on 2025-03-20 for 162,500.00 USD.",
+      "value": {
+        "proceeds": 162500,
+        "units": 2.5
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Specific unit allocation of unused basis to wallets under Rev. Proc. 2024-28 recorded on 2024-12-20, effective 2025-01-01"
+            }
+          ],
+          "evidenceId": "ev_policy"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "record",
+      "id": "s5_f_allocation_record",
+      "requiresReview": false,
+      "statement": "The specific unit allocation was recorded in the policy on 2024-12-20, effective 2025-01-01.",
+      "value": {
+        "method": "specificUnit",
+        "recordedOn": "2024-12-20"
+      }
+    }
+  ]
+}

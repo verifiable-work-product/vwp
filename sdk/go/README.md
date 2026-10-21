@@ -13,7 +13,8 @@ Packages:
 | Import path | Contents |
 |---|---|
 | `github.com/verifiable-work-product/vwp/sdk/go/vwp` | Core types, package container (`OpenPackage`, `Pack`, `Unpack`), manifest + SHA-256 integrity, `Verify` |
-| `.../sdk/go/vwp/validators` | Built-in extension validators (ASC 606, ASC 820, wallet ownership) and the batteries-included `validators.Verify` |
+| `.../sdk/go/vwp/validators` | Built-in extension validators (ASC 606, ASC 820, wallet ownership, ASC 350-60, ASC 350-30, staking rewards, lending, cost basis, stablecoin) and the batteries-included `validators.Verify` |
+| `.../sdk/go/vwp/accountingschedule` | The executable accounting schedule artifact (`calculations/accounting-schedule.json`): parse, validate, and the reviewer's account-binding config |
 | `.../sdk/go/vwp/builder` | Incremental package builder over an unpacked directory |
 | `.../sdk/go/vwp/schema` | JSON Schema validation against the embedded v0.1 schemas |
 
@@ -76,14 +77,25 @@ id: re-adding an identical object is a no-op, re-using an id with different
 content returns `builder.ErrConflict` — safe under at-least-once retries
 (e.g. workflow-engine activities).
 
+## Required outputs
+
+`vwp.RequiredOutputs(extension)` is the per-extension contract of mandatory,
+manifest-bound outputs (the ASC 606 allocation, recognition CSV and accounting
+schedule; the accounting schedule for every other extension that books
+entries). Core verification enforces it (`core.requiredOutputs.exist`,
+`accountingSchedule.valid`) and each extension's `*.accountingSchedule.tieOut`
+proves the schedule books exactly what its calculations say. See
+[`profiles/accounting/accounting-schedule.md`](../../profiles/accounting/accounting-schedule.md).
+
 ## Conformance
 
-Validator ids and their pass/fail semantics match the reference TypeScript
-CLI exactly; the normative list is the conformance table in
-[`spec/validations.md`](../../spec/validations.md). Reports from this SDK and
-the CLI are comparable id-for-id, including message conventions (capped at
-five offending items) and the shared 0.01 rounding tolerance in the tie-out
-validators.
+Validator ids and their semantics are the conformance table in
+[`spec/validations.md`](../../spec/validations.md). For the ids the reference
+TypeScript CLI implements, reports are comparable id-for-id, including message
+conventions (capped at five offending items) and the shared 0.01 rounding
+tolerance in the tie-out validators. This SDK is the only implementation of
+the required-output checks, the accounting-schedule tie-outs and the ASC
+350-60, ASC 350-30, staking, lending, cost-basis and stablecoin extensions.
 
 ## Embedded schemas
 
@@ -106,7 +118,10 @@ make test   # go vet + go test ./...
 
 Tests run against the repository's own [`examples/`](../../examples) and
 [`testdata/`](../../testdata) fixtures — the same fixtures the reference CLI
-tests use.
+tests use. The six accounting-extension examples are generated with the
+builder by `go run fixturegen/main.go` (from `sdk/go`), which refuses to write
+a package that does not verify clean; re-run it and commit the result after
+changing a validator's data contract.
 
-Module path `github.com/verifiable-work-product/vwp/sdk/go`, `go 1.22`. No
+Module path `github.com/verifiable-work-product/vwp/sdk/go`, `go 1.23`. No
 tagged releases yet; APIs may change until the first tag.

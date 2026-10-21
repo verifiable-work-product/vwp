@@ -1,0 +1,52 @@
+{
+  "judgments": [
+    {
+      "alternatives": [
+        {
+          "conclusion": "Crypto asset at fair value under ASC 350-60",
+          "notes": "Rejected: the enforceable redemption right is an asset-backed claim, not an intangible without rights."
+        }
+      ],
+      "basis": "ASC 350-60-15-1(b); issuer terms 4.1 and 4.2.",
+      "id": "s2_j_dusd_scope",
+      "proposedConclusion": "No. DUSD provides the holder an enforceable right to redeem for US dollars with the issuer, failing criterion (b). It is accounted for as a financial asset, not under ASC 350-60.",
+      "question": "Does DUSD meet the ASC 350-60-15-1 criteria?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "ASC 350-60 scope of DUSD"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Cash equivalent",
+          "notes": "Rejected: the maturity leg of the definition is not met; a conclusion of cash equivalent would need to overcome the Practice Aid view and be owned by the reviewer."
+        }
+      ],
+      "basis": "ASC 230-10-20 (cash equivalents: short-term, highly liquid, readily convertible, so near maturity that value changes are insignificant — a stablecoin has no maturity); ASC 305-10-20 cash; AICPA Digital Assets Practice Aid stablecoin Q&A; terms 4.1, 4.2, 5.1; reserve attestation.",
+      "id": "s3_j_dusd_class",
+      "proposedConclusion": "A financial asset: a receivable-like contractual right to receive 1 USD per token from the issuer on demand, carried at par with an ASC 326 credit loss assessment. Not cash (the issuer is not a depository institution and the token is not a demand deposit) and not a cash equivalent: DUSD has no maturity, so it cannot meet the ASC 230-10-20 short-maturity test however liquid it is — the AICPA Digital Assets Practice Aid view is that stablecoins are generally not cash equivalents. DemoCo's direct par redemption right settling T+1 and the attested reserves support par measurement and a nil allowance, not a cash-equivalent caption.",
+      "question": "Is DUSD cash, a cash equivalent, or another financial asset?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Balance sheet classification of DUSD"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Financial asset at amortized cost",
+          "notes": "Rejected: no contractual right to receive cash exists."
+        }
+      ],
+      "basis": "ASC 350-60-15-1 criteria all met; protocol documentation confirms no redemption right.",
+      "id": "s3_j_xeur_class",
+      "proposedConclusion": "ASC 350-60 crypto asset measured at fair value: it is an intangible on a distributed ledger, secured cryptographically, fungible, not created by DemoCo, and conveys no enforceable rights.",
+      "question": "How is XEUR classified given it has no issuer and no redemption right?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "Balance sheet classification of XEUR"
+    }
+  ]
+}

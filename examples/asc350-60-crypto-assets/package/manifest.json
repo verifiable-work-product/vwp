@@ -1,0 +1,110 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_asc350_60_crypto_assets",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc350-60",
+  "title": "ASC 350-60 Crypto Asset Accounting - DemoCo Q2 2026",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "4fe9aebd95140adf17ce2e32c7780f0c4fed839da24ae258877a2d384c45c934",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "1d716308cac54a5ea39eb1f67ff0d7acecc0ee689dd67889b328f26654c96a8b",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/holdings-extract.txt",
+      "mediaType": "text/plain",
+      "sha256": "92cbd9deb3fd224ab20f72770e57f68fc34b63fbad4391ddf18725f328d4a7be",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "b8c5100f65db0a5b85cfc5ac7787fae0de56d20390754d27e0fed2b949adf74f",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/period-end-prices.csv",
+      "mediaType": "text/csv",
+      "sha256": "0a9b68dcaaeecda33d98123155a44c5036793729abed7817dd92001a90030472",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/wdemo-token-terms.txt",
+      "mediaType": "text/plain",
+      "sha256": "a1ccf060ede3feede37b69a1a00d654ef6af3f853ac0f36f98c7b7037bca952a",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "9549a35a0a9376176b93130c769eebcfbb3f8a173d8af99d4e6f0ed5c17ca83b",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "5f758c7616bad73005495edde7fcca824f0a99007f60eb2ea33cd096afc7506c",
+      "role": "judgments"
+    },
+    {
+      "path": "facts/crypto-assets.json",
+      "mediaType": "application/json",
+      "sha256": "cdfbd7b3e76e31a3e445a52692ed47daef028be92adbab9670091ae32b32905c",
+      "role": "facts"
+    },
+    {
+      "path": "calculations/s3_roll_forward.json",
+      "mediaType": "application/json",
+      "sha256": "bd69b014b2d10006c65014a2f33c8f9d619e64bf2dc0cbe3778db85adc15c252",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule-calculation.json",
+      "mediaType": "application/json",
+      "sha256": "32ec288809c0f2898012b2a713cf6e3d34d44b839fa759b7b0b96ffaf2eef6d9",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "sha256": "21d0f70e3c511291b824761c367e3f278eaabf3b7fab0f15a317163c7d91951e",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/s5_significant_holdings.json",
+      "mediaType": "application/json",
+      "sha256": "4282e5399ae4f3d22e57510c4f914ed17a1c599f2d7f0e00b45052a0598ea304",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "470d4d0c6fb94a7bac34cb7a2e377d1e1949f9f6c86b012470bdcf5f7df4ed5d",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "a3b907c6525ee7067bf96745cd305d7630ff8d0c6579a16ce8eaf8d69df57fa3",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "ef2a241a094f4542493e794024f78417c1fa6fae23b845b74b44d0a1e4e3527d",
+    "role": "provenance"
+  }
+}

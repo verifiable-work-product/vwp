@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/digital-assets-cost-basis/wallet-basis-allocation.schema.json",
+  "title": "Wallet-by-Wallet Basis Allocation",
+  "description": "Extension schema for the vwp-digital-assets-cost-basis extension. Constrains a core calculation object of type 'walletBasisAllocation': the Rev. Proc. 2024-28 transition safe harbor allocation of unused basis held at 2025-01-01 across the wallets holding the units at that date. The validators check that allocated basis and units sum to the declared totals, that asOf is the safe harbor date, and (when the package carries the lot population) that the totals equal the lots acquired before that date. Units acquired on or after 2025-01-01 are never in the allocation. Located by type under calculations/.",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "inputs",
+    "outputs"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "const": "walletBasisAllocation"
+    },
+    "inputs": {
+      "type": "object",
+      "required": [
+        "asset",
+        "asOf",
+        "allocationMethod",
+        "methodRecordFact",
+        "totalUnallocatedBasis",
+        "totalUnits",
+        "wallets"
+      ],
+      "properties": {
+        "asset": {
+          "type": "string",
+          "minLength": 1
+        },
+        "currency": {
+          "type": "string"
+        },
+        "asOf": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "The safe harbor date, 2025-01-01."
+        },
+        "allocationMethod": {
+          "type": "string",
+          "enum": [
+            "specificUnit",
+            "globalAllocation"
+          ],
+          "description": "specificUnit: identified units of unused basis assigned to wallets, made by the earlier of the first disposition on or after 2025-01-01 or the 2025 return due date. globalAllocation: a rule recorded in the taxpayer's books before 2025-01-01."
+        },
+        "totalUnallocatedBasis": {
+          "type": "number",
+          "minimum": 0
+        },
+        "totalUnits": {
+          "type": "number",
+          "minimum": 0
+        },
+        "wallets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "walletId",
+              "units"
+            ],
+            "properties": {
+              "walletId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "units": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "methodRecordFact": {
+          "type": "string",
+          "description": "Fact id for the record of the allocation method; its value must carry the date it was recorded (a date string or {date}). globalAllocation: the rule must be recorded before 2025-01-01 (\u00a75.02(5)) and completed by the LATER of the first disposition on or after 2025-01-01 or the 2025 return due date; specificUnit: completed by the EARLIER of those (\u00a75.02(4))."
+        }
+      },
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "required": [
+        "allocations"
+      ],
+      "properties": {
+        "allocations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "walletId",
+              "units",
+              "allocatedBasis"
+            ],
+            "properties": {
+              "walletId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "units": {
+                "type": "number",
+                "minimum": 0
+              },
+              "allocatedBasis": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "roundingTolerance": {
+      "type": "number",
+      "minimum": 0
+    },
+    "unitTolerance": {
+      "type": "number",
+      "minimum": 0
+    },
+    "method": {
+      "type": "string"
+    },
+    "validator": {
+      "type": "string"
+    },
+    "recomputable": {
+      "type": "boolean"
+    }
+  }
+}

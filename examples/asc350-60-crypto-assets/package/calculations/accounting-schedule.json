@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "name": "Q2 2026 crypto asset remeasurement",
+  "kind": "fair_value_remeasurement",
+  "currency": "USD",
+  "amountScale": 2,
+  "startDate": "2026-04-01",
+  "endDate": "2026-06-30",
+  "totalAmount": "150000.00",
+  "entries": [
+    {
+      "id": "BTC-2026-06-30-gain",
+      "date": "2026-06-30",
+      "description": "BTC remeasurement gain for Q2 2026",
+      "obligationId": "BTC",
+      "postings": [
+        {
+          "accountRole": "crypto_asset",
+          "debit": "50000.00"
+        },
+        {
+          "accountRole": "crypto_asset_gain_loss",
+          "credit": "50000.00"
+        }
+      ]
+    },
+    {
+      "id": "ETH-2026-06-30-loss",
+      "date": "2026-06-30",
+      "description": "ETH remeasurement loss for Q2 2026",
+      "obligationId": "ETH",
+      "postings": [
+        {
+          "accountRole": "crypto_asset_gain_loss",
+          "debit": "100000.00"
+        },
+        {
+          "accountRole": "crypto_asset",
+          "credit": "100000.00"
+        }
+      ]
+    }
+  ]
+}

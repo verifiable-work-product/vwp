@@ -1,0 +1,118 @@
+{
+  "facts": [
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "BTC units held: 10.00000000"
+            }
+          ],
+          "evidenceId": "ev_holdings_extract"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "quantity",
+      "id": "s1_f_btc_units",
+      "requiresReview": false,
+      "statement": "DemoCo held 10 BTC at 2026-06-30.",
+      "value": 10
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "ETH units held: 400.00000000"
+            }
+          ],
+          "evidenceId": "ev_holdings_extract"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "quantity",
+      "id": "s1_f_eth_units",
+      "requiresReview": false,
+      "statement": "DemoCo held 400 ETH at 2026-06-30.",
+      "value": 400
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "WDEMO is created and issued by DemoCo Inc."
+            }
+          ],
+          "evidenceId": "ev_wdemo_terms"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_wdemo_issuer",
+      "requiresReview": false,
+      "statement": "WDEMO is created and issued by DemoCo itself.",
+      "value": "DemoCo-issued"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "BTC,65000.00,demo-exchange,2026-06-30"
+            }
+          ],
+          "evidenceId": "ev_period_end_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s2_f_btc_price",
+      "requiresReview": false,
+      "statement": "The principal-market BTC price at 2026-06-30 was 65,000.00 USD.",
+      "value": 65000
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "ETH,2250.00,demo-exchange,2026-06-30"
+            }
+          ],
+          "evidenceId": "ev_period_end_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s2_f_eth_price",
+      "requiresReview": false,
+      "statement": "The principal-market ETH price at 2026-06-30 was 2,250.00 USD.",
+      "value": 2250
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "100 ETH sold on 2026-05-15 for 250,000.00 USD"
+            }
+          ],
+          "evidenceId": "ev_holdings_extract"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s3_f_eth_sale",
+      "requiresReview": false,
+      "statement": "100 ETH were sold on 2026-05-15 for 250,000.00 USD.",
+      "value": 250000
+    }
+  ]
+}

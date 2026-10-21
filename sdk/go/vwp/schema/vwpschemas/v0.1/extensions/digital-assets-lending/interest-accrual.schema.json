@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/digital-assets-lending/interest-accrual.schema.json",
+  "title": "Digital Asset Loan Interest Accrual",
+  "description": "Extension schema for the vwp-digital-assets-lending extension. Constrains a core calculation object of type 'digitalAssetLoanInterestAccrual': the in-kind interest accrued over an accrual window from the principal, the annual rate and the day-count basis. Located by type under calculations/.",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "inputs",
+    "outputs"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "const": "digitalAssetLoanInterestAccrual"
+    },
+    "inputs": {
+      "type": "object",
+      "required": [
+        "asset",
+        "principalUnits",
+        "annualRate",
+        "dayCountBasis",
+        "accrualStart",
+        "accrualEnd",
+        "termsFact"
+      ],
+      "properties": {
+        "asset": {
+          "type": "string",
+          "minLength": 1
+        },
+        "principalUnits": {
+          "type": "number",
+          "minimum": 0
+        },
+        "annualRate": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Decimal annual rate, e.g. 0.05 for 5%."
+        },
+        "dayCountBasis": {
+          "type": "integer",
+          "enum": [
+            360,
+            365
+          ]
+        },
+        "accrualStart": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "First day of the accrual window (inclusive)."
+        },
+        "accrualEnd": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "Day after the last accrual day (exclusive), so days = accrualEnd - accrualStart."
+        },
+        "termsFact": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Fact id for the loan terms (rate, basis, term) extracted from the agreement."
+        },
+        "loanId": {
+          "type": "string",
+          "description": "Loan identifier when more than one loan or accrual window is scheduled."
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "description": "Currency the accrued fee is measured in; required when the accrual is priced."
+        },
+        "unitPrice": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Fair value per unit of the accrued asset as of the last accrued day (accrualEnd - 1 day)."
+        },
+        "priceFact": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Fact id whose value is {price, date}: price = unitPrice, date = the last accrued day."
+        }
+      },
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "required": [
+        "days",
+        "accruedUnits"
+      ],
+      "properties": {
+        "days": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "accruedUnits": {
+          "type": "number",
+          "minimum": 0
+        },
+        "accruedFairValue": {
+          "type": "number",
+          "minimum": 0,
+          "description": "accruedUnits x unitPrice: the amount the executable accrual entry books."
+        }
+      },
+      "additionalProperties": true
+    },
+    "unitTolerance": {
+      "type": "number",
+      "minimum": 0
+    },
+    "method": {
+      "type": "string"
+    },
+    "validator": {
+      "type": "string"
+    },
+    "recomputable": {
+      "type": "boolean"
+    },
+    "roundingTolerance": {
+      "type": "number",
+      "minimum": 0
+    }
+  }
+}

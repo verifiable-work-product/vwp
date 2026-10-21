@@ -284,17 +284,17 @@ const VALID_ALLOCATION = {
 };
 
 describe('asc606 extension validators', () => {
-  it('reports notRun when the allocation calculation is absent', () => {
+  it('fails when the allocation calculation is absent (it is a required output)', () => {
     const { byId } = verify(asc606Files());
-    expect(byId.get('asc606.allocation.schemaValid')).toBe('notRun');
-    expect(byId.get('asc606.allocation.tieOut')).toBe('notRun');
-    expect(byId.get('asc606.revenueSchedule.total')).toBe('notRun');
+    expect(byId.get('asc606.allocation.schemaValid')).toBe('fail');
+    expect(byId.get('asc606.allocation.tieOut')).toBe('fail');
+    expect(byId.get('asc606.revenueSchedule.total')).toBe('fail');
   });
 
-  it('fails schema check and skips tie-out on an invalid allocation', () => {
+  it('fails schema check and the dependent tie-out on an invalid allocation', () => {
     const { byId } = verify(asc606Files({ 'calculations/ssp-allocation.json': { id: 'x' } }));
     expect(byId.get('asc606.allocation.schemaValid')).toBe('fail');
-    expect(byId.get('asc606.allocation.tieOut')).toBe('notRun');
+    expect(byId.get('asc606.allocation.tieOut')).toBe('fail');
   });
 
   it('fails tie-out when allocations do not sum to the transaction price', () => {

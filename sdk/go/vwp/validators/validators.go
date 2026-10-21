@@ -1,11 +1,14 @@
-// Package validators implements the built-in VWP extension validators
-// (ASC 606, ASC 820, digital-asset wallet ownership) with the same validator
-// ids and semantics as the reference TypeScript CLI, and provides the
-// batteries-included Verify entry point.
+// Package validators implements the built-in VWP extension validators —
+// ASC 606, ASC 820 and digital-asset wallet ownership with the same
+// validator ids and semantics as the reference TypeScript CLI, plus the
+// Bitwave-authored ASC 350-60, ASC 350-30, staking rewards, lending, cost
+// basis and stablecoin extensions — and provides the batteries-included
+// Verify entry point.
 package validators
 
 import (
 	"math"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -19,6 +22,12 @@ func Registry() map[string]vwp.ExtensionValidator {
 		vwp.ExtensionASC606:        ASC606,
 		vwp.ExtensionASC820:        ASC820,
 		vwp.ExtensionWalletControl: WalletOwnership,
+		vwp.ExtensionASC35060:      ASC35060,
+		vwp.ExtensionASC35030:      ASC35030,
+		vwp.ExtensionStakingReward: StakingRewards,
+		vwp.ExtensionLending:       Lending,
+		vwp.ExtensionCostBasis:     CostBasis,
+		vwp.ExtensionStablecoin:    Stablecoin,
 	}
 }
 
@@ -143,3 +152,5 @@ func asMap(v any) map[string]any {
 	m, _ := v.(map[string]any)
 	return m
 }
+
+func sortStrings(s []string) { sort.Strings(s) }

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/digital-assets-stablecoin/stablecoin-holdings.schema.json",
+  "title": "Stablecoin Holdings Classification Register",
+  "description": "Extension schema for the vwp-digital-assets-stablecoin extension: the register at facts/stablecoin-holdings.json. One entry per stablecoin holding with the redemption right the holder actually has, the evidence for it, the balance-sheet classification concluded and the judgment that concluded it. The validators check that every holding links a resolvable classification judgment, that cash-like classifications rest on evidenced redemption rights, and that the same token from the same issuer is classified consistently.",
+  "type": "object",
+  "required": ["holdings"],
+  "properties": {
+    "description": { "type": "string" },
+    "holdings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "token", "issuer", "units", "redemptionRight", "classification", "classificationJudgmentRef"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "token": { "type": "string", "minLength": 1 },
+          "issuer": { "type": "string", "minLength": 1 },
+          "chain": { "type": "string" },
+          "wallet": { "type": "string" },
+          "units": { "type": "number", "minimum": 0 },
+          "asOf": { "type": "string" },
+          "redemptionRight": {
+            "type": "string",
+            "enum": ["holderDirect", "viaIntermediary", "none"],
+            "description": "Whether the reporting entity itself can redeem with the issuer at par, can only redeem through an intermediary, or has no redemption right."
+          },
+          "redemptionTermsEvidence": { "type": "array", "items": { "type": "string" }, "description": "Evidence ids for the issuer terms establishing the redemption right." },
+          "reserveEvidence": { "type": "array", "items": { "type": "string" }, "description": "Evidence ids for reserve attestations or audits." },
+          "classification": {
+            "type": "string",
+            "enum": ["cash", "cashEquivalent", "financialAssetReceivable", "financialAssetSecurity", "cryptoAsset", "other"]
+          },
+          "measurementBasis": { "type": "string" },
+          "classificationJudgmentRef": { "type": "string", "minLength": 1 },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

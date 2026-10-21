@@ -1,0 +1,796 @@
+{
+  "schemaVersion": 1,
+  "name": "Acme contract revenue recognition",
+  "kind": "revenue_recognition",
+  "currency": "USD",
+  "amountScale": 2,
+  "startDate": "2026-01-01",
+  "endDate": "2027-12-31",
+  "totalAmount": "300000",
+  "entries": [
+    {
+      "id": "saas_subscription-2026-01",
+      "date": "2026-01-31",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2026-01",
+      "date": "2026-01-31",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2026-02",
+      "date": "2026-02-28",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2026-02",
+      "date": "2026-02-28",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2026-03",
+      "date": "2026-03-31",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2026-03",
+      "date": "2026-03-31",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "implementation_services-2026-03",
+      "date": "2026-03-31",
+      "description": "implementation_services recognition",
+      "obligationId": "implementation_services",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "60000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "60000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2026-04",
+      "date": "2026-04-30",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2026-04",
+      "date": "2026-04-30",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2026-05",
+      "date": "2026-05-31",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2026-05",
+      "date": "2026-05-31",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2026-06",
+      "date": "2026-06-30",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2026-06",
+      "date": "2026-06-30",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2026-07",
+      "date": "2026-07-31",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2026-07",
+      "date": "2026-07-31",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2026-08",
+      "date": "2026-08-31",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2026-08",
+      "date": "2026-08-31",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2026-09",
+      "date": "2026-09-30",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2026-09",
+      "date": "2026-09-30",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2026-10",
+      "date": "2026-10-31",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2026-10",
+      "date": "2026-10-31",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2026-11",
+      "date": "2026-11-30",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2026-11",
+      "date": "2026-11-30",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2026-12",
+      "date": "2026-12-31",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2026-12",
+      "date": "2026-12-31",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2027-01",
+      "date": "2027-01-31",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2027-01",
+      "date": "2027-01-31",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2027-02",
+      "date": "2027-02-28",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2027-02",
+      "date": "2027-02-28",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2027-03",
+      "date": "2027-03-31",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2027-03",
+      "date": "2027-03-31",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2027-04",
+      "date": "2027-04-30",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2027-04",
+      "date": "2027-04-30",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2027-05",
+      "date": "2027-05-31",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2027-05",
+      "date": "2027-05-31",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2027-06",
+      "date": "2027-06-30",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2027-06",
+      "date": "2027-06-30",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2027-07",
+      "date": "2027-07-31",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2027-07",
+      "date": "2027-07-31",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2027-08",
+      "date": "2027-08-31",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2027-08",
+      "date": "2027-08-31",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2027-09",
+      "date": "2027-09-30",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2027-09",
+      "date": "2027-09-30",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2027-10",
+      "date": "2027-10-31",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2027-10",
+      "date": "2027-10-31",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2027-11",
+      "date": "2027-11-30",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2027-11",
+      "date": "2027-11-30",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    },
+    {
+      "id": "saas_subscription-2027-12",
+      "date": "2027-12-31",
+      "description": "saas_subscription recognition",
+      "obligationId": "saas_subscription",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "8000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "8000"
+        }
+      ]
+    },
+    {
+      "id": "premium_support-2027-12",
+      "date": "2027-12-31",
+      "description": "premium_support recognition",
+      "obligationId": "premium_support",
+      "postings": [
+        {
+          "accountRole": "deferred_revenue",
+          "debit": "2000"
+        },
+        {
+          "accountRole": "revenue",
+          "credit": "2000"
+        }
+      ]
+    }
+  ]
+}

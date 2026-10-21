@@ -1,0 +1,7 @@
+Digital Asset Loan Agreement (excerpt)
+
+1. Principal: 100 ETH delivered to Borrower on 2026-04-01.
+2. Term: 2026-04-01 to 2026-07-01 (91 days).
+3. Fee: 5.00% per annum, accrued in ETH on an actual/365 basis, payable at maturity.
+4. Collateral: Borrower posts USDC equal to at least 150% of the loan value, marked daily.
+5. Use: Borrower may sell, lend or re-pledge the ETH without restriction during the term.

@@ -1,0 +1,27 @@
+{
+  "id": "wp_demo_cost_basis_lot_relief",
+  "title": "Cost Basis and Lot Relief - DemoCo BTC Q1 2025",
+  "domain": "accounting.costBasis",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-cost-basis",
+  "standardRefs": [
+    "ASC 350-60-50-2",
+    "Rev. Proc. 2024-28"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2025-03-31",
+    "start": "2025-01-01"
+  },
+  "conclusionSummary": "DemoCo elects FIFO lot relief applied wallet by wallet. The 190,000 USD of unused basis on 4 BTC held at 2025-01-01 (all acquired in 2024) is allocated across the two wallets under the Rev. Proc. 2024-28 specific unit allocation recorded on 2024-12-20; the 2.5 BTC disposal on 2025-03-20 then relieves lots L1 and half of L2 for 105,000 USD of basis and a 57,500 USD realized gain.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

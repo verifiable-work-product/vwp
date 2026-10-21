@@ -1,0 +1,36 @@
+{
+  "judgments": [
+    {
+      "alternatives": [
+        {
+          "conclusion": "ASC 606 revenue with the protocol as customer",
+          "notes": "Considered: supportable where the entity's ordinary activity is validation and it treats the protocol as the party receiving the service; would change the income statement caption but not the measurement basis."
+        }
+      ],
+      "basis": "ASC 606-10-15-3 customer definition; ASC 606-10-55-36 to 55-40 control indicators; ASC 606-10-32-21 to 32-23 noncash consideration (applied by analogy); AICPA Digital Assets Practice Aid staking Q&A; interpretive views differ on whether a protocol can be a customer, so the conclusion is a judgment.",
+      "id": "s2_j_principal",
+      "proposedConclusion": "DemoCo is the principal (it controls the validator and bears slashing risk). No delegators or protocol counterparty contract for the service, so ASC 606 is applied by analogy for recognition and noncash-consideration measurement, with the reward presented as other income rather than revenue from contracts with customers.",
+      "question": "Is there a customer for DemoCo's validation service, is DemoCo the principal, and is the reward revenue under ASC 606 (directly or by analogy) or other income?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Customer identification, principal versus agent and nature of the reward"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Accrue daily as duties are performed with the constraint applied",
+          "notes": "Considered: yields the same amounts here because credit occurs each period; would differ where credit lags performance across a reporting date — then accrue the constrained estimate and true up at credit."
+        }
+      ],
+      "basis": "ASC 606-10-25-27 to 25-30 (satisfaction over time / control) and 606-10-32-11 constraint, applied by analogy; ASC 606-10-32-21 noncash consideration measured at inception fair value — the arrangement has no inception price for a protocol reward, so the recognition-date price is the inception-equivalent; ASC 350-30-30-1 initial measurement of an intangible received.",
+      "id": "s3_j_timing",
+      "proposedConclusion": "Recognized when the reward is credited and withdrawable to the DemoCo-controlled address, which on this chain coincides with the end of each duty period: the amount is then fixed and the asset is controlled. Each reward is measured at the fair value on that recognition date (pricingDateBasis recognitionDate); subsequent price movements are ASC 350-60 remeasurement, not staking income. No reward straddles the 2026-04-30 reporting boundary.",
+      "question": "Are rewards recognized as validation duties are performed (over time, with the variable-consideration constraint), when credited to the withdrawal address, or when claimed — and which date's price measures them?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "Recognition timing and pricing date of validator rewards"
+    }
+  ]
+}

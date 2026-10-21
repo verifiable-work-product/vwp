@@ -1,0 +1,26 @@
+{
+  "id": "wp_demo_asc350_30_impairment",
+  "title": "ASC 350-30 Impairment Test - DemoCo NFT Holdings Q2 2026",
+  "domain": "accounting.intangibles",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc350-30",
+  "standardRefs": [
+    "ASC 350-30"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2026-06-30",
+    "start": "2026-04-01"
+  },
+  "conclusionSummary": "Two NFTs held outside ASC 350-60 (non-fungible) are tested for impairment at 2026-06-30 against the lowest observable floor price; NFT-001 is impaired by 15,000 USD, NFT-002 is not.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}
