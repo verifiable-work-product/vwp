@@ -148,7 +148,7 @@ Core validators, run by every verifier:
 | `core.digests.match` | fail | the manifest's `digests` block, when present, equals the recomputed roots |
 | `narrative.cites.fresh` | fail | every cited `hash` equals the object's current closure hash; names the stale objects and the sections citing them |
 | `narrative.drift` | reviewRequired | all cites are fresh but the analysis root moved since the narrative was written (something new and uncited exists) |
-| `approvals.current` | reviewRequired | an `approved` action whose `contentRoot` is not the current content root is superseded; the approval stays in the record |
+| `approvals.current` | reviewRequired | the package has `approved` actions with a `contentRoot` but none equals the current content root: every approval is superseded and a new one is required. Superseded approvals followed by a current one are history (pass, listed in the message); approvals stay in the record |
 
 Existing narrative validators (`narrative.schemaValid`, `.sections`,
 `.citations`, `.roles`) are unchanged except that `narrative.stale` is

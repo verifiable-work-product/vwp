@@ -1109,16 +1109,24 @@ function approvalsCurrent(outcomes: Outcome[], graph: IntegrityGraph): void {
     outcomes.push({ id: 'approvals.current', status: 'notRun', message: `content root not recomputable: ${(err as Error).message}` });
     return;
   }
-  const superseded = withRoot.filter((a) => a.obj.action === 'approved' && a.obj.contentRoot !== current).map((a) => a.id);
-  outcomes.push(
-    superseded.length === 0
-      ? { id: 'approvals.current', status: 'pass' }
-      : {
-          id: 'approvals.current',
-          status: 'reviewRequired',
-          message: `the content changed after these approvals were recorded; they are superseded and a new approval is required: ${superseded.join(', ')}`,
-        }
-  );
+  const approved = withRoot.filter((a) => a.obj.action === 'approved');
+  const superseded = approved.filter((a) => a.obj.contentRoot !== current).map((a) => a.id);
+  const hasCurrent = approved.some((a) => a.obj.contentRoot === current);
+  // Earlier approvals superseded by a later one over the current content are
+  // history, not a problem: the package has a current approval.
+  if (hasCurrent || superseded.length === 0) {
+    outcomes.push(
+      superseded.length === 0
+        ? { id: 'approvals.current', status: 'pass' }
+        : { id: 'approvals.current', status: 'pass', message: `earlier approvals superseded by a current one: ${superseded.join(', ')}` }
+    );
+    return;
+  }
+  outcomes.push({
+    id: 'approvals.current',
+    status: 'reviewRequired',
+    message: `the content changed after these approvals were recorded; they are superseded and a new approval is required: ${superseded.join(', ')}`,
+  });
 }
 
 /* ------------------------------------------------------------------------ */
@@ -1127,6 +1135,24 @@ function approvalsCurrent(outcomes: Outcome[], graph: IntegrityGraph): void {
 
 const PROSE_KINDS = new Set(['narrative', 'conclusion']);
 const CITABLE_KINDS = new Set(['fact', 'claim', 'judgment', 'calculation', 'evidence']);
+/** The cap on a section's notApplicable reason (spec/narrative.md section 3). */
+const NOT_APPLICABLE_MAX_BYTES = 512;
+
+/** True when a top-level narrative section is marked not applicable with a reason. */
+function isNotApplicable(section: any): boolean {
+  return typeof section?.notApplicable === 'string' && section.notApplicable.length > 0;
+}
+
+/**
+ * True when a literature paragraph's text names the reference: as written
+ * (`ASC 606-10-25-1`) or with the leading `ASC ` stripped (`606-10-25-1`).
+ */
+export function namesReference(text: string, ref: string): boolean {
+  if (ref.length === 0) return false;
+  if (text.includes(ref)) return true;
+  const stripped = ref.startsWith('ASC ') ? ref.slice(4) : ref;
+  return stripped.length > 0 && text.includes(stripped);
+}
 
 /**
  * The layout of a package whose organization never configured a memo
@@ -1180,6 +1206,14 @@ function memoFormatInUse(pkg: PackageSource): MemoFormatInUse {
     }
     for (const s of format.sections as any[]) {
       if (!isSingleLine(s.heading)) errors.push(`section "${s.id}" heading must be a single line`);
+      if (Array.isArray(s.roles)) {
+        if (s.kind !== 'signoff') errors.push(`section "${s.id}" roles are allowed only on signoff sections`);
+        (s.roles as any[]).forEach((role, i) => {
+          if (typeof role !== 'string' || role.trim().length === 0 || !isSingleLine(role)) {
+            errors.push(`section "${s.id}" role ${i + 1} must be a non-empty single line`);
+          }
+        });
+      }
     }
   }
   if (errors.length > 0) return { format, error: `${MEMO_FORMAT_PATH}: ${capped(errors)}` };
@@ -1214,6 +1248,15 @@ function narrativeShapeErrors(narrative: any): string[] {
         errors.push(`section "${section.id}" paragraph ${i + 1} contains control characters`);
       }
     });
+    if (typeof section?.notApplicable === 'string') {
+      if (!isSingleLine(section.notApplicable)) errors.push(`section "${section.id}" notApplicable must be a single line`);
+      if (Buffer.byteLength(section.notApplicable, 'utf8') > NOT_APPLICABLE_MAX_BYTES) {
+        errors.push(`section "${section.id}" notApplicable exceeds ${NOT_APPLICABLE_MAX_BYTES} bytes`);
+      }
+      if ((section.paragraphs ?? []).length > 0 || (section.subsections ?? []).length > 0) {
+        errors.push(`section "${section.id}": notApplicable sections carry no paragraphs`);
+      }
+    }
     for (const sub of section?.subsections ?? []) walk(sub);
   };
   for (const s of narrative?.sections ?? []) {
@@ -1245,8 +1288,10 @@ function narrativeSections(outcomes: Outcome[], narrative: any | undefined, inUs
     }
     const counts = new Map<string, number>();
     for (const { sectionId } of paragraphsOf(narrative)) counts.set(sectionId, (counts.get(sectionId) ?? 0) + 1);
+    const notApplicable = new Set<string>();
+    for (const s of narrative?.sections ?? []) if (typeof s?.id === 'string' && isNotApplicable(s)) notApplicable.add(s.id);
     for (const fs of inUse.format.sections ?? []) {
-      if (fs?.required === true && PROSE_KINDS.has(fs.kind) && !(counts.get(fs.id) ?? 0)) {
+      if (fs?.required === true && PROSE_KINDS.has(fs.kind) && !(counts.get(fs.id) ?? 0) && !notApplicable.has(fs.id)) {
         problems.push(`required section "${fs.id}" has no paragraphs`);
       }
     }
@@ -1321,13 +1366,44 @@ function narrativeValidators(outcomes: Outcome[], pkg: PackageSource, graph: Int
   // narrative.roles
   const roleFailures: string[] = [];
   const roleReviews: string[] = [];
+  const citedConclusions = (p: any): { claims: any[]; judgments: string[] } => {
+    const claims: any[] = [];
+    const judgments: string[] = [];
+    for (const c of cites(p)) {
+      if (typeof c?.id !== 'string') continue;
+      const k = kindOf(c.id);
+      if (k === 'claim') claims.push(graph.objects.get(c.id)!.obj);
+      else if (k === 'judgment') judgments.push(c.id);
+    }
+    return { claims, judgments };
+  };
+  /** The standardRefs a literature paragraph may name: those of the cited claims and of the claims listing a cited judgment. */
+  const referencesOf = (claims: any[], judgments: string[]): string[] => {
+    const refs = new Set<string>();
+    const add = (claim: any) => {
+      for (const ref of Array.isArray(claim?.standardRefs) ? claim.standardRefs : []) if (typeof ref === 'string') refs.add(ref);
+    };
+    for (const claim of claims) add(claim);
+    if (judgments.length > 0) {
+      for (const node of graph.byKind.claim) {
+        const listed = Array.isArray(node.obj?.judgments) ? node.obj.judgments : [];
+        if (judgments.some((j) => listed.includes(j))) add(node.obj);
+      }
+    }
+    return [...refs];
+  };
   for (const { sectionId, paragraph } of paragraphs) {
-    if (paragraph?.role !== 'conclusion') continue;
-    const ok = cites(paragraph).some((c) => {
-      const k = typeof c?.id === 'string' ? kindOf(c.id) : undefined;
-      return k === 'claim' || k === 'judgment';
-    });
-    if (!ok) roleFailures.push(`section "${sectionId}": a conclusion paragraph cites no claim or judgment`);
+    if (paragraph?.role !== 'conclusion' && paragraph?.role !== 'literature') continue;
+    const { claims, judgments } = citedConclusions(paragraph);
+    if (claims.length === 0 && judgments.length === 0) {
+      roleFailures.push(`section "${sectionId}": a ${paragraph.role} paragraph cites no claim or judgment`);
+      continue;
+    }
+    if (paragraph.role !== 'literature') continue;
+    const text = typeof paragraph.text === 'string' ? paragraph.text : '';
+    if (!referencesOf(claims, judgments).some((ref) => namesReference(text, ref))) {
+      roleFailures.push(`section "${sectionId}": a literature paragraph names none of its cited references`);
+    }
   }
   for (const s of narrative.sections) {
     const fs = formatSection(inUse.format, s?.id);

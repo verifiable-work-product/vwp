@@ -66,7 +66,7 @@ func verifyNarrative(pkg Source, g *Graph, digests *Digests, add func(Validation
 	verifyNarrativeCitations(add, narrative, kinds, claims)
 
 	// narrative.roles
-	verifyNarrativeRoles(add, narrative, format.format, kinds)
+	verifyNarrativeRoles(add, narrative, format.format, kinds, claims)
 
 	// narrative.cites.fresh and narrative.drift need the graph; when it
 	// could not be built core.graph.refsResolve already failed.
@@ -185,7 +185,7 @@ func narrativeShapeErrors(n Narrative) []string {
 			if len(p.Text) > MaxNarrativeParagraph {
 				errs = append(errs, fmt.Sprintf("section %q paragraph %d exceeds %d bytes", s.Id, i+1, MaxNarrativeParagraph))
 			}
-			if p.Role != ParagraphRoleAnalysis && p.Role != ParagraphRoleConclusion {
+			if !IsParagraphRole(p.Role) {
 				errs = append(errs, fmt.Sprintf("section %q paragraph %d has unknown role %q", s.Id, i+1, p.Role))
 			}
 			if !PlainText(p.Text) {
@@ -194,6 +194,17 @@ func narrativeShapeErrors(n Narrative) []string {
 		}
 		if !SingleLine(s.Heading) {
 			errs = append(errs, fmt.Sprintf("section %q heading must be a single line", s.Id))
+		}
+		if s.NotApplicable != "" {
+			if !SingleLine(s.NotApplicable) {
+				errs = append(errs, fmt.Sprintf("section %q notApplicable must be a single line", s.Id))
+			}
+			if len(s.NotApplicable) > MaxNarrativeNotApplicable {
+				errs = append(errs, fmt.Sprintf("section %q notApplicable exceeds %d bytes", s.Id, MaxNarrativeNotApplicable))
+			}
+			if len(s.Paragraphs) > 0 || len(s.Subsections) > 0 {
+				errs = append(errs, fmt.Sprintf("section %q: notApplicable sections carry no paragraphs", s.Id))
+			}
 		}
 		for _, sub := range s.Subsections {
 			walk(sub, depth+1)
@@ -259,7 +270,9 @@ func memoFormatInUse(pkg Source) formatInUse {
 		return fallback(fmt.Sprintf("%s is not a valid memo format: %v", MemoFormatPath, err))
 	}
 	if err := f.Validate(); err != nil {
-		return fallback(fmt.Sprintf("%s: %v", MemoFormatPath, err))
+		// The problem, not the sentinel: "narrative/format.json: section
+		// "x" roles are allowed only on signoff sections".
+		return fallback(fmt.Sprintf("%s: %s", MemoFormatPath, strings.TrimPrefix(err.Error(), ErrInvalidMemoFormat.Error()+": ")))
 	}
 	hash, err := SelfHash(KindMemoFormat, json.RawMessage(raw))
 	if err != nil {
@@ -291,7 +304,7 @@ func verifyNarrativeSections(add func(ValidationResult), n Narrative, format for
 			continue
 		}
 		s, ok := n.Section(fs.Id)
-		if !ok || countParagraphs(s) == 0 {
+		if !ok || (s.NotApplicable == "" && countParagraphs(s) == 0) {
 			problems = append(problems, fmt.Sprintf("required section %q has no paragraphs", fs.Id))
 			refs = append(refs, fs.Id)
 		}
@@ -397,23 +410,78 @@ func verifyNarrativeCitations(add func(ValidationResult), n Narrative, kinds map
 	})
 }
 
-func verifyNarrativeRoles(add func(ValidationResult), n Narrative, format MemoFormat, kinds map[string]string) {
-	var failures, reviews, refs []string
-	eachParagraph(n, func(sectionId string, p NarrativeParagraph) {
-		if p.Role != ParagraphRoleConclusion {
-			return
+// standardRefsByObject maps every claim id to its standardRefs and every
+// judgment id to the union of the standardRefs of the claims listing it
+// (judgments carry no standardRefs of their own).
+func standardRefsByObject(claims []any) map[string][]string {
+	refs := map[string][]string{}
+	for _, item := range claims {
+		m := asMap(item)
+		id := getString(m, "id")
+		if id == "" {
+			continue
 		}
-		for _, c := range p.Cites {
-			if k := kinds[c.Id]; k == citeKindClaim || k == citeKindJudgment {
-				return
+		var own []string
+		for _, ref := range getSlice(m, "standardRefs") {
+			if s, _ := ref.(string); strings.TrimSpace(s) != "" {
+				own = append(own, strings.TrimSpace(s))
 			}
 		}
-		failures = append(failures, fmt.Sprintf("section %q: a conclusion paragraph cites no claim or judgment", sectionId))
-		refs = append(refs, sectionId)
+		refs[id] = append(refs[id], own...)
+		for _, j := range getSlice(m, "judgments") {
+			if jid, _ := j.(string); jid != "" {
+				refs[jid] = append(refs[jid], own...)
+			}
+		}
+	}
+	return refs
+}
+
+// namesStandardRef reports whether text names one of the references: the
+// reference itself, or, for one starting with "ASC ", the reference with
+// that prefix removed (so "606-10-25-1" names "ASC 606-10-25-1").
+func namesStandardRef(text string, refs []string) bool {
+	for _, ref := range refs {
+		if ref == "" {
+			continue
+		}
+		if strings.Contains(text, ref) {
+			return true
+		}
+		if bare, ok := strings.CutPrefix(ref, "ASC "); ok && bare != "" && strings.Contains(text, bare) {
+			return true
+		}
+	}
+	return false
+}
+
+func verifyNarrativeRoles(add func(ValidationResult), n Narrative, format MemoFormat, kinds map[string]string, claims []any) {
+	var failures, reviews, refs []string
+	standardRefs := standardRefsByObject(claims)
+	eachParagraph(n, func(sectionId string, p NarrativeParagraph) {
+		if p.Role != ParagraphRoleConclusion && p.Role != ParagraphRoleLiterature {
+			return
+		}
+		var cited []string
+		grounded := false
+		for _, c := range p.Cites {
+			if k := kinds[c.Id]; k == citeKindClaim || k == citeKindJudgment {
+				grounded = true
+				cited = append(cited, standardRefs[c.Id]...)
+			}
+		}
+		switch {
+		case !grounded:
+			failures = append(failures, fmt.Sprintf("section %q: a %s paragraph cites no claim or judgment", sectionId, p.Role))
+			refs = append(refs, sectionId)
+		case p.Role == ParagraphRoleLiterature && !namesStandardRef(p.Text, cited):
+			failures = append(failures, fmt.Sprintf("section %q: a literature paragraph names none of its cited references", sectionId))
+			refs = append(refs, sectionId)
+		}
 	})
 	for _, s := range n.Sections {
 		fs, ok := format.Section(s.Id)
-		if !ok || fs.TemplateSection == "" {
+		if !ok || fs.TemplateSection == "" || s.NotApplicable != "" {
 			continue
 		}
 		prefix := fs.TemplateSection + "_"

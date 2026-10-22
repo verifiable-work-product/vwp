@@ -68,25 +68,38 @@ const (
 	HeaderSourceStatus    = "status"
 	HeaderSourcePreparer  = "preparer"
 	HeaderSourceApprovers = "approvers"
-	HeaderSourceLiteral   = "literal"
+	// HeaderSourceDate is the package's manifest createdAt as a calendar
+	// date (YYYY-MM-DD).
+	HeaderSourceDate = "date"
+	// HeaderSourceStandardRefs is the sorted, deduplicated union of every
+	// claim's standardRefs joined by "; ": the authoritative literature the
+	// memo rests on.
+	HeaderSourceStandardRefs = "standardRefs"
+	HeaderSourceLiteral      = "literal"
 )
 
 // Paragraph roles of the narrative.
 const (
 	ParagraphRoleAnalysis   = "analysis"
 	ParagraphRoleConclusion = "conclusion"
+	// ParagraphRoleLiterature is the authoritative text itself, quoted or
+	// closely paraphrased where the organization's format asks for it. It
+	// must cite a claim or judgment and name one of its standardRefs.
+	ParagraphRoleLiterature = "literature"
 )
 
 // Limits of a memo format and a narrative.
 const (
-	MaxMemoFormatSections = 40
-	MaxMemoFormatHeader   = 12
-	MaxMemoFormatGuidance = 4 << 10
-	MaxMemoFormatBody     = 16 << 10
-	MaxMemoFormatFooter   = 4 << 10
-	MaxMemoFormatLevel    = 3
-	MaxNarrativeParagraph = 8 << 10
-	MaxNarrativeDepth     = 1
+	MaxMemoFormatSections     = 40
+	MaxMemoFormatHeader       = 24
+	MaxMemoFormatRoles        = 24
+	MaxMemoFormatGuidance     = 4 << 10
+	MaxMemoFormatBody         = 16 << 10
+	MaxMemoFormatFooter       = 4 << 10
+	MaxMemoFormatLevel        = 3
+	MaxNarrativeParagraph     = 8 << 10
+	MaxNarrativeNotApplicable = 512
+	MaxNarrativeDepth         = 1
 )
 
 // ErrInvalidMemoFormat wraps every memo format validation failure.
@@ -130,6 +143,10 @@ type MemoFormatSection struct {
 	Guidance        string `json:"guidance,omitempty"`
 	Body            string `json:"body,omitempty"`
 	Required        bool   `json:"required,omitempty"`
+	// Roles lists, for a signoff section, the sign-off capacities the memo
+	// expects in order (e.g. "Global Controller"). The section then renders
+	// as a table of role, name and date filled from the approvals.
+	Roles []string `json:"roles,omitempty"`
 }
 
 // Narrative is the model-written prose of the memo, section by section.
@@ -144,11 +161,15 @@ type Narrative struct {
 
 // NarrativeSection holds the paragraphs of one memo section. Top-level
 // sections are named by a format section id; subsections are model-named.
+// A section that does not apply to the work product carries NotApplicable
+// (a one-line reason) instead of paragraphs and subsections; a top-level
+// one satisfies the format's required flag and cites nothing.
 type NarrativeSection struct {
-	Id          string               `json:"id"`
-	Heading     string               `json:"heading,omitempty"`
-	Paragraphs  []NarrativeParagraph `json:"paragraphs"`
-	Subsections []NarrativeSection   `json:"subsections,omitempty"`
+	Id            string               `json:"id"`
+	Heading       string               `json:"heading,omitempty"`
+	Paragraphs    []NarrativeParagraph `json:"paragraphs"`
+	Subsections   []NarrativeSection   `json:"subsections,omitempty"`
+	NotApplicable string               `json:"notApplicable,omitempty"`
 }
 
 // NarrativeParagraph is one paragraph of prose and the package objects it
@@ -220,7 +241,17 @@ var sectionKinds = map[string]bool{
 
 var headerSources = map[string]bool{
 	HeaderSourceTitle: true, HeaderSourceEntity: true, HeaderSourcePeriod: true, HeaderSourceSubject: true,
-	HeaderSourceStatus: true, HeaderSourcePreparer: true, HeaderSourceApprovers: true, HeaderSourceLiteral: true,
+	HeaderSourceStatus: true, HeaderSourcePreparer: true, HeaderSourceApprovers: true, HeaderSourceDate: true,
+	HeaderSourceStandardRefs: true, HeaderSourceLiteral: true,
+}
+
+var paragraphRoles = map[string]bool{
+	ParagraphRoleAnalysis: true, ParagraphRoleConclusion: true, ParagraphRoleLiterature: true,
+}
+
+// IsParagraphRole reports whether role is a narrative paragraph role.
+func IsParagraphRole(role string) bool {
+	return paragraphRoles[role]
 }
 
 // IsProseKind reports whether a section kind is filled by the narrative.
@@ -311,12 +342,35 @@ func (f MemoFormat) Validate() error {
 		if s.TemplateSection != "" && !sectionIdRe.MatchString(s.TemplateSection) {
 			return fmt.Errorf("%w: section %q template section %q is not a valid id", ErrInvalidMemoFormat, s.Id, s.TemplateSection)
 		}
+		if err := validateRoles(s); err != nil {
+			return err
+		}
 		if IsProseKind(s.Kind) {
 			prose = true
 		}
 	}
 	if !prose {
 		return fmt.Errorf("%w: at least one section of kind %s or %s is required", ErrInvalidMemoFormat, SectionKindNarrative, SectionKindConclusion)
+	}
+	return nil
+}
+
+// validateRoles checks a section's sign-off roles: signoff kind only, each
+// a non-empty single line, at most MaxMemoFormatRoles.
+func validateRoles(s MemoFormatSection) error {
+	if len(s.Roles) == 0 {
+		return nil
+	}
+	if s.Kind != SectionKindSignoff {
+		return fmt.Errorf("%w: section %q roles are allowed only on signoff sections", ErrInvalidMemoFormat, s.Id)
+	}
+	if len(s.Roles) > MaxMemoFormatRoles {
+		return fmt.Errorf("%w: section %q has more than %d roles", ErrInvalidMemoFormat, s.Id, MaxMemoFormatRoles)
+	}
+	for i, role := range s.Roles {
+		if strings.TrimSpace(role) == "" || !SingleLine(role) {
+			return fmt.Errorf("%w: section %q role %d must be a non-empty single line", ErrInvalidMemoFormat, s.Id, i+1)
+		}
 	}
 	return nil
 }
@@ -384,7 +438,18 @@ func (s NarrativeSection) validate(depth int) error {
 	if !SingleLine(s.Heading) {
 		return fmt.Errorf("%w: section %q heading must be a single line", ErrInvalidNarrative, s.Id)
 	}
-	if len(s.Paragraphs) == 0 && len(s.Subsections) == 0 {
+	if s.NotApplicable != "" {
+		switch {
+		case strings.TrimSpace(s.NotApplicable) == "":
+			return fmt.Errorf("%w: section %q notApplicable is blank", ErrInvalidNarrative, s.Id)
+		case !SingleLine(s.NotApplicable):
+			return fmt.Errorf("%w: section %q notApplicable must be a single line", ErrInvalidNarrative, s.Id)
+		case len(s.NotApplicable) > MaxNarrativeNotApplicable:
+			return fmt.Errorf("%w: section %q notApplicable exceeds %d bytes", ErrInvalidNarrative, s.Id, MaxNarrativeNotApplicable)
+		case len(s.Paragraphs) > 0 || len(s.Subsections) > 0:
+			return fmt.Errorf("%w: section %q: notApplicable sections carry no paragraphs", ErrInvalidNarrative, s.Id)
+		}
+	} else if len(s.Paragraphs) == 0 && len(s.Subsections) == 0 {
 		return fmt.Errorf("%w: section %q is empty", ErrInvalidNarrative, s.Id)
 	}
 	for i, p := range s.Paragraphs {
@@ -397,7 +462,7 @@ func (s NarrativeSection) validate(depth int) error {
 		if !PlainText(p.Text) {
 			return fmt.Errorf("%w: section %q paragraph %d contains control characters", ErrInvalidNarrative, s.Id, i+1)
 		}
-		if p.Role != ParagraphRoleAnalysis && p.Role != ParagraphRoleConclusion {
+		if !IsParagraphRole(p.Role) {
 			return fmt.Errorf("%w: section %q paragraph %d has unknown role %q", ErrInvalidNarrative, s.Id, i+1, p.Role)
 		}
 		if len(p.Cites) == 0 {

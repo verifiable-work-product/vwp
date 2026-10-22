@@ -2,6 +2,7 @@ package vwp
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 	"testing"
 )
@@ -44,6 +45,26 @@ func TestMemoFormatValidate(t *testing.T) {
 		"guidance too long":    func(f *MemoFormat) { f.Sections[0].Guidance = strings.Repeat("g", MaxMemoFormatGuidance+1) },
 		"footer too long":      func(f *MemoFormat) { f.Footer = strings.Repeat("f", MaxMemoFormatFooter+1) },
 		"template section id":  func(f *MemoFormat) { f.Sections[0].TemplateSection = "S 2" },
+		"header over cap": func(f *MemoFormat) {
+			for i := 0; i <= MaxMemoFormatHeader; i++ {
+				f.Header = append(f.Header, HeaderField{Label: "L", Source: HeaderSourceTitle})
+			}
+		},
+		"roles on prose kind":  func(f *MemoFormat) { f.Sections[0].Roles = []string{"Global Controller"} },
+		"roles on boilerplate": func(f *MemoFormat) { f.Sections[1].Roles = []string{"Global Controller"} },
+		"empty role": func(f *MemoFormat) {
+			f.Sections = append(f.Sections, MemoFormatSection{Id: "signoff", Heading: "Sign-off", Level: 1, Kind: SectionKindSignoff, Roles: []string{"Global Controller", " "}})
+		},
+		"multi-line role": func(f *MemoFormat) {
+			f.Sections = append(f.Sections, MemoFormatSection{Id: "signoff", Heading: "Sign-off", Level: 1, Kind: SectionKindSignoff, Roles: []string{"Global\nController"}})
+		},
+		"too many roles": func(f *MemoFormat) {
+			roles := make([]string, MaxMemoFormatRoles+1)
+			for i := range roles {
+				roles[i] = fmt.Sprintf("Role %d", i)
+			}
+			f.Sections = append(f.Sections, MemoFormatSection{Id: "signoff", Heading: "Sign-off", Level: 1, Kind: SectionKindSignoff, Roles: roles})
+		},
 	}
 	for name, mutate := range cases {
 		f := validFormat()
@@ -56,6 +77,38 @@ func TestMemoFormatValidate(t *testing.T) {
 		if !errors.Is(err, ErrInvalidMemoFormat) {
 			t.Errorf("%s: error %v does not wrap ErrInvalidMemoFormat", name, err)
 		}
+	}
+}
+
+// The DTCC short-form memo: a 24-line header table with the package date
+// and the authoritative literature, and a sign-off table by role.
+func TestMemoFormatAcceptsDTCCShapes(t *testing.T) {
+	f := validFormat()
+	f.Header = nil
+	for i := 0; i < MaxMemoFormatHeader-2; i++ {
+		f.Header = append(f.Header, HeaderField{Label: fmt.Sprintf("Line %d", i), Source: HeaderSourceLiteral, Value: "x"})
+	}
+	f.Header = append(f.Header,
+		HeaderField{Label: "Date", Source: HeaderSourceDate},
+		HeaderField{Label: "Authoritative literature", Source: HeaderSourceStandardRefs},
+	)
+	if len(f.Header) != 24 || MaxMemoFormatHeader != 24 {
+		t.Fatalf("header cap = %d, want 24", MaxMemoFormatHeader)
+	}
+	f.Sections = append(f.Sections, MemoFormatSection{
+		Id: "signoff", Heading: "Sign-off", Level: 1, Kind: SectionKindSignoff,
+		Roles: []string{"Global Controller", "Technical Accounting Manager", "Financial Reporting and Accounting", "Regional Controller", "Legal Entity Controller"},
+	})
+	if err := f.Validate(); err != nil {
+		t.Fatalf("DTCC-shaped format rejected: %v", err)
+	}
+	if MaxMemoFormatRoles != 24 {
+		t.Fatalf("roles cap = %d, want 24", MaxMemoFormatRoles)
+	}
+	// A value on the new sources is rejected like any non-literal source.
+	f.Header[23].Value = "ASC 606"
+	if err := f.Validate(); !errors.Is(err, ErrInvalidMemoFormat) {
+		t.Fatalf("value on standardRefs source accepted: %v", err)
 	}
 }
 
@@ -84,17 +137,38 @@ func TestNarrativeSectionValidateStructure(t *testing.T) {
 	if err := good.ValidateStructure(); err != nil {
 		t.Fatalf("valid section rejected: %v", err)
 	}
+	literature := NarrativeSection{Id: "analysis", Paragraphs: []NarrativeParagraph{{Text: "ASC 606-10-25-1 A contract exists when ...", Role: ParagraphRoleLiterature, Cites: CiteIds("s2_claim_contract")}}}
+	if err := literature.ValidateStructure(); err != nil {
+		t.Fatalf("literature paragraph rejected: %v", err)
+	}
+	notApplicable := NarrativeSection{Id: "tax", NotApplicable: "No tax or treasury impact identified."}
+	if err := notApplicable.ValidateStructure(); err != nil {
+		t.Fatalf("not-applicable section rejected: %v", err)
+	}
+	// A subsection may be marked not applicable too (same checks).
+	nested := NarrativeSection{Id: "analysis", Paragraphs: good.Paragraphs, Subsections: []NarrativeSection{{Id: "tax", Heading: "Tax", NotApplicable: "No tax impact."}}}
+	if err := nested.ValidateStructure(); err != nil {
+		t.Fatalf("not-applicable subsection rejected: %v", err)
+	}
+	if MaxNarrativeNotApplicable != 512 {
+		t.Fatalf("notApplicable cap = %d, want 512", MaxNarrativeNotApplicable)
+	}
 	cases := map[string]NarrativeSection{
-		"bad id":         {Id: "Purpose", Paragraphs: good.Paragraphs},
-		"empty":          {Id: "purpose"},
-		"empty text":     {Id: "purpose", Paragraphs: []NarrativeParagraph{{Text: " ", Role: ParagraphRoleAnalysis, Cites: CiteIds("x")}}},
-		"bad role":       {Id: "purpose", Paragraphs: []NarrativeParagraph{{Text: "t", Role: "summary", Cites: CiteIds("x")}}},
-		"no cites":       {Id: "purpose", Paragraphs: []NarrativeParagraph{{Text: "t", Role: ParagraphRoleAnalysis}}},
-		"blank cite":     {Id: "purpose", Paragraphs: []NarrativeParagraph{{Text: "t", Role: ParagraphRoleAnalysis, Cites: CiteIds(" ")}}},
-		"too long":       {Id: "purpose", Paragraphs: []NarrativeParagraph{{Text: strings.Repeat("t", MaxNarrativeParagraph+1), Role: ParagraphRoleAnalysis, Cites: CiteIds("x")}}},
-		"sub no heading": {Id: "purpose", Subsections: []NarrativeSection{{Id: "a", Paragraphs: good.Paragraphs}}},
-		"too deep":       {Id: "purpose", Subsections: []NarrativeSection{{Id: "a", Heading: "A", Subsections: []NarrativeSection{{Id: "b", Heading: "B", Paragraphs: good.Paragraphs}}}}},
-		"dup sub":        {Id: "purpose", Subsections: []NarrativeSection{{Id: "a", Heading: "A", Paragraphs: good.Paragraphs}, {Id: "a", Heading: "A2", Paragraphs: good.Paragraphs}}},
+		"na with paragraphs":  {Id: "tax", NotApplicable: "No tax impact.", Paragraphs: good.Paragraphs},
+		"na with subsections": {Id: "tax", NotApplicable: "No tax impact.", Subsections: good.Subsections},
+		"na blank":            {Id: "tax", NotApplicable: " "},
+		"na multi-line":       {Id: "tax", NotApplicable: "No tax\nimpact."},
+		"na too long":         {Id: "tax", NotApplicable: strings.Repeat("n", MaxNarrativeNotApplicable+1)},
+		"bad id":              {Id: "Purpose", Paragraphs: good.Paragraphs},
+		"empty":               {Id: "purpose"},
+		"empty text":          {Id: "purpose", Paragraphs: []NarrativeParagraph{{Text: " ", Role: ParagraphRoleAnalysis, Cites: CiteIds("x")}}},
+		"bad role":            {Id: "purpose", Paragraphs: []NarrativeParagraph{{Text: "t", Role: "summary", Cites: CiteIds("x")}}},
+		"no cites":            {Id: "purpose", Paragraphs: []NarrativeParagraph{{Text: "t", Role: ParagraphRoleAnalysis}}},
+		"blank cite":          {Id: "purpose", Paragraphs: []NarrativeParagraph{{Text: "t", Role: ParagraphRoleAnalysis, Cites: CiteIds(" ")}}},
+		"too long":            {Id: "purpose", Paragraphs: []NarrativeParagraph{{Text: strings.Repeat("t", MaxNarrativeParagraph+1), Role: ParagraphRoleAnalysis, Cites: CiteIds("x")}}},
+		"sub no heading":      {Id: "purpose", Subsections: []NarrativeSection{{Id: "a", Paragraphs: good.Paragraphs}}},
+		"too deep":            {Id: "purpose", Subsections: []NarrativeSection{{Id: "a", Heading: "A", Subsections: []NarrativeSection{{Id: "b", Heading: "B", Paragraphs: good.Paragraphs}}}}},
+		"dup sub":             {Id: "purpose", Subsections: []NarrativeSection{{Id: "a", Heading: "A", Paragraphs: good.Paragraphs}, {Id: "a", Heading: "A2", Paragraphs: good.Paragraphs}}},
 	}
 	for name, sec := range cases {
 		err := sec.ValidateStructure()

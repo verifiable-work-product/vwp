@@ -99,7 +99,7 @@ that reports from different verifiers are comparable.
 | `core.graph.acyclic` | fail | the dependency graph has no cycle |
 | `core.graph.declaredInputs` | warning | a calculation or judgment uses a recognizable input it did not declare in `dependsOn` or `basisFacts` |
 | `core.digests.match` | fail / notRun | the manifest `digests` block equals the recomputed roots; notRun without a block |
-| `approvals.current` | reviewRequired / notRun | an `approved` action whose `contentRoot` is no longer the package's content root is superseded |
+| `approvals.current` | reviewRequired / notRun | no `approved` action carries the current content root (every stamped approval is superseded); superseded approvals followed by a current one pass |
 | `narrative.schemaValid`, `narrative.sections`, `narrative.citations`, `narrative.roles`, `narrative.cites.fresh`, `narrative.drift` | see [narrative.md](narrative.md) and [integrity.md](integrity.md) | the memo narrative holds to the structured parts it cites |
 | `core.signatures.present` | Warns when the package carries no signature (informational in v0.1). |
 | `core.requiredOutputs.exist` | For extensions with a required-output contract (see [`profiles/accounting/accounting-schedule.md`](../profiles/accounting/accounting-schedule.md)): every unconditional required output is present, and every present required output is declared exactly once in `manifest.parts` with role `calculation`, its media type and a hash. |

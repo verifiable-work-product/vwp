@@ -27,7 +27,7 @@ A package without either part renders in the default layout (section 5).
 | `version` | integer | yes | `1`. |
 | `name` | string | no | Display name of the format. |
 | `source` | object | no | The customer document it was derived from: `filename`, `mediaType`, `sha256`, `size`. |
-| `header` | array | no | Up to 12 header lines `{ label, source, value? }`. `source` is one of `title`, `entity`, `period`, `subject`, `status`, `preparer`, `approvers`, `literal`; `value` is used with `literal`. |
+| `header` | array | no | Up to 24 header lines `{ label, source, value? }`. `source` is one of `title`, `entity`, `period`, `subject`, `status`, `preparer`, `approvers`, `date`, `standardRefs`, `literal`; `value` is used with `literal`. `date` is the package `createdAt` date; `standardRefs` is the sorted union of the claims' `standardRefs` (the authoritative literature the memo rests on). A field whose source yields nothing renders with an empty value, so the reader sees the slot. |
 | `sections` | array | yes | 1 to 40 sections, in memo order. |
 | `footer` | string | no | Static text rendered verbatim at the end. |
 
@@ -43,6 +43,7 @@ A section:
 | `guidance` | string | no | The organization's own description of what belongs here. For the author; never rendered. |
 | `body` | string | no | Boilerplate text, `boilerplate` kind only. |
 | `required` | boolean | no | A prose section the narrative must fill. |
+| `roles` | array | no | `signoff` kind only: the sign-off capacities the memo expects, in order (e.g. `Global Controller`). Rendered as a table of role, name and date; a role with no matching approval (case-insensitive on `role`) renders with an empty name and date so the reader sees it is pending. |
 
 At least one section of kind `narrative` or `conclusion` MUST exist.
 
@@ -54,11 +55,25 @@ At least one section of kind `narrative` or `conclusion` MUST exist.
 | `analysisRoot` | string | yes | The package analysis root when the narrative was last written. |
 | `sections` | array | yes | Top-level sections, each named by a format section id of a prose kind. |
 
-A section has `id`, optional `heading` (subsections only), `paragraphs` and
-optional `subsections` (one level). A paragraph has `text` (plain text, no
-markdown structure), `role` (`analysis` or `conclusion`) and `cites`: at
-least one `{ id, hash }` naming a fact, claim, judgment, calculation or
-evidence entry and its closure hash at the time of writing.
+A section has `id`, optional `heading` (subsections only), `paragraphs`,
+optional `subsections` (one level) and optional `notApplicable`: a one-line
+reason the section does not apply to this work product (for example "No tax
+or treasury impact identified"), at most 512 UTF-8 bytes. A section with
+`notApplicable` MAY have no paragraphs and no subsections (and MUST have
+neither); a top-level one satisfies `required` and is exempt from the
+template-section review check; it renders as "Not applicable: " plus the
+reason and cites nothing.
+
+A paragraph has `text` (plain text, no markdown structure), `role` and
+`cites`: at least one `{ id, hash }` naming a fact, claim, judgment,
+calculation or evidence entry and its closure hash at the time of writing.
+Roles:
+
+| Role | Meaning |
+|---|---|
+| `analysis` | prose applying the literature to the facts |
+| `conclusion` | what the work product concludes; MUST cite a claim or judgment |
+| `literature` | the authoritative text itself, quoted or closely paraphrased, where the organization's format asks for it; MUST cite at least one claim or judgment whose `standardRefs` the paragraph names (the validator checks that one of those references appears in the text) |
 
 ## 4. Semantics
 
@@ -67,6 +82,11 @@ evidence entry and its closure hash at the time of writing.
   non-narrative validator fails.
 - Conclusion-role paragraphs MUST cite at least one claim or judgment.
   Every claim SHOULD be cited by some paragraph.
+- A format may ask for the literature verbatim (a `literature` role
+  paragraph under a section whose `guidance` says so); outside such
+  sections producers SHOULD reference paragraphs rather than reproduce them.
+- A prose section that does not apply is marked `notApplicable` with a
+  reason rather than left out or filled with filler.
 - A conclusion-kind section's conclusion-role paragraphs are the work
   product's `conclusionSummary`; producers rewrite it from the section.
 - Prose, boilerplate, footers and headings are untrusted text in the
@@ -90,5 +110,5 @@ that layout into `narrative/format.json` so the package stays self-contained.
 | `narrative.schemaValid` | fail | the part validates against the schema; headings single-line; text plain |
 | `narrative.sections` | fail | every top-level section is a prose-kind format section; every `required` prose section has paragraphs (also run when only the format snapshot exists); `formatHash` matches the snapshot |
 | `narrative.citations` | fail / reviewRequired | every cite id resolves (fail); every claim is cited (reviewRequired) |
-| `narrative.roles` | fail / reviewRequired | conclusion paragraphs cite a claim or judgment (fail); a section bound to a template section cites an object with that prefix (reviewRequired) |
+| `narrative.roles` | fail / reviewRequired | conclusion paragraphs cite a claim or judgment (fail); literature paragraphs cite a claim or judgment and name one of its `standardRefs` (fail); a section bound to a template section cites an object with that prefix (reviewRequired) |
 | `narrative.cites.fresh`, `narrative.drift` | see [integrity.md](integrity.md) §7 |

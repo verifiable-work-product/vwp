@@ -142,7 +142,7 @@ func TestMultilineHeadingsAreRejected(t *testing.T) {
 }
 
 // Calculation cells print numbers as numbers, and header fields with no
-// source value are omitted rather than printed as null.
+// source value keep their slot with an empty value, never null.
 func TestRenderNumbersAndMissingHeaderValues(t *testing.T) {
 	b, dir := openFixtureCopy(t)
 	f := customFormat()
@@ -187,11 +187,11 @@ func TestRenderNumbersAndMissingHeaderValues(t *testing.T) {
 	if strings.Contains(memo, "1.5e+06") || !strings.Contains(memo, "| 1500000 | Total | 0.125 |") {
 		t.Fatalf("numbers rendered badly:\n%s", memo)
 	}
-	if strings.Contains(memo, "null") || strings.Contains(memo, "**Entity:**") || strings.Contains(memo, "**Period:**") || strings.Contains(memo, "**Subject:**") {
-		t.Fatalf("a missing header value rendered:\n%s", memo)
+	if strings.Contains(memo, "null") {
+		t.Fatalf("a missing header value rendered as null:\n%s", memo)
 	}
-	if !strings.Contains(memo, "- **Re:** ") {
-		t.Fatalf("title header missing:\n%s", memo)
+	if !strings.Contains(memo, "\n- **Entity:** \n- **Period:** \n- **Subject:** \n- **Re:** ASC 606") {
+		t.Fatalf("missing header values must keep their slot, empty:\n%s", memo)
 	}
 }
 

@@ -359,6 +359,16 @@ func TestNarrativeCitesFreshAndDrift(t *testing.T) {
 		t.Errorf("drift and a superseded approval are review items, not failures: %v", statuses(report))
 	}
 
+	// A new approval over the current content makes the package current
+	// again; the earlier one is history, listed for the reader.
+	if err := b.RecordApproval(vwp.Approval{Id: "app_reviewer_2", Approver: vwp.Approver{Name: "Reviewer"}, Action: vwp.ApprovalActionApproved, Timestamp: "2026-07-09T10:00:00Z"}); err != nil {
+		t.Fatal(err)
+	}
+	res = mustResult(t, verifyNarrativeDir(t, dir), vwp.ValidatorApprovalsCurrent)
+	if res.Status != vwp.StatusPass || !strings.Contains(res.Message, "app_reviewer") {
+		t.Errorf("approvals.current after re-approval = %s %q", res.Status, res.Message)
+	}
+
 	// Rewriting any section restamps the analysis root, which clears the
 	// drift (the other sections' cites were fresh all along).
 	if err := b.SetNarrativeSection(vwp.NarrativeSection{Id: "background", Paragraphs: []vwp.NarrativeParagraph{
@@ -464,5 +474,182 @@ func TestNarrativeValidatorsRunOnPackedForm(t *testing.T) {
 	}
 	if _, err := os.Stat(vwpPath); err != nil {
 		t.Fatal(err)
+	}
+}
+
+// A literature paragraph reproduces the authoritative text the memo rests
+// on: it must cite a claim or judgment and name one of its standardRefs.
+func TestNarrativeLiteratureRole(t *testing.T) {
+	set := func(t *testing.T, b *builder.Builder, text string, cites ...string) {
+		t.Helper()
+		if err := b.SetNarrativeSection(vwp.NarrativeSection{Id: "analysis", Paragraphs: []vwp.NarrativeParagraph{
+			para(vwp.ParagraphRoleLiterature, text, cites...),
+			para(vwp.ParagraphRoleAnalysis, "Applicability to the entity.", "c_step1_contract_identified", "c_step2_performance_obligations", "c_step3_transaction_price", "c_step4_allocation"),
+		}}); err != nil {
+			t.Fatal(err)
+		}
+	}
+
+	// Verbatim reference in the text: pass, and the role is schema-valid.
+	b, dir := narrativePackage(t, houseFormat(""))
+	set(t, b, "ASC 606-10-25-1: An entity shall account for a contract with a customer only when all of the following criteria are met ...", "c_step1_contract_identified")
+	report := verifyNarrativeDir(t, dir)
+	assertStatus(t, report, vwp.ValidatorNarrativeSchemaValid, vwp.StatusPass)
+	assertStatus(t, report, vwp.ValidatorNarrativeRoles, vwp.StatusPass)
+
+	// The reference without its "ASC " prefix also names it.
+	set(t, b, "Per 606-10-25-1, an entity shall account for a contract ...", "c_step1_contract_identified")
+	assertStatus(t, verifyNarrativeDir(t, dir), vwp.ValidatorNarrativeRoles, vwp.StatusPass)
+
+	// A judgment cite carries the standardRefs of the claims listing it.
+	set(t, b, "ASC 606-10-25-14 lists the promises in a contract ...", "j_impl_distinct")
+	assertStatus(t, verifyNarrativeDir(t, dir), vwp.ValidatorNarrativeRoles, vwp.StatusPass)
+
+	// Text that names none of the cited references fails. (Matching is
+	// containment, so a text naming ASC 606-10-25-14 would name the cited
+	// ASC 606-10-25-1 as well; pick a reference that does not.)
+	set(t, b, "ASC 606-10-32-31 allocates the transaction price ...", "c_step1_contract_identified")
+	res := mustResult(t, verifyNarrativeDir(t, dir), vwp.ValidatorNarrativeRoles)
+	if res.Status != vwp.StatusFail || res.Message != `section "analysis": a literature paragraph names none of its cited references` {
+		t.Errorf("roles with unnamed reference = %s %q", res.Status, res.Message)
+	}
+	if strings.Join(res.Refs, ",") != "analysis" {
+		t.Errorf("refs = %v", res.Refs)
+	}
+
+	// A cited claim without standardRefs contributes nothing: the
+	// reference set is empty and the paragraph cannot name one.
+	if err := b.AddClaim(vwp.Claim{Id: "c_unreferenced", Statement: "A claim with no literature."}); err != nil {
+		t.Fatal(err)
+	}
+	set(t, b, "ASC 606-10-25-1: An entity shall ...", "c_unreferenced")
+	res = mustResult(t, verifyNarrativeDir(t, dir), vwp.ValidatorNarrativeRoles)
+	if res.Status != vwp.StatusFail || !strings.Contains(res.Message, `section "analysis": a literature paragraph names none of its cited references`) {
+		t.Errorf("roles with reference-less claim = %s %q", res.Status, res.Message)
+	}
+
+	// A literature paragraph that cites only a fact fails, whatever it says.
+	set(t, b, "ASC 606-10-25-1: An entity shall ...", "f_contract_term")
+	res = mustResult(t, verifyNarrativeDir(t, dir), vwp.ValidatorNarrativeRoles)
+	if res.Status != vwp.StatusFail || !strings.Contains(res.Message, `section "analysis": a literature paragraph cites no claim or judgment`) {
+		t.Errorf("roles with fact-only literature = %s %q", res.Status, res.Message)
+	}
+}
+
+// A prose section that does not apply carries a reason instead of
+// paragraphs: it satisfies required, cites nothing, and is shape-checked.
+func TestNarrativeNotApplicableSection(t *testing.T) {
+	b, dir := narrativePackage(t, houseFormat(""))
+	if err := b.SetNarrativeSection(vwp.NarrativeSection{Id: "background", NotApplicable: "No background beyond the order form is needed."}); err != nil {
+		t.Fatalf("SetNarrativeSection notApplicable: %v", err)
+	}
+	n, _, err := b.Narrative()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if s, ok := n.Section("background"); !ok || s.NotApplicable == "" || len(s.Paragraphs) != 0 {
+		t.Fatalf("section = %+v", s)
+	}
+	report := verifyNarrativeDir(t, dir)
+	for _, id := range narrativeValidatorIds {
+		assertStatus(t, report, id, vwp.StatusPass)
+	}
+	if !report.Valid {
+		t.Fatalf("package should be valid; statuses: %v", statuses(report))
+	}
+
+	// The builder stamps nothing for it: no cites, and the part round-trips
+	// with notApplicable and an empty paragraphs array.
+	raw, err := os.ReadFile(filepath.Join(dir, filepath.FromSlash(vwp.NarrativePath)))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(raw), `"notApplicable": "No background beyond the order form is needed."`) {
+		t.Fatalf("notApplicable not written:\n%s", raw)
+	}
+
+	// A not-applicable section bound to a template section is exempt from
+	// the prefix check: it cannot cite anything by design.
+	b2, dir2 := narrativePackage(t, houseFormat("s2"))
+	if err := b2.SetNarrativeSection(vwp.NarrativeSection{Id: "analysis", NotApplicable: "No analysis beyond the conclusion is required."}); err != nil {
+		t.Fatal(err)
+	}
+	assertStatus(t, verifyNarrativeDir(t, dir2), vwp.ValidatorNarrativeRoles, vwp.StatusPass)
+
+	// Shape: a reason alongside paragraphs or subsections, a multi-line
+	// reason, or one over 512 bytes fails schemaValid.
+	filler := vwp.NarrativeParagraph{Text: "Filler.", Role: vwp.ParagraphRoleAnalysis, Cites: []vwp.Cite{{Id: "f_contract_term", Hash: strings.Repeat("0", 64)}}}
+	n.Sections[0].Paragraphs = []vwp.NarrativeParagraph{filler}
+	replaceNarrative(t, b, n)
+	res := mustResult(t, verifyNarrativeDir(t, dir), vwp.ValidatorNarrativeSchemaValid)
+	if res.Status != vwp.StatusFail || !strings.Contains(res.Message, `section "background": notApplicable sections carry no paragraphs`) {
+		t.Errorf("schemaValid with notApplicable and paragraphs = %s %q", res.Status, res.Message)
+	}
+	n, _, _ = b.Narrative()
+	n.Sections[0].Paragraphs = []vwp.NarrativeParagraph{}
+	n.Sections[0].Subsections = []vwp.NarrativeSection{{Id: "sub", Heading: "Sub", Paragraphs: []vwp.NarrativeParagraph{filler}}}
+	replaceNarrative(t, b, n)
+	res = mustResult(t, verifyNarrativeDir(t, dir), vwp.ValidatorNarrativeSchemaValid)
+	if res.Status != vwp.StatusFail || !strings.Contains(res.Message, `section "background": notApplicable sections carry no paragraphs`) {
+		t.Errorf("schemaValid with notApplicable and subsections = %s %q", res.Status, res.Message)
+	}
+	n, _, _ = b.Narrative()
+	n.Sections[0].NotApplicable = "No background\nneeded."
+	replaceNarrative(t, b, n)
+	res = mustResult(t, verifyNarrativeDir(t, dir), vwp.ValidatorNarrativeSchemaValid)
+	if res.Status != vwp.StatusFail || !strings.Contains(res.Message, `section "background" notApplicable must be a single line`) {
+		t.Errorf("schemaValid with multi-line notApplicable = %s %q", res.Status, res.Message)
+	}
+	n, _, _ = b.Narrative()
+	n.Sections[0].NotApplicable = strings.Repeat("é", 300) // 600 bytes, 300 characters
+	replaceNarrative(t, b, n)
+	res = mustResult(t, verifyNarrativeDir(t, dir), vwp.ValidatorNarrativeSchemaValid)
+	if res.Status != vwp.StatusFail || !strings.Contains(res.Message, `section "background" notApplicable exceeds 512 bytes`) {
+		t.Errorf("schemaValid with long notApplicable = %s %q", res.Status, res.Message)
+	}
+
+	// A not-applicable subsection is accepted, but only a top-level
+	// section satisfies required.
+	n, _, _ = b.Narrative()
+	n.Sections[0].NotApplicable = ""
+	n.Sections[0].Paragraphs = []vwp.NarrativeParagraph{}
+	n.Sections[0].Subsections = []vwp.NarrativeSection{{Id: "sub", Heading: "Sub", Paragraphs: []vwp.NarrativeParagraph{}, NotApplicable: "Nope."}}
+	replaceNarrative(t, b, n)
+	report = verifyNarrativeDir(t, dir)
+	assertStatus(t, report, vwp.ValidatorNarrativeSchemaValid, vwp.StatusPass)
+	res = mustResult(t, report, vwp.ValidatorNarrativeSections)
+	if res.Status != vwp.StatusFail || !strings.Contains(res.Message, `required section "background" has no paragraphs`) {
+		t.Errorf("sections with an empty required section = %s %q", res.Status, res.Message)
+	}
+}
+
+// Roles on a non-signoff section and malformed roles are reported through
+// narrative.sections with the exact wording the TypeScript SDK emits.
+func TestNarrativeSectionsReportsRoleProblems(t *testing.T) {
+	b, dir := narrativePackage(t, houseFormat(""))
+	f := houseFormat("")
+	f.Sections[0].Roles = []string{"Global Controller"}
+	raw, err := vwp.CanonicalJSON(f)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := b.ReplaceFilePart(vwp.MemoFormatPath, "application/json", builder.RoleMemoFormat, raw); err != nil {
+		t.Fatal(err)
+	}
+	res := mustResult(t, verifyNarrativeDir(t, dir), vwp.ValidatorNarrativeSections)
+	if res.Status != vwp.StatusFail || !strings.Contains(res.Message, `narrative/format.json: section "background" roles are allowed only on signoff sections`) {
+		t.Errorf("sections with roles on prose = %s %q", res.Status, res.Message)
+	}
+	f = houseFormat("")
+	f.Sections = append(f.Sections, vwp.MemoFormatSection{Id: "signoff", Heading: "Sign-off", Level: 1, Kind: vwp.SectionKindSignoff, Roles: []string{"Global Controller", "Regional\nController"}})
+	if raw, err = vwp.CanonicalJSON(f); err != nil {
+		t.Fatal(err)
+	}
+	if err := b.ReplaceFilePart(vwp.MemoFormatPath, "application/json", builder.RoleMemoFormat, raw); err != nil {
+		t.Fatal(err)
+	}
+	res = mustResult(t, verifyNarrativeDir(t, dir), vwp.ValidatorNarrativeSections)
+	if res.Status != vwp.StatusFail || !strings.Contains(res.Message, `narrative/format.json: section "signoff" role 2 must be a non-empty single line`) {
+		t.Errorf("sections with multi-line role = %s %q", res.Status, res.Message)
 	}
 }

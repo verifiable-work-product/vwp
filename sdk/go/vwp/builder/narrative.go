@@ -193,6 +193,7 @@ func (b *Builder) SetNarrativeSection(sec vwp.NarrativeSection) error {
 	if err := stampCites(&sec, g); err != nil {
 		return err
 	}
+	normalizeParagraphs(&sec)
 
 	n, _, err := b.Narrative()
 	if err != nil {
@@ -255,6 +256,17 @@ func stampCites(sec *vwp.NarrativeSection, g *vwp.Graph) error {
 		}
 	}
 	return nil
+}
+
+// normalizeParagraphs makes a nil paragraphs slice (a not-applicable or
+// subsections-only section) encode as the empty array the schema demands.
+func normalizeParagraphs(sec *vwp.NarrativeSection) {
+	if sec.Paragraphs == nil {
+		sec.Paragraphs = []vwp.NarrativeParagraph{}
+	}
+	for i := range sec.Subsections {
+		normalizeParagraphs(&sec.Subsections[i])
+	}
 }
 
 // ClearNarrative removes the narrative part. A conclusion summary the

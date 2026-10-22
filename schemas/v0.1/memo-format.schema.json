@@ -40,7 +40,7 @@
     },
     "header": {
       "type": "array",
-      "maxItems": 12,
+      "maxItems": 24,
       "items": {
         "type": "object",
         "required": [
@@ -62,6 +62,8 @@
               "status",
               "preparer",
               "approvers",
+              "date",
+              "standardRefs",
               "literal"
             ]
           },
@@ -127,6 +129,15 @@
           },
           "required": {
             "type": "boolean"
+          },
+          "roles": {
+            "type": "array",
+            "maxItems": 24,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "signoff kind only: the sign-off capacities the memo expects, in order."
           }
         },
         "additionalProperties": false

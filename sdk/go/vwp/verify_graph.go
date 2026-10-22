@@ -296,6 +296,7 @@ func verifyApprovalsCurrent(pkg Source, g *Graph, digests *Digests, add func(Val
 		return
 	}
 	stamped := 0
+	current := 0
 	var superseded []string
 	for _, a := range g.ObjectsOfKind(KindApproval) {
 		root := getString(a.Value, "contentRoot")
@@ -303,7 +304,12 @@ func verifyApprovalsCurrent(pkg Source, g *Graph, digests *Digests, add func(Val
 			continue
 		}
 		stamped++
-		if digests != nil && getString(a.Value, "action") == ApprovalActionApproved && root != digests.ContentRoot {
+		if digests == nil || getString(a.Value, "action") != ApprovalActionApproved {
+			continue
+		}
+		if root == digests.ContentRoot {
+			current++
+		} else {
 			superseded = append(superseded, a.Id)
 		}
 	}
@@ -313,6 +319,17 @@ func verifyApprovalsCurrent(pkg Source, g *Graph, digests *Digests, add func(Val
 	}
 	if digests == nil {
 		notRun("roots cannot be computed (see core.graph.refsResolve and core.graph.acyclic)")
+		return
+	}
+	// Earlier approvals superseded by a later one over the current content
+	// are history, not a problem: the package has a current approval.
+	if current > 0 {
+		res := ValidationResult{ValidatorId: ValidatorApprovalsCurrent, Status: StatusPass}
+		if len(superseded) > 0 {
+			res.Message = "earlier approvals superseded by a current one: " + strings.Join(superseded, ", ")
+			res.Refs = superseded
+		}
+		add(res)
 		return
 	}
 	if len(superseded) == 0 {

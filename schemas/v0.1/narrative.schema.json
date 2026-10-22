@@ -63,7 +63,8 @@
           "type": "string",
           "enum": [
             "analysis",
-            "conclusion"
+            "conclusion",
+            "literature"
           ]
         },
         "cites": {
@@ -101,6 +102,12 @@
           "items": {
             "$ref": "#/$defs/section"
           }
+        },
+        "notApplicable": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "description": "One-line reason the section does not apply; such a section may have no paragraphs."
         }
       },
       "additionalProperties": false

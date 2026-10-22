@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"sort"
 	"strconv"
 	"strings"
 	"unicode/utf8"
@@ -139,23 +140,63 @@ func safeProse(text string) string {
 	return strings.Join(lines, "\n")
 }
 
+// renderHeaderFields writes every header field in format order. A field
+// whose source yields nothing keeps its slot with an empty value, so the
+// reader sees what the organization's header asks for and that it is
+// unfilled.
 func (r *memoRenderer) renderHeaderFields(fields []vwp.HeaderField) {
-	var lines []string
-	for _, h := range fields {
-		value := strings.TrimSpace(r.headerValue(h))
-		if value == "" {
-			continue
-		}
-		lines = append(lines, fmt.Sprintf("- **%s:** %s", safeHeading(h.Label), safeHeading(value)))
-	}
-	if len(lines) == 0 {
+	if len(fields) == 0 {
 		return
 	}
 	r.sb.WriteString("\n")
-	for _, l := range lines {
-		r.sb.WriteString(l)
-		r.sb.WriteString("\n")
+	for _, h := range fields {
+		value := strings.TrimSpace(r.headerValue(h))
+		fmt.Fprintf(&r.sb, "- **%s:** %s\n", safeHeading(h.Label), safeHeading(value))
 	}
+}
+
+// calendarDate returns the YYYY-MM-DD part of an RFC 3339 timestamp (the
+// date in the timestamp's own offset, as written); a value not shaped like
+// one is returned as is, so nothing is lost.
+func calendarDate(ts string) string {
+	ts = strings.TrimSpace(ts)
+	if len(ts) >= 10 && isDigits(ts[0:4]) && ts[4] == '-' && isDigits(ts[5:7]) && ts[7] == '-' && isDigits(ts[8:10]) {
+		return ts[:10]
+	}
+	return ts
+}
+
+func isDigits(s string) bool {
+	for _, r := range s {
+		if r < '0' || r > '9' {
+			return false
+		}
+	}
+	return s != ""
+}
+
+// standardRefsHeader is the sorted (byte order), deduplicated union of the
+// claims' standardRefs joined by "; ".
+func (b *Builder) standardRefsHeader() string {
+	doc, err := b.readCollectionDoc(vwp.ClaimsPath)
+	if err != nil {
+		return ""
+	}
+	seen := map[string]bool{}
+	var refs []string
+	for _, item := range getSliceAny(doc, "claims") {
+		claim, _ := item.(map[string]any)
+		for _, ref := range getSliceAny(claim, "standardRefs") {
+			s, _ := ref.(string)
+			s = strings.TrimSpace(s)
+			if s != "" && !seen[s] {
+				seen[s] = true
+				refs = append(refs, s)
+			}
+		}
+	}
+	sort.Strings(refs)
+	return strings.Join(refs, "; ")
 }
 
 func (r *memoRenderer) headerValue(h vwp.HeaderField) string {
@@ -230,6 +271,10 @@ func (r *memoRenderer) headerValue(h vwp.HeaderField) string {
 			}
 		}
 		return strings.Join(names, ", ")
+	case vwp.HeaderSourceDate:
+		return calendarDate(r.b.manifest.CreatedAt)
+	case vwp.HeaderSourceStandardRefs:
+		return r.b.standardRefsHeader()
 	case vwp.HeaderSourceLiteral:
 		return h.Value
 	}
@@ -257,7 +302,7 @@ func (r *memoRenderer) renderSection(s vwp.MemoFormatSection) {
 	case vwp.SectionKindValidations:
 		renderValidations(sb, r.b, s.Level, safeHeading(s.Heading))
 	case vwp.SectionKindSignoff:
-		renderApprovals(sb, r.b, s.Level, safeHeading(s.Heading))
+		renderApprovals(sb, r.b, s.Level, safeHeading(s.Heading), s.Roles)
 	case vwp.SectionKindAttestations:
 		renderAttestations(sb, r.b, s.Level, safeHeading(s.Heading))
 	case vwp.SectionKindAlternatives:
@@ -272,13 +317,22 @@ func (r *memoRenderer) renderSection(s vwp.MemoFormatSection) {
 }
 
 // renderProse writes a narrative section's paragraphs, each followed by its
-// cite markers, then its subsections one heading level deeper.
+// cite markers, then its subsections one heading level deeper. A section
+// that does not apply renders its reason as a plain sentence instead.
+// Conclusion paragraphs are blockquotes with a bold marker; literature
+// paragraphs are plain blockquotes (the authoritative text, set apart).
 func (r *memoRenderer) renderProse(ns vwp.NarrativeSection, level int) {
 	sb := &r.sb
+	if ns.NotApplicable != "" {
+		fmt.Fprintf(sb, "\nNot applicable: %s\n", safeProse(oneLine(ns.NotApplicable)))
+	}
 	for _, p := range ns.Paragraphs {
 		text := safeProse(strings.TrimSpace(p.Text))
-		if p.Role == vwp.ParagraphRoleConclusion {
+		switch p.Role {
+		case vwp.ParagraphRoleConclusion:
 			text = "> **Conclusion.** " + strings.ReplaceAll(text, "\n", "\n> ")
+		case vwp.ParagraphRoleLiterature:
+			text = "> " + strings.ReplaceAll(text, "\n", "\n> ")
 		}
 		fmt.Fprintf(sb, "\n%s%s\n", text, r.markersFor(p.Cites))
 	}
@@ -695,27 +749,91 @@ func renderValidations(sb *strings.Builder, b *Builder, level int, heading strin
 	}
 }
 
-func renderApprovals(sb *strings.Builder, b *Builder, level int, heading string) {
+// renderApprovals writes the review actions. With roles (the format's
+// sign-off table) it writes one table row per role in order, filled from
+// the latest approved action in that role (case-insensitive, trimmed;
+// latest = last in approvals order); approvals that fill no row follow the
+// table as a list under "Other review actions". Without roles every
+// approval is listed.
+func renderApprovals(sb *strings.Builder, b *Builder, level int, heading string, roles []string) {
 	doc, err := b.readCollectionDoc(vwp.ApprovalsPath)
 	if err != nil {
 		return
 	}
-	items, _ := doc["approvals"].([]any)
-	if len(items) == 0 {
+	var items []map[string]any
+	for _, item := range getSliceAny(doc, "approvals") {
+		if a, ok := item.(map[string]any); ok {
+			items = append(items, a)
+		}
+	}
+	if len(roles) == 0 {
+		if len(items) == 0 {
+			return
+		}
+		fmt.Fprintf(sb, "\n%s\n\n", headingLine(level, heading))
+		renderApprovalList(sb, items)
 		return
 	}
+
+	// One row per role: the index of the approval filling it, or -1.
+	filled := make([]int, len(roles))
+	for i := range filled {
+		filled[i] = -1
+	}
+	used := make([]bool, len(items))
+	for i, role := range roles {
+		want := strings.ToLower(strings.TrimSpace(role))
+		for j, a := range items {
+			got, _ := a["role"].(string)
+			if action, _ := a["action"].(string); action == vwp.ApprovalActionApproved && strings.ToLower(strings.TrimSpace(got)) == want {
+				filled[i] = j
+			}
+		}
+		if filled[i] >= 0 {
+			used[filled[i]] = true
+		}
+	}
 	fmt.Fprintf(sb, "\n%s\n\n", headingLine(level, heading))
-	for _, item := range items {
-		a, ok := item.(map[string]any)
-		if !ok {
-			continue
+	sb.WriteString("| Role | Name | Date |\n|---|---|---|\n")
+	for i, role := range roles {
+		name, date := "", ""
+		if j := filled[i]; j >= 0 {
+			name = approverName(items[j])
+			ts, _ := items[j]["timestamp"].(string)
+			date = calendarDate(ts)
 		}
-		approver, _ := a["approver"].(map[string]any)
-		name, _ := approver["name"].(string)
-		if name == "" {
-			name, _ = approver["id"].(string)
+		fmt.Fprintf(sb, "| %s | %s | %s |\n", tableCell(role), tableCell(name), tableCell(date))
+	}
+	var rest []map[string]any
+	for j, a := range items {
+		if !used[j] {
+			rest = append(rest, a)
 		}
-		fmt.Fprintf(sb, "- %v by %s", a["action"], name)
+	}
+	if len(rest) == 0 {
+		return
+	}
+	fmt.Fprintf(sb, "\n%s\n\n", headingLine(level+1, "Other review actions"))
+	renderApprovalList(sb, rest)
+}
+
+// tableCell makes untrusted text safe inside a markdown table cell.
+func tableCell(s string) string {
+	return strings.ReplaceAll(safeHeading(s), "|", "\\|")
+}
+
+func approverName(a map[string]any) string {
+	approver, _ := a["approver"].(map[string]any)
+	name, _ := approver["name"].(string)
+	if name == "" {
+		name, _ = approver["id"].(string)
+	}
+	return name
+}
+
+func renderApprovalList(sb *strings.Builder, items []map[string]any) {
+	for _, a := range items {
+		fmt.Fprintf(sb, "- %v by %s", a["action"], approverName(a))
 		if role, ok := a["role"].(string); ok && role != "" {
 			fmt.Fprintf(sb, " (%s)", role)
 		}
