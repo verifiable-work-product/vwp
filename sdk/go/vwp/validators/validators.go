@@ -38,6 +38,12 @@ func Verify(pkg vwp.Source) *vwp.Report {
 	return vwp.Verify(pkg, vwp.WithExtensionValidators(Registry()))
 }
 
+// VerifyWith is Verify with extra options, such as the signing keys to
+// check signature records against (vwp.WithTrustedSigningKeys).
+func VerifyWith(pkg vwp.Source, opts ...vwp.VerifyOption) *vwp.Report {
+	return vwp.Verify(pkg, append([]vwp.VerifyOption{vwp.WithExtensionValidators(Registry())}, opts...)...)
+}
+
 // near reports whether two amounts agree within the shared rounding
 // tolerance used by the tie-out validators. NaN never compares near.
 func near(a, b float64) bool {

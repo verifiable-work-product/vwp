@@ -42,7 +42,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - run: node --test benchmark/tools/
+      # A directory argument is not a test target on current Node (it resolves
+      # it as a module and fails); name the test files, expanded by the shell.
+      - run: node --test benchmark/tools/*.test.mjs
       - run: node benchmark/tools/score-rubric.mjs --lint benchmark/rubric/vwp-bench-rubric.v1.json
 
   cli:

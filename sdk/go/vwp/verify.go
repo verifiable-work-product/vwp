@@ -1,7 +1,9 @@
 package vwp
 
 import (
+	"crypto/ed25519"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"regexp"
 	"strconv"
@@ -36,6 +38,7 @@ const (
 	ValidatorFactAnchorsQuotesMatch = "core.factAnchors.quotesMatch"
 	ValidatorClaimRefsResolve       = "core.claimRefs.resolve"
 	ValidatorSignaturesPresent      = "core.signatures.present"
+	ValidatorSignaturesValid        = "core.signatures.valid"
 
 	// Integrity graph validators (spec/integrity.md section 7); see
 	// verify_graph.go. core.graph.refsResolve subsumes core.claimRefs.resolve,
@@ -95,7 +98,8 @@ type ExtensionValidator func(pkg Source, ctx *ExtensionContext) []ValidationResu
 type VerifyOption func(*verifyConfig)
 
 type verifyConfig struct {
-	extensions map[string]ExtensionValidator
+	extensions  map[string]ExtensionValidator
+	trustedKeys map[string]ed25519.PublicKey
 }
 
 // WithExtensionValidators registers extension validators keyed by the
@@ -299,18 +303,9 @@ func Verify(pkg Source, opts ...VerifyOption) *Report {
 	// core.digests.match
 	graph, digests := verifyGraph(pkg, manifest, add)
 
-	// core.signatures.present — informational in v0.1.
-	hasSignature := false
-	for _, p := range pkg.List() {
-		if strings.HasPrefix(p, "signatures/") {
-			hasSignature = true
-			break
-		}
-	}
-	if hasSignature {
-		add(ValidationResult{ValidatorId: ValidatorSignaturesPresent, Status: StatusPass})
-	} else {
-		add(ValidationResult{ValidatorId: ValidatorSignaturesPresent, Status: StatusWarning, Message: "no package signature found"})
+	// core.signatures.present / core.signatures.valid
+	for _, r := range VerifySignatures(pkg, cfg.trustedKeys) {
+		add(r)
 	}
 
 	// narrative.* run only when the package carries a narrative part.
@@ -405,6 +400,67 @@ func addCollectionSchemaResult(add func(ValidationResult), validatorId string, i
 		}
 	}
 	add(schemaResult(validatorId, errs))
+}
+
+// VerifySignatures reports whether the package carries a signature record
+// and, when the verifier was handed trusted keys, whether each record is a
+// valid signature over the manifest it ships with. A record under an unknown
+// key is reported, not failed: the package may be signed by a party this
+// verifier does not know. A record that no longer covers the manifest is
+// stale (a warning: something changed since it was signed); one that does
+// not verify at all is a failure.
+//
+// Exported on its own because the outcome depends on the verifier's keys,
+// not on the package: a stored validation report records what the writer
+// knew, and a reader with the published key overlays the live outcome.
+func VerifySignatures(pkg Source, trusted map[string]ed25519.PublicKey) []ValidationResult {
+	var out []ValidationResult
+	add := func(r ValidationResult) { out = append(out, r) }
+	var records []string
+	for _, p := range pkg.List() {
+		if strings.HasPrefix(p, SignaturesDir) {
+			records = append(records, p)
+		}
+	}
+	if len(records) == 0 {
+		add(ValidationResult{ValidatorId: ValidatorSignaturesPresent, Status: StatusWarning, Message: "no package signature found"})
+		return out
+	}
+	add(ValidationResult{ValidatorId: ValidatorSignaturesPresent, Status: StatusPass, Refs: records})
+	if len(trusted) == 0 {
+		return out
+	}
+	manifestBytes, err := pkg.Read(ManifestPath)
+	if err != nil {
+		add(ValidationResult{ValidatorId: ValidatorSignaturesValid, Status: StatusFail, Message: "failed to read manifest: " + err.Error()})
+		return out
+	}
+	for _, p := range records {
+		data, err := pkg.Read(p)
+		if err != nil {
+			add(ValidationResult{ValidatorId: ValidatorSignaturesValid, Status: StatusFail, Message: "failed to read " + p + ": " + err.Error(), Refs: []string{p}})
+			continue
+		}
+		sig, err := ParseSignature(data)
+		if err != nil {
+			add(ValidationResult{ValidatorId: ValidatorSignaturesValid, Status: StatusFail, Message: err.Error(), Refs: []string{p}})
+			continue
+		}
+		pub, ok := trusted[sig.Signer.KeyId]
+		if !ok {
+			add(ValidationResult{ValidatorId: ValidatorSignaturesValid, Status: StatusWarning, Message: "signed with a key this verifier does not trust: " + sig.Signer.KeyId, Refs: []string{p}})
+			continue
+		}
+		switch err := sig.Verify(pub, manifestBytes); {
+		case err == nil:
+			add(ValidationResult{ValidatorId: ValidatorSignaturesValid, Status: StatusPass, Message: "signed by " + sig.Signer.Name + " (" + sig.Signer.KeyId + ")", Refs: []string{p}})
+		case errors.Is(err, ErrSignatureStale):
+			add(ValidationResult{ValidatorId: ValidatorSignaturesValid, Status: StatusWarning, Message: "the package changed after " + sig.Signer.Name + " signed it", Refs: []string{p}})
+		default:
+			add(ValidationResult{ValidatorId: ValidatorSignaturesValid, Status: StatusFail, Message: err.Error(), Refs: []string{p}})
+		}
+	}
+	return out
 }
 
 func verifyPartHashes(pkg Source, manifest *Manifest, add func(ValidationResult)) {
