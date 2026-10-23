@@ -49,6 +49,7 @@ const (
 	RoleApprovals       = "approvals"
 	RoleAttestation     = "attestation"
 	RoleRendering       = "rendering"
+	RoleSignature       = "signature"
 	RoleReadable        = "readable"
 	RolePrimaryArtifact = "primary-artifact"
 )
@@ -456,6 +457,41 @@ func (b *Builder) AddPrimaryArtifact(relPath, mediaType string, content []byte) 
 // registerNameRe bounds register names to one lower-case path segment.
 var registerNameRe = regexp.MustCompile(`^[a-z0-9][a-z0-9-]*$`)
 
+// SetSignature writes a signature record into the package and declares it
+// in manifest.signatures. One record per key id: signing again with the same
+// key replaces the earlier record, so a package carries the signature over
+// its current content, never a trail of stale ones. The record is validated
+// against the signature schema before it is written.
+func (b *Builder) SetSignature(sig vwp.Signature) error {
+	if err := validateObject(schema.Signature, sig); err != nil {
+		return err
+	}
+	keyId := sig.Signer.KeyId
+	if keyId == "" {
+		return fmt.Errorf("vwp/builder: a signature needs a signer keyId")
+	}
+	relPath := vwp.SignaturePath(keyId)
+	data, err := sig.Encode()
+	if err != nil {
+		return err
+	}
+	if err := b.writePart(relPath, data); err != nil {
+		return err
+	}
+	ref := vwp.PartRef{Path: relPath, MediaType: vwp.SignatureMediaType, Role: RoleSignature, SHA256: vwp.SHA256Hex(data)}
+	replaced := false
+	for i := range b.manifest.Signatures {
+		if b.manifest.Signatures[i].Path == relPath {
+			b.manifest.Signatures[i] = ref
+			replaced = true
+		}
+	}
+	if !replaced {
+		b.manifest.Signatures = append(b.manifest.Signatures, ref)
+	}
+	return b.saveManifest()
+}
+
 // AddRegister writes a structured fact register at facts/<name>.json — a
 // typed collection of facts an extension's validators consume (the wallet
 // population, the fair value measurement table). When the package's
@@ -657,7 +693,7 @@ func (b *Builder) AddProvenanceModel(m vwp.ModelRef) error {
 // validators; extensions defaults to the built-in registry when nil) and
 // ships the outcomes as validations/validation-report.json. It returns the
 // verification report.
-func (b *Builder) RunValidators(extensions map[string]vwp.ExtensionValidator) (*vwp.Report, error) {
+func (b *Builder) RunValidators(extensions map[string]vwp.ExtensionValidator, opts ...vwp.VerifyOption) (*vwp.Report, error) {
 	if extensions == nil {
 		extensions = validators.Registry()
 	}
@@ -665,7 +701,7 @@ func (b *Builder) RunValidators(extensions map[string]vwp.ExtensionValidator) (*
 	if err != nil {
 		return nil, err
 	}
-	report := vwp.Verify(pkg, vwp.WithExtensionValidators(extensions))
+	report := vwp.Verify(pkg, append([]vwp.VerifyOption{vwp.WithExtensionValidators(extensions)}, opts...)...)
 	shipped := make([]vwp.Validation, 0, len(report.Results))
 	for i, r := range report.Results {
 		shipped = append(shipped, vwp.Validation{
