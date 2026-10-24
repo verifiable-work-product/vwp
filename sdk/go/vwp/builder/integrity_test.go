@@ -213,11 +213,18 @@ func TestApprovalsCurrentNotRunWithoutStamps(t *testing.T) {
 // edges enter the closure hashes.
 func TestDeclaredInputsWarningAndClosureEdges(t *testing.T) {
 	b, dir := openFixtureCopy(t)
-	if err := b.AddCalculation(vwp.Calculation{
-		Id: "calc_term_months", Type: "custom", Method: "months in term",
-		Inputs:  map[string]any{"termFact": "f_contract_term", "nested": []any{map[string]any{"valueFact": "f_contract_value"}}},
-		Outputs: map[string]any{"months": 24},
-	}); err != nil {
+	// Written as a raw part: AddCalculation would derive the missing
+	// dependsOn itself, and this test is about what the verifier says when
+	// a writer did not.
+	undeclared, err := vwp.EncodeJSON(map[string]any{
+		"id": "calc_term_months", "type": "custom", "method": "months in term",
+		"inputs":  map[string]any{"termFact": "f_contract_term", "nested": []any{map[string]any{"valueFact": "f_contract_value"}}},
+		"outputs": map[string]any{"months": 24},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := b.AddFilePart("calculations/calc_term_months.json", "application/json", builder.RoleCalculation, undeclared); err != nil {
 		t.Fatal(err)
 	}
 	if err := b.AddJudgment(vwp.Judgment{Id: "j_term", Topic: "Term", Question: "Is the term fixed?", ProposedConclusion: "Yes",

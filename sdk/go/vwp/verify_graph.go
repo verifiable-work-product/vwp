@@ -163,18 +163,15 @@ func verifyDeclaredInputs(g *Graph, add func(ValidationResult)) {
 	for _, calc := range g.ObjectsOfKind(KindCalculation) {
 		declared := toSet(calc.Deps)
 		var missing []string
-		seen := map[string]bool{}
-		walkStrings(calc.Value["inputs"], func(s string) {
-			if s == calc.Id || seen[s] || declared[s] {
-				return
+		for _, id := range ReferencedInputs(calc.Id, calc.Value["inputs"], func(id string) bool {
+			obj, ok := g.Objects[id]
+			return ok && inputKinds[obj.Kind]
+		}) {
+			if !declared[id] {
+				missing = append(missing, id)
 			}
-			if obj, ok := g.Objects[s]; ok && inputKinds[obj.Kind] {
-				seen[s] = true
-				missing = append(missing, s)
-			}
-		})
+		}
 		if len(missing) > 0 {
-			sort.Strings(missing)
 			problems = append(problems, fmt.Sprintf("calculation %s: inputs reference %s not declared in dependsOn", calc.Id, strings.Join(missing, ", ")))
 			refs = append(refs, calc.Id)
 		}
@@ -251,6 +248,26 @@ func lastRune(s string) rune {
 }
 
 // walkStrings visits every string value nested anywhere under v.
+// ReferencedInputs lists the ids a calculation's inputs evidently consume:
+// every string anywhere under inputs that known reports as the id of a
+// fact, calculation or evidence item, other than the calculation's own id.
+// Sorted, each id once. It is the rule core.graph.declaredInputs checks
+// dependsOn against, exported so a writer can declare exactly what the
+// verifier will look for.
+func ReferencedInputs(calcId string, inputs any, known func(id string) bool) []string {
+	seen := map[string]bool{}
+	var out []string
+	walkStrings(inputs, func(s string) {
+		if s == calcId || seen[s] || !known(s) {
+			return
+		}
+		seen[s] = true
+		out = append(out, s)
+	})
+	sort.Strings(out)
+	return out
+}
+
 func walkStrings(v any, visit func(string)) {
 	switch t := v.(type) {
 	case string:

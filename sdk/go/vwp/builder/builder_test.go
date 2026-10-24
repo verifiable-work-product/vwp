@@ -678,3 +678,53 @@ func TestAddRegisterValidatesAgainstTheExtension(t *testing.T) {
 		t.Fatalf("free-form register: %v", err)
 	}
 }
+
+// A calculation's dependsOn is completed from its inputs: every fact,
+// calculation or evidence id the inputs name becomes an integrity-graph
+// edge, so the writer never trips core.graph.declaredInputs by naming an
+// input it did not also declare. Declared ids are kept; unknown strings
+// and the calculation's own id are not edges.
+func TestAddCalculationDerivesDependsOnFromItsInputs(t *testing.T) {
+	dir := t.TempDir()
+	b := minimalScaffold(t, dir)
+	if err := b.AddEvidence(vwp.Evidence{Id: "ev-of", Type: "contract", Title: "Order form", Path: "evidence/of.txt"}, []byte("x")); err != nil {
+		t.Fatal(err)
+	}
+	for _, id := range []string{"f-price", "f-term"} {
+		if err := b.AddFact(vwp.Fact{Id: id, Statement: "s", EvidenceRefs: []vwp.EvidenceRef{{EvidenceId: "ev-of"}}}); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := b.AddCalculation(vwp.Calculation{Id: "c-sum", Type: "sum", Inputs: map[string]any{"a": "f-price"}, Outputs: map[string]any{"total": 1}}); err != nil {
+		t.Fatal(err)
+	}
+	if err := b.AddCalculation(vwp.Calculation{
+		Id:        "c-alloc",
+		Type:      "relativeStandaloneSellingPriceAllocation",
+		Inputs:    map[string]any{"price": "c-sum", "components": []any{map[string]any{"sspFact": "f-term", "label": "not-an-id"}}, "self": "c-alloc"},
+		Outputs:   map[string]any{"ok": true},
+		DependsOn: []string{"ev-of"},
+	}); err != nil {
+		t.Fatal(err)
+	}
+	raw, err := os.ReadFile(filepath.Join(dir, "calculations", "c-alloc.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var doc vwp.Calculation
+	if err := json.Unmarshal(raw, &doc); err != nil {
+		t.Fatal(err)
+	}
+	// Declared first, in the writer's order; derived after, sorted.
+	want := []string{"ev-of", "c-sum", "f-term"}
+	if !reflect.DeepEqual(doc.DependsOn, want) {
+		t.Fatalf("dependsOn = %v, want %v", doc.DependsOn, want)
+	}
+	pkg, err := vwp.OpenPackage(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r, ok := vwp.Verify(pkg).Result(vwp.ValidatorGraphDeclaredInputs); !ok || r.Status != vwp.StatusPass {
+		t.Fatalf("declaredInputs = %+v", r)
+	}
+}
