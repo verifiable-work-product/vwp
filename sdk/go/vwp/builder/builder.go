@@ -384,6 +384,11 @@ func (b *Builder) AddCalculation(c vwp.Calculation, opts ...CalculationOption) e
 	for _, o := range opts {
 		o(&cfg)
 	}
+	deps, err := b.deriveDependsOn(c)
+	if err != nil {
+		return err
+	}
+	c.DependsOn = deps
 	if err := validateObject(schema.Calculation, c); err != nil {
 		return err
 	}
@@ -395,6 +400,52 @@ func (b *Builder) AddCalculation(c vwp.Calculation, opts ...CalculationOption) e
 		return b.ReplaceFilePart(cfg.path, "application/json", RoleCalculation, data)
 	}
 	return b.putFilePart(cfg.path, "application/json", RoleCalculation, data)
+}
+
+// deriveDependsOn completes a calculation's dependsOn with every fact,
+// calculation or evidence id its inputs reference — the same rule
+// core.graph.declaredInputs verifies — so a writer that names its inputs
+// gets its integrity-graph edges without declaring them twice. Ids the
+// writer declared are kept, in the order declared, even when the inputs do
+// not mention them; derived ids follow, sorted.
+func (b *Builder) deriveDependsOn(c vwp.Calculation) ([]string, error) {
+	known := map[string]bool{}
+	for _, kind := range []SupportKind{SupportFacts, SupportCalculations, SupportEvidence} {
+		ids, err := b.knownIdsFor(kind)
+		if err != nil {
+			return nil, err
+		}
+		for id := range ids {
+			known[id] = true
+		}
+	}
+	var inputs any
+	if c.Inputs != nil {
+		raw, err := vwp.EncodeJSON(c.Inputs)
+		if err != nil {
+			return nil, err
+		}
+		if err := json.Unmarshal(raw, &inputs); err != nil {
+			return nil, err
+		}
+	}
+	declared := map[string]bool{}
+	out := make([]string, 0, len(c.DependsOn))
+	for _, id := range c.DependsOn {
+		if !declared[id] {
+			declared[id] = true
+			out = append(out, id)
+		}
+	}
+	for _, id := range vwp.ReferencedInputs(c.Id, inputs, func(id string) bool { return known[id] }) {
+		if !declared[id] {
+			out = append(out, id)
+		}
+	}
+	if len(out) == 0 {
+		return nil, nil
+	}
+	return out, nil
 }
 
 // AddAttestation writes an analysis attestation at attestations/<id>.json.
