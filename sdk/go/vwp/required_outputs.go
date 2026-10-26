@@ -22,12 +22,13 @@ const (
 // calculation it books. Defined here so the required-output contract can
 // name them; the validators package implements them.
 const (
-	ValidatorASC606AccountingScheduleTieOut    = "asc606.accountingSchedule.tieOut"
-	ValidatorASC35060AccountingScheduleTieOut  = "asc35060.accountingSchedule.tieOut"
-	ValidatorASC35030AccountingScheduleTieOut  = "asc35030.accountingSchedule.tieOut"
-	ValidatorStakingAccountingScheduleTieOut   = "staking.accountingSchedule.tieOut"
-	ValidatorLendingAccountingScheduleTieOut   = "lending.accountingSchedule.tieOut"
-	ValidatorCostBasisAccountingScheduleTieOut = "costBasis.accountingSchedule.tieOut"
+	ValidatorASC606AccountingScheduleTieOut      = "asc606.accountingSchedule.tieOut"
+	ValidatorASC35060AccountingScheduleTieOut    = "asc35060.accountingSchedule.tieOut"
+	ValidatorASC35030AccountingScheduleTieOut    = "asc35030.accountingSchedule.tieOut"
+	ValidatorStakingAccountingScheduleTieOut     = "staking.accountingSchedule.tieOut"
+	ValidatorLendingAccountingScheduleTieOut     = "lending.accountingSchedule.tieOut"
+	ValidatorCostBasisAccountingScheduleTieOut   = "costBasis.accountingSchedule.tieOut"
+	ValidatorCommissionsAccountingScheduleTieOut = "commissions.accountingSchedule.tieOut"
 )
 
 // RequiredOutput describes a mandatory, manifest-bound extension output.
@@ -98,6 +99,9 @@ func RequiredOutputs(extension string) []RequiredOutput {
 	case ExtensionCostBasis:
 		return []RequiredOutput{accountingScheduleOutput(ValidatorCostBasisAccountingScheduleTieOut,
 			"any lot relief schedule records a disposal (kind realized_gain_loss; one entry per disposal on its date)")}
+	case ExtensionCommissions:
+		return []RequiredOutput{accountingScheduleOutput(ValidatorCommissionsAccountingScheduleTieOut,
+			"any period of the commission statement earns a commission (kind commission_accrual; one entry per period on its last day, at the schedule-currency value the statement states)")}
 	}
 	return nil
 }

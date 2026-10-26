@@ -75,6 +75,7 @@ const (
 	ExtensionLending       = "vwp-digital-assets-lending"
 	ExtensionCostBasis     = "vwp-digital-assets-cost-basis"
 	ExtensionStablecoin    = "vwp-digital-assets-stablecoin"
+	ExtensionCommissions   = "vwp-accounting-commissions"
 )
 
 // requiredParts are the parts every valid package must contain.
