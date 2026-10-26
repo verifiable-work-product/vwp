@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "name": "Commission accrual — DemoPayee",
+  "kind": "commission_accrual",
+  "currency": "USD",
+  "amountScale": 2,
+  "startDate": "2026-01-31",
+  "endDate": "2026-02-28",
+  "totalAmount": "13162.25",
+  "entries": [
+    {
+      "id": "commission-2026-01",
+      "date": "2026-01-31",
+      "description": "Commission earned 2026-01 — DemoPayee",
+      "obligationId": "2026-01",
+      "postings": [
+        {
+          "accountRole": "commission_expense",
+          "debit": "10488.49"
+        },
+        {
+          "accountRole": "accrued_commissions_payable",
+          "credit": "10488.49"
+        }
+      ]
+    },
+    {
+      "id": "commission-2026-02",
+      "date": "2026-02-28",
+      "description": "Commission earned 2026-02 — DemoPayee",
+      "obligationId": "2026-02",
+      "postings": [
+        {
+          "accountRole": "commission_expense",
+          "debit": "2673.76"
+        },
+        {
+          "accountRole": "accrued_commissions_payable",
+          "credit": "2673.76"
+        }
+      ]
+    }
+  ]
+}

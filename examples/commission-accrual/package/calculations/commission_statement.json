@@ -1,0 +1,43 @@
+{
+  "id": "commission_statement",
+  "type": "commissionStatement",
+  "inputs": {
+    "currency": "USD",
+    "denomination": {
+      "asset": "CC",
+      "scale": 10
+    },
+    "planId": "cp-demo",
+    "rates": {
+      "2026-01": "0.05",
+      "2026-02": "0.04"
+    },
+    "statementId": "cs-demo",
+    "valuationSource": "month-end CC/USD close supplied by finance"
+  },
+  "outputs": {
+    "schedule": {
+      "amountScale": 2,
+      "currency": "USD",
+      "entries": [
+        {
+          "amount": "10488.49",
+          "commission": "209769.8302900500",
+          "date": "2026-01-31",
+          "period": "2026-01",
+          "rate": "0.05"
+        },
+        {
+          "amount": "2673.76",
+          "commission": "66844.1043897000",
+          "date": "2026-02-28",
+          "period": "2026-02",
+          "rate": "0.04"
+        }
+      ],
+      "total": "13162.25"
+    }
+  },
+  "method": "each period's commission × that period's valuation rate, rounded half up at the schedule scale",
+  "recomputable": true
+}
