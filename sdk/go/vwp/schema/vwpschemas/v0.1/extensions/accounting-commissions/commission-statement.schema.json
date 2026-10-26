@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/accounting-commissions/commission-statement.schema.json",
+  "title": "Commission Statement",
+  "description": "Extension schema for the vwp-accounting-commissions extension. Constrains a core calculation object of type 'commissionStatement': a commission earned per period in the plan's denomination asset, valued into the schedule currency at a stated rate per period, so the executable accounting schedule can book one accrual entry per period. Located by type under calculations/.",
+  "type": "object",
+  "required": ["id", "type", "inputs", "outputs"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "type": { "const": "commissionStatement" },
+    "inputs": {
+      "type": "object",
+      "required": ["currency", "denomination"],
+      "properties": {
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "description": "The schedule currency the commission is valued into (the reporting currency)."
+        },
+        "denomination": {
+          "type": "object",
+          "required": ["asset"],
+          "properties": {
+            "asset": { "type": "string", "minLength": 1, "description": "The asset the commission is earned and paid in (a currency code or a digital asset symbol)." },
+            "scale": { "type": "integer", "minimum": 0, "maximum": 18 }
+          },
+          "additionalProperties": true
+        },
+        "planId": { "type": "string" },
+        "statementId": { "type": "string" },
+        "statementDocumentId": { "type": "string" },
+        "statementSha256": { "type": "string" },
+        "rates": {
+          "type": "object",
+          "description": "Valuation rate per period (one unit of the denomination asset in the schedule currency), keyed by period.",
+          "additionalProperties": { "type": "string", "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]+)?$" }
+        },
+        "valuationSource": { "type": "string", "description": "Where the rates come from (a price feed, a fact id, the requester)." }
+      },
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "required": ["schedule"],
+      "properties": {
+        "schedule": {
+          "type": "object",
+          "required": ["currency", "amountScale", "entries", "total"],
+          "properties": {
+            "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+            "amountScale": { "type": "integer", "minimum": 0, "maximum": 8 },
+            "entries": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["period", "date", "commission", "rate", "amount"],
+                "properties": {
+                  "period": { "type": "string", "minLength": 1, "description": "The statement period key (2026-01, 2026-Q1, 2026)." },
+                  "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "description": "The period's last day: the accrual's effective date." },
+                  "commission": { "type": "string", "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$", "description": "The commission earned in the period, in the denomination asset." },
+                  "rate": { "type": "string", "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]+)?$", "description": "The valuation rate applied to this period." },
+                  "amount": { "type": "string", "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$", "description": "commission × rate, rounded to amountScale: the entry the schedule books." }
+                },
+                "additionalProperties": true
+              }
+            },
+            "total": { "type": "string", "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$" }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

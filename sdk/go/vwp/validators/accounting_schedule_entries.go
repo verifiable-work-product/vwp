@@ -37,6 +37,10 @@ const (
 	// ASC 350-60 is remeasured by that package's own schedule.
 	RoleDisposalProceeds = "disposal_proceeds"
 	RoleRealizedGainLoss = "realized_gain_loss"
+	// commission_accrual: the period's commission expense against the
+	// liability to the payee until it is paid.
+	RoleCommissionExpense         = "commission_expense"
+	RoleAccruedCommissionsPayable = "accrued_commissions_payable"
 )
 
 // schedulePosting is one posting line an extension expects the executable

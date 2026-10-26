@@ -1,0 +1,65 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_commission_accrual",
+  "createdAt": "2026-10-26T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-commissions",
+  "title": "Commissions — super validator rewards — DemoPayee",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "66eb1df83de85c727acef5335849c6d2cd36b613c688d97373b703969b9f43b1",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "6a3801a542abf8cd917c226f560b82bca5adc200e86050a90950c331ea755fd8",
+      "role": "claims"
+    },
+    {
+      "path": "calculations/commission_statement.json",
+      "mediaType": "application/json",
+      "sha256": "b2d764cce91ded6497db29b7f08b40fddb2351bb7965006b5ec61fa5dc97f9fa",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/commission_accrual_schedule.json",
+      "mediaType": "application/json",
+      "sha256": "b259e831bd28ea8426212ca157e0a5072013bbc0e989d573d6c3a61cf271bfef",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "sha256": "97c9a5054773ab4aa6e2f2385835bc86f7435f1b1391ef82ea1392af5c529edd",
+      "role": "calculation"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "42e8572019cdee0fdddc86a0374cb85b8a19e35ef049ab7785c1127692d02b5a",
+    "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "890fbb4c9ead015cd1b38c1da99c25b9c084acd2db1b0e4972f3287b8cf1476f",
+    "contentRoot": "dc76c2480499a9846a8fbd493a75b4d09c18e8a6b7343786197aa982d86ecbe5",
+    "reviewRoot": "9170616293bef0ae6382254b83b14dda8703639862fbb5a1266e37039f74337c",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "a2272f93858233010664304f09d6cdbf71588c25430d528b582bf45cb9c96c08",
+      "claim": "a6d5ffb95cea7b7b39c9fe18f83a552d97780c79cb64e550ac9131fbc5f18155",
+      "evidence": "4c7473602c1dd72e54bde8ffb4c4259efd99030767967f70ce1dd158c2ecc326",
+      "fact": "edf5ac6b02340334a24894952c530260658fa22f824f5f284db42be70250fd2c",
+      "judgment": "32dc3ac44a4d70438ed8e497ef5ff62862506d4d90ac561ad3eb36b712c59574",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
+  }
+}

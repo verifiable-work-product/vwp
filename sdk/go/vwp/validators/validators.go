@@ -28,6 +28,7 @@ func Registry() map[string]vwp.ExtensionValidator {
 		vwp.ExtensionLending:       Lending,
 		vwp.ExtensionCostBasis:     CostBasis,
 		vwp.ExtensionStablecoin:    Stablecoin,
+		vwp.ExtensionCommissions:   Commissions,
 	}
 }
 

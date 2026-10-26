@@ -1,0 +1,26 @@
+{
+  "id": "wp_demo_commission_accrual",
+  "title": "Commissions — super validator rewards — DemoPayee",
+  "domain": "accounting.commissions",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-commissions",
+  "standardRefs": [
+    "ASC 710-10-25-1",
+    "ASC 450-20-25-2"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2026-02-28",
+    "start": "2026-01-01"
+  },
+  "conclusionSummary": "DemoPayee earned 276,613.93 CC of commission on collected super validator rewards in January and February 2026; valued at month-end rates the accrual is 13,162.25 USD.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  }
+}

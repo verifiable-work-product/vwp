@@ -108,11 +108,15 @@ const (
 	KindStakingRewards         = "staking_rewards"
 	KindInterestAccrual        = "interest_accrual"
 	KindRealizedGainLoss       = "realized_gain_loss"
+	// KindCommissionAccrual books a commission earned in a period: expense
+	// against a liability to the payee, valued in the schedule currency.
+	KindCommissionAccrual = "commission_accrual"
 )
 
 var kinds = map[string]bool{
 	KindRevenueRecognition: true, KindDepreciation: true, KindFairValueRemeasurement: true,
 	KindImpairment: true, KindStakingRewards: true, KindInterestAccrual: true, KindRealizedGainLoss: true,
+	KindCommissionAccrual: true,
 }
 
 // Kinds lists the accepted schedule kinds in a stable order.

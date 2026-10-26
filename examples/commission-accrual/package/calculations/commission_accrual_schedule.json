@@ -1,0 +1,14 @@
+{
+  "id": "commission_accrual_schedule",
+  "type": "accountingSchedule",
+  "inputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "derivedFrom": [
+      "commission_statement"
+    ]
+  },
+  "outputs": {
+    "artifact": "calculations/accounting-schedule.json"
+  }
+}
