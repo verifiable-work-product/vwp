@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "name": "FY2026 income tax provision entries",
+  "kind": "income_tax_provision",
+  "currency": "USD",
+  "amountScale": 2,
+  "startDate": "2026-12-31",
+  "endDate": "2026-12-31",
+  "totalAmount": "260000.00",
+  "entries": [
+    {
+      "id": "current-2026-12-31",
+      "date": "2026-12-31",
+      "description": "Current tax on taxable income of 940,000 at 25%",
+      "obligationId": "current",
+      "postings": [
+        {
+          "accountRole": "income_tax_expense",
+          "debit": "235000.00"
+        },
+        {
+          "accountRole": "income_taxes_payable",
+          "credit": "235000.00"
+        }
+      ]
+    },
+    {
+      "id": "utb-2026-12-31",
+      "date": "2026-12-31",
+      "description": "Increase in the liability for unrecognized tax benefits",
+      "obligationId": "uncertainTaxPositions",
+      "postings": [
+        {
+          "accountRole": "income_tax_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "unrecognized_tax_benefits",
+          "credit": "10000.00"
+        }
+      ]
+    },
+    {
+      "id": "deferred-2026-12-31",
+      "date": "2026-12-31",
+      "description": "Deferred tax: net deferred tax asset up 12,500 (allowance released), deferred tax liability up 15,000, deferred expense 2,500",
+      "obligationId": "deferred",
+      "postings": [
+        {
+          "accountRole": "deferred_tax_asset",
+          "debit": "12500.00"
+        },
+        {
+          "accountRole": "income_tax_expense",
+          "debit": "2500.00"
+        },
+        {
+          "accountRole": "deferred_tax_liability",
+          "credit": "15000.00"
+        }
+      ]
+    }
+  ]
+}

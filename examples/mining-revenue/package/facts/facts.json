@@ -1,0 +1,153 @@
+{
+  "facts": [
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "the coinbase output of every block it finds pays to an address controlled by DemoCo treasury."
+            }
+          ],
+          "evidenceId": "ev_mining_ops"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_solo",
+      "requiresReview": false,
+      "statement": "DemoCo mines solo with its own fleet; the coinbase output pays to an address it controls.",
+      "value": "solo"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "No pool is used and no hash power is sold or hosted for third parties."
+            }
+          ],
+          "evidenceId": "ev_mining_ops"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_no_pool",
+      "requiresReview": false,
+      "statement": "No pool is used and no hash power is sold or hosted for third parties.",
+      "value": "no pool"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Coinbase outputs are spendable after the protocol's 100-block maturity."
+            }
+          ],
+          "evidenceId": "ev_mining_ops"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s3_f_maturity",
+      "requiresReview": false,
+      "statement": "Coinbase outputs are spendable after the protocol's 100-block maturity.",
+      "value": "100-block maturity"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "TOTAL,april-2026,9.37500000,0.17000000,9.54500000"
+            }
+          ],
+          "evidenceId": "ev_block_rewards"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "quantity",
+      "id": "s4_f_chain_total",
+      "requiresReview": false,
+      "statement": "The node export shows 9.545 BTC of coinbase outputs (9.375 subsidy, 0.17 fees) credited to DemoCo addresses in April 2026.",
+      "value": {
+        "periodEnd": "2026-04-30",
+        "periodStart": "2026-04-01",
+        "units": 9.545
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "2026-04-05,70000.00,demo-exchange"
+            }
+          ],
+          "evidenceId": "ev_btc_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "price",
+      "id": "s4_f_price_0405",
+      "requiresReview": false,
+      "statement": "BTC closed at 70,000.00 USD on 2026-04-05.",
+      "value": {
+        "currency": "USD",
+        "date": "2026-04-05",
+        "price": 70000
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "2026-04-18,72000.00,demo-exchange"
+            }
+          ],
+          "evidenceId": "ev_btc_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "price",
+      "id": "s4_f_price_0418",
+      "requiresReview": false,
+      "statement": "BTC closed at 72,000.00 USD on 2026-04-18.",
+      "value": {
+        "currency": "USD",
+        "date": "2026-04-18",
+        "price": 72000
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "2026-04-29,71000.00,demo-exchange"
+            }
+          ],
+          "evidenceId": "ev_btc_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "price",
+      "id": "s4_f_price_0429",
+      "requiresReview": false,
+      "statement": "BTC closed at 71,000.00 USD on 2026-04-29.",
+      "value": {
+        "currency": "USD",
+        "date": "2026-04-29",
+        "price": 71000
+      }
+    }
+  ]
+}

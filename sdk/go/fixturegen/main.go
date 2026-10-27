@@ -1,15 +1,16 @@
 //go:build ignore
 
 // Command fixturegen regenerates the accounting extension example packages
-// (ASC 350-60, ASC 350-30, staking rewards, lending, cost basis, stablecoin)
-// with the builder, so every part hash in each manifest is consistent and
+// (ASC 350-60, ASC 350-30, staking rewards, lending, cost basis, stablecoin,
+// and the per-extension fixture_<name>.go files beside this one) with the
+// builder, so every part hash in each manifest is consistent and
 // every package verifies clean against the registry. Each example is written
 // as <root>/<name>/package plus a packed <root>/<name>/<name>.vwp:
 //
-//	go run fixturegen/main.go [root]
+//	go run fixturegen/*.go [root] [-only=<example dir>]
 //
 // The hand-authored examples (asc606-revenue-contract, asc820-fair-value,
-// digital-assets-wallet-ownership, asc842-lease, sox-control-test and the
+// digital-assets-wallet-ownership, sox-control-test and the
 // two dtcc-canton-milestone packages) keep their content but are refreshed
 // in place: manifest part hashes, the integrity digests block
 // (spec/integrity.md) and, where one ships, the packed .vwp. The testdata/
@@ -46,12 +47,24 @@ type fixture struct {
 	build     func(b *builder.Builder) error
 }
 
+// extraFixtures are registered by the per-extension fixture files in this
+// directory (fixture_<name>.go) from their init functions.
+var extraFixtures []fixture
+
 func main() {
 	root := defaultRoot
-	if len(os.Args) > 1 {
-		root = os.Args[1]
+	only := ""
+	for _, arg := range os.Args[1:] {
+		if strings.HasPrefix(arg, "-only=") {
+			only = strings.TrimPrefix(arg, "-only=")
+		} else {
+			root = arg
+		}
 	}
-	for _, f := range fixtures {
+	for _, f := range append(append([]fixture{}, fixtures...), extraFixtures...) {
+		if only != "" && f.dir != only {
+			continue
+		}
 		dir := filepath.Join(root, f.dir, "package")
 		if err := os.RemoveAll(dir); err != nil {
 			fail(f.dir, err)
@@ -105,6 +118,9 @@ func main() {
 		fmt.Printf("%s: %d validations, valid\n", f.dir, len(report.Results))
 	}
 	for _, h := range handAuthored {
+		if only != "" {
+			break
+		}
 		if err := refreshHandAuthored(root, h); err != nil {
 			fail(h.dir, err)
 		}
@@ -117,7 +133,6 @@ var handAuthored = []struct{ dir, pack string }{
 	{"asc606-revenue-contract", "acme-asc606.vwp"},
 	{"asc820-fair-value", "asc820-fair-value.vwp"},
 	{"digital-assets-wallet-ownership", "wallet-ownership.vwp"},
-	{"asc842-lease", ""},
 	{"sox-control-test", ""},
 	{"dtcc-canton-milestone/asc606-milestone-consideration", "dtcc-milestone.vwp"},
 	{"dtcc-canton-milestone/asc820-coin-fv", "canton-coin-fv.vwp"},

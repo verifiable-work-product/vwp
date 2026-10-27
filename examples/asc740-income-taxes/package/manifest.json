@@ -1,0 +1,113 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_asc740_income_taxes",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc740",
+  "title": "ASC 740 Income Tax Provision - DemoCo FY2026",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "948114e66d4295ea80bc19ae2850134a34591cf66b961b0957c441c61a4676c6",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "3051bb0b8680b71c223ab4b7d42140852a2db2936915b46fc16bb93d848a4ff5",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/trial-balance-fy2026.csv",
+      "mediaType": "text/csv",
+      "sha256": "ea60058064d301fabafcdec03fa918278a75c86123c61c05c12b9a2e7e195f48",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "e5a1be066ad8ff5c7375d3fc46162475a392a99b21bc2730808774b931b669bc",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/basis-differences.csv",
+      "mediaType": "text/csv",
+      "sha256": "d2f945c9ca4a9e579aa4a7c5920bab270c844b9fd5eb4db75ab36c714fa70c1f",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/enacted-rate-memo.txt",
+      "mediaType": "text/plain",
+      "sha256": "ba0d341fb435d82e5d44a6a7a7908353452cbf30d037b975216102fab4f04e0d",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "62c2bc80930523f4c4162a53af3fa3a179e89a921a5302980e10b0137812496b",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "31a5c80d5e9ffd87dded8b0a48ebc608774e2ca569a89f3c6c5d87f5bd492937",
+      "role": "judgments"
+    },
+    {
+      "path": "calculations/s3_tax_provision.json",
+      "mediaType": "application/json",
+      "sha256": "101719c98670392e68103e190d1e668489b40a69881d1af48d88aab141f43163",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule-calculation.json",
+      "mediaType": "application/json",
+      "sha256": "d19822946f8759ef477b991c194a12400af4e8bf0ce81307ffde7b633bb4fb3a",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "sha256": "011bdf11bf77625712da6ce33070cf35025bd1032f6cad8b576c4499ef254024",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "807b42296c1330bffb566ad48f0c14aff00d372e481bf5900aaefd243513c384",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "b437d03da532d2a537bf11effff8f64992aabe5b6439f770de61d90ea86a1e7b",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "80b2ec21696b5b9d719b7e822b97fba1f1d72733f2a54d8b1ed7fa48d23d7487",
+    "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "0982602e1b6d1e0c76dc337bfae4cdfb54d9f3fd88f683ec6df4b42f1a25e98b",
+    "contentRoot": "79b3e5acaddc28c403b1010571f57ff97255eaf21a02b161112b7e19301628e2",
+    "reviewRoot": "9ecc7f14e4e7416e2c8405e4579e3b9410b73dc2ec3244fcdfd1882aceed3c52",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "0d59846808941f16e482b924ea03f7e7b5a5b6b9d0f71ddd163ce9427bf9ad61",
+      "claim": "4c54b64f79facefce6f8f07f6d335b723ca3b6880e3e9863a58aeffbec489c4c",
+      "evidence": "147b04f84508a27d9aeac0ab99531aa03cb477874890e083e3c25f1056ae362d",
+      "fact": "5e9d9a7e05689e8e4e8e86ca59ea26ed524adb5fcabd4de9e55094e4be4e5ea3",
+      "judgment": "9ee7a5d1bce40493ba7c2dbc86c782d4a4e8d22d6b77f0d460f51c41441d3e8d",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+Demo Sub-Custody LLC holdings statement as of 2026-06-30
+Account: DEMOCO-CLIENT-ETH
+ETH balance: 2,000.00000000
+Held for: DemoCo custody customers, segregated

@@ -1,0 +1,125 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_defi_positions",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-defi-positions",
+  "title": "DeFi Positions - DemoCo at 2026-06-30",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "d98b0fa75549ab9f3e1f9843209da2172048daa0d1ad6e3dac6a5233cd1e3577",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "fccec5641e4269f8cb944ed85c6d7b472399e77eed6176dfb34ce1dcca764815",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/positions-query.csv",
+      "mediaType": "text/csv",
+      "sha256": "2698c5a0c3df49c4a61f0f9aa504ea201ca9daa210ac20c396b13220a9cd5fed",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "0049ebca45c01a5336d8c418383d897698db820d91fcd83d2fe483919e5635c8",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/wallet-control.txt",
+      "mediaType": "text/plain",
+      "sha256": "26d44a40ab2ef050553fb91eae3bd68cc387a54f75fe46c872d1b073901ed5bf",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/pool-docs.txt",
+      "mediaType": "text/plain",
+      "sha256": "d62d0be8d6d89c03a73b03ce192eb62817e082c139322b13627300b2212977fa",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/lend-docs.txt",
+      "mediaType": "text/plain",
+      "sha256": "83ab67640ce9f24325c1b9ddfb9829b938434fd5aca2c3d9959fe625bc48da6a",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/wrap-docs.txt",
+      "mediaType": "text/plain",
+      "sha256": "821d933c14899a8cbe62704c7ca80f3a41f1e9f50481ef0d4d2ead0a9a7c1657",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/period-end-prices.csv",
+      "mediaType": "text/csv",
+      "sha256": "2b564b2b7e497434d13ad632c5ae9601e8fc7f5faf18856cdc3070a864dc3ac4",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "7327e78eb9697204342b4d868913078e984677c15da0f2ebaa5f9e305a39b64d",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "e545d92ac896297bed10cd36fbf467adec128b83d83acfa578863ee7e0dd1f11",
+      "role": "judgments"
+    },
+    {
+      "path": "facts/defi-positions.json",
+      "mediaType": "application/json",
+      "sha256": "85a1c5ddca03ab3723295d3e841d5b72239681b5d90053c968d98a0bcaffc73a",
+      "role": "facts"
+    },
+    {
+      "path": "calculations/s3_position_valuation.json",
+      "mediaType": "application/json",
+      "sha256": "220e3b25a56e19e3bc2bdb01e3e941d794cec841111dcf456df6df21e6f266af",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "27d752708c2e73e7d3077d48bd282ab1264b2b755df04f62bf2d17dbd1fabf2d",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "f63e57399cc629bcdfa60310f703b35d4ffeb1bfd02bf10476552010190cd66c",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "9d60b43d0fe7b42cd74ce46ed149a17e78c0eb7219c745b326fa10b360619a24",
+    "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "b72312905833f6e1651d94ff9fad27c94b8e6aef8e5cf421e68dee16b50992f4",
+    "contentRoot": "a97829e8758e831dfe577fe7bd9435b36181ed9f6b85e0b16e7632400f659965",
+    "reviewRoot": "1923bc5b2234805f0ccac8189dc04f4b14ad37f667a824a03d8360d38400fd44",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "dab6c18b3e548e695f50097865b18b655b65b40f56315a88c148e86f9b2a487f",
+      "claim": "10b3902010ffc943494b02dfa587d1530c123a3d8e6af5fccb3163e7ac7ef5e2",
+      "evidence": "f2648d4a7e845a78b245ef3b763b669aae42b37d27f74b34d759228dc781e0d3",
+      "fact": "817ef176396015dfec2bc8a3f1ef1ecd38ca7d8c0c4db121aa2885e1c2427e17",
+      "judgment": "90b96eba15ab1fff929a38445626c12af5e1593b2442fbee26724ba1da96db09",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
+  }
+}

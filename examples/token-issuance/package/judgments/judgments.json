@@ -1,0 +1,101 @@
+{
+  "judgments": [
+    {
+      "alternatives": [
+        {
+          "conclusion": "Derivative liability at fair value",
+          "notes": "Rejected at inception for want of net settlement; becomes the answer if a liquid market for DEMO exists before delivery and the contract then meets ASC 815-10-15-83."
+        }
+      ],
+      "basis": "ASC 480-10-25-4 and 480-10-25-14 (obligations settled in shares do not apply — DEMO is not an equity share); ASC 815-10-15-83 (net settlement absent pre-launch); ASC 606-10-15-3 (no customer relationship for services at the SAFT date); s1_f_saft_terms; s1_f_saft_proceeds; AICPA Digital Assets Practice Aid, accounting by issuers.",
+      "basisFacts": [
+        "s1_f_saft_proceeds",
+        "s1_f_saft_terms"
+      ],
+      "id": "s2_j_saft_classification",
+      "proposedConclusion": "A liability measured at the proceeds received (1,000,000 USD). Not equity: the DEMO token confers no ownership interest, so the obligation is not within ASC 480-10-25 as an obligation to issue shares, nor an equity-classified contract. Not a derivative at inception: before the network launches no market exists for DEMO, so the obligation lacks the net-settlement characteristic of ASC 815-10-15-83(c) (the token is not readily convertible to cash) — reassess at each reporting date. Not an ASC 606 contract at inception: the SAFT holder is not yet a customer for platform services; the tokens, once delivered, carry the utility analyzed for the public sale. The obligation is derecognized when the tokens are delivered.",
+      "question": "Is DemoCo's obligation to deliver 2,000,000 DEMO under the SAFT equity, a liability, a derivative, or a contract with a customer?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Classification of the SAFT obligation"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Revenue at sale",
+          "notes": "Rejected: control of the compute units has not transferred; the obligation to provide them is unsatisfied at the sale date."
+        }
+      ],
+      "basis": "ASC 606-10-25-1 (contract with a customer), 606-10-25-14 (performance obligation), 606-10-45-2 (contract liability), 606-10-55-46 to 55-49 (breakage on unexercised rights); s1_f_public_utility; s1_f_public_proceeds.",
+      "basisFacts": [
+        "s1_f_public_proceeds",
+        "s1_f_public_utility"
+      ],
+      "id": "s2_j_public_classification",
+      "proposedConclusion": "A contract liability under ASC 606 (deferred revenue) of 500,000 USD. The buyers are customers: the DEMO token entitles them to compute units DemoCo must still provide, a performance obligation satisfied as the units are consumed or expire on 2027-05-31. The tokens themselves were delivered at sale, so no token-delivery liability remains; the token confers no equity rights.",
+      "question": "Are the public sale proceeds revenue, a contract liability, a liability to deliver tokens, or equity?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Classification of the public sale proceeds"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Recognize the tokens at fair value",
+          "notes": "Rejected: the entity cannot recognize an asset for its own issued token with no cost."
+        }
+      ],
+      "basis": "ASC 350-60-15-1(f); s1_f_allocations; AICPA Digital Assets Practice Aid, self-issued tokens held by the issuer.",
+      "basisFacts": [
+        "s1_f_allocations"
+      ],
+      "id": "s2_j_treasury",
+      "proposedConclusion": "No. Tokens created and issued by the reporting entity are outside ASC 350-60 (criterion f) and have no cost basis; no asset and no liability is recognized. The allocation is disclosed. An asset arises only on a sale of the treasury tokens for consideration.",
+      "question": "Does DemoCo recognize an asset for the 10,000,000 DEMO it allocated to its own treasury?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "Treasury allocation of self-issued tokens"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Marketing expense at the token's fair value",
+          "notes": "Considered: appropriate only where the entity previously recognized the tokens at cost; none was recognized here."
+        }
+      ],
+      "basis": "ASC 350-60-15-1(f); s1_f_allocations; AICPA Digital Assets Practice Aid, self-issued tokens.",
+      "basisFacts": [
+        "s1_f_allocations"
+      ],
+      "id": "s2_j_airdrop",
+      "proposedConclusion": "Nothing is recognized: no consideration was received and the tokens carry no obligation beyond the platform utility already accounted for as a contract liability only where consideration was paid. The airdrop is disclosed as a distribution of self-issued tokens.",
+      "question": "Does the airdrop of 250,000 DEMO to community wallets create an asset, a liability or an expense?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "Airdropped tokens"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Remeasure at the fair value of the tokens owed each period",
+          "notes": "Rejected: a non-derivative, non-refundable obligation to deliver the entity's own non-equity token is not remeasured at fair value under current guidance; disclose the fair value of tokens owed instead."
+        }
+      ],
+      "basis": "ASC 405-20-40-1 (extinguishment on delivery); ASC 815-10-15-83; s1_f_saft_terms.",
+      "basisFacts": [
+        "s1_f_saft_terms"
+      ],
+      "id": "s4_j_saft_remeasurement",
+      "proposedConclusion": "No while it is a liability to deliver tokens measured at proceeds: it is carried at 1,000,000 USD until the tokens are delivered, when it is derecognized against the tokens issued. If DEMO becomes readily convertible to cash before delivery the obligation is reassessed as a derivative under ASC 815 and measured at fair value from that date.",
+      "question": "Is the SAFT liability remeasured before delivery?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "Subsequent measurement of the SAFT liability"
+    }
+  ]
+}

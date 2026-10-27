@@ -1,18 +1,22 @@
 {
-  "createdAt": "2026-07-07T16:30:00Z",
+  "createdAt": "2026-10-14T12:00:00Z",
   "createdBy": {
     "type": "agent",
     "name": "vwp-demo-agent",
     "version": "0.1.0"
   },
   "toolchain": [
-    { "name": "vwp-cli", "version": "0.1.0" }
+    {
+      "name": "vwp-go/fixturegen",
+      "version": "0.1.0"
+    }
   ],
   "models": [
-    { "provider": "demo", "name": "manual-fixture", "version": "n/a" }
+    {
+      "provider": "demo",
+      "name": "manual-fixture",
+      "version": "n/a"
+    }
   ],
-  "sourceSystems": [
-    { "name": "demo-lease-admin", "description": "Demo lease administration system (synthetic)" }
-  ],
-  "notes": "Synthetic stub package demonstrating the ASC 842 extension shape. All parties and amounts are fictional."
+  "notes": "Synthetic demo package for the vwp-accounting-asc842 extension. All entities, assets, prices and parties are fictional."
 }

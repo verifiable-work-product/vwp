@@ -1,0 +1,6 @@
+DEMO Public Sale Terms (excerpt)
+
+1. Price: 0.50 USD per DEMO; 1,000,000 DEMO sold for 500,000.00 USD on 2026-06-01.
+2. Utility: each DEMO token entitles the holder to 1 compute unit on the DemoCo platform, to be provided by DemoCo on request through 2027-05-31.
+3. Delivery: tokens delivered at sale.
+4. The DEMO token confers no equity, dividend, voting or liquidation rights in DemoCo.

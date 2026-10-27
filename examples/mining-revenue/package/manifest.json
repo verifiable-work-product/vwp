@@ -1,0 +1,113 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_mining_revenue",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-mining-revenue",
+  "title": "Mining Revenue Recognition - DemoCo Solo Mining April 2026",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "90c34e8c332bb95cb28ad4249254740fdde81f3c0874c7cc0cc8b958a39573ac",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "9a477e5034e4ce323aa5f54a447f79d1fce8b7340f7ba2fead36d9c456f9d39c",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/block-rewards.csv",
+      "mediaType": "text/csv",
+      "sha256": "e5b743b3e57b1bc68cf921a5563fb9f8afbef97af051464c5a5bb7f5bfc931bc",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "aa0c1d5a5167855d9a49c2ad8ec7ec7c005af092a1c0237954dc439f87833635",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/btc-daily-prices.csv",
+      "mediaType": "text/csv",
+      "sha256": "56bf5bc89f87c448b449990839b8b1c946c3ebeb7115caaaf60700a90faf6d76",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/mining-operations.txt",
+      "mediaType": "text/plain",
+      "sha256": "71b507cb728be95b2a3236ba96fc5a2ec0108f94dccb8594f3bb27aabdd45b09",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "f5493248edcf14fe6eee708bf41ba407e8c2d5bce34d03c5d2cef14f85be6c28",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "2202420d380de57cfb5deed3ce356122272a65888e9097db0e253da1deac40d6",
+      "role": "judgments"
+    },
+    {
+      "path": "calculations/s4_mining_schedule.json",
+      "mediaType": "application/json",
+      "sha256": "1af641a1f8b16771af37f70a8addd237303c51baf6bf06b198142516e294d162",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule-calculation.json",
+      "mediaType": "application/json",
+      "sha256": "88791886a6e6a7b3fab3b6edab37d4fef298abdd94e39086d2ef416c287e4187",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "sha256": "e0b8d53f9d12b1c8ba46ff4af9850592dfb02a64eceebb988bf92443b07a6259",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "1f950324c2a7a62d74be40b64df17150c23b9aac307aebc79490a5b675d5da62",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "5d110715854dc4e3f8e0f8087fc88232b2e8bc0b6945ae17e674f9e6fc24b2e9",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "62ae5c6d8be181d149b2b3c8acf608a9444e38b5ab56dbb1639ba9bc47b97a2e",
+    "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "918c20911012933019c13409086058f049a24add47d866167c550ce8dd7c07a6",
+    "contentRoot": "04cb26ad0391d71a9af2baa6b34616f1abdf32188d11548bb24466879eb13c57",
+    "reviewRoot": "e33a5a2760d4c2fb3c7ba19cd7c31ab907106caf88085d2993e8091ee3552c6e",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "616fa01d8065f864ef5fcc76c1e4adc20045029f74e9d3676ed5490381fd4684",
+      "claim": "164efd865d96c938fec0bd8208c82dd644cab395811ed7493308c91796189c44",
+      "evidence": "4f4f4e79f083eb8d945f937998367a80027fcafc77398151d4860618feed5faa",
+      "fact": "6a5031c6e8f5bcf9de84b226db1673bae90480ab60dc34a692884f5acc8c7d2b",
+      "judgment": "fb4efb84fd5487c84af60dc4f081d98e97d4189055e2a2c1186744013709611a",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
+  }
+}

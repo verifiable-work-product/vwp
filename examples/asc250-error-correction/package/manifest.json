@@ -1,0 +1,107 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_asc250_error_correction",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc250",
+  "title": "ASC 250 Error Correction - DemoCo Accrued Hosting Fees, FY2024-FY2025",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "db412eb4171d7a6ceb4f686e3582eb6733e650dbd5ef239d2424e91341296582",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "1863efa66b6fab72be5aa23eea1623f0a1d1b9a48a94a96c8da32f330a895625",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/hosting-invoices.txt",
+      "mediaType": "text/plain",
+      "sha256": "6202ae036b5121b94ad06c617e467846a7e7e4ab457d49a339c0348b27ffe60f",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "926b3c0950e2244edeeef3eb32c39dc573d6549dd06427f791996fa906c212a6",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/trial-balances.csv",
+      "mediaType": "text/csv",
+      "sha256": "9056b8e7e3c75ded05b265df8efc72076b6e0ebe23dca9b6ac15b5b1dd32e247",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "89a37e3e2b0f89a11137282506f244d4bec6d879661c9d2c74ea42bc15582024",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "874c1839075bbdcb6197893fd58d99e9f273a6d33100af7182d65ba572ff6148",
+      "role": "judgments"
+    },
+    {
+      "path": "calculations/s2_error_correction.json",
+      "mediaType": "application/json",
+      "sha256": "6e0b99eacb7cf5b82a95c113a303efca345fee44ff889affcef7aacb4e8173ba",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule-calculation.json",
+      "mediaType": "application/json",
+      "sha256": "38c869fc400fa705b105800f0255f2c79a3194edbf36deef6ca3965daca8ec3e",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "sha256": "015f1b9f65a2d76336878a701b9d92561471eea5ed38f2ab583fc456b8d6cdfa",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "58a481b5dd4d3976925441dee293dd1e5e42c6a160cd00663ad5a6ada330947a",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "d0d714a034687af15aed4ae54a8b91eeb70ce67aa3443b0261a53091a5c50acd",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "a02cea515f492ddcf158107ea7f43c45d0f780ef2caf777594e3633307971570",
+    "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "25aafc29d7e3ce2bc2878757b73038f1f6660a5858b493431db340c073573b5f",
+    "contentRoot": "97dbb83849e840efe5766ea7b0d6dd7e41abb2d327ec0dbf5ba40e37a90188c3",
+    "reviewRoot": "0d9672a1cf9d871ae9687767213eb11009649a32a5c89d1d46ff8905a65231c1",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "39798cbcd1a8827db80d5974773c9385399aad49cb23945cbe509e1cb087adfd",
+      "claim": "d7429691a7762b0e266af5e9a908199bfdd3cfb7722137564e669953d66bf4e5",
+      "evidence": "7d19c5660abeac7d4ce9fa582e083f5208fd4f2539d7dc039595f7591cbb13cd",
+      "fact": "773d3f6215b5d3a3ccdaaac81656fa2f5c30197fd5aa881d3d9c89293f4d230a",
+      "judgment": "1bfe617a231b413394302d082908aae972a305a4d65795b7f8d54d8ba47ad5e2",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
+  }
+}

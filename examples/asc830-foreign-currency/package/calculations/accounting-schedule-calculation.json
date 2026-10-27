@@ -1,0 +1,61 @@
+{
+  "id": "s4_accounting_schedule",
+  "type": "accountingSchedule",
+  "inputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "derivedFrom": [
+      "s4_remeasurement"
+    ]
+  },
+  "outputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "endDate": "2026-06-30",
+    "entries": [
+      {
+        "date": "2026-06-30",
+        "description": "EUR cash remeasured at 1.1000: transaction gain",
+        "id": "cash_eur-2026-06-30",
+        "obligationId": "cash_eur",
+        "postings": [
+          {
+            "accountRole": "cash_eur",
+            "debit": "2000.00"
+          },
+          {
+            "accountRole": "fx_gain_loss",
+            "credit": "2000.00"
+          }
+        ]
+      },
+      {
+        "date": "2026-06-30",
+        "description": "GBP trade payable remeasured at 1.2800: transaction loss",
+        "id": "ap_gbp-2026-06-30",
+        "obligationId": "ap_gbp",
+        "postings": [
+          {
+            "accountRole": "fx_gain_loss",
+            "debit": "1000.00"
+          },
+          {
+            "accountRole": "trade_payables_gbp",
+            "credit": "1000.00"
+          }
+        ]
+      }
+    ],
+    "kind": "fx_remeasurement",
+    "name": "Q2 2026 foreign currency remeasurement",
+    "schemaVersion": 1,
+    "startDate": "2026-06-30",
+    "totalAmount": "3000.00"
+  },
+  "dependsOn": [
+    "s4_remeasurement"
+  ],
+  "method": "Executable entries derived from s4_remeasurement; amounts at amountScale, balanced semantic account-role postings.",
+  "validator": "asc830.accountingSchedule.tieOut",
+  "recomputable": true
+}

@@ -1,0 +1,68 @@
+{
+  "judgments": [
+    {
+      "alternatives": [
+        {
+          "conclusion": "Accrue the midpoint of the range",
+          "notes": "Rejected: ASC 450-20-30-1 accrues the minimum when no amount in the range is a better estimate; the midpoint is not supported by counsel."
+        }
+      ],
+      "basis": "ASC 450-20-25-2 (probable and reasonably estimable); ASC 450-20-30-1 (range with no best estimate: accrue the minimum); ASC 450-20-50-3 and 50-4 (disclose the exposure above the accrual); counsel letter matter 1.",
+      "id": "s2_j_litigation",
+      "proposedConclusion": "Probable and estimable. Counsel assesses an unfavorable outcome as probable and the loss as a range of 400,000 to 900,000 USD with no better estimate within it; ASC 450-20-30-1 accrues the minimum of the range, 400,000 USD, and the exposure above it is disclosed.",
+      "question": "Is a loss on the supplier litigation probable and reasonably estimable at 2026-06-30, and what amount is accrued?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Likelihood and estimability of the supplier litigation"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Probable; accrue 50,000 USD",
+          "notes": "Rejected: counsel's assessment is reasonably possible, and an accrual of a reasonably possible loss is not permitted."
+        }
+      ],
+      "basis": "ASC 450-20-25-2(a) not met; ASC 450-20-50-3 and 50-4 require disclosure of a reasonably possible loss and the range; counsel letter matter 2.",
+      "id": "s2_j_regulatory",
+      "proposedConclusion": "Reasonably possible, not probable: counsel does not assess an adverse finding as likely. No accrual; the nature of the inquiry and the 50,000 to 250,000 USD range are disclosed.",
+      "question": "Is a loss on the regulatory inquiry probable at 2026-06-30?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "Likelihood of the regulatory inquiry"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "No disclosure because the loss is remote",
+          "notes": "Rejected: ASC 450-20-50-6 carves guarantees out of the remote exception."
+        }
+      ],
+      "basis": "ASC 450-20-50-6 (guarantees of indebtedness of others disclosed even when remote); ASC 460-10 for the guarantee itself; guarantee agreement clauses 1 and 2.",
+      "id": "s2_j_guarantee",
+      "proposedConclusion": "Remote: the facility is undrawn and the affiliate is in compliance. Remote guarantee-type contingencies are nonetheless disclosed (ASC 450-20-50-6), with the maximum exposure of 1,000,000 USD; the guarantee's own recognition under ASC 460 is addressed separately.",
+      "question": "Is a loss under the guarantee of the affiliate's facility probable or reasonably possible at 2026-06-30?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "low",
+      "status": "reviewed",
+      "topic": "Likelihood of a loss under the affiliate guarantee"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Substantial doubt raised, alleviated by management's plans",
+          "notes": "Rejected: no condition raising substantial doubt was identified, so the plans analysis is not reached."
+        }
+      ],
+      "basis": "ASC 205-40-50-1 to 50-4 (evaluation period and conditions); ASC 205-40-50-12 and 50-13 (disclosure when substantial doubt is raised); twelve-month cash forecast; counsel letter.",
+      "id": "s4_j_going_concern",
+      "proposedConclusion": "No. The approved twelve-month cash forecast keeps closing cash above 2,820,000 USD throughout, the accrued litigation loss is covered several times over, and no debt matures in the period; no conditions raising substantial doubt were identified, so no mitigation plans need to be evaluated and no disclosure under ASC 205-40-50-12 is required.",
+      "question": "Do conditions or events, considered in the aggregate, raise substantial doubt about DemoCo's ability to continue as a going concern within one year after the date the financial statements are issued?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "Going concern evaluation"
+    }
+  ]
+}

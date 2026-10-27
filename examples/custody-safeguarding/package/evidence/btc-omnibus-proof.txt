@@ -1,0 +1,4 @@
+Address: bc1-demo-omnibus
+Message: DemoCo custody proof of control 2026-06-30
+Signature: verified 2026-06-30 by DemoCo internal audit
+Balance at 2026-06-30: 100.00000000 BTC

@@ -1,0 +1,69 @@
+{
+  "id": "s4_remeasurement",
+  "type": "foreignCurrencyRemeasurement",
+  "inputs": {
+    "asOf": "2026-06-30",
+    "currency": "USD",
+    "functionalCurrency": "USD",
+    "items": [
+      {
+        "accountRole": "cash_eur",
+        "balanceSide": "debit",
+        "carryingAmount": 108000,
+        "currency": "EUR",
+        "foreignAmount": 100000,
+        "id": "cash_eur",
+        "monetary": true,
+        "rateFact": "s3_f_eur_rate",
+        "spotRate": 1.1
+      },
+      {
+        "accountRole": "trade_payables_gbp",
+        "balanceSide": "credit",
+        "carryingAmount": 63000,
+        "currency": "GBP",
+        "foreignAmount": 50000,
+        "id": "ap_gbp",
+        "monetary": true,
+        "rateFact": "s3_f_gbp_rate",
+        "spotRate": 1.28
+      },
+      {
+        "accountRole": "prepaid_expenses_eur",
+        "balanceSide": "debit",
+        "carryingAmount": 21600,
+        "currency": "EUR",
+        "foreignAmount": 20000,
+        "id": "prepaid_eur",
+        "monetary": false
+      }
+    ]
+  },
+  "outputs": {
+    "netGainLoss": 1000,
+    "rows": [
+      {
+        "gainLoss": 2000,
+        "id": "cash_eur",
+        "remeasured": 110000
+      },
+      {
+        "gainLoss": -1000,
+        "id": "ap_gbp",
+        "remeasured": 64000
+      },
+      {
+        "gainLoss": 0,
+        "id": "prepaid_eur",
+        "remeasured": 21600
+      }
+    ]
+  },
+  "dependsOn": [
+    "s3_f_eur_rate",
+    "s3_f_gbp_rate"
+  ],
+  "method": "Monetary items: remeasured = foreignAmount × spot rate at asOf (ASC 830-20-35-1); gainLoss = remeasured − carrying for a debit-balance item, carrying − remeasured for a credit-balance item, so a positive figure is a gain. Non-monetary items stay at carrying amount (830-10-45-18). netGainLoss is the sum.",
+  "validator": "asc830.remeasurement.recompute",
+  "recomputable": true
+}

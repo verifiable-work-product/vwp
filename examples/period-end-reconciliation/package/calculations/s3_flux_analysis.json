@@ -1,0 +1,53 @@
+{
+  "id": "s3_flux_analysis",
+  "type": "fluxAnalysis",
+  "inputs": {
+    "currency": "USD",
+    "currentPeriodEnd": "2026-06-30",
+    "lines": [
+      {
+        "account": "exchange_cash",
+        "current": 1247350,
+        "prior": 1230000
+      },
+      {
+        "account": "digital_assets",
+        "current": 2627000,
+        "explanationClaim": "s3_c_digital_assets_flux",
+        "prior": 1850000
+      },
+      {
+        "account": "accrued_exchange_fees",
+        "current": 1150,
+        "prior": 1200
+      }
+    ],
+    "priorPeriodEnd": "2026-03-31",
+    "thresholdAmount": 100000,
+    "thresholdPct": 0.1
+  },
+  "outputs": {
+    "rows": [
+      {
+        "account": "exchange_cash",
+        "variance": 17350,
+        "variancePct": 0.014105691056910568
+      },
+      {
+        "account": "digital_assets",
+        "variance": 777000,
+        "variancePct": 0.42
+      },
+      {
+        "account": "accrued_exchange_fees",
+        "variance": -50,
+        "variancePct": -0.041666666666666664
+      }
+    ],
+    "totalCurrent": 3875500,
+    "totalPrior": 3081200
+  },
+  "method": "Per account: variance = current - prior; variancePct = variance / |prior|; a variance above 100,000.00 USD or 10% must be explained by a claim.",
+  "validator": "reconciliation.flux.recompute",
+  "recomputable": true
+}

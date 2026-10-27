@@ -1,0 +1,29 @@
+{
+  "id": "wp_demo_token_issuance",
+  "title": "Token Issuance Accounting - DemoCo DEMO Token, Q2 2026",
+  "domain": "accounting.tokenIssuance",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-token-issuance",
+  "standardRefs": [
+    "ASC 480-10-25",
+    "ASC 815-10-15-83",
+    "ASC 606-10-45-2",
+    "ASC 350-60-15-1"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2026-06-30",
+    "start": "2026-04-01"
+  },
+  "conclusionSummary": "The SAFT proceeds of 1,000,000 USD are a liability to deliver DEMO tokens (not equity, not a derivative pre-launch); the public sale proceeds of 500,000 USD are a contract liability under ASC 606 because the token conveys platform services DemoCo must still provide; the treasury allocation and the airdrop received no consideration and recognize no asset or liability.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

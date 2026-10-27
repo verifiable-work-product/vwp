@@ -1,0 +1,29 @@
+{
+  "id": "wp_demo_asc740_income_taxes",
+  "title": "ASC 740 Income Tax Provision - DemoCo FY2026",
+  "domain": "accounting.incomeTaxes",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc740",
+  "standardRefs": [
+    "ASC 740-10-25-2",
+    "ASC 740-10-30-5",
+    "ASC 740-10-25-6",
+    "ASC 740-10-50-12"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2026-12-31",
+    "start": "2026-01-01"
+  },
+  "conclusionSummary": "At a 25% statutory rate on 1,000,000 USD of pretax income, DemoCo's FY2026 provision is 247,500 USD: current tax 235,000 on taxable income of 940,000 after permanent and temporary differences, a 10,000 increase in unrecognized tax benefits, and deferred tax expense of 2,500 as the net deferred position moves from a 25,000 liability to a 27,500 liability (the 20,000 valuation allowance released as the loss carryforward is used). Effective rate 24.75%.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

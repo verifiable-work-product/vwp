@@ -1,0 +1,28 @@
+{
+  "id": "wp_demo_asc250_error_correction",
+  "title": "ASC 250 Error Correction - DemoCo Accrued Hosting Fees, FY2024-FY2025",
+  "domain": "accounting.errorCorrection",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc250",
+  "standardRefs": [
+    "ASC 250-10-45-23",
+    "SAB Topic 1.M (SAB 99)",
+    "SAB Topic 1.N (SAB 108)"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2025-12-31",
+    "start": "2024-01-01"
+  },
+  "conclusionSummary": "Hosting fees of 15,000.00 USD (FY2024) and 10,000.00 USD (FY2025) were never accrued. The cumulative 25,000.00 USD misstatement is 6.25% of FY2025 pretax income under the iron-curtain method (the largest single-year effect is 3.75% under rollover); with the qualitative factors considered the error is material and is corrected by restatement as of 2026-01-01.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

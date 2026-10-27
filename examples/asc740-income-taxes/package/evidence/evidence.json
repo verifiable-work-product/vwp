@@ -1,0 +1,28 @@
+{
+  "evidence": [
+    {
+      "id": "ev_trial_balance",
+      "path": "evidence/trial-balance-fy2026.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "FY2026 pretax trial balance summary (synthetic)",
+      "type": "trialBalance"
+    },
+    {
+      "id": "ev_tax_basis_schedule",
+      "path": "evidence/basis-differences.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Book-tax basis differences at 2025-12-31 and 2026-12-31 (synthetic)",
+      "type": "taxWorkpaper"
+    },
+    {
+      "id": "ev_rate_memo",
+      "path": "evidence/enacted-rate-memo.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Enacted rate memo for the demo jurisdiction (synthetic)",
+      "type": "taxMemo"
+    }
+  ]
+}

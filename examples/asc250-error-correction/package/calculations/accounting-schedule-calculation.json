@@ -1,0 +1,45 @@
+{
+  "id": "s4_accounting_schedule",
+  "type": "accountingSchedule",
+  "inputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "derivedFrom": [
+      "s2_error_correction"
+    ]
+  },
+  "outputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "endDate": "2026-01-01",
+    "entries": [
+      {
+        "date": "2026-01-01",
+        "description": "Prior-period adjustment: accrue FY2024 and FY2025 hosting fees",
+        "id": "L1-2026-01-01",
+        "obligationId": "L1",
+        "postings": [
+          {
+            "accountRole": "prior_period_adjustment",
+            "debit": "25000.00"
+          },
+          {
+            "accountRole": "accrued_liabilities",
+            "credit": "25000.00"
+          }
+        ]
+      }
+    ],
+    "kind": "error_correction",
+    "name": "Restatement of accrued hosting fees as of 2026-01-01",
+    "schemaVersion": 1,
+    "startDate": "2026-01-01",
+    "totalAmount": "25000.00"
+  },
+  "dependsOn": [
+    "s2_error_correction"
+  ],
+  "method": "Executable entries derived from s2_error_correction; amounts at amountScale, balanced semantic account-role postings.",
+  "validator": "asc250.accountingSchedule.tieOut",
+  "recomputable": true
+}

@@ -1,0 +1,216 @@
+{
+  "facts": [
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "DemoSwap,ETH/DUSD pool,DSLP-ETH-DUSD,1000,ETH,250,treasury-defi,2026-06-30"
+            }
+          ],
+          "evidenceId": "ev_positions_query"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "quantity",
+      "id": "s1_f_lp_position",
+      "requiresReview": false,
+      "statement": "DemoCo holds 1,000 DSLP-ETH-DUSD in treasury-defi, a pro-rata claim on 250 ETH and 500,000 DUSD of pool reserves at 2026-06-30.",
+      "value": {
+        "DUSD": 500000,
+        "ETH": 250,
+        "receiptUnits": 1000
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "DemoLend,ETH deposit,dETH,100,ETH,100,treasury-defi,2026-06-30"
+            }
+          ],
+          "evidenceId": "ev_positions_query"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "quantity",
+      "id": "s1_f_lend_position",
+      "requiresReview": false,
+      "statement": "DemoCo holds 100 dETH in treasury-defi against 100 ETH deposited with DemoLend at 2026-06-30.",
+      "value": {
+        "ETH": 100,
+        "receiptUnits": 100
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "WrapBridge,wrapped BTC,WBTC-D,10,BTC,10,treasury-defi,2026-06-30"
+            }
+          ],
+          "evidenceId": "ev_positions_query"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "quantity",
+      "id": "s1_f_wrap_position",
+      "requiresReview": false,
+      "statement": "DemoCo holds 10 WBTC-D in treasury-defi, redeemable for 10 BTC, at 2026-06-30.",
+      "value": {
+        "BTC": 10,
+        "receiptUnits": 10
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Message: DemoCo controls treasury-defi as of 2026-06-30"
+            }
+          ],
+          "evidenceId": "ev_wallet_control"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "control",
+      "id": "s1_f_wallet_control",
+      "requiresReview": false,
+      "statement": "DemoCo controls the treasury-defi wallet, evidenced by a signed message verified on 2026-06-30.",
+      "value": {
+        "date": "2026-06-30",
+        "wallet": "treasury-defi"
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "An LP may redeem DSLP tokens at any time for a pro-rata share of the pool's current reserves, not for the specific units deposited."
+            }
+          ],
+          "evidenceId": "ev_pool_docs"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s2_f_pool_terms",
+      "requiresReview": false,
+      "statement": "DemoSwap commingles deposited assets, uses them for swaps with any user, and redeems LP tokens for a pro-rata share of current reserves, not the units deposited.",
+      "value": "pro-rata redemption of commingled reserves"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "the depositor may withdraw an equivalent amount of ETH plus accrued interest at any time, subject to pool liquidity."
+            }
+          ],
+          "evidenceId": "ev_lend_docs"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s2_f_lend_terms",
+      "requiresReview": false,
+      "statement": "DemoLend lends deposited ETH to borrowers; the depositor may withdraw an equivalent amount of ETH plus interest subject to pool liquidity.",
+      "value": "right to equivalent ETH"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Any holder may redeem WBTC-D for BTC with the custodian."
+            }
+          ],
+          "evidenceId": "ev_wrap_docs"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s2_f_wrap_terms",
+      "requiresReview": false,
+      "statement": "WBTC-D is minted 1:1 against custodied BTC and any holder may redeem it for BTC.",
+      "value": "redemption right to BTC"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "ETH,2500.00,demo-exchange,2026-06-30"
+            }
+          ],
+          "evidenceId": "ev_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "price",
+      "id": "s3_f_price_eth",
+      "requiresReview": false,
+      "statement": "ETH closed at 2,500.00 USD on 2026-06-30.",
+      "value": {
+        "date": "2026-06-30",
+        "price": 2500
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "DUSD,1.00,demo-exchange,2026-06-30"
+            }
+          ],
+          "evidenceId": "ev_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "price",
+      "id": "s3_f_price_dusd",
+      "requiresReview": false,
+      "statement": "DUSD closed at 1.00 USD on 2026-06-30.",
+      "value": {
+        "date": "2026-06-30",
+        "price": 1
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "BTC,65000.00,demo-exchange,2026-06-30"
+            }
+          ],
+          "evidenceId": "ev_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "price",
+      "id": "s3_f_price_btc",
+      "requiresReview": false,
+      "statement": "BTC closed at 65,000.00 USD on 2026-06-30.",
+      "value": {
+        "date": "2026-06-30",
+        "price": 65000
+      }
+    }
+  ]
+}

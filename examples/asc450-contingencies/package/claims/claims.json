@@ -1,0 +1,125 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "completeness",
+        "existence"
+      ],
+      "conclusion": "Population complete from counsel's letter and the contracts register.",
+      "domain": "finance",
+      "id": "s1_c_population",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 450-20-25-1",
+        "ASC 450-20-20"
+      ],
+      "statement": "Three loss contingencies exist at 2026-06-30: the supplier litigation, the regulatory inquiry and the guarantee of the affiliate's facility, each supported by counsel's letter or the guarantee agreement.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_legal_letter",
+        "ev_guarantee"
+      ],
+      "supportingFacts": [
+        "s1_f_litigation_range",
+        "s1_f_regulatory_range",
+        "s1_f_guarantee_terms"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Likelihood concluded per item from counsel's assessment.",
+      "domain": "finance",
+      "id": "s2_c_likelihood",
+      "judgments": [
+        "s2_j_litigation",
+        "s2_j_regulatory",
+        "s2_j_guarantee"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 450-20-25-2",
+        "ASC 450-20-20"
+      ],
+      "statement": "The litigation loss is probable and estimable; the regulatory loss is reasonably possible; the guarantee loss is remote.",
+      "status": "supported",
+      "supportingFacts": [
+        "s1_f_litigation_range",
+        "s1_f_regulatory_range",
+        "s1_f_guarantee_terms"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation",
+        "completeness"
+      ],
+      "conclusion": "Accrual at the low end of the range; the register and the accrual schedule carry it.",
+      "domain": "finance",
+      "id": "s3_c_measurement",
+      "judgments": [
+        "s2_j_litigation"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 450-20-30-1",
+        "ASC 450-20-25-2"
+      ],
+      "statement": "400,000 USD is accrued for the supplier litigation, the minimum of counsel's range because no amount within it is a better estimate; nothing is accrued for the other two items.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_accounting_schedule"
+      ],
+      "supportingFacts": [
+        "s1_f_litigation_range"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "No substantial doubt; no ASC 205-40-50-12 disclosure.",
+      "domain": "finance",
+      "id": "s4_c_going_concern",
+      "judgments": [
+        "s4_j_going_concern"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 205-40-50-1",
+        "ASC 205-40-50-4"
+      ],
+      "statement": "Conditions and events, in the aggregate, do not raise substantial doubt about DemoCo's ability to continue as a going concern within one year after the issuance date: forecast cash stays above 2,820,000 USD and no debt matures.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_cash_forecast"
+      ],
+      "supportingFacts": [
+        "s4_f_minimum_cash"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "Disclosure per ASC 450-20-50-1 to 50-6.",
+      "domain": "finance",
+      "id": "s5_c_disclosure",
+      "judgments": [
+        "s2_j_litigation",
+        "s2_j_regulatory",
+        "s2_j_guarantee"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 450-20-50-1",
+        "ASC 450-20-50-3",
+        "ASC 450-20-50-4",
+        "ASC 450-20-50-6"
+      ],
+      "statement": "The nature of each contingency, the 400,000 USD accrued, the exposure to loss above the accrual up to 900,000 USD, the 50,000 to 250,000 USD reasonably possible regulatory penalty and the 1,000,000 USD guarantee are disclosed.",
+      "status": "supported"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "s3_accounting_schedule",
+  "type": "accountingSchedule",
+  "inputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "derivedFrom": [
+      "facts/contingencies.json"
+    ]
+  },
+  "outputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "endDate": "2026-06-30",
+    "entries": [
+      {
+        "date": "2026-06-30",
+        "description": "Accrual of the probable supplier litigation loss at the low end of the 400,000 to 900,000 USD range",
+        "id": "c_supplier_litigation-2026-06-30",
+        "obligationId": "c_supplier_litigation",
+        "postings": [
+          {
+            "accountRole": "contingency_loss",
+            "debit": "400000.00"
+          },
+          {
+            "accountRole": "accrued_contingency_liability",
+            "credit": "400000.00"
+          }
+        ]
+      }
+    ],
+    "kind": "contingency_accrual",
+    "name": "Loss contingency accrual at 2026-06-30",
+    "schemaVersion": 1,
+    "startDate": "2026-06-30",
+    "totalAmount": "400000.00"
+  },
+  "method": "Executable entries derived from facts/contingencies.json; amounts at amountScale, balanced semantic account-role postings.",
+  "validator": "asc450.accountingSchedule.tieOut",
+  "recomputable": true
+}

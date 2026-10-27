@@ -1,0 +1,71 @@
+{
+  "asOf": "2026-06-30",
+  "currency": "USD",
+  "description": "DeFi positions register at 2026-06-30. Synthetic data.",
+  "positions": [
+    {
+      "controlRetained": false,
+      "custodyEvidenceRef": "ev_wallet_control",
+      "derecognized": true,
+      "id": "pos_lp_eth_dusd",
+      "positionType": "liquidityPool",
+      "protocol": "DemoSwap",
+      "receiptToken": "DSLP-ETH-DUSD",
+      "receiptUnits": 1000,
+      "subsequentMeasurement": "ASC 350-30 indefinite-lived intangible (LP token)",
+      "treatmentJudgmentRef": "s2_j_lp_treatment",
+      "underlyings": [
+        {
+          "asset": "ETH",
+          "units": 250
+        },
+        {
+          "asset": "DUSD",
+          "units": 500000
+        }
+      ],
+      "unitOfAccount": "underlyings",
+      "wallet": "treasury-defi"
+    },
+    {
+      "controlRetained": false,
+      "custodyEvidenceRef": "ev_wallet_control",
+      "derecognized": true,
+      "id": "pos_lend_eth",
+      "positionType": "lending",
+      "protocol": "DemoLend",
+      "receiptToken": "dETH",
+      "receiptUnits": 100,
+      "subsequentMeasurement": "claim on the protocol at the fair value of ETH owed, ASC 326 assessment",
+      "treatmentJudgmentRef": "s2_j_lend_treatment",
+      "underlyings": [
+        {
+          "asset": "ETH",
+          "units": 100
+        }
+      ],
+      "unitOfAccount": "underlyings",
+      "wallet": "treasury-defi"
+    },
+    {
+      "controlRetained": false,
+      "custodyEvidenceRef": "s1_f_wallet_control",
+      "derecognized": false,
+      "id": "pos_wrapped_btc",
+      "positionType": "wrapped",
+      "protocol": "WrapBridge",
+      "receiptToken": "WBTC-D",
+      "receiptUnits": 10,
+      "subsequentMeasurement": "ASC 350-30 indefinite-lived intangible",
+      "treatmentJudgmentRef": "s2_j_wrap_treatment",
+      "underlyings": [
+        {
+          "asset": "BTC",
+          "units": 10
+        }
+      ],
+      "unitOfAccount": "underlyings",
+      "wallet": "treasury-defi"
+    }
+  ]
+}

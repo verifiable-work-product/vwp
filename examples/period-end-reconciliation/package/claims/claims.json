@@ -1,0 +1,134 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "completeness",
+        "valuationAllocation"
+      ],
+      "conclusion": "Variance explained by the ETH purchase.",
+      "domain": "finance",
+      "id": "s3_c_digital_assets_flux",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-60-50-3"
+      ],
+      "statement": "Digital assets rose from 1,850,000.00 to 2,627,000.00 USD (+42%) because 300 ETH were bought on 2026-05-20 for 777,000.00 USD.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_eth_purchase",
+        "ev_ledger_extract"
+      ],
+      "supportingFacts": [
+        "s3_f_eth_purchase"
+      ]
+    },
+    {
+      "assertions": [
+        "existence",
+        "completeness"
+      ],
+      "conclusion": "Scope and sources established with balances as of the reconciliation date.",
+      "domain": "finance",
+      "id": "s1_c_scope",
+      "requiresReview": false,
+      "standardRefs": [
+        "AU-C 500"
+      ],
+      "statement": "The reconciliation covers exchange account DEMO-EX-01 at 2026-06-30: the statement balance of 1,250,000.00 USD and the ledger exchange_cash balance of 1,247,350.00 USD, both as of the cutoff.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_exchange_statement",
+        "ev_ledger_extract"
+      ],
+      "supportingFacts": [
+        "s1_f_source_balance",
+        "s1_f_ledger_balance"
+      ]
+    },
+    {
+      "assertions": [
+        "completeness",
+        "accuracy"
+      ],
+      "conclusion": "Reconciled with no unexplained residual.",
+      "domain": "finance",
+      "id": "s2_c_reconciled",
+      "requiresReview": false,
+      "standardRefs": [
+        "AU-C 500"
+      ],
+      "statement": "The 2,650.00 USD difference is fully explained by a 3,000.00 USD deposit in transit and a 350.00 USD trading fee not yet recorded; nothing is unexplained.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s2_balance_reconciliation"
+      ],
+      "supportingFacts": [
+        "s2_f_deposit_in_transit",
+        "s2_f_trading_fee"
+      ]
+    },
+    {
+      "assertions": [
+        "completeness"
+      ],
+      "conclusion": "Flux analysis complete; every variance above threshold is explained.",
+      "domain": "finance",
+      "id": "s3_c_flux",
+      "requiresReview": false,
+      "standardRefs": [
+        "AU-C 520"
+      ],
+      "statement": "Of the three balance sheet lines, only digital assets moved beyond the 100,000.00 USD / 10% thresholds in Q2 2026, and that variance is explained.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_flux_analysis"
+      ]
+    },
+    {
+      "assertions": [
+        "accuracy",
+        "cutoff"
+      ],
+      "conclusion": "Omission booked through the executable schedule; timing difference carried.",
+      "domain": "finance",
+      "id": "s4_c_adjustment",
+      "judgments": [
+        "s4_j_fee_omission"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 230-10-45"
+      ],
+      "statement": "One adjusting entry is proposed: 350.00 USD of exchange fee expense against exchange cash as of 2026-06-30; the deposit in transit is not booked.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s2_balance_reconciliation",
+        "s4_accounting_schedule"
+      ],
+      "supportingFacts": [
+        "s2_f_trading_fee"
+      ]
+    },
+    {
+      "assertions": [
+        "completeness"
+      ],
+      "conclusion": "Ready for sign-off.",
+      "domain": "finance",
+      "id": "s5_c_conclusion",
+      "judgments": [
+        "s4_j_fee_omission"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "AU-C 500"
+      ],
+      "statement": "The exchange account is reconciled at 2026-06-30 with one adjustment proposed and no unexplained items; the package is ready for reviewer sign-off.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s2_balance_reconciliation",
+        "s3_flux_analysis"
+      ]
+    }
+  ]
+}

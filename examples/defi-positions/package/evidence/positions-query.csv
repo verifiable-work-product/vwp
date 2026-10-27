@@ -1,0 +1,5 @@
+protocol,position,receipt_token,receipt_units,underlying,underlying_units,wallet,asof
+DemoSwap,ETH/DUSD pool,DSLP-ETH-DUSD,1000,ETH,250,treasury-defi,2026-06-30
+DemoSwap,ETH/DUSD pool,DSLP-ETH-DUSD,1000,DUSD,500000,treasury-defi,2026-06-30
+DemoLend,ETH deposit,dETH,100,ETH,100,treasury-defi,2026-06-30
+WrapBridge,wrapped BTC,WBTC-D,10,BTC,10,treasury-defi,2026-06-30

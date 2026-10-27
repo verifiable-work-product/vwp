@@ -1,0 +1,7 @@
+Exchange account DEMO-EX-01, statement as of 2026-06-30 23:59 UTC
+
+USD balance: 1,250,000.00
+
+Activity 2026-06-30:
+- 2026-06-30 18:40 UTC wire deposit received: 3,000.00 (ref WIRE-0630)
+- 2026-06-30 trading fee charged: 350.00 (ref FEE-Q2-DEMO-EX-01)

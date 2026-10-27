@@ -1,0 +1,52 @@
+{
+  "evidence": [
+    {
+      "id": "ev_positions_query",
+      "path": "evidence/positions-query.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Protocol position query at 2026-06-30 (synthetic)",
+      "type": "protocolQuery"
+    },
+    {
+      "id": "ev_wallet_control",
+      "path": "evidence/wallet-control.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Signed message from the treasury-defi wallet (synthetic)",
+      "type": "custodyAttestation"
+    },
+    {
+      "id": "ev_pool_docs",
+      "path": "evidence/pool-docs.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "DemoSwap pool documentation excerpt (synthetic)",
+      "type": "protocolDocumentation"
+    },
+    {
+      "id": "ev_lend_docs",
+      "path": "evidence/lend-docs.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "DemoLend documentation excerpt (synthetic)",
+      "type": "protocolDocumentation"
+    },
+    {
+      "id": "ev_wrap_docs",
+      "path": "evidence/wrap-docs.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "WrapBridge documentation excerpt (synthetic)",
+      "type": "protocolDocumentation"
+    },
+    {
+      "id": "ev_prices",
+      "path": "evidence/period-end-prices.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Period-end prices from the principal market, 2026-06-30 (synthetic)",
+      "type": "pricingRecord"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "id": "s2_error_correction",
+  "type": "errorCorrectionAnalysis",
+  "inputs": {
+    "correctionDate": "2026-01-01",
+    "currency": "USD",
+    "lines": [
+      {
+        "accountRole": "accrued_liabilities",
+        "balanceSide": "credit",
+        "id": "L1",
+        "lineItem": "Accrued liabilities (hosting fees)",
+        "offsetRole": "prior_period_adjustment",
+        "periods": [
+          {
+            "asReported": 120000,
+            "correction": 15000,
+            "period": "FY2024"
+          },
+          {
+            "asReported": 135000,
+            "correction": 10000,
+            "period": "FY2025"
+          }
+        ]
+      }
+    ],
+    "materiality": {
+      "basis": "FY2025 pretax income",
+      "basisAmount": 400000,
+      "basisFact": "s3_f_pretax_income_fy2025",
+      "quantitativeThreshold": 0.05
+    },
+    "materialityJudgmentRef": "s3_j_materiality"
+  },
+  "outputs": {
+    "ironCurtain": {
+      "cumulativeCorrection": 25000,
+      "pctOfBasis": 0.0625
+    },
+    "lines": [
+      {
+        "cumulativeCorrection": 25000,
+        "id": "L1",
+        "periods": [
+          {
+            "asRestated": 135000,
+            "period": "FY2024"
+          },
+          {
+            "asRestated": 160000,
+            "period": "FY2025"
+          }
+        ]
+      }
+    ],
+    "rollover": {
+      "maxPeriodCorrection": 15000,
+      "pctOfBasis": 0.0375
+    }
+  },
+  "dependsOn": [
+    "s3_f_pretax_income_fy2025"
+  ],
+  "method": "Per period (chronological): asRestated = asReported + the cumulative correction through that period; cumulativeCorrection = sum of corrections. Rollover = largest single-period misstatement across lines; iron curtain = cumulative uncorrected misstatement at the correction date; each as a share of the basis (FY2025 pretax income).",
+  "validator": "asc250.correction.recompute",
+  "recomputable": true
+}

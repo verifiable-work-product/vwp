@@ -76,6 +76,17 @@ const (
 	ExtensionCostBasis     = "vwp-digital-assets-cost-basis"
 	ExtensionStablecoin    = "vwp-digital-assets-stablecoin"
 	ExtensionCommissions   = "vwp-accounting-commissions"
+	// Tier 3 templates: structured activities and general technical accounting.
+	ExtensionReconciliation      = "vwp-accounting-reconciliation"
+	ExtensionTokenIssuance       = "vwp-accounting-token-issuance"
+	ExtensionDeFiPositions       = "vwp-digital-assets-defi-positions"
+	ExtensionASC842              = "vwp-accounting-asc842"
+	ExtensionASC830              = "vwp-accounting-asc830"
+	ExtensionASC250              = "vwp-accounting-asc250"
+	ExtensionASC450              = "vwp-accounting-asc450"
+	ExtensionASC740              = "vwp-accounting-asc740"
+	ExtensionMiningRevenue       = "vwp-digital-assets-mining-revenue"
+	ExtensionCustodySafeguarding = "vwp-digital-assets-custody-safeguarding"
 )
 
 // requiredParts are the parts every valid package must contain.

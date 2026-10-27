@@ -1,0 +1,49 @@
+{
+  "asOf": "2026-06-30",
+  "currency": "USD",
+  "description": "Loss contingency register at 2026-06-30. Synthetic data.",
+  "items": [
+    {
+      "accrued": 400000,
+      "description": "Supplier v. DemoCo, breach of supply agreement",
+      "disclosureRequired": true,
+      "estimable": true,
+      "estimateFact": "s1_f_litigation_range",
+      "estimateHigh": 900000,
+      "estimateLow": 400000,
+      "evidenceRef": "ev_legal_letter",
+      "id": "c_supplier_litigation",
+      "judgmentRef": "s2_j_litigation",
+      "likelihood": "probable",
+      "type": "litigation"
+    },
+    {
+      "accrued": 0,
+      "description": "Regulatory inquiry into data retention",
+      "disclosureRequired": true,
+      "estimable": true,
+      "estimateFact": "s1_f_regulatory_range",
+      "estimateHigh": 250000,
+      "estimateLow": 50000,
+      "evidenceRef": "ev_legal_letter",
+      "id": "c_regulatory_inquiry",
+      "judgmentRef": "s2_j_regulatory",
+      "likelihood": "reasonablyPossible",
+      "type": "regulatory"
+    },
+    {
+      "accrued": 0,
+      "description": "Guarantee of DemoCo Services Ltd revolving facility",
+      "disclosureRequired": true,
+      "estimable": true,
+      "estimateHigh": 1000000,
+      "estimateLow": 0,
+      "evidenceRef": "ev_guarantee",
+      "id": "c_affiliate_guarantee",
+      "judgmentRef": "s2_j_guarantee",
+      "likelihood": "remote",
+      "type": "guarantee"
+    }
+  ],
+  "roundingTolerance": 0.01
+}

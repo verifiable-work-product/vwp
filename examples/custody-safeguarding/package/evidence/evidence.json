@@ -1,0 +1,44 @@
+{
+  "evidence": [
+    {
+      "id": "ev_custody_terms",
+      "path": "evidence/custody-agreement-excerpt.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Custody services agreement excerpt (synthetic)",
+      "type": "contractDocument"
+    },
+    {
+      "id": "ev_signed_message",
+      "path": "evidence/btc-omnibus-proof.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Signed-message proof of control for the BTC omnibus wallet, 2026-06-30 (synthetic)",
+      "type": "chainRecord"
+    },
+    {
+      "id": "ev_subcustodian_statement",
+      "path": "evidence/subcustodian-statement.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Sub-custodian holdings statement as of 2026-06-30 (synthetic)",
+      "type": "custodianStatement"
+    },
+    {
+      "id": "ev_incident_report",
+      "path": "evidence/incident-report.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Hot-wallet incident report, 2026-06-12 (synthetic)",
+      "type": "incidentReport"
+    },
+    {
+      "id": "ev_period_end_prices",
+      "path": "evidence/period-end-prices.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Period-end prices from the principal market, 2026-06-30 (synthetic)",
+      "type": "pricingRecord"
+    }
+  ]
+}

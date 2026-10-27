@@ -1,0 +1,7 @@
+Simple Agreement for Future Tokens (excerpt)
+
+1. Purchase amount: 1,000,000.00 USD, received 2026-04-15.
+2. Tokens: 2,000,000 DEMO, deliverable within 30 days of the network launch.
+3. Refund: none; the purchase amount is non-refundable except on dissolution before launch.
+4. Settlement: delivery of DEMO tokens only; no cash settlement alternative.
+5. The DEMO token confers no equity, dividend, voting or liquidation rights in DemoCo.

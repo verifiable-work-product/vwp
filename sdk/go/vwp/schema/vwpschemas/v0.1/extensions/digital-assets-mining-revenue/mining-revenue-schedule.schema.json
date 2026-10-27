@@ -1,0 +1,232 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/digital-assets-mining-revenue/mining-revenue-schedule.schema.json",
+  "title": "Mining Revenue Schedule",
+  "description": "Extension schema for the vwp-digital-assets-mining-revenue extension. Constrains a core calculation object of type 'miningRevenueSchedule': every block reward or pool payout with its units (block subsidy plus transaction fees for a solo miner; the payout for a pool participant), the unit price at the date the pricing basis fixes and the fact that price comes from, the fair value recognized, and the chain-observed total the schedule must tie to. Located by type under calculations/; one schedule per asset and arrangement.",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "inputs",
+    "outputs"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "const": "miningRevenueSchedule"
+    },
+    "inputs": {
+      "type": "object",
+      "required": [
+        "asset",
+        "operatorType",
+        "arrangement",
+        "pricingDateBasis",
+        "periodStart",
+        "periodEnd",
+        "chainObservedUnits",
+        "chainObservedFact",
+        "rewards"
+      ],
+      "properties": {
+        "asset": {
+          "type": "string",
+          "minLength": 1
+        },
+        "currency": {
+          "type": "string"
+        },
+        "periodStart": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "periodEnd": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "chainObservedUnits": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Reward units RECEIVED on chain in the period \u2014 coinbase outputs to the entity's addresses for a solo miner, pool payouts received for a participant (explorer, node, pool statement or Bitwave sync); recognized units reconcile to this through the unreceived balances."
+        },
+        "chainObservedFact": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Fact id for the chain-observed total."
+        },
+        "rewards": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "date",
+              "measurementDate",
+              "units",
+              "unitPrice",
+              "priceFact",
+              "reference"
+            ],
+            "properties": {
+              "date": {
+                "type": "string",
+                "minLength": 1,
+                "description": "The recognition date (per the timing judgment); must lie within periodStart..periodEnd."
+              },
+              "units": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Total units of the reward: block subsidy plus transaction fees for a solo miner (feeUnits records the fee part), or the payout amount for a pool participant."
+              },
+              "unitPrice": {
+                "type": "number",
+                "minimum": 0
+              },
+              "priceFact": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Fact id whose value is {price, date}: the price on measurementDate from the pricing source."
+              },
+              "reference": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Block hash or height (solo), payout id or transaction hash (pool) identifying the reward; unique across schedules."
+              },
+              "inceptionOn": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "description": "Contract inception for this reward (the mining activity or committed hosting/pool period it relates to); required when pricingDateBasis is contractInception."
+              },
+              "receivedOn": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "description": "The on-chain receipt date (coinbase output credited, or pool payout received); required when pricingDateBasis is receiptDate."
+              },
+              "measurementDate": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "description": "The date whose price measures the reward: inceptionOn, date or receivedOn per pricingDateBasis. The priceFact must state the price as of this date."
+              },
+              "feeUnits": {
+                "type": "number",
+                "minimum": 0,
+                "description": "The transaction-fee part of the reward, when known; never more than units."
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "arrangement": {
+          "type": "string",
+          "description": "Arrangement label (solo operation, pool account, hosting contract). Reward references must be unique and schedule periods must not overlap within one asset and arrangement."
+        },
+        "pricingDateBasis": {
+          "type": "string",
+          "enum": [
+            "contractInception",
+            "recognitionDate",
+            "receiptDate"
+          ],
+          "description": "The date whose price measures each reward: contractInception (ASC 606-10-32-21 noncash consideration), recognitionDate (when control of the reward is obtained), or receiptDate (when the policy recognizes on receipt). The recognition-timing judgment decides this; later price movements are remeasurement, never mining revenue."
+        },
+        "unreceivedOpeningUnits": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Units recognized in earlier periods but received in this one (opening balance of earned-not-received rewards, e.g. pool payouts pending)."
+        },
+        "unreceivedClosingUnits": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Units recognized in this period but not yet received at periodEnd (closing balance of earned-not-received rewards)."
+        },
+        "unreceivedClosingFact": {
+          "type": "string",
+          "description": "Fact id for the closing unreceived balance (checked against its value when present)."
+        },
+        "otherReconcilingUnits": {
+          "type": "number",
+          "description": "Other reconciling units (pool fees netted at source, orphaned or stale blocks reversed, immature coinbase excluded), explained in reconciliationNote."
+        },
+        "reconciliationNote": {
+          "type": "string"
+        },
+        "operatorType": {
+          "type": "string",
+          "enum": [
+            "solo",
+            "poolParticipant",
+            "poolOperator"
+          ],
+          "description": "solo: the entity finds blocks with its own hash power and receives the coinbase output; poolParticipant: the entity contributes hash power and receives payouts under the pool's scheme; poolOperator: the entity runs the pool and receives the coinbase then distributes to participants (gross/net follows the principal judgment)."
+        }
+      },
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "required": [
+        "rows",
+        "totalUnits",
+        "totalFairValue"
+      ],
+      "properties": {
+        "rows": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "date",
+              "units",
+              "fairValue"
+            ],
+            "properties": {
+              "date": {
+                "type": "string",
+                "minLength": 1
+              },
+              "units": {
+                "type": "number",
+                "minimum": 0
+              },
+              "fairValue": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "totalUnits": {
+          "type": "number",
+          "minimum": 0
+        },
+        "totalFairValue": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "roundingTolerance": {
+      "type": "number",
+      "minimum": 0
+    },
+    "unitTolerance": {
+      "type": "number",
+      "minimum": 0
+    },
+    "method": {
+      "type": "string"
+    },
+    "validator": {
+      "type": "string"
+    },
+    "recomputable": {
+      "type": "boolean"
+    }
+  }
+}

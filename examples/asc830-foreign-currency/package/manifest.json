@@ -1,0 +1,113 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_asc830_foreign_currency",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc830",
+  "title": "ASC 830 Foreign Currency Remeasurement - DemoCo Q2 2026",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "970639502cf633e131a41a6360b8e8ff8bcad443ed8b50f5453768a2ff2d232a",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "65b8106165ea3cb811da2f9c21585a944e4db02322504a879b2b921bc1bc4059",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/spot-rates-2026-06-30.csv",
+      "mediaType": "text/csv",
+      "sha256": "382f9ebefb974443d1252b4dba61b01ce9223addd5ebc598acc416779bde48a7",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "b70a3251aa2f3a7ec7a6a26215ff78aa01d48bedc375912c5324cecf7da977f0",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/fx-balances-2026-06-30.txt",
+      "mediaType": "text/plain",
+      "sha256": "bb6a54b560ff040e22b072483605ef4b229dcfee599b78cff85f5f435a5e9ccb",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/functional-currency-memo.txt",
+      "mediaType": "text/plain",
+      "sha256": "ae5d9d1e824b968fa0ca920c3d3db8cd740f68fc7833b842c276e91aa5327859",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "282e9bb7cbdced1df989c10e3c9cdf7c41e348bdbb6736c6d9dec35118ad016f",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "e57a7e18d049153403c43a8e81d905d095f21bdb6c830cd5fa3bffb26e0b6de7",
+      "role": "judgments"
+    },
+    {
+      "path": "calculations/s4_remeasurement.json",
+      "mediaType": "application/json",
+      "sha256": "0e3510fe4b113ea0958eeb74870b23487f6b8cd89f7dfbb781af38c517d8e057",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule-calculation.json",
+      "mediaType": "application/json",
+      "sha256": "aee9623a6c109ca8f314882ba73011d724b9515e63dacfd79a8539e04c314ee6",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "sha256": "3061881c9fee11c19feea43335aa24d316cd2ab9b2d0c396b3d008e192129841",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "754ec80c53f3c4a4628b040693fb8a39450d10dca5cc38dcc2df6d8d6e183c03",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "7551ce574a9868e3b902998cbff7b7eae304b0549dcf9fedff56557a7ab29fae",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "2bace649a36a8c0e9da6cc1fc474d60dc1f5b3d9f58f4b3d6a745e42c2caaa59",
+    "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "17f81e4af618a303980700c48350ef89d2cca8081f9c645f8ed7bab5f631233f",
+    "contentRoot": "73560d52a4885070fc3549ab0d32c825c3f0505201b5ea8115239cf722254ee5",
+    "reviewRoot": "93cbc0373f00d8357f4c03c76378f24a234c231036c678ebec997453069f1b5c",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "7ba64f68ac5152b0fe9398cae8d7ab60df8cb9878025d0c474054415146842f5",
+      "claim": "2ee15a699926dfa4c8a705d48da0d9cb102eb65e7812409ef1694a24dcb200ae",
+      "evidence": "d5eb34f72c316cb7df5ecc75c83952741590763b103691079f4cdaf19bb6a5f8",
+      "fact": "ee7ec1487992f332501cd65fb0b514541065ae0dbdbdc929da1a73476c2dd7e3",
+      "judgment": "1ce92ad2e6bf32da29bd9253d79d364c2d947e3548a0c4dd5f253eff0dd4c8df",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
+  }
+}

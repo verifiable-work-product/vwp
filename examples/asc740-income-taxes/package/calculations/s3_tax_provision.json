@@ -1,0 +1,101 @@
+{
+  "id": "s3_tax_provision",
+  "type": "incomeTaxProvision",
+  "inputs": {
+    "currency": "USD",
+    "jurisdiction": "Demo jurisdiction",
+    "periodEnd": "2026-12-31",
+    "periodStart": "2026-01-01",
+    "permanentDifferences": [
+      {
+        "amount": 20000,
+        "description": "Non-deductible fines",
+        "id": "pd_fines"
+      },
+      {
+        "amount": 10000,
+        "description": "Disallowed portion of meals",
+        "id": "pd_meals"
+      }
+    ],
+    "pretaxIncome": 1000000,
+    "pretaxIncomeFact": "s2_f_pretax_income",
+    "statutoryRate": 0.25,
+    "statutoryRateFact": "s1_f_statutory_rate",
+    "temporaryDifferences": [
+      {
+        "closingDifference": 150000,
+        "description": "Accrued compensation deductible when paid",
+        "id": "td_accrued_compensation",
+        "kind": "deductible",
+        "openingDifference": 100000,
+        "rate": 0.25
+      },
+      {
+        "closingDifference": 260000,
+        "description": "Accelerated tax depreciation",
+        "id": "td_depreciation",
+        "kind": "taxable",
+        "openingDifference": 200000,
+        "rate": 0.25
+      },
+      {
+        "closingDifference": 0,
+        "description": "Loss carryforward used in FY2026",
+        "id": "td_loss_carryforward",
+        "kind": "deductible",
+        "openingDifference": 80000,
+        "rate": 0.25
+      }
+    ],
+    "uncertainTaxPositions": {
+      "closing": 25000,
+      "judgmentRef": "s4_j_uncertain_positions",
+      "opening": 15000
+    },
+    "valuationAllowance": {
+      "closing": 0,
+      "judgmentRef": "s4_j_valuation_allowance",
+      "opening": 20000
+    }
+  },
+  "outputs": {
+    "currentTaxExpense": 235000,
+    "deferredTaxAssetClosing": 37500,
+    "deferredTaxAssetOpening": 45000,
+    "deferredTaxExpense": 2500,
+    "deferredTaxLiabilityClosing": 65000,
+    "deferredTaxLiabilityOpening": 50000,
+    "effectiveRate": 0.2475,
+    "netDeferredClosing": -27500,
+    "netDeferredOpening": -25000,
+    "rateReconciliation": [
+      {
+        "amount": 250000,
+        "item": "statutory"
+      },
+      {
+        "amount": 7500,
+        "item": "permanent differences"
+      },
+      {
+        "amount": -20000,
+        "item": "valuation allowance release"
+      },
+      {
+        "amount": 10000,
+        "item": "unrecognized tax benefits"
+      }
+    ],
+    "taxableIncome": 940000,
+    "totalTaxExpense": 247500,
+    "uncertainTaxPositionsExpense": 10000
+  },
+  "dependsOn": [
+    "s1_f_statutory_rate",
+    "s2_f_pretax_income"
+  ],
+  "method": "taxableIncome = pretaxIncome + permanent differences + change in deductible temporary differences - change in taxable temporary differences; currentTaxExpense = taxableIncome x statutoryRate; deferred tax assets/liabilities = cumulative differences x enacted rate; net deferred = DTA - valuation allowance - DTL; deferredTaxExpense = net deferred opening - closing; uncertainTaxPositionsExpense = change in unrecognized tax benefits; total = current + UTB + deferred; effectiveRate = total / pretax.",
+  "validator": "asc740.provision.recompute",
+  "recomputable": true
+}

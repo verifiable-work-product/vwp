@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "name": "Q2 2026 foreign currency remeasurement",
+  "kind": "fx_remeasurement",
+  "currency": "USD",
+  "amountScale": 2,
+  "startDate": "2026-06-30",
+  "endDate": "2026-06-30",
+  "totalAmount": "3000.00",
+  "entries": [
+    {
+      "id": "cash_eur-2026-06-30",
+      "date": "2026-06-30",
+      "description": "EUR cash remeasured at 1.1000: transaction gain",
+      "obligationId": "cash_eur",
+      "postings": [
+        {
+          "accountRole": "cash_eur",
+          "debit": "2000.00"
+        },
+        {
+          "accountRole": "fx_gain_loss",
+          "credit": "2000.00"
+        }
+      ]
+    },
+    {
+      "id": "ap_gbp-2026-06-30",
+      "date": "2026-06-30",
+      "description": "GBP trade payable remeasured at 1.2800: transaction loss",
+      "obligationId": "ap_gbp",
+      "postings": [
+        {
+          "accountRole": "fx_gain_loss",
+          "debit": "1000.00"
+        },
+        {
+          "accountRole": "trade_payables_gbp",
+          "credit": "1000.00"
+        }
+      ]
+    }
+  ]
+}

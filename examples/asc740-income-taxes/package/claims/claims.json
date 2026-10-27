@@ -1,0 +1,113 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "rightsAndObligations"
+      ],
+      "conclusion": "Single jurisdiction, enacted rate established.",
+      "domain": "finance",
+      "id": "s1_c_scope",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 740-10-15-2",
+        "ASC 740-10-30-8"
+      ],
+      "statement": "DemoCo files in one jurisdiction at an enacted 25% rate with no enacted change; the provision covers FY2026 under ASC 740.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_rate_memo"
+      ],
+      "supportingFacts": [
+        "s1_f_statutory_rate"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Current tax recomputes from pretax income and the differences.",
+      "domain": "finance",
+      "id": "s2_c_current",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 740-10-25-2",
+        "ASC 740-10-20"
+      ],
+      "statement": "Taxable income is 940,000 USD after 30,000 USD of permanent differences and the net 90,000 USD reduction from temporary differences, giving current tax expense of 235,000 USD.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_tax_provision"
+      ],
+      "supportingFacts": [
+        "s2_f_pretax_income",
+        "s2_f_permanent"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation",
+        "completeness"
+      ],
+      "conclusion": "Deferred balances recompute from the cumulative differences at the enacted rate.",
+      "domain": "finance",
+      "id": "s3_c_deferred",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 740-10-25-2",
+        "ASC 740-10-30-8",
+        "ASC 740-10-45-4"
+      ],
+      "statement": "Deferred tax assets fall from 45,000 to 37,500 USD and deferred tax liabilities rise from 50,000 to 65,000 USD at 25%, moving the net deferred position from a 25,000 USD liability to a 27,500 USD liability and producing 2,500 USD of deferred tax expense.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_tax_provision"
+      ],
+      "supportingFacts": [
+        "s3_f_differences"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Allowance released; uncertain position measured and presented as a liability.",
+      "domain": "finance",
+      "id": "s4_c_allowance_utb",
+      "judgments": [
+        "s4_j_valuation_allowance",
+        "s4_j_uncertain_positions"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 740-10-30-5",
+        "ASC 740-10-25-6",
+        "ASC 740-10-45-11"
+      ],
+      "statement": "The 20,000 USD valuation allowance is released because realization of the remaining deferred tax asset is more likely than not; unrecognized tax benefits of 25,000 USD are carried as a liability, 10,000 USD of which arose in FY2026.",
+      "status": "supported",
+      "supportingFacts": [
+        "s4_f_allowance_and_utb"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure",
+        "valuationAllocation"
+      ],
+      "conclusion": "Rate reconciliation ties; provision entries derived from the calculation.",
+      "domain": "finance",
+      "id": "s5_c_rate_reconciliation",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 740-10-50-12",
+        "ASC 740-10-50-9"
+      ],
+      "statement": "The 247,500 USD provision reconciles from the 250,000 USD statutory expectation through permanent differences (7,500), the allowance release (-20,000) and unrecognized tax benefits (10,000), an effective rate of 24.75%; the provision entries book current tax, the unrecognized-benefit liability and the deferred movement.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_tax_provision",
+        "s5_accounting_schedule"
+      ]
+    }
+  ]
+}

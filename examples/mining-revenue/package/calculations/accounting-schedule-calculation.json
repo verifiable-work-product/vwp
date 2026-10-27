@@ -1,0 +1,77 @@
+{
+  "id": "s4_accounting_schedule",
+  "type": "accountingSchedule",
+  "inputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "derivedFrom": [
+      "s4_mining_schedule"
+    ]
+  },
+  "outputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "endDate": "2026-04-30",
+    "entries": [
+      {
+        "date": "2026-04-05",
+        "description": "3.175 BTC block reward (3.125 subsidy + 0.05 fees), block 890100, at 70,000.00",
+        "id": "block-890100",
+        "obligationId": "block-890100",
+        "postings": [
+          {
+            "accountRole": "crypto_asset",
+            "debit": "222250.00"
+          },
+          {
+            "accountRole": "mining_revenue",
+            "credit": "222250.00"
+          }
+        ]
+      },
+      {
+        "date": "2026-04-18",
+        "description": "3.205 BTC block reward (3.125 subsidy + 0.08 fees), block 890900, at 72,000.00",
+        "id": "block-890900",
+        "obligationId": "block-890900",
+        "postings": [
+          {
+            "accountRole": "crypto_asset",
+            "debit": "230760.00"
+          },
+          {
+            "accountRole": "mining_revenue",
+            "credit": "230760.00"
+          }
+        ]
+      },
+      {
+        "date": "2026-04-29",
+        "description": "3.165 BTC block reward (3.125 subsidy + 0.04 fees), block 891700, at 71,000.00",
+        "id": "block-891700",
+        "obligationId": "block-891700",
+        "postings": [
+          {
+            "accountRole": "crypto_asset",
+            "debit": "224715.00"
+          },
+          {
+            "accountRole": "mining_revenue",
+            "credit": "224715.00"
+          }
+        ]
+      }
+    ],
+    "kind": "mining_revenue",
+    "name": "April 2026 mining revenue",
+    "schemaVersion": 1,
+    "startDate": "2026-04-01",
+    "totalAmount": "677725.00"
+  },
+  "dependsOn": [
+    "s4_mining_schedule"
+  ],
+  "method": "Executable entries derived from s4_mining_schedule; amounts at amountScale, balanced semantic account-role postings.",
+  "validator": "mining.accountingSchedule.tieOut",
+  "recomputable": true
+}

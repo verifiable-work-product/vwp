@@ -1,0 +1,118 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "completeness",
+        "cutoff"
+      ],
+      "conclusion": "Error identified and characterized under ASC 250-10-20.",
+      "domain": "finance",
+      "id": "s1_c_error",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 250-10-20",
+        "ASC 250-10-45-22"
+      ],
+      "statement": "December hosting fees of 15,000.00 USD (FY2024) and 10,000.00 USD (FY2025) were not accrued at either year end: an error in previously issued financial statements, not a change in estimate.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_hosting_invoices"
+      ],
+      "supportingFacts": [
+        "s1_f_fy2024_omission",
+        "s1_f_fy2025_omission"
+      ]
+    },
+    {
+      "assertions": [
+        "accuracy",
+        "valuationAllocation"
+      ],
+      "conclusion": "Quantified by period; cumulative correction recomputes.",
+      "domain": "finance",
+      "id": "s2_c_quantified",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 250-10-45-23"
+      ],
+      "statement": "Accrued liabilities are restated from 120,000.00 to 135,000.00 USD at 2024-12-31 and from 135,000.00 to 160,000.00 USD at 2025-12-31; the cumulative correction at 2026-01-01 is 25,000.00 USD.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s2_error_correction"
+      ],
+      "supportingFacts": [
+        "s2_f_accrued_fy2024",
+        "s2_f_accrued_fy2025"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Material; both methods quantified.",
+      "domain": "finance",
+      "id": "s3_c_materiality",
+      "judgments": [
+        "s3_j_materiality"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "SAB Topic 1.M (SAB 99)",
+        "SAB Topic 1.N (SAB 108)"
+      ],
+      "statement": "Under SAB 108 the misstatement is 3.75% of FY2025 pretax income by rollover and 6.25% by iron curtain; with the SAB 99 qualitative factors considered it is material.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s2_error_correction"
+      ],
+      "supportingFacts": [
+        "s3_f_pretax_income_fy2025"
+      ]
+    },
+    {
+      "assertions": [
+        "accuracy",
+        "presentationDisclosure"
+      ],
+      "conclusion": "Restatement through a prior-period adjustment.",
+      "domain": "finance",
+      "id": "s4_c_restatement",
+      "judgments": [
+        "s4_j_method"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 250-10-45-23",
+        "ASC 250-10-45-24"
+      ],
+      "statement": "The error is corrected by restatement: a 25,000.00 USD prior-period adjustment to opening retained earnings against accrued liabilities as of 2026-01-01, with the FY2024 and FY2025 statements restated.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s2_error_correction",
+        "s4_accounting_schedule"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "Disclosure per ASC 250-10-50-7 to 50-9.",
+      "domain": "finance",
+      "id": "s5_c_disclosure",
+      "judgments": [
+        "s4_j_method"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 250-10-50-7",
+        "ASC 250-10-50-8",
+        "ASC 250-10-50-9"
+      ],
+      "statement": "The restatement discloses that previously issued statements were restated, the nature of the error, and the effect on each line item, income and retained earnings for each period presented.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s2_error_correction"
+      ]
+    }
+  ]
+}

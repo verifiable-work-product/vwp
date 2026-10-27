@@ -1,0 +1,29 @@
+{
+  "id": "wp_demo_mining_revenue",
+  "title": "Mining Revenue Recognition - DemoCo Solo Mining April 2026",
+  "domain": "accounting.miningRevenue",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-mining-revenue",
+  "standardRefs": [
+    "ASC 606-10-15-3",
+    "ASC 606-10-55-36",
+    "ASC 606-10-32-21",
+    "ASC 350-30-30-1"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2026-06-30",
+    "start": "2026-04-01"
+  },
+  "conclusionSummary": "DemoCo mines with its own hash power and receives the coinbase output directly; it is the principal and, with no customer identified, ASC 606 is applied by analogy with rewards presented as mining revenue. April 2026 rewards of 9.545 BTC (three blocks, subsidy plus fees) tie to the chain record and total 677,725 USD at recognition-date prices.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

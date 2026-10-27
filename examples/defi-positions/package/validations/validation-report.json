@@ -1,0 +1,193 @@
+{
+  "validations": [
+    {
+      "id": "v_001",
+      "validator": "core.package.safePaths",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_002",
+      "validator": "core.manifest.exists",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_003",
+      "validator": "core.manifest.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_004",
+      "validator": "core.requiredParts.exist",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_005",
+      "validator": "core.partHashes.match",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_006",
+      "validator": "core.workproduct.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_007",
+      "validator": "core.claims.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_008",
+      "validator": "core.provenance.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_009",
+      "validator": "core.evidence.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_010",
+      "validator": "core.facts.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_011",
+      "validator": "core.judgments.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_012",
+      "validator": "core.evidenceRefs.resolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_013",
+      "validator": "core.externalRefs.wellFormed",
+      "scope": "package",
+      "status": "notRun",
+      "message": "no external retrieval metadata declared"
+    },
+    {
+      "id": "v_014",
+      "validator": "core.factAnchors.quotesMatch",
+      "scope": "package",
+      "status": "pass",
+      "message": "10 quote anchors verified"
+    },
+    {
+      "id": "v_015",
+      "validator": "core.claimRefs.resolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_016",
+      "validator": "core.graph.refsResolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_017",
+      "validator": "core.graph.acyclic",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_018",
+      "validator": "core.graph.declaredInputs",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_019",
+      "validator": "core.digests.match",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_020",
+      "validator": "core.signatures.present",
+      "scope": "package",
+      "status": "warning",
+      "message": "no package signature found"
+    },
+    {
+      "id": "v_021",
+      "validator": "finance.claims.haveAssertions",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_022",
+      "validator": "finance.claims.haveSupport",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_023",
+      "validator": "finance.requiredJudgments.complete",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_024",
+      "validator": "defi.register.present",
+      "scope": "package",
+      "status": "pass",
+      "message": "3 positions in register"
+    },
+    {
+      "id": "v_025",
+      "validator": "defi.register.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_026",
+      "validator": "defi.register.judgmentLinked",
+      "scope": "package",
+      "status": "pass",
+      "message": "every position links a resolvable treatment judgment and custody evidence, and derecognition agrees with control"
+    },
+    {
+      "id": "v_027",
+      "validator": "defi.valuation.schemaValid",
+      "scope": "package",
+      "status": "pass",
+      "message": "calculations/s3_position_valuation.json"
+    },
+    {
+      "id": "v_028",
+      "validator": "defi.valuation.recompute",
+      "scope": "package",
+      "status": "pass",
+      "message": "1 valuation(s): every position is Σ units × price and the total is their sum"
+    },
+    {
+      "id": "v_029",
+      "validator": "defi.valuation.pricingEvidence",
+      "scope": "package",
+      "status": "pass",
+      "message": "every component is priced by a fact stating that price as of the valuation date"
+    },
+    {
+      "id": "v_030",
+      "validator": "defi.valuation.tiesToRegister",
+      "scope": "package",
+      "status": "pass",
+      "message": "every valued position is in the register with its units, and every register position is valued"
+    }
+  ]
+}

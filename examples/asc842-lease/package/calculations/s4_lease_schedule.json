@@ -1,0 +1,537 @@
+{
+  "id": "s4_lease_schedule",
+  "type": "leaseSchedule",
+  "inputs": {
+    "classification": "operating",
+    "classificationJudgmentRef": "s2_j_classification",
+    "commencementDate": "2026-01-01",
+    "currency": "USD",
+    "discountRate": 0.06,
+    "initialDirectCosts": 0,
+    "leaseId": "OFF-001",
+    "leaseIncentives": 0,
+    "paymentTiming": "arrears",
+    "payments": [
+      {
+        "amount": 10000,
+        "date": "2026-01-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2026-02-28"
+      },
+      {
+        "amount": 10000,
+        "date": "2026-03-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2026-04-30"
+      },
+      {
+        "amount": 10000,
+        "date": "2026-05-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2026-06-30"
+      },
+      {
+        "amount": 10000,
+        "date": "2026-07-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2026-08-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2026-09-30"
+      },
+      {
+        "amount": 10000,
+        "date": "2026-10-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2026-11-30"
+      },
+      {
+        "amount": 10000,
+        "date": "2026-12-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2027-01-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2027-02-28"
+      },
+      {
+        "amount": 10000,
+        "date": "2027-03-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2027-04-30"
+      },
+      {
+        "amount": 10000,
+        "date": "2027-05-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2027-06-30"
+      },
+      {
+        "amount": 10000,
+        "date": "2027-07-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2027-08-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2027-09-30"
+      },
+      {
+        "amount": 10000,
+        "date": "2027-10-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2027-11-30"
+      },
+      {
+        "amount": 10000,
+        "date": "2027-12-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2028-01-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2028-02-29"
+      },
+      {
+        "amount": 10000,
+        "date": "2028-03-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2028-04-30"
+      },
+      {
+        "amount": 10000,
+        "date": "2028-05-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2028-06-30"
+      },
+      {
+        "amount": 10000,
+        "date": "2028-07-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2028-08-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2028-09-30"
+      },
+      {
+        "amount": 10000,
+        "date": "2028-10-31"
+      },
+      {
+        "amount": 10000,
+        "date": "2028-11-30"
+      },
+      {
+        "amount": 10000,
+        "date": "2028-12-31"
+      }
+    ],
+    "periodsPerYear": 12,
+    "prepaidLeasePayments": 0,
+    "rateFact": "s3_f_rate"
+  },
+  "outputs": {
+    "initialLiability": 328710.16,
+    "initialRouAsset": 328710.16,
+    "periods": [
+      {
+        "closingLiability": 320353.71,
+        "interest": 1643.55,
+        "leaseCost": 10000,
+        "openingLiability": 328710.16,
+        "payment": 10000,
+        "periodEnd": "2026-01-31",
+        "principal": 8356.45,
+        "rouAmortization": 8356.45
+      },
+      {
+        "closingLiability": 311955.48,
+        "interest": 1601.77,
+        "leaseCost": 10000,
+        "openingLiability": 320353.71,
+        "payment": 10000,
+        "periodEnd": "2026-02-28",
+        "principal": 8398.23,
+        "rouAmortization": 8398.23
+      },
+      {
+        "closingLiability": 303515.26,
+        "interest": 1559.78,
+        "leaseCost": 10000,
+        "openingLiability": 311955.48,
+        "payment": 10000,
+        "periodEnd": "2026-03-31",
+        "principal": 8440.22,
+        "rouAmortization": 8440.22
+      },
+      {
+        "closingLiability": 295032.84,
+        "interest": 1517.58,
+        "leaseCost": 10000,
+        "openingLiability": 303515.26,
+        "payment": 10000,
+        "periodEnd": "2026-04-30",
+        "principal": 8482.42,
+        "rouAmortization": 8482.42
+      },
+      {
+        "closingLiability": 286508,
+        "interest": 1475.16,
+        "leaseCost": 10000,
+        "openingLiability": 295032.84,
+        "payment": 10000,
+        "periodEnd": "2026-05-31",
+        "principal": 8524.84,
+        "rouAmortization": 8524.84
+      },
+      {
+        "closingLiability": 277940.54,
+        "interest": 1432.54,
+        "leaseCost": 10000,
+        "openingLiability": 286508,
+        "payment": 10000,
+        "periodEnd": "2026-06-30",
+        "principal": 8567.46,
+        "rouAmortization": 8567.46
+      },
+      {
+        "closingLiability": 269330.24,
+        "interest": 1389.7,
+        "leaseCost": 10000,
+        "openingLiability": 277940.54,
+        "payment": 10000,
+        "periodEnd": "2026-07-31",
+        "principal": 8610.3,
+        "rouAmortization": 8610.3
+      },
+      {
+        "closingLiability": 260676.89,
+        "interest": 1346.65,
+        "leaseCost": 10000,
+        "openingLiability": 269330.24,
+        "payment": 10000,
+        "periodEnd": "2026-08-31",
+        "principal": 8653.35,
+        "rouAmortization": 8653.35
+      },
+      {
+        "closingLiability": 251980.27,
+        "interest": 1303.38,
+        "leaseCost": 10000,
+        "openingLiability": 260676.89,
+        "payment": 10000,
+        "periodEnd": "2026-09-30",
+        "principal": 8696.62,
+        "rouAmortization": 8696.62
+      },
+      {
+        "closingLiability": 243240.17,
+        "interest": 1259.9,
+        "leaseCost": 10000,
+        "openingLiability": 251980.27,
+        "payment": 10000,
+        "periodEnd": "2026-10-31",
+        "principal": 8740.1,
+        "rouAmortization": 8740.1
+      },
+      {
+        "closingLiability": 234456.37,
+        "interest": 1216.2,
+        "leaseCost": 10000,
+        "openingLiability": 243240.17,
+        "payment": 10000,
+        "periodEnd": "2026-11-30",
+        "principal": 8783.8,
+        "rouAmortization": 8783.8
+      },
+      {
+        "closingLiability": 225628.65,
+        "interest": 1172.28,
+        "leaseCost": 10000,
+        "openingLiability": 234456.37,
+        "payment": 10000,
+        "periodEnd": "2026-12-31",
+        "principal": 8827.72,
+        "rouAmortization": 8827.72
+      },
+      {
+        "closingLiability": 216756.79,
+        "interest": 1128.14,
+        "leaseCost": 10000,
+        "openingLiability": 225628.65,
+        "payment": 10000,
+        "periodEnd": "2027-01-31",
+        "principal": 8871.86,
+        "rouAmortization": 8871.86
+      },
+      {
+        "closingLiability": 207840.57,
+        "interest": 1083.78,
+        "leaseCost": 10000,
+        "openingLiability": 216756.79,
+        "payment": 10000,
+        "periodEnd": "2027-02-28",
+        "principal": 8916.22,
+        "rouAmortization": 8916.22
+      },
+      {
+        "closingLiability": 198879.77,
+        "interest": 1039.2,
+        "leaseCost": 10000,
+        "openingLiability": 207840.57,
+        "payment": 10000,
+        "periodEnd": "2027-03-31",
+        "principal": 8960.8,
+        "rouAmortization": 8960.8
+      },
+      {
+        "closingLiability": 189874.17,
+        "interest": 994.4,
+        "leaseCost": 10000,
+        "openingLiability": 198879.77,
+        "payment": 10000,
+        "periodEnd": "2027-04-30",
+        "principal": 9005.6,
+        "rouAmortization": 9005.6
+      },
+      {
+        "closingLiability": 180823.54,
+        "interest": 949.37,
+        "leaseCost": 10000,
+        "openingLiability": 189874.17,
+        "payment": 10000,
+        "periodEnd": "2027-05-31",
+        "principal": 9050.63,
+        "rouAmortization": 9050.63
+      },
+      {
+        "closingLiability": 171727.66,
+        "interest": 904.12,
+        "leaseCost": 10000,
+        "openingLiability": 180823.54,
+        "payment": 10000,
+        "periodEnd": "2027-06-30",
+        "principal": 9095.88,
+        "rouAmortization": 9095.88
+      },
+      {
+        "closingLiability": 162586.3,
+        "interest": 858.64,
+        "leaseCost": 10000,
+        "openingLiability": 171727.66,
+        "payment": 10000,
+        "periodEnd": "2027-07-31",
+        "principal": 9141.36,
+        "rouAmortization": 9141.36
+      },
+      {
+        "closingLiability": 153399.23,
+        "interest": 812.93,
+        "leaseCost": 10000,
+        "openingLiability": 162586.3,
+        "payment": 10000,
+        "periodEnd": "2027-08-31",
+        "principal": 9187.07,
+        "rouAmortization": 9187.07
+      },
+      {
+        "closingLiability": 144166.23,
+        "interest": 767,
+        "leaseCost": 10000,
+        "openingLiability": 153399.23,
+        "payment": 10000,
+        "periodEnd": "2027-09-30",
+        "principal": 9233,
+        "rouAmortization": 9233
+      },
+      {
+        "closingLiability": 134887.06,
+        "interest": 720.83,
+        "leaseCost": 10000,
+        "openingLiability": 144166.23,
+        "payment": 10000,
+        "periodEnd": "2027-10-31",
+        "principal": 9279.17,
+        "rouAmortization": 9279.17
+      },
+      {
+        "closingLiability": 125561.5,
+        "interest": 674.44,
+        "leaseCost": 10000,
+        "openingLiability": 134887.06,
+        "payment": 10000,
+        "periodEnd": "2027-11-30",
+        "principal": 9325.56,
+        "rouAmortization": 9325.56
+      },
+      {
+        "closingLiability": 116189.31,
+        "interest": 627.81,
+        "leaseCost": 10000,
+        "openingLiability": 125561.5,
+        "payment": 10000,
+        "periodEnd": "2027-12-31",
+        "principal": 9372.19,
+        "rouAmortization": 9372.19
+      },
+      {
+        "closingLiability": 106770.26,
+        "interest": 580.95,
+        "leaseCost": 10000,
+        "openingLiability": 116189.31,
+        "payment": 10000,
+        "periodEnd": "2028-01-31",
+        "principal": 9419.05,
+        "rouAmortization": 9419.05
+      },
+      {
+        "closingLiability": 97304.11,
+        "interest": 533.85,
+        "leaseCost": 10000,
+        "openingLiability": 106770.26,
+        "payment": 10000,
+        "periodEnd": "2028-02-29",
+        "principal": 9466.15,
+        "rouAmortization": 9466.15
+      },
+      {
+        "closingLiability": 87790.63,
+        "interest": 486.52,
+        "leaseCost": 10000,
+        "openingLiability": 97304.11,
+        "payment": 10000,
+        "periodEnd": "2028-03-31",
+        "principal": 9513.48,
+        "rouAmortization": 9513.48
+      },
+      {
+        "closingLiability": 78229.58,
+        "interest": 438.95,
+        "leaseCost": 10000,
+        "openingLiability": 87790.63,
+        "payment": 10000,
+        "periodEnd": "2028-04-30",
+        "principal": 9561.05,
+        "rouAmortization": 9561.05
+      },
+      {
+        "closingLiability": 68620.73,
+        "interest": 391.15,
+        "leaseCost": 10000,
+        "openingLiability": 78229.58,
+        "payment": 10000,
+        "periodEnd": "2028-05-31",
+        "principal": 9608.85,
+        "rouAmortization": 9608.85
+      },
+      {
+        "closingLiability": 58963.83,
+        "interest": 343.1,
+        "leaseCost": 10000,
+        "openingLiability": 68620.73,
+        "payment": 10000,
+        "periodEnd": "2028-06-30",
+        "principal": 9656.9,
+        "rouAmortization": 9656.9
+      },
+      {
+        "closingLiability": 49258.65,
+        "interest": 294.82,
+        "leaseCost": 10000,
+        "openingLiability": 58963.83,
+        "payment": 10000,
+        "periodEnd": "2028-07-31",
+        "principal": 9705.18,
+        "rouAmortization": 9705.18
+      },
+      {
+        "closingLiability": 39504.94,
+        "interest": 246.29,
+        "leaseCost": 10000,
+        "openingLiability": 49258.65,
+        "payment": 10000,
+        "periodEnd": "2028-08-31",
+        "principal": 9753.71,
+        "rouAmortization": 9753.71
+      },
+      {
+        "closingLiability": 29702.46,
+        "interest": 197.52,
+        "leaseCost": 10000,
+        "openingLiability": 39504.94,
+        "payment": 10000,
+        "periodEnd": "2028-09-30",
+        "principal": 9802.48,
+        "rouAmortization": 9802.48
+      },
+      {
+        "closingLiability": 19850.97,
+        "interest": 148.51,
+        "leaseCost": 10000,
+        "openingLiability": 29702.46,
+        "payment": 10000,
+        "periodEnd": "2028-10-31",
+        "principal": 9851.49,
+        "rouAmortization": 9851.49
+      },
+      {
+        "closingLiability": 9950.22,
+        "interest": 99.25,
+        "leaseCost": 10000,
+        "openingLiability": 19850.97,
+        "payment": 10000,
+        "periodEnd": "2028-11-30",
+        "principal": 9900.75,
+        "rouAmortization": 9900.75
+      },
+      {
+        "closingLiability": 0,
+        "interest": 49.78,
+        "leaseCost": 10000,
+        "openingLiability": 9950.22,
+        "payment": 10000,
+        "periodEnd": "2028-12-31",
+        "principal": 9950.22,
+        "rouAmortization": 9950.22
+      }
+    ],
+    "straightLineCost": 10000
+  },
+  "dependsOn": [
+    "s3_f_rate"
+  ],
+  "method": "initialLiability = present value of the 36 payments in arrears at 0.06/12 per month (ASC 842-20-30-1); initialRouAsset = liability (no initial direct costs, prepayments or incentives, 842-20-30-5). Per period: interest = openingLiability × 0.005, principal = payment − interest, closingLiability = openingLiability − principal; the final period's principal is the remaining balance and its interest the payment less that balance. Operating lease: leaseCost = total payments / 36 (842-20-25-6); rouAmortization = leaseCost − interest (842-20-35-3). Figures rounded to cents each period.",
+  "validator": "asc842.lease.rollForward",
+  "recomputable": true
+}

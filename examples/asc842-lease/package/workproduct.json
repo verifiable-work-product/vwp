@@ -1,29 +1,28 @@
 {
-  "id": "wp_demo_asc842_lease_2026",
-  "title": "ASC 842 Lease Workpaper - Demo Office Lease",
-  "domain": "finance",
+  "id": "wp_demo_asc842_lease",
+  "title": "ASC 842 Lease Accounting - DemoCo Office Lease OFF-001",
+  "domain": "accounting.leases",
   "profile": "vwp-finance",
   "extension": "vwp-accounting-asc842",
-  "standardRefs": ["ASC 842"],
+  "standardRefs": [
+    "ASC 842-10-25-2",
+    "ASC 842-20-30-1",
+    "ASC 842-20-25-6"
+  ],
   "entity": {
     "id": "entity_demo",
     "name": "DemoCo"
   },
   "period": {
-    "start": "2026-01-01",
-    "end": "2026-12-31"
+    "end": "2028-12-31",
+    "start": "2026-01-01"
   },
-  "subject": {
-    "type": "leaseAgreement",
-    "id": "lease_demo_hq_001",
-    "description": "36-month office lease (synthetic)"
-  },
-  "conclusionSummary": "Stub example. Draft operating lease classification with initial ROU asset and lease liability measurement; discount rate judgment not yet documented.",
-  "status": "draft",
+  "conclusionSummary": "DemoCo's 36-month office lease is an operating lease: none of the ASC 842-10-25-2 criteria is met. The 36 payments of 10,000 USD in arrears discount at the 6% incremental borrowing rate to a lease liability of 328,710.16 USD at commencement, with an equal right-of-use asset; the single straight-line lease cost is 10,000 USD a month and the liability retires with the final payment.",
+  "status": "inReview",
   "createdBy": {
-    "type": "agent",
     "name": "vwp-demo-agent",
+    "type": "agent",
     "version": "0.1.0"
   },
-  "reviewState": "notStarted"
+  "reviewState": "inReview"
 }

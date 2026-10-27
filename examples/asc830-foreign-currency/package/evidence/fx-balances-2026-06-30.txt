@@ -1,0 +1,5 @@
+Foreign-currency denominated balances as of 2026-06-30
+
+Cash - EUR account: EUR 100,000.00, carried at USD 108,000.00 (booked at 1.0800)
+Trade payables - GBP: GBP 50,000.00, carried at USD 63,000.00 (booked at 1.2600)
+Prepaid conference fees - EUR: EUR 20,000.00, carried at USD 21,600.00 (historical rate 1.0800)

@@ -1,0 +1,119 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "USD functional currency.",
+      "domain": "finance",
+      "id": "s1_c_functional_currency",
+      "judgments": [
+        "s1_j_functional_currency"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 830-10-45-2",
+        "ASC 830-10-45-5",
+        "ASC 830-10-55-5"
+      ],
+      "statement": "DemoCo's functional currency is the US dollar; its euro and sterling balances are foreign-currency transactions to be remeasured.",
+      "status": "supported",
+      "supportingFacts": [
+        "s1_f_functional_indicators"
+      ]
+    },
+    {
+      "assertions": [
+        "completeness",
+        "existence"
+      ],
+      "conclusion": "Population classified.",
+      "domain": "finance",
+      "id": "s2_c_population",
+      "judgments": [
+        "s2_j_monetary_classification"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 830-10-45-17",
+        "ASC 830-10-45-18"
+      ],
+      "statement": "The foreign-currency balances at 2026-06-30 are EUR cash and a GBP trade payable (monetary) and a EUR prepayment (non-monetary).",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_fx_balances"
+      ],
+      "supportingFacts": [
+        "s2_f_cash_eur",
+        "s2_f_ap_gbp",
+        "s2_f_prepaid_eur"
+      ]
+    },
+    {
+      "assertions": [
+        "accuracy"
+      ],
+      "conclusion": "Current rates evidenced.",
+      "domain": "finance",
+      "id": "s3_c_rates",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 830-20-35-1",
+        "ASC 830-10-20"
+      ],
+      "statement": "The 2026-06-30 spot rates are 1.1000 USD per EUR and 1.2800 USD per GBP.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_fx_rates"
+      ],
+      "supportingFacts": [
+        "s3_f_eur_rate",
+        "s3_f_gbp_rate"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation",
+        "accuracy"
+      ],
+      "conclusion": "Remeasurement recomputes and books.",
+      "domain": "finance",
+      "id": "s4_c_remeasurement",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 830-20-35-1",
+        "ASC 830-20-35-2"
+      ],
+      "statement": "Remeasuring the monetary items at the 2026-06-30 spot rates produces a 2,000.00 USD gain on EUR cash and a 1,000.00 USD loss on the GBP payable, a net transaction gain of 1,000.00 USD, booked by the executable schedule.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s4_remeasurement",
+        "s4_accounting_schedule"
+      ],
+      "supportingFacts": [
+        "s2_f_cash_eur",
+        "s2_f_ap_gbp",
+        "s3_f_eur_rate",
+        "s3_f_gbp_rate"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "Presentation and disclosure per ASC 830-20-45 and 830-20-50.",
+      "domain": "finance",
+      "id": "s5_c_presentation",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 830-20-45-1",
+        "ASC 830-20-50-1"
+      ],
+      "statement": "The net transaction gain of 1,000.00 USD is presented in income and the aggregate transaction gain or loss is disclosed; no foreign entity exists, so no translation adjustment arises.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s4_remeasurement"
+      ]
+    }
+  ]
+}

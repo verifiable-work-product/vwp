@@ -1,0 +1,125 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_period_end_reconciliation",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-reconciliation",
+  "title": "Period-End Reconciliation and Flux - DemoCo Exchange Account, Q2 2026",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "001f5cd2ae00ee84c4b7a5dd1161c1cdf8d84602f912280a2a54df00f849c8be",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "cf931dcbfe7c02512b8ee35881c95dc051cb2c1a676735cbb7543752bf6402b1",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/exchange-statement.txt",
+      "mediaType": "text/plain",
+      "sha256": "a0d8801969f3af814adf3bb076faf866b556f638336633d3638ebfc450365438",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "cce2d51a3af259ebc87d296da9908fa8859be244d8c5b37b50606abad4086f63",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/ledger-extract.csv",
+      "mediaType": "text/csv",
+      "sha256": "515b274960aa1bf7f68db8a3c53fb0dbd29d29e6acd4fd1d43fdaca5f59116e9",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/wire-confirmation.txt",
+      "mediaType": "text/plain",
+      "sha256": "745b5150a2e16c94d3c8e65095ad3a4d021438b10f44b6811692cdc0d3794757",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/eth-purchase.txt",
+      "mediaType": "text/plain",
+      "sha256": "5afe00f4264cc13417f5ff9cbbfde3de06592c71969183c79d9c14d9d2e59bb8",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "68d7e266e5258eb9f84e4c15b54c177188335b0daf3dc5cd598efa28d98eb446",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "e263ca4004101a948767fbe971137856edd2b4712e43710cb67a2f2409dccace",
+      "role": "judgments"
+    },
+    {
+      "path": "calculations/s2_balance_reconciliation.json",
+      "mediaType": "application/json",
+      "sha256": "fa4b7142b7e762e31fd4a376e1fb5b1dad4ef33f8b93328bf88231c21ef5083b",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule-calculation.json",
+      "mediaType": "application/json",
+      "sha256": "ac5c2fc6ae93d82591307dcdc125a5b87d7094220537f08c1e52cda2240661fa",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "sha256": "e177101ab3b5a7b60c450deae0561954bff4eae7bd1716e9ab9fa3b65e085843",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/s3_flux_analysis.json",
+      "mediaType": "application/json",
+      "sha256": "b3c26a3555b797f239158f31ec2c90146913cf60ea80cbb46dba72dfe0117875",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "66d5ab4eaf770da1f7a578734ea86bd35e7f2172f411a4d83c39462f188f7053",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "924e4e74d35231d8e01015ec772ded5b45dfe407460b952718ea677bb6bec4df",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "0a94d90ec113d7ec37c75d782987c2300c22170f49b1958454e427bc2d551588",
+    "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "bf56ab4a02ae0f81ae88d274386dd3f1139bea5dc48f4d76b0e7adeb59ce9de9",
+    "contentRoot": "94c3232654730aa3143f42ed10183ccc3d1a120b48a2e9028bbab14c70367382",
+    "reviewRoot": "7ff0e384948de13487aa0d34a8425a6850fc64e37cec0aaacd4f7d269bca5f4e",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "05834129fd57c3971e0ccda874017339549f539188d4b17be48ab2c66d64bb8c",
+      "claim": "7bedbcac4ebd4bb4e182b71ef9ba0424af9dd0b91f06f706b53ce435c0972e54",
+      "evidence": "331037b1e1b6af21f5b8e7416876399073ee8ad127e238c9bf11e27aebf99db0",
+      "fact": "c45c03dda6326869cfea356a51f4e8a075e352b6e8428229ae596093329b489c",
+      "judgment": "3eacd77cc798501ac9b961b9761bc93c77df6e9abbd638a70326e45eebf87fae",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
+  }
+}

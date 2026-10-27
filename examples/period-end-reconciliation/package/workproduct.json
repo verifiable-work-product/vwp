@@ -1,0 +1,27 @@
+{
+  "id": "wp_demo_period_end_reconciliation",
+  "title": "Period-End Reconciliation and Flux - DemoCo Exchange Account, Q2 2026",
+  "domain": "accounting.reconciliation",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-reconciliation",
+  "standardRefs": [
+    "AU-C 500",
+    "ASC 230-10-45"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2026-06-30",
+    "start": "2026-04-01"
+  },
+  "conclusionSummary": "The exchange account reconciles at 2026-06-30: the 2,650.00 USD difference between the statement (1,250,000.00) and the ledger (1,247,350.00) is a 3,000.00 deposit in transit and a 350.00 trading fee the ledger had not recorded; the fee is booked, the deposit clears itself. The quarter's flux explains the one variance above threshold (digital assets, +42%) with the ETH purchase.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

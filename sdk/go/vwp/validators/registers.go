@@ -14,13 +14,21 @@ const (
 	RegisterWallets               = "wallets"
 	RegisterCryptoAssets          = "crypto-assets"
 	RegisterStablecoinHoldings    = "stablecoin-holdings"
+	RegisterIssuanceInstruments   = "issuance-instruments"
+	RegisterDeFiPositions         = "defi-positions"
+	RegisterContingencies         = "contingencies"
+	RegisterCustodiedAssets       = "custodied-assets"
 )
 
 var registerSchemas = map[string]map[string]string{
-	vwp.ExtensionASC820:        {RegisterFairValueMeasurements: fairValueRegisterSchemaRef},
-	vwp.ExtensionWalletControl: {RegisterWallets: walletRegisterSchemaRef},
-	vwp.ExtensionASC35060:      {RegisterCryptoAssets: cryptoAssetsSchemaRef},
-	vwp.ExtensionStablecoin:    {RegisterStablecoinHoldings: stablecoinHoldingsSchemaRef},
+	vwp.ExtensionASC820:              {RegisterFairValueMeasurements: fairValueRegisterSchemaRef},
+	vwp.ExtensionWalletControl:       {RegisterWallets: walletRegisterSchemaRef},
+	vwp.ExtensionASC35060:            {RegisterCryptoAssets: cryptoAssetsSchemaRef},
+	vwp.ExtensionStablecoin:          {RegisterStablecoinHoldings: stablecoinHoldingsSchemaRef},
+	vwp.ExtensionTokenIssuance:       {RegisterIssuanceInstruments: issuanceInstrumentsSchemaRef},
+	vwp.ExtensionDeFiPositions:       {RegisterDeFiPositions: defiPositionsSchemaRef},
+	vwp.ExtensionASC450:              {RegisterContingencies: contingenciesSchemaRef},
+	vwp.ExtensionCustodySafeguarding: {RegisterCustodiedAssets: custodiedAssetsSchemaRef},
 }
 
 // RegisterPath is the package part path of a named register.

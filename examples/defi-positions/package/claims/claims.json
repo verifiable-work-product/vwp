@@ -1,0 +1,122 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "existence",
+        "completeness",
+        "rightsAndObligations"
+      ],
+      "conclusion": "Position population established from the protocol query and wallet control evidence.",
+      "domain": "finance",
+      "id": "s1_c_population",
+      "requiresReview": false,
+      "standardRefs": [
+        "AU-C 501",
+        "ASC 860-10-40-5"
+      ],
+      "statement": "DemoCo holds three DeFi positions in the treasury-defi wallet it controls: a DemoSwap LP position, a DemoLend ETH deposit and 10 WBTC-D.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_positions_query",
+        "ev_wallet_control"
+      ],
+      "supportingFacts": [
+        "s1_f_lp_position",
+        "s1_f_lend_position",
+        "s1_f_wrap_position",
+        "s1_f_wallet_control"
+      ]
+    },
+    {
+      "assertions": [
+        "rightsAndObligations",
+        "existence"
+      ],
+      "conclusion": "Unit of account and derecognition concluded per position.",
+      "domain": "finance",
+      "id": "s2_c_treatment",
+      "judgments": [
+        "s2_j_lp_treatment",
+        "s2_j_lend_treatment",
+        "s2_j_wrap_treatment"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 860-10-40-5",
+        "ASC 610-20-40-1",
+        "ASC 350-60-15-1"
+      ],
+      "statement": "The LP contribution and the lending deposit surrendered control and were derecognized for new assets; the wrapped token is a claim on the custodian, not a crypto asset under ASC 350-60.",
+      "status": "supported",
+      "supportingFacts": [
+        "s2_f_pool_terms",
+        "s2_f_lend_terms",
+        "s2_f_wrap_terms"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Valuation recomputes and ties to the register.",
+      "domain": "finance",
+      "id": "s3_c_valuation",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 820-10-35-1",
+        "ASC 820-10-35-5"
+      ],
+      "statement": "At 2026-06-30 the positions are valued at 1,125,000 USD (LP), 250,000 USD (lending claim) and 650,000 USD (wrapped BTC), 2,025,000 USD in total, at prices evidenced on that date.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_position_valuation"
+      ],
+      "supportingFacts": [
+        "s3_f_price_eth",
+        "s3_f_price_dusd",
+        "s3_f_price_btc"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Subsequent measurement route per position.",
+      "domain": "finance",
+      "id": "s4_c_measurement",
+      "judgments": [
+        "s4_j_measurement_routes"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-30-35-18",
+        "ASC 326-20-30-2",
+        "ASC 350-60-15-1"
+      ],
+      "statement": "The LP and wrapped tokens are indefinite-lived intangibles under ASC 350-30; the lending claim is measured at the fair value of the ETH owed with an ASC 326 assessment.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_position_valuation"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "Presentation and disclosure per ASC 350-30-50, ASC 275-10-50 and ASC 820-10-50.",
+      "domain": "finance",
+      "id": "s5_c_disclosure",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-30-50-1",
+        "ASC 275-10-50-16",
+        "ASC 820-10-50-2"
+      ],
+      "statement": "The positions, the protocols' custody of the underlyings, the measurement bases and the concentration in one wallet are disclosed.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_position_valuation"
+      ]
+    }
+  ]
+}

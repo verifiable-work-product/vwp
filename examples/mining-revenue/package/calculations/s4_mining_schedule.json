@@ -1,0 +1,77 @@
+{
+  "id": "s4_mining_schedule",
+  "type": "miningRevenueSchedule",
+  "inputs": {
+    "arrangement": "solo-demo-valley",
+    "asset": "BTC",
+    "chainObservedFact": "s4_f_chain_total",
+    "chainObservedUnits": 9.545,
+    "currency": "USD",
+    "operatorType": "solo",
+    "periodEnd": "2026-04-30",
+    "periodStart": "2026-04-01",
+    "pricingDateBasis": "recognitionDate",
+    "rewards": [
+      {
+        "date": "2026-04-05",
+        "feeUnits": 0.05,
+        "measurementDate": "2026-04-05",
+        "priceFact": "s4_f_price_0405",
+        "receivedOn": "2026-04-05",
+        "reference": "block-890100",
+        "unitPrice": 70000,
+        "units": 3.175
+      },
+      {
+        "date": "2026-04-18",
+        "feeUnits": 0.08,
+        "measurementDate": "2026-04-18",
+        "priceFact": "s4_f_price_0418",
+        "receivedOn": "2026-04-18",
+        "reference": "block-890900",
+        "unitPrice": 72000,
+        "units": 3.205
+      },
+      {
+        "date": "2026-04-29",
+        "feeUnits": 0.04,
+        "measurementDate": "2026-04-29",
+        "priceFact": "s4_f_price_0429",
+        "receivedOn": "2026-04-29",
+        "reference": "block-891700",
+        "unitPrice": 71000,
+        "units": 3.165
+      }
+    ]
+  },
+  "outputs": {
+    "rows": [
+      {
+        "date": "2026-04-05",
+        "fairValue": 222250,
+        "units": 3.175
+      },
+      {
+        "date": "2026-04-18",
+        "fairValue": 230760,
+        "units": 3.205
+      },
+      {
+        "date": "2026-04-29",
+        "fairValue": 224715,
+        "units": 3.165
+      }
+    ],
+    "totalFairValue": 677725,
+    "totalUnits": 9.545
+  },
+  "dependsOn": [
+    "s4_f_chain_total",
+    "s4_f_price_0405",
+    "s4_f_price_0418",
+    "s4_f_price_0429"
+  ],
+  "method": "Each block reward (subsidy + fees) at units x closing price on its recognition date (block accepted and coinbase output paid to the DemoCo address, so inception, recognition and receipt fall on the same day); totals tie to the node export; no unreceived balance at either period end.",
+  "validator": "mining.rewards.recompute",
+  "recomputable": true
+}

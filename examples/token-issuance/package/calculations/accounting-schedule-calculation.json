@@ -1,0 +1,61 @@
+{
+  "id": "s3_accounting_schedule",
+  "type": "accountingSchedule",
+  "inputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "derivedFrom": [
+      "s3_proceeds_allocation"
+    ]
+  },
+  "outputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "endDate": "2026-06-01",
+    "entries": [
+      {
+        "date": "2026-04-15",
+        "description": "SAFT proceeds received; liability to deliver 2,000,000 DEMO",
+        "id": "SAFT-1-2026-04-15",
+        "obligationId": "SAFT-1",
+        "postings": [
+          {
+            "accountRole": "consideration_received",
+            "debit": "1000000.00"
+          },
+          {
+            "accountRole": "token_liability",
+            "credit": "1000000.00"
+          }
+        ]
+      },
+      {
+        "date": "2026-06-01",
+        "description": "Public sale proceeds received; contract liability for compute units",
+        "id": "PUB-1-2026-06-01",
+        "obligationId": "PUB-1",
+        "postings": [
+          {
+            "accountRole": "consideration_received",
+            "debit": "500000.00"
+          },
+          {
+            "accountRole": "deferred_revenue",
+            "credit": "500000.00"
+          }
+        ]
+      }
+    ],
+    "kind": "token_issuance",
+    "name": "DEMO token issuance, Q2 2026",
+    "schemaVersion": 1,
+    "startDate": "2026-04-15",
+    "totalAmount": "1500000.00"
+  },
+  "dependsOn": [
+    "s3_proceeds_allocation"
+  ],
+  "method": "Executable entries derived from s3_proceeds_allocation; amounts at amountScale, balanced semantic account-role postings.",
+  "validator": "tokenIssuance.accountingSchedule.tieOut",
+  "recomputable": true
+}

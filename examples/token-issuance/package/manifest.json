@@ -1,0 +1,125 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_token_issuance",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-token-issuance",
+  "title": "Token Issuance Accounting - DemoCo DEMO Token, Q2 2026",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "39f44d9146d5160c09b954687a14b202b1f5ff85277b422943ff8e849e987c96",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "41760f1fe4363011f81965f1eaf2fd67c127b030f83e700860926d3d76739c09",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/saft-excerpt.txt",
+      "mediaType": "text/plain",
+      "sha256": "b825e2ae0b1d99d5834d834b73f8bf1cc4bb3376591162e8855103684844991d",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "1d640eaf8c34b8fe033cae91a9366b11c8a11f0cd388bdc9bba5a5460dda9fcc",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/public-sale-terms.txt",
+      "mediaType": "text/plain",
+      "sha256": "d2c645f35eb5557c0ecfc02ec23b2286eeb79263c131dfc3c1b9a22fa76674b2",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/bank-statement.csv",
+      "mediaType": "text/csv",
+      "sha256": "9e527e339c68847b729e07286eb837ac9f79af184c895963e9535c9a28cacc78",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/token-allocation-ledger.csv",
+      "mediaType": "text/csv",
+      "sha256": "19cf4ae8ae8cca5dc3f3a3b89e498bfa5fc2a620577322268a5c6a747571f807",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "26e4a07cce39f691369f753e2589bf899b5c0574776c380b69506cc52ec85695",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "bb44ffd79ed4552a30ecb411c003de4079dbec3c789158b4fb25de3d57da4b4f",
+      "role": "judgments"
+    },
+    {
+      "path": "facts/issuance-instruments.json",
+      "mediaType": "application/json",
+      "sha256": "d1a75415af5c26ae24abad8e90e001a8359cb8db42d328157b131c8b3af3d87c",
+      "role": "facts"
+    },
+    {
+      "path": "calculations/s3_proceeds_allocation.json",
+      "mediaType": "application/json",
+      "sha256": "c2f169783ae37f2ee60a626a83f593e6b330c740697cf3e7de149e34343677b6",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule-calculation.json",
+      "mediaType": "application/json",
+      "sha256": "4118e9752ba5efbb7bf08563ceb40cdfe061636e988fdb1f6380fd8a756ba993",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "sha256": "4274be19817f42eccb9f5a29475b3e78f6f2d66e27ca8b3b729dc517d652438b",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "79816dfe980299159a6b3272097b4a13a700a428930ff24bede6f7734675fc60",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "dbac6e7df7b6e5c8f5fd579b353023633b58efcb37acd91c27b40ade95407c42",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "97ecd3ebd0979168c65967d0209ddadd3b2d8571b37e4993ba0ba5b57e3a2e6b",
+    "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "1bec0a47fbfa6670904c1c24a484641a248e7e330a3465b87353a9a4b45d58a2",
+    "contentRoot": "82b6d0b0295298637973f394f2b2df7cd5d4d50b18fab9b943168547f63cbe45",
+    "reviewRoot": "211928cef906d04bf71c9f5859605741950306c1ddfd89e1573c4101965c307a",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "0187c716a98e4498ba9099a728d54f8b62570add7bc6a3e459beeff8b82d93a1",
+      "claim": "0db9523b358a0109834e4c89e76cc62b01c8b242d9d00618b69ff6a1cf12d873",
+      "evidence": "e0ea802656f6321c92aae7e093ade312905a0d61351d3df4bc037701413fb3b9",
+      "fact": "c0f73a50dbc59882384a263b55a9f6af2d0e80948ee560b37d771a63c2f8dc73",
+      "judgment": "ec46d13fb6ebe141e743cfeec6f97296673dc983369d672529ba8379dc923514",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
+  }
+}

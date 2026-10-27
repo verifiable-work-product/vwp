@@ -1,0 +1,75 @@
+{
+  "asOf": "2026-06-30",
+  "currency": "USD",
+  "description": "DEMO token issuance instruments register at 2026-06-30. Synthetic data.",
+  "instruments": [
+    {
+      "classification": "liability",
+      "classificationJudgmentRef": "s2_j_saft_classification",
+      "counterparty": "investor class A",
+      "deliveryObligation": true,
+      "id": "SAFT-1",
+      "issuanceDate": "2026-04-15",
+      "proceeds": 1000000,
+      "proceedsFact": "s1_f_saft_proceeds",
+      "refundable": false,
+      "serviceObligation": false,
+      "settlementInEntityTokens": true,
+      "termsEvidence": [
+        "ev_saft"
+      ],
+      "tokensDelivered": 0,
+      "tokensPromised": 2000000,
+      "type": "saft"
+    },
+    {
+      "classification": "deferredRevenue",
+      "classificationJudgmentRef": "s2_j_public_classification",
+      "counterparty": "public sale purchasers",
+      "deliveryObligation": false,
+      "id": "PUB-1",
+      "issuanceDate": "2026-06-01",
+      "proceeds": 500000,
+      "proceedsFact": "s1_f_public_proceeds",
+      "refundable": false,
+      "serviceObligation": true,
+      "settlementInEntityTokens": false,
+      "termsEvidence": [
+        "ev_public_sale_terms"
+      ],
+      "tokensDelivered": 1000000,
+      "tokensPromised": 1000000,
+      "type": "publicSale"
+    },
+    {
+      "classification": "none",
+      "classificationJudgmentRef": "s2_j_treasury",
+      "counterparty": "DemoCo treasury",
+      "deliveryObligation": false,
+      "id": "TREAS-1",
+      "issuanceDate": "2026-05-01",
+      "proceeds": 0,
+      "refundable": false,
+      "serviceObligation": false,
+      "settlementInEntityTokens": false,
+      "tokensDelivered": 10000000,
+      "tokensPromised": 10000000,
+      "type": "treasuryAllocation"
+    },
+    {
+      "classification": "none",
+      "classificationJudgmentRef": "s2_j_airdrop",
+      "counterparty": "community wallets",
+      "deliveryObligation": false,
+      "id": "AIR-1",
+      "issuanceDate": "2026-06-15",
+      "proceeds": 0,
+      "refundable": false,
+      "serviceObligation": false,
+      "settlementInEntityTokens": false,
+      "tokensDelivered": 250000,
+      "tokensPromised": 250000,
+      "type": "airdrop"
+    }
+  ]
+}

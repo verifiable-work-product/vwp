@@ -1,0 +1,111 @@
+{
+  "facts": [
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "USD balance: 1,250,000.00"
+            }
+          ],
+          "evidenceId": "ev_exchange_statement"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s1_f_source_balance",
+      "requiresReview": false,
+      "statement": "The exchange statement shows a USD balance of 1,250,000.00 at 2026-06-30.",
+      "value": {
+        "amount": 1250000,
+        "date": "2026-06-30"
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "exchange_cash,1230000.00,1247350.00"
+            }
+          ],
+          "evidenceId": "ev_ledger_extract"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s1_f_ledger_balance",
+      "requiresReview": false,
+      "statement": "The ledger exchange_cash balance was 1,247,350.00 at 2026-06-30.",
+      "value": {
+        "amount": 1247350,
+        "date": "2026-06-30"
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Recorded in the ledger on 2026-07-01 (cutoff)."
+            }
+          ],
+          "evidenceId": "ev_wire_confirmation"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s2_f_deposit_in_transit",
+      "requiresReview": false,
+      "statement": "A 3,000.00 USD wire reached the exchange on 2026-06-30 and was recorded in the ledger on 2026-07-01.",
+      "value": {
+        "amount": 3000,
+        "date": "2026-06-30"
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "trading fee charged: 350.00"
+            }
+          ],
+          "evidenceId": "ev_exchange_statement"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s2_f_trading_fee",
+      "requiresReview": false,
+      "statement": "The exchange charged a 350.00 USD trading fee on 2026-06-30 that the ledger had not recorded.",
+      "value": {
+        "amount": 350,
+        "date": "2026-06-30"
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "bought 300 ETH at 2,590.00 USD = 777,000.00 USD"
+            }
+          ],
+          "evidenceId": "ev_eth_purchase"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s3_f_eth_purchase",
+      "requiresReview": false,
+      "statement": "300 ETH were bought on 2026-05-20 for 777,000.00 USD.",
+      "value": 777000
+    }
+  ]
+}

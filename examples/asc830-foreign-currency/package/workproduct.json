@@ -1,0 +1,27 @@
+{
+  "id": "wp_demo_asc830_foreign_currency",
+  "title": "ASC 830 Foreign Currency Remeasurement - DemoCo Q2 2026",
+  "domain": "accounting.foreignCurrency",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc830",
+  "standardRefs": [
+    "ASC 830-20-35-1",
+    "ASC 830-10-45-18"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2026-06-30",
+    "start": "2026-04-01"
+  },
+  "conclusionSummary": "DemoCo's functional currency is the US dollar. At 2026-06-30 its EUR cash of 100,000 remeasures from 108,000.00 to 110,000.00 USD (a 2,000.00 gain) and its GBP trade payable of 50,000 from 63,000.00 to 64,000.00 USD (a 1,000.00 loss); the EUR prepayment is non-monetary and stays at 21,600.00 USD. The net transaction gain of 1,000.00 USD is in income.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

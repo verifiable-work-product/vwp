@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/digital-assets-defi-positions/defi-positions.schema.json",
+  "title": "DeFi Positions Register",
+  "description": "Extension schema for the vwp-digital-assets-defi-positions extension: the register at facts/defi-positions.json. One entry per position the reporting entity holds in a decentralized protocol (liquidity pool, lending deposit, borrowing, wrapped token, staked or vault position) with the receipt token it holds, the underlying assets it has a claim on, whether control over the contributed assets was retained, whether they were derecognized, the unit of account concluded and the judgment that concluded it, and the evidence of control over the position. The validators check that every position links a resolvable treatment judgment and custody evidence, that derecognition agrees with control, and that the valuation ties to this register.",
+  "type": "object",
+  "required": [
+    "asOf",
+    "currency",
+    "positions"
+  ],
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "asOf": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "positions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "protocol",
+          "positionType",
+          "underlyings",
+          "controlRetained",
+          "derecognized",
+          "unitOfAccount",
+          "treatmentJudgmentRef",
+          "custodyEvidenceRef"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "protocol": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Generic label for the protocol (registry content never names a real protocol as the only example)."
+          },
+          "positionType": {
+            "type": "string",
+            "enum": [
+              "liquidityPool",
+              "lending",
+              "borrowing",
+              "wrapped",
+              "staked",
+              "vault"
+            ]
+          },
+          "receiptToken": {
+            "type": "string",
+            "description": "The token evidencing the position (LP token, receipt token, wrapped token), if any."
+          },
+          "receiptUnits": {
+            "type": "number",
+            "minimum": 0
+          },
+          "wallet": {
+            "type": "string"
+          },
+          "underlyings": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "asset",
+                "units"
+              ],
+              "properties": {
+                "asset": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "units": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "controlRetained": {
+            "type": "boolean",
+            "description": "Whether the entity retains control of the contributed assets (ASC 860-10-40-5 analysis by analogy / AICPA Practice Aid)."
+          },
+          "derecognized": {
+            "type": "boolean",
+            "description": "Whether the contributed assets were derecognized. Must be false when controlRetained is true."
+          },
+          "unitOfAccount": {
+            "type": "string",
+            "enum": [
+              "receiptToken",
+              "underlyings"
+            ]
+          },
+          "subsequentMeasurement": {
+            "type": "string",
+            "description": "The route concluded for the recognized asset: ASC 350-60 crypto asset, ASC 350-30 indefinite-lived intangible, financial asset, or other."
+          },
+          "treatmentJudgmentRef": {
+            "type": "string",
+            "minLength": 1
+          },
+          "custodyEvidenceRef": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Evidence or fact id proving the entity controls the position (receipt token in a controlled wallet, protocol position query)."
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

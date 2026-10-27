@@ -1,0 +1,44 @@
+{
+  "id": "s3_proceeds_allocation",
+  "type": "tokenIssuanceProceedsAllocation",
+  "inputs": {
+    "asOf": "2026-06-30",
+    "currency": "USD",
+    "instruments": [
+      {
+        "components": [
+          {
+            "amount": 1000000,
+            "basis": "proceeds received; obligation to deliver DEMO tokens",
+            "classification": "liability"
+          }
+        ],
+        "id": "SAFT-1",
+        "proceeds": 1000000
+      },
+      {
+        "components": [
+          {
+            "amount": 500000,
+            "basis": "proceeds received; unsatisfied compute-unit performance obligation",
+            "classification": "deferredRevenue"
+          }
+        ],
+        "id": "PUB-1",
+        "proceeds": 500000
+      }
+    ]
+  },
+  "outputs": {
+    "byClassification": {
+      "deferredRevenue": 500000,
+      "derivativeLiability": 0,
+      "equity": 0,
+      "liability": 1000000
+    },
+    "total": 1500000
+  },
+  "method": "Per instrument the consideration received is allocated to the balance-sheet component its classification produces; byClassification and total are sums.",
+  "validator": "tokenIssuance.allocation.recompute",
+  "recomputable": true
+}

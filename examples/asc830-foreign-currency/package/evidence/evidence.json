@@ -1,0 +1,28 @@
+{
+  "evidence": [
+    {
+      "id": "ev_fx_rates",
+      "path": "evidence/spot-rates-2026-06-30.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Quarter-end spot rates, 2026-06-30 (synthetic)",
+      "type": "pricingRecord"
+    },
+    {
+      "id": "ev_fx_balances",
+      "path": "evidence/fx-balances-2026-06-30.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Foreign-currency balances at 2026-06-30 (synthetic)",
+      "type": "ledgerExtract"
+    },
+    {
+      "id": "ev_functional_currency_memo",
+      "path": "evidence/functional-currency-memo.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Functional currency assessment (synthetic)",
+      "type": "analysisMemo"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "judgments": [
+    {
+      "alternatives": [
+        {
+          "conclusion": "ASC 606 revenue with transaction originators and the protocol as customers",
+          "notes": "Considered: supportable under the view that fee payers receive a validation service; changes the caption, not the measurement basis."
+        }
+      ],
+      "basis": "ASC 606-10-15-3 customer definition; ASC 606-10-55-36 to 55-40 control indicators; ASC 606-10-32-21 to 32-23 noncash consideration (by analogy); AICPA Digital Assets Practice Aid mining Q&A (block subsidy and transaction fees as consideration for the mining service); interpretive views differ on whether the protocol or the transaction originators are customers, so the conclusion is a judgment.",
+      "id": "s2_j_principal",
+      "proposedConclusion": "DemoCo is the principal: it controls the hash power, builds its own block templates and bears the cost and risk of finding no block. No pool or hosting counterparty contracts for the service and the protocol is not a party that can be invoiced, so ASC 606 is applied by analogy for recognition and noncash-consideration measurement, with the reward presented as mining revenue in a separate caption.",
+      "question": "Is there a customer for DemoCo's mining service, is DemoCo the principal, and is the block reward revenue under ASC 606 (directly or by analogy) or other income?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Customer identification, principal versus agent and nature of the reward"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Recognize at coinbase maturity",
+          "notes": "Considered: defers recognition about 17 hours; would differ only for a block found within 100 blocks of a reporting date — then recognize the constrained amount and true up at maturity."
+        }
+      ],
+      "basis": "ASC 606-10-25-30 (control) and 606-10-32-11 constraint, applied by analogy — the orphan risk lapses within hours, so no amount is constrained at period end; ASC 606-10-32-21 noncash consideration measured at inception fair value — each block is its own activity, so the recognition-date price is the inception-equivalent; ASC 350-30-30-1 initial measurement of an intangible received.",
+      "id": "s3_j_timing",
+      "proposedConclusion": "Recognized on the date the block is accepted and its coinbase output pays to the DemoCo-controlled address: the amount is fixed by the protocol and the asset is DemoCo's, with the 100-block maturity a spending restriction rather than a condition of entitlement; a reorganization that orphans the block before maturity reverses the reward (none occurred). Each reward is measured at the fair value on that recognition date (pricingDateBasis recognitionDate); subsequent price movements are ASC 350-60 remeasurement, not mining revenue. No block straddles the 2026-04-30 reporting boundary.",
+      "question": "Is a block reward recognized when the block is found and the coinbase output pays to DemoCo's address, when the output matures, or when it is spent — and which date's price measures it?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "Recognition timing and pricing date of block rewards"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+Incident 2026-06-12: unauthorized withdrawal from the ETH hot wallet
+
+10.00000000 ETH of customer assets were transferred out after a signing-service credential was compromised.
+Recovery attempts have failed; the funds are considered unrecoverable.
+Under clause 7.2 DemoCo will make the affected customers whole in ETH or its value.

@@ -1,0 +1,122 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "existence",
+        "completeness"
+      ],
+      "conclusion": "Custodied populations and key control established.",
+      "domain": "finance",
+      "id": "s1_c_population",
+      "requiresReview": false,
+      "standardRefs": [
+        "SEC SAB 122"
+      ],
+      "statement": "DemoCo safeguards 100 BTC in an HSM-keyed omnibus wallet it controls and 2,000 ETH placed with a sub-custodian under its instruction, for 420 customers.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_signed_message",
+        "ev_subcustodian_statement"
+      ],
+      "supportingFacts": [
+        "s1_f_keys",
+        "s1_f_subcustody",
+        "s1_f_btc_balance",
+        "s1_f_eth_balance"
+      ]
+    },
+    {
+      "assertions": [
+        "rightsAndObligations"
+      ],
+      "conclusion": "Safeguarding obligation; SAB 122 model; no gross-up.",
+      "domain": "finance",
+      "id": "s2_c_obligation",
+      "judgments": [
+        "s2_j_safeguarding_obligation"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "SEC SAB 122",
+        "ASC 450-20-25-2"
+      ],
+      "statement": "DemoCo has a safeguarding obligation for both populations; under SAB 122 holding them creates no liability or asset, and ASC 450-20 governs the risk of loss.",
+      "status": "supported",
+      "supportingFacts": [
+        "s2_f_return_obligation",
+        "s2_f_make_whole"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Valuation recomputes from dated price facts.",
+      "domain": "finance",
+      "id": "s3_c_valuation",
+      "requiresReview": false,
+      "standardRefs": [
+        "SEC SAB 122",
+        "ASC 820-10-35-1"
+      ],
+      "statement": "Custodied assets are valued for disclosure at 6,500,000 USD (BTC) and 4,500,000 USD (ETH) at 2026-06-30 prices, with the 10 ETH lost valued at 22,500 USD.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_period_end_prices"
+      ],
+      "supportingFacts": [
+        "s3_f_btc_price",
+        "s3_f_eth_price",
+        "s1_f_btc_balance",
+        "s1_f_eth_balance"
+      ]
+    },
+    {
+      "assertions": [
+        "completeness",
+        "valuationAllocation"
+      ],
+      "conclusion": "One accrual; disclosure for the rest.",
+      "domain": "finance",
+      "id": "s4_c_contingency",
+      "judgments": [
+        "s4_j_incident_loss",
+        "s4_j_no_loss_held"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 450-20-25-2",
+        "ASC 450-20-30-1",
+        "ASC 450-20-50-3"
+      ],
+      "statement": "A 22,500 USD loss for the 10 ETH lost on 2026-06-12 is probable and estimable and is accrued; no loss is probable for the assets still held, whose risk is reasonably possible and disclosed.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_incident_report"
+      ],
+      "supportingFacts": [
+        "s4_f_incident_units",
+        "s3_f_eth_price"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "SAB 122 and ASC 450-20-50 disclosures; off-balance-sheet customer assets.",
+      "domain": "finance",
+      "id": "s5_c_disclosure",
+      "judgments": [
+        "s2_j_safeguarding_obligation"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "SEC SAB 122",
+        "ASC 450-20-50-1",
+        "ASC 450-20-50-3"
+      ],
+      "statement": "The nature and amount of custodied assets, the custody and sub-custody arrangements, the controls over keys, the incident and the accrued loss are disclosed; customer assets are not presented on DemoCo's balance sheet.",
+      "status": "supported"
+    }
+  ]
+}

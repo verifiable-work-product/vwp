@@ -1,0 +1,45 @@
+{
+  "id": "s4_accounting_schedule",
+  "type": "accountingSchedule",
+  "inputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "derivedFrom": [
+      "s2_balance_reconciliation"
+    ]
+  },
+  "outputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "endDate": "2026-06-30",
+    "entries": [
+      {
+        "date": "2026-06-30",
+        "description": "Exchange trading fee charged 2026-06-30, omitted from the ledger",
+        "id": "RI-2-2026-06-30",
+        "obligationId": "RI-2",
+        "postings": [
+          {
+            "accountRole": "exchange_fee_expense",
+            "debit": "350.00"
+          },
+          {
+            "accountRole": "exchange_cash",
+            "credit": "350.00"
+          }
+        ]
+      }
+    ],
+    "kind": "reconciling_adjustment",
+    "name": "DEMO-EX-01 reconciling adjustments, 2026-06-30",
+    "schemaVersion": 1,
+    "startDate": "2026-06-30",
+    "totalAmount": "350.00"
+  },
+  "dependsOn": [
+    "s2_balance_reconciliation"
+  ],
+  "method": "Executable entries derived from s2_balance_reconciliation; amounts at amountScale, balanced semantic account-role postings.",
+  "validator": "reconciliation.accountingSchedule.tieOut",
+  "recomputable": true
+}

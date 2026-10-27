@@ -1,0 +1,1 @@
+Wire WIRE-0630 sent 2026-06-30 18:02 UTC to DEMO-EX-01: 3,000.00 USD. Recorded in the ledger on 2026-07-01 (cutoff).

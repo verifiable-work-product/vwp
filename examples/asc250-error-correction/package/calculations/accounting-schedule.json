@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "name": "Restatement of accrued hosting fees as of 2026-01-01",
+  "kind": "error_correction",
+  "currency": "USD",
+  "amountScale": 2,
+  "startDate": "2026-01-01",
+  "endDate": "2026-01-01",
+  "totalAmount": "25000.00",
+  "entries": [
+    {
+      "id": "L1-2026-01-01",
+      "date": "2026-01-01",
+      "description": "Prior-period adjustment: accrue FY2024 and FY2025 hosting fees",
+      "obligationId": "L1",
+      "postings": [
+        {
+          "accountRole": "prior_period_adjustment",
+          "debit": "25000.00"
+        },
+        {
+          "accountRole": "accrued_liabilities",
+          "credit": "25000.00"
+        }
+      ]
+    }
+  ]
+}

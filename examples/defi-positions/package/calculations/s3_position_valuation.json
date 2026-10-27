@@ -1,0 +1,74 @@
+{
+  "id": "s3_position_valuation",
+  "type": "defiPositionValuation",
+  "inputs": {
+    "asOf": "2026-06-30",
+    "currency": "USD",
+    "positions": [
+      {
+        "components": [
+          {
+            "asset": "ETH",
+            "priceFact": "s3_f_price_eth",
+            "unitPrice": 2500,
+            "units": 250
+          },
+          {
+            "asset": "DUSD",
+            "priceFact": "s3_f_price_dusd",
+            "unitPrice": 1,
+            "units": 500000
+          }
+        ],
+        "id": "pos_lp_eth_dusd"
+      },
+      {
+        "components": [
+          {
+            "asset": "ETH",
+            "priceFact": "s3_f_price_eth",
+            "unitPrice": 2500,
+            "units": 100
+          }
+        ],
+        "id": "pos_lend_eth"
+      },
+      {
+        "components": [
+          {
+            "asset": "BTC",
+            "priceFact": "s3_f_price_btc",
+            "unitPrice": 65000,
+            "units": 10
+          }
+        ],
+        "id": "pos_wrapped_btc"
+      }
+    ]
+  },
+  "outputs": {
+    "positions": [
+      {
+        "fairValue": 1125000,
+        "id": "pos_lp_eth_dusd"
+      },
+      {
+        "fairValue": 250000,
+        "id": "pos_lend_eth"
+      },
+      {
+        "fairValue": 650000,
+        "id": "pos_wrapped_btc"
+      }
+    ],
+    "totalFairValue": 2025000
+  },
+  "dependsOn": [
+    "s3_f_price_btc",
+    "s3_f_price_dusd",
+    "s3_f_price_eth"
+  ],
+  "method": "Each position at the sum of its components x the period-end price its fact states; total is the sum of positions.",
+  "validator": "defi.valuation.recompute",
+  "recomputable": true
+}

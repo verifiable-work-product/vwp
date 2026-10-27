@@ -1,28 +1,118 @@
 {
   "claims": [
     {
-      "id": "cl_classification_operating",
-      "statement": "The lease is classified as an operating lease under ASC 842-10-25-2: no transfer of ownership, no purchase option reasonably certain of exercise, the 36-month term is not a major part of the asset's economic life, and the present value of payments is not substantially all of the asset's fair value.",
+      "assertions": [
+        "rightsAndObligations"
+      ],
+      "conclusion": "A lease under ASC 842-10-15-3 exists.",
       "domain": "finance",
-      "standardRefs": ["ASC 842-10-25-2"],
-      "assertions": ["presentationDisclosure", "rightsAndObligations"],
-      "supportingFacts": ["f_lease_terms"],
-      "supportingEvidence": ["ev_lease_abstract"],
-      "conclusion": "Operating lease classification (draft).",
-      "status": "proposed",
-      "requiresReview": true
+      "id": "s1_c_lease",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 842-10-15-3",
+        "ASC 842-10-15-9"
+      ],
+      "statement": "The agreement is a lease: it conveys the right to control the use of an identified office suite for 36 months in exchange for consideration.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_lease_agreement"
+      ],
+      "supportingFacts": [
+        "s1_f_term",
+        "s1_f_identified_asset"
+      ]
     },
     {
-      "id": "cl_initial_measurement",
-      "statement": "The initial lease liability is measured at the present value of 36 monthly payments of 10,000 USD discounted at 6.0% per annum (approximately 328,710 USD), and the ROU asset equals the initial liability with no incentives, prepaid rent, or initial direct costs in this stub.",
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "Operating lease.",
       "domain": "finance",
-      "standardRefs": ["ASC 842-20-30-1"],
-      "assertions": ["valuationAllocation"],
-      "supportingFacts": ["f_lease_terms", "f_discount_rate"],
-      "supportingCalculations": ["calc_lease_liability"],
-      "conclusion": "Initial measurement ties to the present value calculation, pending discount rate support.",
-      "status": "proposed",
-      "requiresReview": true
+      "id": "s2_c_classification",
+      "judgments": [
+        "s2_j_classification"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 842-10-25-2",
+        "ASC 842-10-25-3"
+      ],
+      "statement": "Lease OFF-001 is an operating lease: none of the ASC 842-10-25-2 criteria is met.",
+      "status": "supported",
+      "supportingFacts": [
+        "s1_f_term",
+        "s2_f_economic_life",
+        "s2_f_fair_value"
+      ]
+    },
+    {
+      "assertions": [
+        "accuracy",
+        "valuationAllocation"
+      ],
+      "conclusion": "Measurement inputs established.",
+      "domain": "finance",
+      "id": "s3_c_measurement_inputs",
+      "judgments": [
+        "s3_j_discount_rate"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 842-10-30-5",
+        "ASC 842-20-30-3"
+      ],
+      "statement": "The lease payments are 36 monthly payments of 10,000.00 USD in arrears and the discount rate is the 6.00% incremental borrowing rate.",
+      "status": "supported",
+      "supportingFacts": [
+        "s3_f_payments",
+        "s3_f_rate"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation",
+        "completeness"
+      ],
+      "conclusion": "Initial measurement and the period schedule recompute.",
+      "domain": "finance",
+      "id": "s4_c_schedules",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 842-20-30-1",
+        "ASC 842-20-30-5",
+        "ASC 842-20-25-6",
+        "ASC 842-20-35-3"
+      ],
+      "statement": "The lease liability at commencement is 328710.16 USD with an equal right-of-use asset; the liability roll-forward and the straight-line lease cost of 10,000.00 USD a month recompute period by period and the executable schedule books them.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s4_lease_schedule",
+        "s4_accounting_schedule"
+      ],
+      "supportingFacts": [
+        "s3_f_payments",
+        "s3_f_rate"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "Presentation and disclosure per ASC 842-20-45 and 50.",
+      "domain": "finance",
+      "id": "s5_c_presentation",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 842-20-45-1",
+        "ASC 842-20-45-4",
+        "ASC 842-20-50-4",
+        "ASC 842-20-50-6"
+      ],
+      "statement": "The operating lease right-of-use asset and lease liability are presented separately from finance leases, lease cost is a single operating line, and the maturity analysis and weighted-average term and rate are disclosed.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s4_lease_schedule"
+      ]
     }
   ]
 }

@@ -1,0 +1,5 @@
+DemoCo Mining Operations (excerpt)
+
+DemoCo operates its own ASIC fleet at the Demo Valley facility and mines solo: it submits its own block templates and the coinbase output of every block it finds pays to an address controlled by DemoCo treasury.
+No pool is used and no hash power is sold or hosted for third parties.
+Coinbase outputs are spendable after the protocol's 100-block maturity.

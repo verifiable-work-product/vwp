@@ -2,8 +2,10 @@
 // ASC 606, ASC 820 and digital-asset wallet ownership with the same
 // validator ids and semantics as the reference TypeScript CLI, plus the
 // Bitwave-authored ASC 350-60, ASC 350-30, staking rewards, lending, cost
-// basis and stablecoin extensions — and provides the batteries-included
-// Verify entry point.
+// basis, stablecoin and commissions extensions, the Tier 3 extensions
+// (period-end reconciliation, token issuance, DeFi positions, ASC 842,
+// ASC 830, ASC 250, ASC 450, ASC 740, mining revenue, custody and
+// safeguarding) — and provides the batteries-included Verify entry point.
 package validators
 
 import (
@@ -19,16 +21,26 @@ import (
 // `extension` identifier they apply to.
 func Registry() map[string]vwp.ExtensionValidator {
 	return map[string]vwp.ExtensionValidator{
-		vwp.ExtensionASC606:        ASC606,
-		vwp.ExtensionASC820:        ASC820,
-		vwp.ExtensionWalletControl: WalletOwnership,
-		vwp.ExtensionASC35060:      ASC35060,
-		vwp.ExtensionASC35030:      ASC35030,
-		vwp.ExtensionStakingReward: StakingRewards,
-		vwp.ExtensionLending:       Lending,
-		vwp.ExtensionCostBasis:     CostBasis,
-		vwp.ExtensionStablecoin:    Stablecoin,
-		vwp.ExtensionCommissions:   Commissions,
+		vwp.ExtensionASC606:              ASC606,
+		vwp.ExtensionASC820:              ASC820,
+		vwp.ExtensionWalletControl:       WalletOwnership,
+		vwp.ExtensionASC35060:            ASC35060,
+		vwp.ExtensionASC35030:            ASC35030,
+		vwp.ExtensionStakingReward:       StakingRewards,
+		vwp.ExtensionLending:             Lending,
+		vwp.ExtensionCostBasis:           CostBasis,
+		vwp.ExtensionStablecoin:          Stablecoin,
+		vwp.ExtensionCommissions:         Commissions,
+		vwp.ExtensionReconciliation:      Reconciliation,
+		vwp.ExtensionTokenIssuance:       TokenIssuance,
+		vwp.ExtensionDeFiPositions:       DeFiPositions,
+		vwp.ExtensionASC842:              ASC842,
+		vwp.ExtensionASC830:              ASC830,
+		vwp.ExtensionASC250:              ASC250,
+		vwp.ExtensionASC450:              ASC450,
+		vwp.ExtensionASC740:              ASC740,
+		vwp.ExtensionMiningRevenue:       MiningRevenue,
+		vwp.ExtensionCustodySafeguarding: CustodySafeguarding,
 	}
 }
 

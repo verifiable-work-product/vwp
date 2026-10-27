@@ -1,0 +1,24 @@
+{
+  "judgments": [
+    {
+      "alternatives": [
+        {
+          "conclusion": "Accrue the fee through accrued_exchange_fees",
+          "notes": "Rejected: the fee was already charged to the account balance, not accrued."
+        }
+      ],
+      "basis": "s2_f_trading_fee: the statement shows the fee charged on 2026-06-30; s2_f_deposit_in_transit: the wire was recorded one day late at cutoff. Omissions are booked; timing differences are carried as reconciling items only.",
+      "basisFacts": [
+        "s2_f_deposit_in_transit",
+        "s2_f_trading_fee"
+      ],
+      "id": "s4_j_fee_omission",
+      "proposedConclusion": "Yes. The fee was charged within the period and reduces the exchange cash balance; it is recorded as exchange fee expense against exchange cash as of 2026-06-30. The 3,000.00 deposit in transit is a timing difference that clears on 2026-07-01 and is not booked.",
+      "question": "Is the 350.00 USD trading fee an omission the ledger must record at 2026-06-30, and in which accounts?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "low",
+      "status": "reviewed",
+      "topic": "Booking the unrecorded exchange fee for scope DEMO-EX-01"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "judgments": [
+    {
+      "alternatives": [
+        {
+          "conclusion": "Retain a partial allowance",
+          "notes": "Rejected: the taxable temporary differences alone exceed the remaining deferred tax asset and reverse in the same periods."
+        }
+      ],
+      "basis": "ASC 740-10-30-5(e) and 30-17 (more-likely-than-not realizability; sources of taxable income including reversing taxable differences); ASC 740-10-30-18; basis difference schedule.",
+      "id": "s4_j_valuation_allowance",
+      "proposedConclusion": "No. The 20,000 USD allowance carried at 2025-12-31 against the loss carryforward is released: the carryforward was fully used against FY2026 taxable income, the remaining deferred tax asset (accrued compensation, 37,500 USD) reverses as the compensation is paid, and taxable temporary differences of 260,000 USD provide a source of future taxable income exceeding it. No allowance is required at 2026-12-31.",
+      "question": "Is it more likely than not that some portion of the deferred tax assets will not be realized at 2026-12-31?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Valuation allowance on deferred tax assets"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Recognize the full benefit",
+          "notes": "Rejected: the position's technical merits do not reach more likely than not."
+        }
+      ],
+      "basis": "ASC 740-10-25-6 (recognition threshold); ASC 740-10-30-7 (measurement at the largest amount more than 50% likely of being realized); ASC 740-10-45-11 (presented as a liability, not with taxes payable); basis difference schedule.",
+      "id": "s4_j_uncertain_positions",
+      "proposedConclusion": "One position (the deductibility of a cross-border service charge) does not meet the more-likely-than-not threshold on its technical merits; the full benefit of 25,000 USD at 2026-12-31 (15,000 USD at 2025-12-31) is unrecognized and carried as a liability, with the 10,000 USD increase in FY2026 tax expense. No interest or penalties accrue yet.",
+      "question": "Which tax positions taken in the return fail the more-likely-than-not recognition threshold, and what liability is measured for them?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Unrecognized tax benefits"
+    }
+  ]
+}

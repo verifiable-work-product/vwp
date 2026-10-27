@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "name": "Loss contingency accrual at 2026-06-30",
+  "kind": "contingency_accrual",
+  "currency": "USD",
+  "amountScale": 2,
+  "startDate": "2026-06-30",
+  "endDate": "2026-06-30",
+  "totalAmount": "400000.00",
+  "entries": [
+    {
+      "id": "c_supplier_litigation-2026-06-30",
+      "date": "2026-06-30",
+      "description": "Accrual of the probable supplier litigation loss at the low end of the 400,000 to 900,000 USD range",
+      "obligationId": "c_supplier_litigation",
+      "postings": [
+        {
+          "accountRole": "contingency_loss",
+          "debit": "400000.00"
+        },
+        {
+          "accountRole": "accrued_contingency_liability",
+          "credit": "400000.00"
+        }
+      ]
+    }
+  ]
+}

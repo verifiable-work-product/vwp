@@ -1,0 +1,42 @@
+{
+  "id": "s4_accounting_schedule",
+  "type": "accountingSchedule",
+  "inputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "derivedFrom": [
+      "custodied-assets register"
+    ]
+  },
+  "outputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "endDate": "2026-06-30",
+    "entries": [
+      {
+        "date": "2026-06-30",
+        "description": "Accrual for 10 ETH of customer assets lost in the 2026-06-12 incident, at 2,250.00",
+        "id": "h_eth_incident-2026-06-30",
+        "obligationId": "h_eth_incident",
+        "postings": [
+          {
+            "accountRole": "safeguarding_loss",
+            "debit": "22500.00"
+          },
+          {
+            "accountRole": "safeguarding_liability",
+            "credit": "22500.00"
+          }
+        ]
+      }
+    ],
+    "kind": "safeguarding_liability",
+    "name": "Safeguarding loss accrual at 2026-06-30",
+    "schemaVersion": 1,
+    "startDate": "2026-06-30",
+    "totalAmount": "22500.00"
+  },
+  "method": "Executable entries derived from custodied-assets register; amounts at amountScale, balanced semantic account-role postings.",
+  "validator": "custody.accountingSchedule.tieOut",
+  "recomputable": true
+}

@@ -8,7 +8,7 @@
   "properties": {
     "schemaVersion": {"const": 1},
     "name": {"type": "string", "minLength": 1, "maxLength": 240},
-    "kind": {"enum": ["revenue_recognition", "depreciation", "fair_value_remeasurement", "impairment", "staking_rewards", "interest_accrual", "realized_gain_loss", "commission_accrual"]},
+    "kind": {"enum": ["revenue_recognition", "depreciation", "fair_value_remeasurement", "impairment", "staking_rewards", "interest_accrual", "realized_gain_loss", "commission_accrual", "reconciling_adjustment", "token_issuance", "lease_cost", "fx_remeasurement", "error_correction", "contingency_accrual", "income_tax_provision", "mining_revenue", "safeguarding_liability"]},
     "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
     "amountScale": {"type": "integer", "minimum": 0, "maximum": 8},
     "startDate": {"type": "string", "format": "date"},

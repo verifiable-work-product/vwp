@@ -1,0 +1,3 @@
+WrapBridge (excerpt)
+
+WBTC-D is minted 1:1 against BTC held by the bridge custodian. Any holder may redeem WBTC-D for BTC with the custodian.

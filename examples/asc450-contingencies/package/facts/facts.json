@@ -1,0 +1,96 @@
+{
+  "facts": [
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "We estimate the loss, inclusive of costs, at between 400,000.00 and 900,000.00 USD; no amount within that range is a better estimate than any other at this stage."
+            }
+          ],
+          "evidenceId": "ev_legal_letter"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "estimate",
+      "id": "s1_f_litigation_range",
+      "requiresReview": false,
+      "statement": "Counsel assesses an unfavorable outcome in the supplier litigation as probable, with a loss of 400,000 to 900,000 USD and no better estimate within the range.",
+      "value": {
+        "currency": "USD",
+        "high": 900000,
+        "low": 400000
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "A penalty, if any, would fall between 50,000.00 and 250,000.00 USD."
+            }
+          ],
+          "evidenceId": "ev_legal_letter"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "estimate",
+      "id": "s1_f_regulatory_range",
+      "requiresReview": false,
+      "statement": "Counsel assesses an adverse regulatory finding as reasonably possible, with a penalty of 50,000 to 250,000 USD.",
+      "value": {
+        "currency": "USD",
+        "high": 250000,
+        "low": 50000
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "The facility is undrawn as of 2026-06-30 and the affiliate is current on all covenants."
+            }
+          ],
+          "evidenceId": "ev_guarantee"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_guarantee_terms",
+      "requiresReview": false,
+      "statement": "DemoCo guarantees its affiliate's 1,000,000 USD revolving facility, undrawn at 2026-06-30 with covenants met.",
+      "value": {
+        "currency": "USD",
+        "drawn": 0,
+        "maximumExposure": 1000000
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "minimum closing cash over the twelve months: 2820000.00"
+            }
+          ],
+          "evidenceId": "ev_cash_forecast"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s4_f_minimum_cash",
+      "requiresReview": false,
+      "statement": "The approved twelve-month cash forecast shows a minimum closing cash balance of 2,820,000 USD.",
+      "value": {
+        "amount": 2820000,
+        "currency": "USD",
+        "date": "2027-06-30"
+      }
+    }
+  ]
+}

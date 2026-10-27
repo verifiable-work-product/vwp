@@ -1,0 +1,28 @@
+{
+  "evidence": [
+    {
+      "id": "ev_legal_letter",
+      "path": "evidence/legal-letter-2026-06-30.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Outside counsel's litigation letter as of 2026-06-30 (synthetic)",
+      "type": "legalLetter"
+    },
+    {
+      "id": "ev_guarantee",
+      "path": "evidence/affiliate-guarantee-excerpt.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Guarantee of affiliate credit facility (excerpt) (synthetic)",
+      "type": "contractDocument"
+    },
+    {
+      "id": "ev_cash_forecast",
+      "path": "evidence/cash-forecast-2026-07.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Twelve-month cash forecast approved 2026-07-10 (synthetic)",
+      "type": "managementReport"
+    }
+  ]
+}

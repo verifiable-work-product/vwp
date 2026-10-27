@@ -1,0 +1,125 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_custody_safeguarding",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-custody-safeguarding",
+  "title": "Crypto Custody and Safeguarding - DemoCo Custodied Assets at 2026-06-30",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "2228f105ae2fbca2629c9b9f9578a47521165fe10878f9d3d16b9fc5a73eee8d",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "f16acaa6ac9677308cd8ebfe26325a0a24ce49cfd4c4a9446ce67b58cf111166",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/custody-agreement-excerpt.txt",
+      "mediaType": "text/plain",
+      "sha256": "15db146ffae128dab5b2593a2cd25020569ec6fbd5680b913efadb6f9966daee",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "0e46187c89e8a3588ff86636417fdee2ff38c3775c5e59909897934ac1db4613",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/btc-omnibus-proof.txt",
+      "mediaType": "text/plain",
+      "sha256": "3b8c2e6bd175768dbcbd66e57c7de279c6394bf4b4ad1d2ce05ab720c206407a",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/subcustodian-statement.txt",
+      "mediaType": "text/plain",
+      "sha256": "b0b4ba075eb22df327a229df353311e6aa99cc01c4aa5f8026573ed6b34dde3e",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/incident-report.txt",
+      "mediaType": "text/plain",
+      "sha256": "52bca459b8d4f9c1260c74177cd7bdd6bd68553cd45d5d17aaadda080c15a8ba",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/period-end-prices.csv",
+      "mediaType": "text/csv",
+      "sha256": "0a9b68dcaaeecda33d98123155a44c5036793729abed7817dd92001a90030472",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "9461e425750db6386eb50199f2a84cf9f345e98264984c2799f9ed3dfbedb8d0",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "1f6ec43d2cc67df826b5fce7caf526df1bf0dc1868e169a14aceb6bd28cb52eb",
+      "role": "judgments"
+    },
+    {
+      "path": "facts/custodied-assets.json",
+      "mediaType": "application/json",
+      "sha256": "687bd3f0261291da4408f214f98f490c2642176c8db3325cdc731bf9311b7d14",
+      "role": "facts"
+    },
+    {
+      "path": "calculations/accounting-schedule-calculation.json",
+      "mediaType": "application/json",
+      "sha256": "d88ecd2e1f9083bb3e8407a5304b8893c37deeac9ceb3533485f5adb4d5075a1",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "sha256": "1f45736e28175f50cd5d223aec68b0ddd1d128cd3214e692bc79fc1964790143",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "ef0804d886bbdbb2eeeb811e61deecfe99856889e9fbd694357625fc224f45a0",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "3281cf9ecd6dcd07d4a8ace31f374859ad372bcd4c1dda41223143007ec9822c",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "59452c555f0fa3df755b8730fa748548ee1c5938dee0997318b6d3f897f7643d",
+    "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "801e18e9c7db6efa0f854d96a7f8aa55063ebf5b7b4be368894920ca2c4c950e",
+    "contentRoot": "c47b2033592462c2c77da05e609ac345560b74974e3c004a97ce26ada44b18ea",
+    "reviewRoot": "d1080f1ec266237e1f3b9f26145113565e1b537acde2e497c770ecfdb1c49a57",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "d20f7edd36a51feedd0beec9c8fb4ba44714efb1c4604fbbfa0b35ec2e4a0b10",
+      "claim": "0fcccb051499a1f77afb530cd170e2a6e293e7e5792f86de5ea68c27a305eead",
+      "evidence": "f857018ed49dcd4b12d8502bd47e35faf71293afd9dac199db3242d9514cf4b2",
+      "fact": "e11e13f929365f836e232c780805f28b1d19c53c64467ca09d0d131c1a1a653e",
+      "judgment": "f096f0223b8e431aa0128ccfe7241984376183507aa43736173e9be938594812",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
+  }
+}

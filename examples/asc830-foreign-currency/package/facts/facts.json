@@ -1,0 +1,138 @@
+{
+  "facts": [
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "sales are priced and settled in US dollars, its financing is raised in US dollars, its payroll and most operating costs are paid in US dollars"
+            }
+          ],
+          "evidenceId": "ev_functional_currency_memo"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_functional_indicators",
+      "requiresReview": false,
+      "statement": "DemoCo prices and settles sales, raises financing and pays most costs in US dollars.",
+      "value": "USD cash flow, sales price, financing and expense indicators"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Cash - EUR account: EUR 100,000.00, carried at USD 108,000.00"
+            }
+          ],
+          "evidenceId": "ev_fx_balances"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s2_f_cash_eur",
+      "requiresReview": false,
+      "statement": "The EUR cash balance is EUR 100,000.00, carried at USD 108,000.00.",
+      "value": {
+        "carryingAmount": 108000,
+        "currency": "EUR",
+        "foreignAmount": 100000
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Trade payables - GBP: GBP 50,000.00, carried at USD 63,000.00"
+            }
+          ],
+          "evidenceId": "ev_fx_balances"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s2_f_ap_gbp",
+      "requiresReview": false,
+      "statement": "The GBP trade payable is GBP 50,000.00, carried at USD 63,000.00.",
+      "value": {
+        "carryingAmount": 63000,
+        "currency": "GBP",
+        "foreignAmount": 50000
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Prepaid conference fees - EUR: EUR 20,000.00, carried at USD 21,600.00 (historical rate 1.0800)"
+            }
+          ],
+          "evidenceId": "ev_fx_balances"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s2_f_prepaid_eur",
+      "requiresReview": false,
+      "statement": "The EUR prepayment is EUR 20,000.00, carried at USD 21,600.00 at its historical rate.",
+      "value": {
+        "carryingAmount": 21600,
+        "currency": "EUR",
+        "foreignAmount": 20000
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "EUR/USD,1.1000,demo-rate-service,2026-06-30"
+            }
+          ],
+          "evidenceId": "ev_fx_rates"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "rate",
+      "id": "s3_f_eur_rate",
+      "requiresReview": false,
+      "statement": "EUR/USD closed at 1.1000 on 2026-06-30.",
+      "value": {
+        "date": "2026-06-30",
+        "pair": "EUR/USD",
+        "rate": 1.1
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "GBP/USD,1.2800,demo-rate-service,2026-06-30"
+            }
+          ],
+          "evidenceId": "ev_fx_rates"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "rate",
+      "id": "s3_f_gbp_rate",
+      "requiresReview": false,
+      "statement": "GBP/USD closed at 1.2800 on 2026-06-30.",
+      "value": {
+        "date": "2026-06-30",
+        "pair": "GBP/USD",
+        "rate": 1.28
+      }
+    }
+  ]
+}

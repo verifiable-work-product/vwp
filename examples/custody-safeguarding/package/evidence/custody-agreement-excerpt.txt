@@ -1,0 +1,6 @@
+DemoCo Custody Services Agreement (excerpt)
+
+2.1 DemoCo holds Customer Digital Assets in segregated omnibus wallets whose private keys are generated and stored in DemoCo-controlled hardware security modules.
+2.2 ETH balances may be held with a qualified sub-custodian under DemoCo's instruction; DemoCo remains obligated to the Customer for their return.
+3.1 DemoCo shall return Customer Digital Assets, or their value, on the Customer's instruction.
+7.2 DemoCo is liable to make Customers whole for Customer Digital Assets lost through a failure of DemoCo's controls.

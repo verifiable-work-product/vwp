@@ -1,0 +1,127 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "completeness",
+        "rightsAndObligations"
+      ],
+      "conclusion": "Instrument population and terms established from the agreements and bank statement.",
+      "domain": "finance",
+      "id": "s1_c_instruments",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 480-10-25",
+        "ASC 606-10-25-1"
+      ],
+      "statement": "DemoCo issued DEMO through a SAFT (1,000,000 USD received 2026-04-15), a public sale (500,000 USD received 2026-06-01), a treasury allocation and an airdrop, none of which conveys equity rights.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_saft",
+        "ev_public_sale_terms",
+        "ev_bank_statement",
+        "ev_token_ledger"
+      ],
+      "supportingFacts": [
+        "s1_f_saft_proceeds",
+        "s1_f_saft_terms",
+        "s1_f_public_proceeds",
+        "s1_f_public_utility",
+        "s1_f_allocations"
+      ]
+    },
+    {
+      "assertions": [
+        "presentationDisclosure",
+        "rightsAndObligations"
+      ],
+      "conclusion": "Each instrument classified by a judgment recorded in the register.",
+      "domain": "finance",
+      "id": "s2_c_classification",
+      "judgments": [
+        "s2_j_saft_classification",
+        "s2_j_public_classification",
+        "s2_j_treasury",
+        "s2_j_airdrop"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 480-10-25-4",
+        "ASC 815-10-15-83",
+        "ASC 606-10-45-2",
+        "ASC 350-60-15-1"
+      ],
+      "statement": "The SAFT obligation is a liability, the public sale proceeds are a contract liability, and the treasury allocation and airdrop recognize nothing.",
+      "status": "supported",
+      "supportingFacts": [
+        "s1_f_saft_terms",
+        "s1_f_public_utility"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation",
+        "completeness"
+      ],
+      "conclusion": "Allocation recomputes and ties to the register.",
+      "domain": "finance",
+      "id": "s3_c_allocation",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 606-10-45-2",
+        "ASC 405-20-40-1"
+      ],
+      "statement": "Of 1,500,000 USD received, 1,000,000 USD is a token liability and 500,000 USD deferred revenue; the executable schedule books each on its receipt date.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_proceeds_allocation",
+        "s3_accounting_schedule"
+      ],
+      "supportingFacts": [
+        "s1_f_saft_proceeds",
+        "s1_f_public_proceeds"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation"
+      ],
+      "conclusion": "Subsequent measurement and derecognition concluded.",
+      "domain": "finance",
+      "id": "s4_c_subsequent",
+      "judgments": [
+        "s4_j_saft_remeasurement",
+        "s2_j_public_classification"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 405-20-40-1",
+        "ASC 606-10-55-46",
+        "ASC 815-10-15-83"
+      ],
+      "statement": "The SAFT liability is carried at proceeds until delivery and reassessed for derivative treatment at each reporting date; the contract liability is recognized as revenue as compute units are consumed or expire.",
+      "status": "supported"
+    },
+    {
+      "assertions": [
+        "presentationDisclosure"
+      ],
+      "conclusion": "Presentation and disclosure per ASC 606-10-50 and ASC 350-60-50.",
+      "domain": "finance",
+      "id": "s5_c_disclosure",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 606-10-50-8",
+        "ASC 350-60-50-1",
+        "ASC 275-10-50"
+      ],
+      "statement": "The token liability, the contract liability, the tokens outstanding by instrument and the treasury and airdrop allocations are disclosed.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s3_proceeds_allocation"
+      ],
+      "supportingFacts": [
+        "s1_f_allocations"
+      ]
+    }
+  ]
+}

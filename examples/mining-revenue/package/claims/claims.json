@@ -1,0 +1,112 @@
+{
+  "claims": [
+    {
+      "assertions": [
+        "rightsAndObligations"
+      ],
+      "conclusion": "Arrangement facts established.",
+      "domain": "finance",
+      "id": "s1_c_arrangement",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 606-10-55-36"
+      ],
+      "statement": "DemoCo mines solo with its own fleet, receives every coinbase output to an address it controls, and uses no pool and sells no hash power.",
+      "status": "supported",
+      "supportingEvidence": [
+        "ev_mining_ops"
+      ],
+      "supportingFacts": [
+        "s1_f_solo",
+        "s1_f_no_pool"
+      ]
+    },
+    {
+      "assertions": [
+        "occurrence",
+        "presentationDisclosure"
+      ],
+      "conclusion": "Principal; ASC 606 by analogy; mining revenue caption.",
+      "domain": "finance",
+      "id": "s2_c_principal",
+      "judgments": [
+        "s2_j_principal"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 606-10-55-36",
+        "ASC 606-10-15-3"
+      ],
+      "statement": "DemoCo is the principal for the mining service; with no customer identified, ASC 606 is applied by analogy and block rewards are presented as mining revenue.",
+      "status": "supported",
+      "supportingFacts": [
+        "s1_f_solo"
+      ]
+    },
+    {
+      "assertions": [
+        "occurrence"
+      ],
+      "conclusion": "Recognize on block acceptance; recognition-date price.",
+      "domain": "finance",
+      "id": "s3_c_timing",
+      "judgments": [
+        "s3_j_timing"
+      ],
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 606-10-25-30",
+        "ASC 606-10-32-21"
+      ],
+      "statement": "Block rewards are recognized on the date the block is accepted and its coinbase output pays to the DemoCo-controlled address, measured at that date's price; the 100-block maturity is a spending restriction, not a recognition criterion.",
+      "status": "supported",
+      "supportingFacts": [
+        "s3_f_maturity"
+      ]
+    },
+    {
+      "assertions": [
+        "completeness",
+        "valuationAllocation"
+      ],
+      "conclusion": "Schedule recomputes and ties to chain.",
+      "domain": "finance",
+      "id": "s4_c_measurement",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 606-10-32-21",
+        "ASC 350-30-30-1"
+      ],
+      "statement": "April 2026 block rewards of 9.545 BTC (subsidy 9.375 plus fees 0.17) are measured at recognition-date fair value totalling 677,725 USD and tie to the node export.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s4_mining_schedule"
+      ],
+      "supportingFacts": [
+        "s4_f_chain_total",
+        "s4_f_price_0405",
+        "s4_f_price_0418",
+        "s4_f_price_0429"
+      ]
+    },
+    {
+      "assertions": [
+        "valuationAllocation",
+        "presentationDisclosure"
+      ],
+      "conclusion": "Subsequent accounting under ASC 350-60; separate revenue caption.",
+      "domain": "finance",
+      "id": "s5_c_subsequent",
+      "requiresReview": false,
+      "standardRefs": [
+        "ASC 350-60-35-1",
+        "ASC 350-60-45-1"
+      ],
+      "statement": "Mined BTC is an in-scope crypto asset subsequently measured at fair value under ASC 350-60 with remeasurement in net income; mining revenue is presented in its own caption with the fleet's energy and depreciation as cost of revenue.",
+      "status": "supported",
+      "supportingCalculations": [
+        "s4_mining_schedule"
+      ]
+    }
+  ]
+}

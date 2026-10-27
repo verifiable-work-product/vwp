@@ -1,0 +1,49 @@
+{
+  "id": "s2_balance_reconciliation",
+  "type": "balanceReconciliation",
+  "inputs": {
+    "asOf": "2026-06-30",
+    "currency": "USD",
+    "items": [
+      {
+        "amount": 3000,
+        "bookable": false,
+        "category": "inTransit",
+        "description": "Wire deposit in transit at cutoff, recorded in the ledger 2026-07-01",
+        "id": "RI-1",
+        "status": "explained",
+        "supportRef": "s2_f_deposit_in_transit"
+      },
+      {
+        "amount": -350,
+        "bookable": true,
+        "category": "omission",
+        "creditRole": "exchange_cash",
+        "debitRole": "exchange_fee_expense",
+        "description": "Trading fee charged by the exchange on 2026-06-30, not recorded in the ledger",
+        "id": "RI-2",
+        "status": "explained",
+        "supportRef": "s2_f_trading_fee"
+      }
+    ],
+    "ledgerBalance": 1247350,
+    "ledgerFact": "s1_f_ledger_balance",
+    "scope": "DEMO-EX-01",
+    "sourceBalance": 1250000,
+    "sourceFact": "s1_f_source_balance"
+  },
+  "outputs": {
+    "difference": 2650,
+    "explained": 2650,
+    "unexplained": 0
+  },
+  "dependsOn": [
+    "s1_f_ledger_balance",
+    "s1_f_source_balance",
+    "s2_f_deposit_in_transit",
+    "s2_f_trading_fee"
+  ],
+  "method": "difference = sourceBalance - ledgerBalance; explained = sum of explained items (signed source minus ledger); unexplained = difference - explained. Deposit in transit +3,000.00 (ledger lags), trading fee -350.00 (ledger overstated).",
+  "validator": "reconciliation.balance.recompute",
+  "recomputable": true
+}

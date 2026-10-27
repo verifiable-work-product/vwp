@@ -110,13 +110,31 @@ const (
 	KindRealizedGainLoss       = "realized_gain_loss"
 	// KindCommissionAccrual books a commission earned in a period: expense
 	// against a liability to the payee, valued in the schedule currency.
-	KindCommissionAccrual = "commission_accrual"
+	KindCommissionAccrual     = "commission_accrual"
+	KindReconcilingAdjustment = "reconciling_adjustment"
+	KindTokenIssuance         = "token_issuance"
+	KindLeaseCost             = "lease_cost"
+	KindFXRemeasurement       = "fx_remeasurement"
+	KindErrorCorrection       = "error_correction"
+	KindContingencyAccrual    = "contingency_accrual"
+	KindIncomeTaxProvision    = "income_tax_provision"
+	KindMiningRevenue         = "mining_revenue"
+	KindSafeguardingLiability = "safeguarding_liability"
 )
 
 var kinds = map[string]bool{
 	KindRevenueRecognition: true, KindDepreciation: true, KindFairValueRemeasurement: true,
 	KindImpairment: true, KindStakingRewards: true, KindInterestAccrual: true, KindRealizedGainLoss: true,
-	KindCommissionAccrual: true,
+	KindCommissionAccrual:     true,
+	KindReconcilingAdjustment: true,
+	KindTokenIssuance:         true,
+	KindLeaseCost:             true,
+	KindFXRemeasurement:       true,
+	KindErrorCorrection:       true,
+	KindContingencyAccrual:    true,
+	KindIncomeTaxProvision:    true,
+	KindMiningRevenue:         true,
+	KindSafeguardingLiability: true,
 }
 
 // Kinds lists the accepted schedule kinds in a stable order.

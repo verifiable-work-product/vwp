@@ -1,0 +1,29 @@
+{
+  "id": "wp_demo_defi_positions",
+  "title": "DeFi Positions - DemoCo at 2026-06-30",
+  "domain": "accounting.defiPositions",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-defi-positions",
+  "standardRefs": [
+    "ASC 860-10-40-5",
+    "ASC 350-60-15-1",
+    "ASC 350-30-35-18",
+    "ASC 820-10-35-1"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2026-06-30",
+    "start": "2026-04-01"
+  },
+  "conclusionSummary": "The DemoSwap LP position is a new asset (the LP token) recognized on contribution: control of the ETH and DUSD passed to the pool, so they were derecognized; it is valued through its pro-rata underlyings at 1,125,000 USD. The DemoLend deposit of 100 ETH was derecognized for a receipt token conveying a right to equivalent ETH, a financial-asset-like claim measured at the ETH fair value of 250,000 USD. The wrapped BTC conveys a redemption right to BTC, failing ASC 350-60-15-1(b); it is an indefinite-lived intangible under ASC 350-30 valued for disclosure at 650,000 USD.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

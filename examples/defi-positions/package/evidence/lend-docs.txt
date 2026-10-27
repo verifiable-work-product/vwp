@@ -1,0 +1,3 @@
+DemoLend (excerpt)
+
+Depositors receive dETH 1:1 for ETH deposited. Deposited ETH is lent to borrowers; the depositor may withdraw an equivalent amount of ETH plus accrued interest at any time, subject to pool liquidity.

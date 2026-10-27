@@ -1,0 +1,20 @@
+{
+  "evidence": [
+    {
+      "id": "ev_hosting_invoices",
+      "path": "evidence/hosting-invoices.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Hosting vendor invoices for December 2024 and December 2025, received after year end (synthetic)",
+      "type": "vendorInvoices"
+    },
+    {
+      "id": "ev_trial_balances",
+      "path": "evidence/trial-balances.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Accrued liabilities and pretax income as reported, FY2024 and FY2025 (synthetic)",
+      "type": "subledgerExtract"
+    }
+  ]
+}

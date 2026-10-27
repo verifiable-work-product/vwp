@@ -1,0 +1,192 @@
+{
+  "facts": [
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "private keys are generated and stored in DemoCo-controlled hardware security modules."
+            }
+          ],
+          "evidenceId": "ev_custody_terms"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_keys",
+      "requiresReview": false,
+      "statement": "DemoCo generates and stores the private keys for customer omnibus wallets in its own HSMs.",
+      "value": "entity-controlled keys"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "DemoCo remains obligated to the Customer for their return."
+            }
+          ],
+          "evidenceId": "ev_custody_terms"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s1_f_subcustody",
+      "requiresReview": false,
+      "statement": "ETH may be held with a qualified sub-custodian under DemoCo's instruction; DemoCo remains obligated for its return.",
+      "value": "sub-custody with retained obligation"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "3.1 DemoCo shall return Customer Digital Assets, or their value, on the Customer's instruction."
+            }
+          ],
+          "evidenceId": "ev_custody_terms"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s2_f_return_obligation",
+      "requiresReview": false,
+      "statement": "DemoCo must return customer digital assets, or their value, on instruction.",
+      "value": "obligation to return"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "7.2 DemoCo is liable to make Customers whole for Customer Digital Assets lost through a failure of DemoCo's controls."
+            }
+          ],
+          "evidenceId": "ev_custody_terms"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "term",
+      "id": "s2_f_make_whole",
+      "requiresReview": false,
+      "statement": "DemoCo is liable to make customers whole for assets lost through a failure of its controls.",
+      "value": "make-whole liability"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "Balance at 2026-06-30: 100.00000000 BTC"
+            }
+          ],
+          "evidenceId": "ev_signed_message"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "quantity",
+      "id": "s1_f_btc_balance",
+      "requiresReview": false,
+      "statement": "The BTC omnibus wallet held 100 BTC at 2026-06-30 under a verified signed-message proof of control.",
+      "value": {
+        "asOf": "2026-06-30",
+        "units": 100
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "ETH balance: 2,000.00000000"
+            }
+          ],
+          "evidenceId": "ev_subcustodian_statement"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "quantity",
+      "id": "s1_f_eth_balance",
+      "requiresReview": false,
+      "statement": "The sub-custodian held 2,000 ETH for DemoCo customers at 2026-06-30.",
+      "value": {
+        "asOf": "2026-06-30",
+        "units": 2000
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "10.00000000 ETH of customer assets were transferred out"
+            }
+          ],
+          "evidenceId": "ev_incident_report"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "quantity",
+      "id": "s4_f_incident_units",
+      "requiresReview": false,
+      "statement": "10 ETH of customer assets were withdrawn without authorization on 2026-06-12 and are unrecoverable.",
+      "value": {
+        "date": "2026-06-12",
+        "units": 10
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "BTC,65000.00,demo-exchange,2026-06-30"
+            }
+          ],
+          "evidenceId": "ev_period_end_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "price",
+      "id": "s3_f_btc_price",
+      "requiresReview": false,
+      "statement": "BTC closed at 65,000.00 USD on 2026-06-30.",
+      "value": {
+        "currency": "USD",
+        "date": "2026-06-30",
+        "price": 65000
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "ETH,2250.00,demo-exchange,2026-06-30"
+            }
+          ],
+          "evidenceId": "ev_period_end_prices"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "price",
+      "id": "s3_f_eth_price",
+      "requiresReview": false,
+      "statement": "ETH closed at 2,250.00 USD on 2026-06-30.",
+      "value": {
+        "currency": "USD",
+        "date": "2026-06-30",
+        "price": 2250
+      }
+    }
+  ]
+}

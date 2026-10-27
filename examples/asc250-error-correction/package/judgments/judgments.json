@@ -1,0 +1,41 @@
+{
+  "judgments": [
+    {
+      "alternatives": [
+        {
+          "conclusion": "Immaterial under rollover; correct out of period in FY2026",
+          "notes": "Rejected: SAB 108 requires both methods; the iron-curtain result is material."
+        }
+      ],
+      "basis": "s1_f_fy2024_omission and s1_f_fy2025_omission quantify the error; s3_f_pretax_income_fy2025 is the basis. SAB 99 qualitative factors considered: trend masking, no effect on covenants, no management compensation effect, not intentional.",
+      "basisFacts": [
+        "s1_f_fy2024_omission",
+        "s1_f_fy2025_omission",
+        "s3_f_pretax_income_fy2025"
+      ],
+      "id": "s3_j_materiality",
+      "proposedConclusion": "Yes. The iron-curtain quantification exceeds the 5% threshold, the error affected two consecutive years, and it masks a change in the expense trend; no qualitative factor reduces its significance. The error is material and the prior periods are restated.",
+      "question": "Is the cumulative 25,000.00 USD understatement of accrued liabilities, 6.25% of FY2025 pretax income under the iron-curtain method and 3.75% at most under rollover, material?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Materiality of the unaccrued hosting fees (SAB 99 / SAB 108)"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Out-of-period correction in FY2026",
+          "notes": "Rejected: only available when the error is immaterial to every period affected and to the current period."
+        }
+      ],
+      "basis": "ASC 250-10-45-23 to 45-24 require a material error in previously issued statements to be corrected by restatement; s3_j_materiality concludes the error is material.",
+      "id": "s4_j_method",
+      "proposedConclusion": "Restatement: the FY2024 and FY2025 financial statements are restated, the opening balance of accrued liabilities and retained earnings at 2026-01-01 is corrected through a prior-period adjustment, and the restatement is disclosed.",
+      "question": "Is the error corrected by restating the prior periods (ASC 250-10-45-23) or as an out-of-period adjustment in FY2026?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Correction method"
+    }
+  ]
+}

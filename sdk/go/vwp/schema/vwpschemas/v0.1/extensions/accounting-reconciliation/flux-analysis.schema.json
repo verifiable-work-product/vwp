@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/accounting-reconciliation/flux-analysis.schema.json",
+  "title": "Flux Analysis",
+  "description": "Extension schema for the vwp-accounting-reconciliation extension. Constrains a core calculation object of type 'fluxAnalysis': account balances at two period ends, the variance and variance percentage per account, and the thresholds above which a variance must be explained by a claim in the package. Located by type under calculations/; one calculation per pair of period ends.",
+  "type": "object",
+  "required": ["id", "type", "inputs", "outputs"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "type": { "const": "fluxAnalysis" },
+    "inputs": {
+      "type": "object",
+      "required": ["currency", "priorPeriodEnd", "currentPeriodEnd", "thresholdAmount", "thresholdPct", "lines"],
+      "properties": {
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "priorPeriodEnd": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "currentPeriodEnd": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "thresholdAmount": { "type": "number", "minimum": 0, "description": "A variance whose absolute amount exceeds this must be explained." },
+        "thresholdPct": { "type": "number", "minimum": 0, "description": "A variance whose absolute percentage of the prior balance exceeds this (decimal share, 0.10 = 10%) must be explained." },
+        "lines": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["account", "prior", "current"],
+            "properties": {
+              "account": { "type": "string", "minLength": 1 },
+              "prior": { "type": "number" },
+              "current": { "type": "number" },
+              "explanationClaim": { "type": "string", "description": "The id of the claim in the package that explains the variance; required when the variance exceeds either threshold." }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "required": ["rows", "totalPrior", "totalCurrent"],
+      "properties": {
+        "rows": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["account", "variance"],
+            "properties": {
+              "account": { "type": "string", "minLength": 1 },
+              "variance": { "type": "number", "description": "current - prior." },
+              "variancePct": { "type": ["number", "null"], "description": "variance / |prior| as a decimal share; null when prior is zero." }
+            },
+            "additionalProperties": true
+          }
+        },
+        "totalPrior": { "type": "number" },
+        "totalCurrent": { "type": "number" }
+      },
+      "additionalProperties": true
+    },
+    "roundingTolerance": { "type": "number", "minimum": 0 },
+    "method": { "type": "string" },
+    "validator": { "type": "string" },
+    "recomputable": { "type": "boolean" }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,85 @@
+{
+  "judgments": [
+    {
+      "alternatives": [
+        {
+          "conclusion": "Retain the ETH and DUSD on balance sheet as if lent",
+          "notes": "Rejected: the right to a pro-rata share of changing reserves is not a right to the units transferred; the exposure is to the pool, not the deposited assets."
+        }
+      ],
+      "basis": "ASC 860-10-40-5 by analogy; ASC 610-20-40-1; ASC 350-60-15-1(b); ASC 350-30-35-18; AICPA Digital Assets Practice Aid, liquidity pool contributions and wrapped tokens; s2_f_pool_terms; s1_f_lp_position.",
+      "basisFacts": [
+        "s1_f_lp_position",
+        "s2_f_pool_terms"
+      ],
+      "id": "s2_j_lp_treatment",
+      "proposedConclusion": "Control passed: the pool commingles the assets, swaps them with any user, and returns only a pro-rata share of whatever reserves exist on redemption, never the units deposited — the transferee may pledge or exchange them freely and DemoCo has no right to specific units (ASC 860-10-40-5(b) and (c) by analogy, as the AICPA Digital Assets Practice Aid applies to crypto intangibles). The ETH and DUSD are derecognized and the DSLP token is recognized as a new asset at the fair value of the assets given up. The unit of account is the underlyings for valuation (the token has no market of its own); subsequent measurement follows ASC 350-30 as an indefinite-lived intangible because the LP token conveys an enforceable right to pool reserves and so fails ASC 350-60-15-1(b).",
+      "question": "On contributing ETH and DUSD to the DemoSwap pool, did DemoCo surrender control of them, and what asset does it hold?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Unit of account and derecognition of the liquidity pool contribution"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Keep the ETH on balance sheet as a secured deposit",
+          "notes": "Rejected: no right to the specific units and unrestricted use by the protocol."
+        }
+      ],
+      "basis": "ASC 860-10-40-5 by analogy; AICPA Digital Assets Practice Aid, crypto lending; ASC 326-20-30-2; s2_f_lend_terms; s1_f_lend_position.",
+      "basisFacts": [
+        "s1_f_lend_position",
+        "s2_f_lend_terms"
+      ],
+      "id": "s2_j_lend_treatment",
+      "proposedConclusion": "Control passed: the protocol lends the ETH to third parties and DemoCo's claim is to an equivalent amount of ETH plus interest, not the units deposited (ASC 860-10-40-5 by analogy, consistent with the SEC staff and AICPA Practice Aid view on lent crypto). The ETH is derecognized; DemoCo recognizes the receipt token as a claim on the protocol for 100 ETH, measured at the fair value of the ETH owed with changes in income and assessed for credit and protocol risk under ASC 326 by analogy. The unit of account is the underlying ETH owed.",
+      "question": "On depositing 100 ETH with DemoLend for dETH, did DemoCo surrender control of the ETH, and what does it hold?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Unit of account and derecognition of the lending deposit"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Look through to the BTC and apply ASC 350-60",
+          "notes": "Rejected: the entity holds a claim on the custodian, not BTC; the Practice Aid does not permit look-through."
+        }
+      ],
+      "basis": "ASC 350-60-15-1(b); ASC 350-30-35-18; AICPA Digital Assets Practice Aid, wrapped tokens; s2_f_wrap_terms; s1_f_wrap_position.",
+      "basisFacts": [
+        "s1_f_wrap_position",
+        "s2_f_wrap_terms"
+      ],
+      "id": "s2_j_wrap_treatment",
+      "proposedConclusion": "Not an ASC 350-60 crypto asset: the holder has an enforceable right to redeem it for BTC with the custodian, failing criterion (b) of 350-60-15-1. It is an indefinite-lived intangible under ASC 350-30 measured at cost less impairment, with the BTC it is redeemable for as the reference for its fair value. Control of the underlying BTC rests with the bridge custodian; DemoCo did not hold BTC before wrapping, so nothing was derecognized.",
+      "question": "Is WBTC-D a crypto asset under ASC 350-60, or something else?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Classification of the wrapped token"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Fair value through net income for all three",
+          "notes": "Rejected: no election is available for the intangibles; permitted for the lending claim only under an ASC 825-10 fair value option analysis, documented as the alternative for the reviewer."
+        }
+      ],
+      "basis": "ASC 350-30-35-18 to 35-20; ASC 350-60-15-1(b); ASC 326-20-30-2; s2_f_pool_terms; s2_f_lend_terms; s2_f_wrap_terms.",
+      "basisFacts": [
+        "s2_f_lend_terms",
+        "s2_f_pool_terms",
+        "s2_f_wrap_terms"
+      ],
+      "id": "s4_j_measurement_routes",
+      "proposedConclusion": "The LP token and the wrapped token are indefinite-lived intangibles at cost less impairment under ASC 350-30, tested when indicators exist with the pro-rata reserves and the redeemable BTC as the fair value references; the lending claim is measured at the fair value of the ETH owed with changes in income and an ASC 326 assessment of protocol and borrower risk. None is an ASC 350-60 crypto asset because each conveys an enforceable right to other assets.",
+      "question": "How is each recognized position measured after initial recognition?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "high",
+      "status": "reviewed",
+      "topic": "Subsequent measurement routes"
+    }
+  ]
+}

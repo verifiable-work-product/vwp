@@ -1,0 +1,3 @@
+Functional currency assessment
+
+DemoCo's sales are priced and settled in US dollars, its financing is raised in US dollars, its payroll and most operating costs are paid in US dollars, and its cash flows do not affect a parent's foreign cash flows. The euro and sterling balances are isolated transactions. The functional currency is the US dollar.

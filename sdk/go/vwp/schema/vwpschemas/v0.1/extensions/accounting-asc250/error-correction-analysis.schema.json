@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vwp.dev/schemas/v0.1/extensions/accounting-asc250/error-correction-analysis.schema.json",
+  "title": "ASC 250 Error Correction Analysis",
+  "description": "Extension schema for the vwp-accounting-asc250 extension. Constrains a core calculation object of type 'errorCorrectionAnalysis': per misstated account, the as-reported amount and the correction by period, the restated amounts and the cumulative correction, and the SAB 108 dual-method quantification (rollover: the largest single-period misstatement; iron curtain: the cumulative uncorrected misstatement) against a materiality basis that cites its fact. Located by type under calculations/.",
+  "type": "object",
+  "required": ["id", "type", "inputs", "outputs"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "type": { "const": "errorCorrectionAnalysis" },
+    "inputs": {
+      "type": "object",
+      "required": ["currency", "correctionDate", "lines", "materiality", "materialityJudgmentRef"],
+      "properties": {
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "correctionDate": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "description": "The date the cumulative correction is recorded as of (the opening of the earliest period presented for a restatement, or the current period date for an out-of-period correction)." },
+        "lines": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "lineItem", "accountRole", "offsetRole", "balanceSide", "periods"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "lineItem": { "type": "string", "minLength": 1, "description": "The financial statement line item misstated." },
+              "accountRole": { "type": "string", "pattern": "^[a-z][a-z0-9_]{0,63}$", "description": "Semantic role of the balance sheet account whose balance is wrong at correctionDate." },
+              "offsetRole": { "type": "string", "pattern": "^[a-z][a-z0-9_]{0,63}$", "description": "Semantic role the correction offsets to: prior_period_adjustment (opening retained earnings) for a restatement, or the income statement role for an out-of-period correction in the current period." },
+              "balanceSide": { "enum": ["debit", "credit"], "description": "The natural balance of accountRole; a positive correction increases that balance." },
+              "periods": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": ["period", "asReported", "correction"],
+                  "properties": {
+                    "period": { "type": "string", "minLength": 1, "description": "Period key (FY2024, 2025-Q3)." },
+                    "asReported": { "type": "number", "description": "The account's balance at this period end as previously reported." },
+                    "correction": { "type": "number", "description": "Signed increase to the account's natural balance arising in this period; its magnitude is the period's income statement misstatement. Periods are listed chronologically and the balance carries earlier corrections forward." }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "materiality": {
+          "type": "object",
+          "required": ["quantitativeThreshold", "basis", "basisAmount", "basisFact"],
+          "properties": {
+            "quantitativeThreshold": { "type": "number", "exclusiveMinimum": 0, "description": "Decimal share of the basis above which a misstatement is quantitatively material (0.05 = 5%)." },
+            "basis": { "type": "string", "minLength": 1, "description": "The benchmark (pretax income, revenue, total assets)." },
+            "basisAmount": { "type": "number", "exclusiveMinimum": 0 },
+            "basisFact": { "type": "string", "minLength": 1, "description": "Fact id whose numeric value equals basisAmount." }
+          },
+          "additionalProperties": true
+        },
+        "materialityJudgmentRef": { "type": "string", "minLength": 1, "description": "The judgment id that weighs the quantitative result with the SAB 99 qualitative factors." }
+      },
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "required": ["lines", "rollover", "ironCurtain"],
+      "properties": {
+        "lines": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "periods", "cumulativeCorrection"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "periods": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": ["period", "asRestated"],
+                  "properties": {
+                    "period": { "type": "string", "minLength": 1 },
+                    "asRestated": { "type": "number", "description": "asReported + the cumulative correction through this period." }
+                  },
+                  "additionalProperties": true
+                }
+              },
+              "cumulativeCorrection": { "type": "number" }
+            },
+            "additionalProperties": true
+          }
+        },
+        "rollover": {
+          "type": "object",
+          "required": ["maxPeriodCorrection", "pctOfBasis"],
+          "properties": {
+            "maxPeriodCorrection": { "type": "number", "minimum": 0, "description": "The largest absolute single-period misstatement across all lines." },
+            "pctOfBasis": { "type": "number", "minimum": 0 }
+          },
+          "additionalProperties": true
+        },
+        "ironCurtain": {
+          "type": "object",
+          "required": ["cumulativeCorrection", "pctOfBasis"],
+          "properties": {
+            "cumulativeCorrection": { "type": "number", "minimum": 0, "description": "The absolute cumulative uncorrected misstatement at correctionDate across all lines." },
+            "pctOfBasis": { "type": "number", "minimum": 0 }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "roundingTolerance": { "type": "number", "minimum": 0 },
+    "method": { "type": "string" },
+    "validator": { "type": "string" },
+    "recomputable": { "type": "boolean" }
+  },
+  "additionalProperties": true
+}

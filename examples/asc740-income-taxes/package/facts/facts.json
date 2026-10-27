@@ -1,0 +1,118 @@
+{
+  "facts": [
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "pretax_income,1000000.00"
+            }
+          ],
+          "evidenceId": "ev_trial_balance"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s2_f_pretax_income",
+      "requiresReview": false,
+      "statement": "FY2026 pretax book income is 1,000,000 USD.",
+      "value": {
+        "amount": 1000000,
+        "currency": "USD",
+        "date": "2026-12-31"
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "The enacted rate applying to fiscal year 2026 and to the reversal of all scheduled temporary differences is 25.0%."
+            }
+          ],
+          "evidenceId": "ev_rate_memo"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "rate",
+      "id": "s1_f_statutory_rate",
+      "requiresReview": false,
+      "statement": "The enacted rate for FY2026 and for the reversal of all scheduled differences is 25%.",
+      "value": {
+        "date": "2026-12-31",
+        "rate": 0.25
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "nondeductible_fines,20000.00"
+            }
+          ],
+          "evidenceId": "ev_trial_balance"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s2_f_permanent",
+      "requiresReview": false,
+      "statement": "Non-deductible fines of 20,000 USD and the disallowed 10,000 USD portion of meals are permanent differences.",
+      "value": {
+        "currency": "USD",
+        "fines": 20000,
+        "meals": 10000
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "accrued_compensation,deductible,100000.00,150000.00,0.25"
+            }
+          ],
+          "evidenceId": "ev_tax_basis_schedule"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "schedule",
+      "id": "s3_f_differences",
+      "requiresReview": false,
+      "statement": "Cumulative book-tax differences: accrued compensation 100,000 to 150,000 USD (deductible), accelerated depreciation 200,000 to 260,000 USD (taxable), loss carryforward 80,000 to 0 USD (deductible), all reversing at 25%.",
+      "value": {
+        "accruedCompensationClosing": 150000,
+        "depreciationClosing": 260000,
+        "lossCarryforwardClosing": 0
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "valuation_allowance,,20000.00,0.00,"
+            }
+          ],
+          "evidenceId": "ev_tax_basis_schedule"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s4_f_allowance_and_utb",
+      "requiresReview": false,
+      "statement": "The valuation allowance of 20,000 USD at 2025-12-31 is released to zero as the loss carryforward is used; unrecognized tax benefits rise from 15,000 to 25,000 USD.",
+      "value": {
+        "currency": "USD",
+        "unrecognizedTaxBenefitsClosing": 25000,
+        "valuationAllowanceClosing": 0
+      }
+    }
+  ]
+}

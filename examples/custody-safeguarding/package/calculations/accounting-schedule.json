@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "name": "Safeguarding loss accrual at 2026-06-30",
+  "kind": "safeguarding_liability",
+  "currency": "USD",
+  "amountScale": 2,
+  "startDate": "2026-06-30",
+  "endDate": "2026-06-30",
+  "totalAmount": "22500.00",
+  "entries": [
+    {
+      "id": "h_eth_incident-2026-06-30",
+      "date": "2026-06-30",
+      "description": "Accrual for 10 ETH of customer assets lost in the 2026-06-12 incident, at 2,250.00",
+      "obligationId": "h_eth_incident",
+      "postings": [
+        {
+          "accountRole": "safeguarding_loss",
+          "debit": "22500.00"
+        },
+        {
+          "accountRole": "safeguarding_liability",
+          "credit": "22500.00"
+        }
+      ]
+    }
+  ]
+}

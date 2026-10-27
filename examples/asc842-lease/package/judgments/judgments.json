@@ -1,0 +1,44 @@
+{
+  "judgments": [
+    {
+      "alternatives": [
+        {
+          "conclusion": "Finance lease",
+          "notes": "Rejected: no criterion is met; the term and present value are far below the thresholds."
+        }
+      ],
+      "basis": "ASC 842-10-25-2(a) to (e) and 842-10-25-3; s1_f_term; s2_f_economic_life; s2_f_fair_value; the 75% and 90% thresholds of 842-10-55-2 used as reasonable approaches to 'major part' and 'substantially all'.",
+      "basisFacts": [
+        "s1_f_term",
+        "s2_f_economic_life",
+        "s2_f_fair_value"
+      ],
+      "id": "s2_j_classification",
+      "proposedConclusion": "Operating lease. None of the five criteria in ASC 842-10-25-2 is met: title does not transfer, there is no purchase option, the 3-year term (s1_f_term) is 15% of the 20-year remaining economic life (s2_f_economic_life) and not a major part, the present value of the payments (328,710.16 USD) is 16% of the 2,000,000.00 USD fair value (s2_f_fair_value) and not substantially all, and general-purpose office space is not specialized.",
+      "question": "Is lease OFF-001 a finance lease or an operating lease under ASC 842-10-25-2?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "Lease classification"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Risk-free rate practical expedient",
+          "notes": "Not elected: DemoCo is not a private company electing the 842-20-30-3 expedient by class of asset."
+        }
+      ],
+      "basis": "ASC 842-20-30-2 and 30-3; s3_f_rate; the bank term sheet behind the memo.",
+      "basisFacts": [
+        "s3_f_rate"
+      ],
+      "id": "s3_j_discount_rate",
+      "proposedConclusion": "The 6.00% incremental borrowing rate (s3_f_rate): the rate implicit in the lease is not readily determinable, and the collateralized 3-year borrowing rate for a similar amount and term is the ASC 842-20-30-3 rate.",
+      "question": "Which discount rate measures the lease liability?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "Discount rate"
+    }
+  ]
+}

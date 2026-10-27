@@ -1,0 +1,28 @@
+{
+  "id": "wp_demo_custody_safeguarding",
+  "title": "Crypto Custody and Safeguarding - DemoCo Custodied Assets at 2026-06-30",
+  "domain": "accounting.custody",
+  "profile": "vwp-finance",
+  "extension": "vwp-digital-assets-custody-safeguarding",
+  "standardRefs": [
+    "SEC SAB 122",
+    "ASC 450-20-25-2",
+    "ASC 450-20-50-1"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2026-06-30",
+    "start": "2026-04-01"
+  },
+  "conclusionSummary": "DemoCo safeguards 100 BTC and 2,000 ETH for customers (6,500,000 and 4,500,000 USD) under an obligation to return them; following SAB 122 no safeguarding liability or asset is recorded for assets held, the arrangements and the controls are disclosed, and the 10 ETH of customer assets lost in the 2026-06-12 hot-wallet incident is a probable, estimable loss accrued at 22,500 USD.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

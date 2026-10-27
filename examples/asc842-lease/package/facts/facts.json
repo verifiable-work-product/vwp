@@ -1,22 +1,131 @@
 {
   "facts": [
     {
-      "id": "f_lease_terms",
-      "statement": "The lease runs 36 months from 2026-01-01 at 10,000 USD per month in arrears, with no escalation, no purchase option, no transfer of ownership, and a renewal option that is not reasonably certain of exercise.",
-      "evidenceRefs": ["ev_lease_abstract"],
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "2. Term: 36 months commencing 2026-01-01 and ending 2028-12-31. No renewal, termination or purchase option."
+            }
+          ],
+          "evidenceId": "ev_lease_agreement"
+        }
+      ],
       "extractionMethod": "manual",
-      "confidence": 1
+      "factType": "term",
+      "id": "s1_f_term",
+      "requiresReview": false,
+      "statement": "The lease runs 36 months from 2026-01-01 to 2028-12-31 with no renewal, termination or purchase option.",
+      "value": {
+        "end": "2028-12-31",
+        "months": 36,
+        "start": "2026-01-01"
+      }
     },
     {
-      "id": "f_discount_rate",
-      "statement": "An incremental borrowing rate of 6.0% per annum was used as the discount rate. The rate support memo is not yet attached in this stub example.",
-      "value": {
-        "annualRate": 0.06
-      },
-      "evidenceRefs": ["ev_lease_abstract"],
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "1. Premises: Suite 400, 1 Demo Plaza"
+            }
+          ],
+          "evidenceId": "ev_lease_agreement"
+        }
+      ],
       "extractionMethod": "manual",
-      "confidence": 0.7,
-      "requiresReview": true
+      "factType": "term",
+      "id": "s1_f_identified_asset",
+      "requiresReview": false,
+      "statement": "The lease conveys the right to use an identified office suite for the term.",
+      "value": "Suite 400, 1 Demo Plaza"
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "estimated remaining economic life of 20 years"
+            }
+          ],
+          "evidenceId": "ev_lease_agreement"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "quantity",
+      "id": "s2_f_economic_life",
+      "requiresReview": false,
+      "statement": "The premises have an estimated remaining economic life of 20 years.",
+      "value": {
+        "years": 20
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "values the building interest leased at 2,000,000.00 USD"
+            }
+          ],
+          "evidenceId": "ev_lease_agreement"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s2_f_fair_value",
+      "requiresReview": false,
+      "statement": "The leased building interest is appraised at 2,000,000.00 USD.",
+      "value": 2000000
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "3. Rent: 10,000.00 USD per month, payable in arrears on the last day of each month."
+            }
+          ],
+          "evidenceId": "ev_lease_agreement"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "amount",
+      "id": "s3_f_payments",
+      "requiresReview": false,
+      "statement": "Rent is 10,000.00 USD per month for 36 months, payable in arrears.",
+      "value": {
+        "amount": 10000,
+        "count": 36,
+        "timing": "arrears"
+      }
+    },
+    {
+      "confidence": 0.98,
+      "evidenceRefs": [
+        {
+          "anchors": [
+            {
+              "quote": "6.00% per annum, applied as the incremental borrowing rate"
+            }
+          ],
+          "evidenceId": "ev_ibr_memo"
+        }
+      ],
+      "extractionMethod": "manual",
+      "factType": "rate",
+      "id": "s3_f_rate",
+      "requiresReview": false,
+      "statement": "The incremental borrowing rate applied is 6.00% per annum.",
+      "value": {
+        "date": "2026-01-01",
+        "rate": 0.06
+      }
     }
   ]
 }

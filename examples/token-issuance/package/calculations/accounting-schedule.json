@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "name": "DEMO token issuance, Q2 2026",
+  "kind": "token_issuance",
+  "currency": "USD",
+  "amountScale": 2,
+  "startDate": "2026-04-15",
+  "endDate": "2026-06-01",
+  "totalAmount": "1500000.00",
+  "entries": [
+    {
+      "id": "SAFT-1-2026-04-15",
+      "date": "2026-04-15",
+      "description": "SAFT proceeds received; liability to deliver 2,000,000 DEMO",
+      "obligationId": "SAFT-1",
+      "postings": [
+        {
+          "accountRole": "consideration_received",
+          "debit": "1000000.00"
+        },
+        {
+          "accountRole": "token_liability",
+          "credit": "1000000.00"
+        }
+      ]
+    },
+    {
+      "id": "PUB-1-2026-06-01",
+      "date": "2026-06-01",
+      "description": "Public sale proceeds received; contract liability for compute units",
+      "obligationId": "PUB-1",
+      "postings": [
+        {
+          "accountRole": "consideration_received",
+          "debit": "500000.00"
+        },
+        {
+          "accountRole": "deferred_revenue",
+          "credit": "500000.00"
+        }
+      ]
+    }
+  ]
+}

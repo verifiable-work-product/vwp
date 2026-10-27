@@ -1,0 +1,892 @@
+{
+  "schemaVersion": 1,
+  "name": "Lease OFF-001 commencement and monthly lease cost, 2026-2028",
+  "kind": "lease_cost",
+  "currency": "USD",
+  "amountScale": 2,
+  "startDate": "2026-01-01",
+  "endDate": "2028-12-31",
+  "totalAmount": "1017420.32",
+  "entries": [
+    {
+      "id": "OFF-001-commencement",
+      "date": "2026-01-01",
+      "description": "Lease OFF-001 commencement: right-of-use asset and lease liability",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "rou_asset",
+          "debit": "328710.16"
+        },
+        {
+          "accountRole": "lease_liability",
+          "credit": "328710.16"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2026-01-31",
+      "date": "2026-01-31",
+      "description": "Lease OFF-001 period ended 2026-01-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8356.45"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8356.45"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2026-02-28",
+      "date": "2026-02-28",
+      "description": "Lease OFF-001 period ended 2026-02-28: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8398.23"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8398.23"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2026-03-31",
+      "date": "2026-03-31",
+      "description": "Lease OFF-001 period ended 2026-03-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8440.22"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8440.22"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2026-04-30",
+      "date": "2026-04-30",
+      "description": "Lease OFF-001 period ended 2026-04-30: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8482.42"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8482.42"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2026-05-31",
+      "date": "2026-05-31",
+      "description": "Lease OFF-001 period ended 2026-05-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8524.84"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8524.84"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2026-06-30",
+      "date": "2026-06-30",
+      "description": "Lease OFF-001 period ended 2026-06-30: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8567.46"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8567.46"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2026-07-31",
+      "date": "2026-07-31",
+      "description": "Lease OFF-001 period ended 2026-07-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8610.30"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8610.30"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2026-08-31",
+      "date": "2026-08-31",
+      "description": "Lease OFF-001 period ended 2026-08-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8653.35"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8653.35"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2026-09-30",
+      "date": "2026-09-30",
+      "description": "Lease OFF-001 period ended 2026-09-30: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8696.62"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8696.62"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2026-10-31",
+      "date": "2026-10-31",
+      "description": "Lease OFF-001 period ended 2026-10-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8740.10"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8740.10"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2026-11-30",
+      "date": "2026-11-30",
+      "description": "Lease OFF-001 period ended 2026-11-30: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8783.80"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8783.80"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2026-12-31",
+      "date": "2026-12-31",
+      "description": "Lease OFF-001 period ended 2026-12-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8827.72"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8827.72"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2027-01-31",
+      "date": "2027-01-31",
+      "description": "Lease OFF-001 period ended 2027-01-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8871.86"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8871.86"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2027-02-28",
+      "date": "2027-02-28",
+      "description": "Lease OFF-001 period ended 2027-02-28: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8916.22"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8916.22"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2027-03-31",
+      "date": "2027-03-31",
+      "description": "Lease OFF-001 period ended 2027-03-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "8960.80"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "8960.80"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2027-04-30",
+      "date": "2027-04-30",
+      "description": "Lease OFF-001 period ended 2027-04-30: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9005.60"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9005.60"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2027-05-31",
+      "date": "2027-05-31",
+      "description": "Lease OFF-001 period ended 2027-05-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9050.63"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9050.63"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2027-06-30",
+      "date": "2027-06-30",
+      "description": "Lease OFF-001 period ended 2027-06-30: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9095.88"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9095.88"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2027-07-31",
+      "date": "2027-07-31",
+      "description": "Lease OFF-001 period ended 2027-07-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9141.36"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9141.36"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2027-08-31",
+      "date": "2027-08-31",
+      "description": "Lease OFF-001 period ended 2027-08-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9187.07"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9187.07"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2027-09-30",
+      "date": "2027-09-30",
+      "description": "Lease OFF-001 period ended 2027-09-30: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9233.00"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9233.00"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2027-10-31",
+      "date": "2027-10-31",
+      "description": "Lease OFF-001 period ended 2027-10-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9279.17"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9279.17"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2027-11-30",
+      "date": "2027-11-30",
+      "description": "Lease OFF-001 period ended 2027-11-30: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9325.56"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9325.56"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2027-12-31",
+      "date": "2027-12-31",
+      "description": "Lease OFF-001 period ended 2027-12-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9372.19"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9372.19"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2028-01-31",
+      "date": "2028-01-31",
+      "description": "Lease OFF-001 period ended 2028-01-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9419.05"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9419.05"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2028-02-29",
+      "date": "2028-02-29",
+      "description": "Lease OFF-001 period ended 2028-02-29: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9466.15"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9466.15"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2028-03-31",
+      "date": "2028-03-31",
+      "description": "Lease OFF-001 period ended 2028-03-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9513.48"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9513.48"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2028-04-30",
+      "date": "2028-04-30",
+      "description": "Lease OFF-001 period ended 2028-04-30: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9561.05"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9561.05"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2028-05-31",
+      "date": "2028-05-31",
+      "description": "Lease OFF-001 period ended 2028-05-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9608.85"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9608.85"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2028-06-30",
+      "date": "2028-06-30",
+      "description": "Lease OFF-001 period ended 2028-06-30: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9656.90"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9656.90"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2028-07-31",
+      "date": "2028-07-31",
+      "description": "Lease OFF-001 period ended 2028-07-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9705.18"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9705.18"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2028-08-31",
+      "date": "2028-08-31",
+      "description": "Lease OFF-001 period ended 2028-08-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9753.71"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9753.71"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2028-09-30",
+      "date": "2028-09-30",
+      "description": "Lease OFF-001 period ended 2028-09-30: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9802.48"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9802.48"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2028-10-31",
+      "date": "2028-10-31",
+      "description": "Lease OFF-001 period ended 2028-10-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9851.49"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9851.49"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2028-11-30",
+      "date": "2028-11-30",
+      "description": "Lease OFF-001 period ended 2028-11-30: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9900.75"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9900.75"
+        }
+      ]
+    },
+    {
+      "id": "OFF-001-2028-12-31",
+      "date": "2028-12-31",
+      "description": "Lease OFF-001 period ended 2028-12-31: straight-line lease cost, payment and liability reduction",
+      "obligationId": "OFF-001",
+      "postings": [
+        {
+          "accountRole": "lease_expense",
+          "debit": "10000.00"
+        },
+        {
+          "accountRole": "lease_liability",
+          "debit": "9950.22"
+        },
+        {
+          "accountRole": "lease_payable",
+          "credit": "10000.00"
+        },
+        {
+          "accountRole": "rou_asset",
+          "credit": "9950.22"
+        }
+      ]
+    }
+  ]
+}

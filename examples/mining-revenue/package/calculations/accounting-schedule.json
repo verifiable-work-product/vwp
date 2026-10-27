@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "name": "April 2026 mining revenue",
+  "kind": "mining_revenue",
+  "currency": "USD",
+  "amountScale": 2,
+  "startDate": "2026-04-01",
+  "endDate": "2026-04-30",
+  "totalAmount": "677725.00",
+  "entries": [
+    {
+      "id": "block-890100",
+      "date": "2026-04-05",
+      "description": "3.175 BTC block reward (3.125 subsidy + 0.05 fees), block 890100, at 70,000.00",
+      "obligationId": "block-890100",
+      "postings": [
+        {
+          "accountRole": "crypto_asset",
+          "debit": "222250.00"
+        },
+        {
+          "accountRole": "mining_revenue",
+          "credit": "222250.00"
+        }
+      ]
+    },
+    {
+      "id": "block-890900",
+      "date": "2026-04-18",
+      "description": "3.205 BTC block reward (3.125 subsidy + 0.08 fees), block 890900, at 72,000.00",
+      "obligationId": "block-890900",
+      "postings": [
+        {
+          "accountRole": "crypto_asset",
+          "debit": "230760.00"
+        },
+        {
+          "accountRole": "mining_revenue",
+          "credit": "230760.00"
+        }
+      ]
+    },
+    {
+      "id": "block-891700",
+      "date": "2026-04-29",
+      "description": "3.165 BTC block reward (3.125 subsidy + 0.04 fees), block 891700, at 71,000.00",
+      "obligationId": "block-891700",
+      "postings": [
+        {
+          "accountRole": "crypto_asset",
+          "debit": "224715.00"
+        },
+        {
+          "accountRole": "mining_revenue",
+          "credit": "224715.00"
+        }
+      ]
+    }
+  ]
+}

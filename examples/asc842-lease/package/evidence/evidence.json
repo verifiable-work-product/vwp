@@ -1,16 +1,20 @@
 {
   "evidence": [
     {
-      "id": "ev_lease_abstract",
-      "type": "leaseDocument",
-      "title": "Lease abstract for lease_demo_hq_001 (synthetic)",
-      "sourceSystem": "demo-lease-admin",
-      "path": "evidence/lease-summary.txt",
-      "retrievedAt": "2026-07-01T11:00:00Z",
-      "periodCovered": {
-        "start": "2026-01-01",
-        "end": "2028-12-31"
-      }
+      "id": "ev_lease_agreement",
+      "path": "evidence/lease-agreement-excerpt.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Office lease agreement excerpt (synthetic)",
+      "type": "contractDocument"
+    },
+    {
+      "id": "ev_ibr_memo",
+      "path": "evidence/ibr-memo.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Incremental borrowing rate memo (synthetic)",
+      "type": "analysisMemo"
     }
   ]
 }

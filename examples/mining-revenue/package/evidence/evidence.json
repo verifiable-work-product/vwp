@@ -1,0 +1,28 @@
+{
+  "evidence": [
+    {
+      "id": "ev_block_rewards",
+      "path": "evidence/block-rewards.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Coinbase outputs to DemoCo addresses, April 2026 (node export) (synthetic)",
+      "type": "chainRecord"
+    },
+    {
+      "id": "ev_btc_prices",
+      "path": "evidence/btc-daily-prices.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "BTC daily closing prices, April 2026 (synthetic)",
+      "type": "pricingRecord"
+    },
+    {
+      "id": "ev_mining_ops",
+      "path": "evidence/mining-operations.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Mining operations memo (synthetic)",
+      "type": "contractDocument"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "vwpVersion": "0.1",
+  "packageId": "vwp_demo_asc450_contingencies",
+  "createdAt": "2026-10-14T12:00:00Z",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc450",
+  "title": "ASC 450 Loss Contingencies and Going Concern - DemoCo at 2026-06-30",
+  "subject": {
+    "entity": "DemoCo",
+    "type": "demo"
+  },
+  "workproduct": {
+    "path": "workproduct.json",
+    "mediaType": "application/json",
+    "sha256": "53056bd72d2644f6fd09cbd877e93ba34485c87f48ccba7bd4aff0b028ae2737",
+    "role": "workproduct"
+  },
+  "parts": [
+    {
+      "path": "claims/claims.json",
+      "mediaType": "application/json",
+      "sha256": "5f5a8ebfa77596d55393de778c5bb3cc12a394610f6aa0676ed9dc6349e3f53a",
+      "role": "claims"
+    },
+    {
+      "path": "evidence/legal-letter-2026-06-30.txt",
+      "mediaType": "text/plain",
+      "sha256": "e49b0e6c502874d6e4625e7b2bae037a42494414ef0a3994beaaa2ab6b405182",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/evidence.json",
+      "mediaType": "application/json",
+      "sha256": "f30a6e4ac53679acff351b89f76a2da5c6aaa8c139e7d4822c023e55e22d8bc2",
+      "role": "evidence-index"
+    },
+    {
+      "path": "evidence/affiliate-guarantee-excerpt.txt",
+      "mediaType": "text/plain",
+      "sha256": "01ba8dbcabe4c038ebf6f66b3647df9d9f29308d8f985b54bea05fae75cbf6bd",
+      "role": "evidence"
+    },
+    {
+      "path": "evidence/cash-forecast-2026-07.csv",
+      "mediaType": "text/csv",
+      "sha256": "5d796c60464245e3637f5ffb8f3ae29ce7b10272026318fa181e3fca636b1429",
+      "role": "evidence"
+    },
+    {
+      "path": "facts/facts.json",
+      "mediaType": "application/json",
+      "sha256": "facc95172017ccddeff2b5ff7a4f5a82e58aae8125a081b6f2f3e07658722ed6",
+      "role": "facts"
+    },
+    {
+      "path": "judgments/judgments.json",
+      "mediaType": "application/json",
+      "sha256": "7a7768585febfd5918c597a9ba3eefaa055ee3d1b7be286fda3716dde28d085f",
+      "role": "judgments"
+    },
+    {
+      "path": "facts/contingencies.json",
+      "mediaType": "application/json",
+      "sha256": "6c81e5d8d3b7b88327eda13d76ba66936004cec2b1518f58e044fad7b35981cb",
+      "role": "facts"
+    },
+    {
+      "path": "calculations/accounting-schedule-calculation.json",
+      "mediaType": "application/json",
+      "sha256": "aaae2109355ac930ba9f992c1f578fba0aea8214e101060617fc41362150ee54",
+      "role": "calculation"
+    },
+    {
+      "path": "calculations/accounting-schedule.json",
+      "mediaType": "application/json",
+      "sha256": "43c661e5b14511218d2f60a8bdd3056cad1dc83c21d180f440c284539377c7e8",
+      "role": "calculation"
+    },
+    {
+      "path": "validations/validation-report.json",
+      "mediaType": "application/json",
+      "sha256": "602368273f70b5ab782139aea30097f45cec6f9908a8ea994af7bde3e25f84d8",
+      "role": "validations"
+    },
+    {
+      "path": "renderings/memo.md",
+      "mediaType": "text/markdown",
+      "sha256": "ae20b53ffd41cfc5afe4962520871c66ab64fbd23c9431e06a2d4b2dab046829",
+      "role": "rendering"
+    }
+  ],
+  "provenance": {
+    "path": "provenance/provenance.json",
+    "mediaType": "application/json",
+    "sha256": "f866ab2185ef6e041d5fa6f4ddeaeebb467466595a060411920e5dc87c1b5f51",
+    "role": "provenance"
+  },
+  "digests": {
+    "algorithm": "vwp-dag/1",
+    "analysisRoot": "742264e69d567339d0d8dac0e4616b9e87999b278cab5a2dbe27c6b65b61b87b",
+    "contentRoot": "d9d4530fd34a49d1878482223787497c3aec5bf6dd948463868a7fc8bc036ce3",
+    "reviewRoot": "edeef906def7a07b3e8a4618e8155b84a979123c7cc36302f33cf26124c479d9",
+    "collections": {
+      "approval": "352a9083b2ebeb5b628dca24f34e2f67ed0eac0b8a899bcb78812a5b595ec325",
+      "calculation": "a73d9c5c515f00c3e076bbc7787dc83b66a074a3869c58e89b7e468b5b44a1c0",
+      "claim": "b3d90350ff789028c709629aaaa94f2ffcb14d2ad81e6ef2b58427e79e936c3f",
+      "evidence": "b9b0f26f146d533bd95fe1a35e9076a86b44723957f2ef5ca45a1b109a0c2937",
+      "fact": "b769c92c16706281acd36eb2299cd5441824eda1013080fb36f7c148ff566346",
+      "judgment": "47da7a8a5dda0a856555f60bd38d052753c5121317976a4b62e0b1a82fd5b1c2",
+      "narrative": "dcf9e9fd50b6667af9222a510ef0bbcfd56f0e4215235f1d03a605a09be809a7"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "name": "DEMO-EX-01 reconciling adjustments, 2026-06-30",
+  "kind": "reconciling_adjustment",
+  "currency": "USD",
+  "amountScale": 2,
+  "startDate": "2026-06-30",
+  "endDate": "2026-06-30",
+  "totalAmount": "350.00",
+  "entries": [
+    {
+      "id": "RI-2-2026-06-30",
+      "date": "2026-06-30",
+      "description": "Exchange trading fee charged 2026-06-30, omitted from the ledger",
+      "obligationId": "RI-2",
+      "postings": [
+        {
+          "accountRole": "exchange_fee_expense",
+          "debit": "350.00"
+        },
+        {
+          "accountRole": "exchange_cash",
+          "credit": "350.00"
+        }
+      ]
+    }
+  ]
+}

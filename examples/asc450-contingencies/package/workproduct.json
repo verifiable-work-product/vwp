@@ -1,0 +1,29 @@
+{
+  "id": "wp_demo_asc450_contingencies",
+  "title": "ASC 450 Loss Contingencies and Going Concern - DemoCo at 2026-06-30",
+  "domain": "accounting.contingencies",
+  "profile": "vwp-finance",
+  "extension": "vwp-accounting-asc450",
+  "standardRefs": [
+    "ASC 450-20-25-2",
+    "ASC 450-20-30-1",
+    "ASC 450-20-50-3",
+    "ASC 205-40-50-1"
+  ],
+  "entity": {
+    "id": "entity_demo",
+    "name": "DemoCo"
+  },
+  "period": {
+    "end": "2026-06-30",
+    "start": "2026-04-01"
+  },
+  "conclusionSummary": "Of three loss contingencies at 2026-06-30, the supplier litigation is probable and estimable in a range of 400,000 to 900,000 USD with no better estimate within it, so 400,000 USD is accrued; the regulatory inquiry is reasonably possible (disclosed, not accrued); the guarantee of an affiliate's facility is remote (disclosed). Management's evaluation finds no substantial doubt about DemoCo's ability to continue as a going concern within one year of issuance.",
+  "status": "inReview",
+  "createdBy": {
+    "name": "vwp-demo-agent",
+    "type": "agent",
+    "version": "0.1.0"
+  },
+  "reviewState": "inReview"
+}

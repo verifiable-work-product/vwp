@@ -1,0 +1,36 @@
+{
+  "evidence": [
+    {
+      "id": "ev_saft",
+      "path": "evidence/saft-excerpt.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Simple Agreement for Future Tokens excerpt (synthetic)",
+      "type": "contractDocument"
+    },
+    {
+      "id": "ev_public_sale_terms",
+      "path": "evidence/public-sale-terms.txt",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Public sale terms excerpt (synthetic)",
+      "type": "contractDocument"
+    },
+    {
+      "id": "ev_bank_statement",
+      "path": "evidence/bank-statement.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "Bank statement extract, April to June 2026 (synthetic)",
+      "type": "bankStatement"
+    },
+    {
+      "id": "ev_token_ledger",
+      "path": "evidence/token-allocation-ledger.csv",
+      "retrievedAt": "2026-10-14T12:00:00Z",
+      "sourceSystem": "demo",
+      "title": "DEMO token allocation ledger (synthetic)",
+      "type": "subledgerExtract"
+    }
+  ]
+}

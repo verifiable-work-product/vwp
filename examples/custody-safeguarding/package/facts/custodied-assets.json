@@ -1,0 +1,61 @@
+{
+  "asOf": "2026-06-30",
+  "currency": "USD",
+  "description": "Custodied crypto asset populations at 2026-06-30 with the SAB 122 / ASC 450-20 assessment per population. Synthetic data.",
+  "holdings": [
+    {
+      "asset": "BTC",
+      "controlEvidenceRef": "ev_signed_message",
+      "customerCount": 240,
+      "fairValue": 6500000,
+      "holderRole": "custodian",
+      "id": "h_btc_omnibus",
+      "judgmentRef": "s4_j_no_loss_held",
+      "lossEstimable": false,
+      "lossProbable": false,
+      "obligationToReturn": true,
+      "priceFact": "s3_f_btc_price",
+      "recognizedLiability": 0,
+      "unitPrice": 65000,
+      "units": 100,
+      "wallet": "bc1-demo-omnibus"
+    },
+    {
+      "asset": "ETH",
+      "controlEvidenceRef": "ev_subcustodian_statement",
+      "customerCount": 180,
+      "fairValue": 4500000,
+      "holderRole": "subCustodian",
+      "id": "h_eth_subcustody",
+      "judgmentRef": "s4_j_no_loss_held",
+      "lossEstimable": false,
+      "lossProbable": false,
+      "obligationToReturn": true,
+      "priceFact": "s3_f_eth_price",
+      "recognizedLiability": 0,
+      "subCustodian": "Demo Sub-Custody LLC",
+      "unitPrice": 2250,
+      "units": 2000,
+      "wallet": "DEMOCO-CLIENT-ETH"
+    },
+    {
+      "asset": "ETH",
+      "controlEvidenceRef": "s4_f_incident_units",
+      "customerCount": 6,
+      "fairValue": 22500,
+      "holderRole": "custodian",
+      "id": "h_eth_incident",
+      "judgmentRef": "s4_j_incident_loss",
+      "lossEstimable": true,
+      "lossProbable": true,
+      "notes": "Customer ETH lost in the 2026-06-12 hot-wallet incident; make-whole obligation under clause 7.2.",
+      "obligationToReturn": true,
+      "priceFact": "s3_f_eth_price",
+      "recognizedLiability": 22500,
+      "unitPrice": 2250,
+      "units": 10,
+      "wallet": "eth-hot-wallet"
+    }
+  ],
+  "roundingTolerance": 0.01
+}

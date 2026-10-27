@@ -1,0 +1,44 @@
+{
+  "judgments": [
+    {
+      "alternatives": [
+        {
+          "conclusion": "Euro functional currency",
+          "notes": "Rejected: no primary economic environment indicator points to the euro."
+        }
+      ],
+      "basis": "ASC 830-10-45-2 to 45-6 and 830-10-55-3 to 55-5; s1_f_functional_indicators.",
+      "basisFacts": [
+        "s1_f_functional_indicators"
+      ],
+      "id": "s1_j_functional_currency",
+      "proposedConclusion": "The US dollar. The cash flow, sales price, sales market, expense, financing and intra-entity indicators of ASC 830-10-55-5 all point to the US dollar (s1_f_functional_indicators); the euro and sterling balances arise from isolated transactions that are remeasured, not translated.",
+      "question": "What is DemoCo's functional currency under ASC 830-10-45-2 to 45-6?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "medium",
+      "status": "reviewed",
+      "topic": "Functional currency"
+    },
+    {
+      "alternatives": [
+        {
+          "conclusion": "Remeasure the prepayment too",
+          "notes": "Rejected: a prepayment for services is settled in services, not in a fixed amount of currency."
+        }
+      ],
+      "basis": "ASC 830-10-20 (monetary assets and liabilities); ASC 830-10-45-17 and 45-18; s2_f_cash_eur; s2_f_ap_gbp; s2_f_prepaid_eur.",
+      "basisFacts": [
+        "s2_f_ap_gbp",
+        "s2_f_cash_eur",
+        "s2_f_prepaid_eur"
+      ],
+      "id": "s2_j_monetary_classification",
+      "proposedConclusion": "Cash and the trade payable are monetary (fixed amounts of currency receivable or payable) and remeasure at the 2026-06-30 spot rates; the prepayment is non-monetary and stays at the historical rate (ASC 830-10-45-18 and the 830-10-20 definition of monetary assets and liabilities).",
+      "question": "Which foreign-currency balances are monetary and remeasured at the current rate?",
+      "requiredApproverRole": "technical-accounting-reviewer",
+      "riskLevel": "low",
+      "status": "reviewed",
+      "topic": "Monetary versus non-monetary items"
+    }
+  ]
+}

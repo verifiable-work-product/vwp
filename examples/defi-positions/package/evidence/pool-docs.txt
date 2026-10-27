@@ -1,0 +1,3 @@
+DemoSwap (excerpt)
+
+Liquidity providers deposit both assets into the pool contract and receive DSLP tokens. Deposited assets are commingled and used by the pool for swaps with any user. An LP may redeem DSLP tokens at any time for a pro-rata share of the pool's current reserves, not for the specific units deposited.

@@ -1,0 +1,81 @@
+{
+  "id": "s5_accounting_schedule",
+  "type": "accountingSchedule",
+  "inputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "derivedFrom": [
+      "s3_tax_provision"
+    ]
+  },
+  "outputs": {
+    "amountScale": 2,
+    "currency": "USD",
+    "endDate": "2026-12-31",
+    "entries": [
+      {
+        "date": "2026-12-31",
+        "description": "Current tax on taxable income of 940,000 at 25%",
+        "id": "current-2026-12-31",
+        "obligationId": "current",
+        "postings": [
+          {
+            "accountRole": "income_tax_expense",
+            "debit": "235000.00"
+          },
+          {
+            "accountRole": "income_taxes_payable",
+            "credit": "235000.00"
+          }
+        ]
+      },
+      {
+        "date": "2026-12-31",
+        "description": "Increase in the liability for unrecognized tax benefits",
+        "id": "utb-2026-12-31",
+        "obligationId": "uncertainTaxPositions",
+        "postings": [
+          {
+            "accountRole": "income_tax_expense",
+            "debit": "10000.00"
+          },
+          {
+            "accountRole": "unrecognized_tax_benefits",
+            "credit": "10000.00"
+          }
+        ]
+      },
+      {
+        "date": "2026-12-31",
+        "description": "Deferred tax: net deferred tax asset up 12,500 (allowance released), deferred tax liability up 15,000, deferred expense 2,500",
+        "id": "deferred-2026-12-31",
+        "obligationId": "deferred",
+        "postings": [
+          {
+            "accountRole": "deferred_tax_asset",
+            "debit": "12500.00"
+          },
+          {
+            "accountRole": "income_tax_expense",
+            "debit": "2500.00"
+          },
+          {
+            "accountRole": "deferred_tax_liability",
+            "credit": "15000.00"
+          }
+        ]
+      }
+    ],
+    "kind": "income_tax_provision",
+    "name": "FY2026 income tax provision entries",
+    "schemaVersion": 1,
+    "startDate": "2026-12-31",
+    "totalAmount": "260000.00"
+  },
+  "dependsOn": [
+    "s3_tax_provision"
+  ],
+  "method": "Executable entries derived from s3_tax_provision; amounts at amountScale, balanced semantic account-role postings.",
+  "validator": "asc740.accountingSchedule.tieOut",
+  "recomputable": true
+}

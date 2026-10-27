@@ -1,0 +1,199 @@
+{
+  "validations": [
+    {
+      "id": "v_001",
+      "validator": "core.package.safePaths",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_002",
+      "validator": "core.manifest.exists",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_003",
+      "validator": "core.manifest.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_004",
+      "validator": "core.requiredOutputs.exist",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_005",
+      "validator": "accountingSchedule.valid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_006",
+      "validator": "core.requiredParts.exist",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_007",
+      "validator": "core.partHashes.match",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_008",
+      "validator": "core.workproduct.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_009",
+      "validator": "core.claims.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_010",
+      "validator": "core.provenance.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_011",
+      "validator": "core.evidence.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_012",
+      "validator": "core.facts.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_013",
+      "validator": "core.judgments.schemaValid",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_014",
+      "validator": "core.evidenceRefs.resolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_015",
+      "validator": "core.externalRefs.wellFormed",
+      "scope": "package",
+      "status": "notRun",
+      "message": "no external retrieval metadata declared"
+    },
+    {
+      "id": "v_016",
+      "validator": "core.factAnchors.quotesMatch",
+      "scope": "package",
+      "status": "pass",
+      "message": "7 quote anchors verified"
+    },
+    {
+      "id": "v_017",
+      "validator": "core.claimRefs.resolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_018",
+      "validator": "core.graph.refsResolve",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_019",
+      "validator": "core.graph.acyclic",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_020",
+      "validator": "core.graph.declaredInputs",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_021",
+      "validator": "core.digests.match",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_022",
+      "validator": "core.signatures.present",
+      "scope": "package",
+      "status": "warning",
+      "message": "no package signature found"
+    },
+    {
+      "id": "v_023",
+      "validator": "finance.claims.haveAssertions",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_024",
+      "validator": "finance.claims.haveSupport",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_025",
+      "validator": "finance.requiredJudgments.complete",
+      "scope": "package",
+      "status": "pass"
+    },
+    {
+      "id": "v_026",
+      "validator": "mining.rewards.schemaValid",
+      "scope": "package",
+      "status": "pass",
+      "message": "calculations/s4_mining_schedule.json"
+    },
+    {
+      "id": "v_027",
+      "validator": "mining.rewards.recompute",
+      "scope": "package",
+      "status": "pass",
+      "message": "1 schedule(s) recompute from units × price"
+    },
+    {
+      "id": "v_028",
+      "validator": "mining.rewards.chainTieOut",
+      "scope": "package",
+      "status": "pass",
+      "message": "recognized units reconcile to the chain-observed receipts stated by the cited facts"
+    },
+    {
+      "id": "v_029",
+      "validator": "mining.rewards.pricingEvidence",
+      "scope": "package",
+      "status": "pass",
+      "message": "every reward is priced as of the date its pricing basis fixes, by a fact stating that price on that date"
+    },
+    {
+      "id": "v_030",
+      "validator": "mining.rewards.population",
+      "scope": "package",
+      "status": "pass",
+      "message": "rewards lie in their periods, references are unique and schedules do not overlap"
+    },
+    {
+      "id": "v_031",
+      "validator": "mining.accountingSchedule.tieOut",
+      "scope": "package",
+      "status": "pass",
+      "message": "3 entries tie to 1 calculation(s) as mining_revenue in USD"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+item,kind,opening_difference_usd,closing_difference_usd,rate
+accrued_compensation,deductible,100000.00,150000.00,0.25
+accelerated_depreciation,taxable,200000.00,260000.00,0.25
+loss_carryforward,deductible,80000.00,0.00,0.25
+valuation_allowance,,20000.00,0.00,
+unrecognized_tax_benefits,,15000.00,25000.00,
