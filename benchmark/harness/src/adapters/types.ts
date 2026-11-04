@@ -28,16 +28,31 @@ export interface Usage {
   outputTokens: number;
 }
 
+/** The provider declined to answer (DESIGN §6: the run ends and records it). */
+export interface Refusal {
+  /** Provider policy category when given (e.g. "reasoning_extraction"). */
+  category: string | null;
+  explanation: string | null;
+}
+
 export interface CompletionResult {
   text: string;
   toolCalls: ToolCall[];
   usage: Usage;
   stopReason?: string;
+  /** Set when the provider refused the request. */
+  refusal?: Refusal;
+  /** Id of the last tool call when the response hit the output-token cap
+   * inside it: its input is incomplete, so the loop does not execute it. */
+  truncatedToolCallId?: string;
 }
 
 export interface ProviderAdapter {
   readonly provider: string;
   readonly model: string;
+  /** Sampling temperature sent with every request, or null when the model
+   * rejects sampling parameters and runs at the provider default (DESIGN §6). */
+  readonly temperature: number | null;
   complete(messages: ChatMessage[], tools: ToolSpec[]): Promise<CompletionResult>;
 }
 

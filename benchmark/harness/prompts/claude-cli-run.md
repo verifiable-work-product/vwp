@@ -11,7 +11,8 @@ checkout of this repo (for `cli/` and `schemas/`), plus env:
 `VWP_TT_API_KEY=ttk_…` (an enrolled llm_runner key). Build the CLI once
 (`cd cli && npm ci && npm run build`). Record the exact model id and this
 prompt's version in the run log. Temperature/params per the benchmark run
-config. No human edits to anything the model produces.
+config: temperature 0 where the model and client accept it, otherwise the
+provider default — record which in the run log. No human edits to anything the model produces.
 
 ---
 

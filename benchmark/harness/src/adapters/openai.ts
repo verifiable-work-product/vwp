@@ -15,6 +15,7 @@ interface OpenAIOptions {
 
 export class OpenAIAdapter implements ProviderAdapter {
   readonly provider = 'openai';
+  readonly temperature: number | null = 0;
   private readonly apiKey: string;
   private readonly baseUrl: string;
 
@@ -53,7 +54,7 @@ export class OpenAIAdapter implements ProviderAdapter {
 
     const body = {
       model: this.model,
-      temperature: 0,
+      ...(this.temperature === null ? {} : { temperature: this.temperature }),
       messages: converted,
       tools: tools.map((t) => ({
         type: 'function',
@@ -85,6 +86,8 @@ export class OpenAIAdapter implements ProviderAdapter {
       }
       toolCalls.push({ id: call.id, name: call.function?.name, input });
     }
+    const finishReason = data.choices?.[0]?.finish_reason;
+    const refusalText = typeof message.refusal === 'string' && message.refusal.length > 0 ? message.refusal : null;
     return {
       text: typeof message.content === 'string' ? message.content : '',
       toolCalls,
@@ -92,7 +95,12 @@ export class OpenAIAdapter implements ProviderAdapter {
         inputTokens: data.usage?.prompt_tokens ?? 0,
         outputTokens: data.usage?.completion_tokens ?? 0,
       },
-      stopReason: data.choices?.[0]?.finish_reason ?? undefined,
+      stopReason: finishReason ?? undefined,
+      ...(finishReason === 'content_filter' || refusalText !== null
+        ? { refusal: { category: finishReason === 'content_filter' ? 'content_filter' : null, explanation: refusalText } }
+        : {}),
+      // Cut off at the length limit: the last tool call's arguments are incomplete.
+      ...(finishReason === 'length' && toolCalls.length > 0 ? { truncatedToolCallId: toolCalls[toolCalls.length - 1].id } : {}),
     };
   }
 }

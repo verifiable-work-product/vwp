@@ -26,7 +26,7 @@ import { OpenAIAdapter } from './adapters/openai.js';
 import { FakeAdapter, type FakeStep } from './adapters/fake.js';
 import type { ModelIdentity } from './draft.js';
 import { loadLocalPacket, loadRemotePacket, type Packet } from './packet.js';
-import { DEFAULT_MAX_STEPS, runLoop, type LoopResult } from './loop.js';
+import { DEFAULT_MAX_STEPS, describeEnd, runLoop, type LoopResult } from './loop.js';
 import { runValidation, type CheckId, type ValidationResult } from './validate.js';
 import { HARNESS_VERSION } from './assemble.js';
 
@@ -180,9 +180,10 @@ function printResultsTable(result: LoopResult, validation: ValidationResult): vo
     const failed = findings.filter((f) => f.status === 'fail');
     rows.push([check, failed.length === 0 ? 'PASS' : `FAIL (${failed.length})`]);
   }
-  rows.push(['steps', `${result.steps} tool calls / ${result.turns} turns (${result.toolErrors} tool errors)`]);
+  const cutOff = result.truncatedCalls > 0 ? `, ${result.truncatedCalls} cut off` : '';
+  rows.push(['steps', `${result.steps} tool calls / ${result.turns} turns (${result.toolErrors} tool errors${cutOff})`]);
   rows.push(['tokens', `${result.usage.inputTokens} in / ${result.usage.outputTokens} out`]);
-  rows.push(['ended by', result.submitted ? 'submit()' : result.exhausted ? 'budget exhaustion (best-effort assembly)' : 'stall']);
+  rows.push(['ended by', describeEnd(result)]);
 
   const width = Math.max(...rows.map(([k]) => k.length));
   console.log('┌' + '─'.repeat(width + 2) + '┬' + '─'.repeat(58) + '┐');
@@ -190,6 +191,9 @@ function printResultsTable(result: LoopResult, validation: ValidationResult): vo
     console.log(`│ ${k.padEnd(width)} │ ${v.padEnd(56)} │`);
   }
   console.log('└' + '─'.repeat(width + 2) + '┴' + '─'.repeat(58) + '┘');
+  if (result.refusal) {
+    console.log(`Provider refusal (${result.refusal.category ?? 'no category'}): ${result.refusal.explanation ?? '(no explanation given)'}`);
+  }
   const failures = validation.findings.filter((f) => f.status === 'fail');
   if (failures.length > 0) {
     console.log('Failing findings:');

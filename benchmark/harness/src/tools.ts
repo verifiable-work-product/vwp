@@ -425,14 +425,14 @@ export function createToolRegistry(packet: Packet, opts: CreateToolRegistryOptio
     {
       name: 'add_judgment',
       description:
-        'Record a material professional judgment point: the question, your proposed conclusion, its basis with authority citations, and — itemized, not flattened into prose — the alternative conclusions considered with why each was set aside. Returns the new judgment id (j_N).',
+        'Record a material professional judgment point: the question, the proposed conclusion, the basis with authority citations, and — itemized, not flattened into prose — the alternative accounting positions available under the guidance, each with the reason it does not apply. Returns the new judgment id (j_N).',
       inputSchema: {
         type: 'object',
         properties: {
           topic: { type: 'string' },
           question: { type: 'string' },
           proposedConclusion: { type: 'string' },
-          basis: { type: 'string', description: 'Reasoning with authority citations (e.g. ASC references).' },
+          basis: { type: 'string', description: 'Basis for the conclusion, with authority citations (e.g. ASC references).' },
           alternatives: {
             type: 'array',
             items: {
@@ -441,7 +441,7 @@ export function createToolRegistry(packet: Packet, opts: CreateToolRegistryOptio
               required: ['conclusion'],
               additionalProperties: false,
             },
-            description: 'Each alternative position considered, with notes on why it was set aside.',
+            description: 'Each alternative accounting position, with the reason it does not apply.',
           },
           standardRefs: stringArrayJson,
           riskLevel: { type: 'string', enum: ['low', 'medium', 'high'] },

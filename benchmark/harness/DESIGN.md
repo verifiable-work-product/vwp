@@ -109,18 +109,44 @@ supported) is a separate, labeled comparison, not a default.
 4. Procedure: work the method steps; anchor every fact with a verbatim quote;
    itemize alternatives per judgment; `validate()` before `submit()`.
 
+Prompt history:
+- **v2 (harness 0.2.0):** judgment wording now asks for "the alternative
+  accounting positions … each with the reason it does not apply" instead of
+  "the alternative conclusions you considered … why it was set aside", and an
+  empty alternatives list "reads as incomplete documentation" instead of "work
+  not shown". The v1 phrasing reads as a request for the model's own
+  deliberation and drew deterministic `reasoning_extraction` refusals from
+  Claude Opus 5.5, Sonnet 5.5, and Opus 5 (9 of 9 identical requests, no
+  server-side fallback for that category). The deliverable contract is
+  unchanged: judgments still itemize alternatives.
+
 ## 6. Run policy
 
 - `--runs N` (default 3) independent runs, fresh context each.
-- Temperature 0 where supported (else provider default, recorded); fixed max
-  completion tokens; step budget (default 200 tool calls) and wall-clock
+- Temperature 0 where supported (else provider default, recorded in the
+  transcript and provenance notes; Claude models that reject sampling
+  parameters are listed in `src/adapters/anthropic.ts`); fixed max
+  completion tokens (16,000 per response on the Anthropic adapter; the
+  OpenAI-compatible adapter does not yet send a cap); step budget (default 200 tool calls) and wall-clock
   budget aligned to the human time budget's spirit; exhaustion → best-effort
   `submit()` of the current draft, flagged in provenance notes.
+- A response cut off by the token cap inside a tool call: that call's input
+  is incomplete, so it is not executed and not counted as a tool error; the
+  model is told it was cut off and re-issues it. Cut-off calls are counted
+  separately in the transcript and results table.
+- Three consecutive turns without an executed tool call (none, or only a
+  cut-off one) end the run as a stall; a provider refusal (Anthropic `stop_reason: "refusal"`, OpenAI
+  `content_filter` or `message.refusal`) ends it at once, since a refusal on
+  an unchanged conversation repeats. Both get the same best-effort assembly,
+  with the end reason (and refusal category) in the transcript, provenance
+  notes, and results table. Refused runs are submitted like any other, so
+  they stay in the record.
 - Seeds recorded when the provider supports them.
 
 ## 7. Provider adapters
 
-Thin interface: `complete(messages, tools) → {message, toolCalls, usage}`.
+Thin interface: `complete(messages, tools) → {message, toolCalls, usage}`,
+plus the `temperature` each adapter sends (`null` = provider default).
 Adapters: Anthropic, OpenAI, and generic OpenAI-compatible (vLLM/Ollama —
 open-weight models run on the same rails). No agent frameworks; the loop is
 ~200 lines and fully auditable.
@@ -167,8 +193,12 @@ results table use a single mode.
 ## 9. Methods notes to publish with results
 
 Harness + prompt version; per-model run configs; token/step usage per run;
-tool-error counts (a capability signal in itself); any run that hit budgets;
-the statement that no model-specific adjustments were made.
+tool-error counts (a capability signal in itself) and, separately, calls cut
+off by the token cap (the harness's limit, not a model error); any run that
+hit budgets;
+the statement that no model-specific adjustments were made beyond
+provider-mandated request parameters (temperature omitted where the model
+rejects it), which are recorded per run.
 
 ## 10. Open questions
 

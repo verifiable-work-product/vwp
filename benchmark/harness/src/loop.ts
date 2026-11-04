@@ -13,16 +13,18 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sha256Hex } from '@vwp/cli/lib';
-import type { ChatMessage, ProviderAdapter, ToolSpec, Usage } from './adapters/types.js';
+import type { ChatMessage, ProviderAdapter, Refusal, ToolSpec, Usage } from './adapters/types.js';
 import { assembleToBuffer, HARNESS_VERSION } from './assemble.js';
 import type { Draft, ModelIdentity } from './draft.js';
 import type { Packet } from './packet.js';
 import { createToolRegistry } from './tools.js';
 import type { ValidationResult } from './validate.js';
 
-export const PROMPT_VERSION = '1';
+export const PROMPT_VERSION = '2';
 export const DEFAULT_MAX_STEPS = 200;
 const MAX_STALLS = 3;
+const TRUNCATED_CALL_MESSAGE =
+  'Not executed: the response hit the output token limit while this call was being written, so its input is incomplete. Re-issue the call; if one response holds many calls, split them across turns.';
 
 export interface RunLoopOptions {
   adapter: ProviderAdapter;
@@ -34,6 +36,9 @@ export interface RunLoopOptions {
   runDir: string;
 }
 
+/** Why the run ended (DESIGN §6). Anything but 'submit' is a best-effort assembly. */
+export type EndReason = 'submit' | 'budget' | 'stall' | 'refusal';
+
 export interface LoopResult {
   draft: Draft;
   /** The assembled .vwp — as produced, no touch-ups. */
@@ -41,9 +46,14 @@ export interface LoopResult {
   submitted: boolean;
   /** True when the step budget ran out before submit() (flagged in provenance). */
   exhausted: boolean;
+  endReason: EndReason;
+  /** The provider refusal that ended the run, when endReason is 'refusal'. */
+  refusal?: Refusal;
   steps: number;
   turns: number;
   toolErrors: number;
+  /** Tool calls cut off by the response token cap: not executed, not tool errors. */
+  truncatedCalls: number;
   usage: Usage;
   lastValidation?: ValidationResult;
   transcriptPath: string;
@@ -107,6 +117,7 @@ export function renderPacketMessage(packet: Packet): string {
 
 export async function runLoop(opts: RunLoopOptions): Promise<LoopResult> {
   const maxSteps = opts.maxSteps ?? DEFAULT_MAX_STEPS;
+  const temperature = opts.adapter.temperature ?? 'provider default';
   fs.mkdirSync(opts.runDir, { recursive: true });
   const transcriptPath = path.join(opts.runDir, 'transcript.jsonl');
   const log = (event: string, data: Record<string, unknown>) => {
@@ -131,19 +142,23 @@ export async function runLoop(opts: RunLoopOptions): Promise<LoopResult> {
     provider: opts.adapter.provider,
     challengeId: opts.packet.challengeId,
     maxSteps,
-    temperature: 0,
+    temperature,
   });
 
   let steps = 0;
   let turns = 0;
   let stalls = 0;
   let toolErrors = 0;
+  let truncatedCalls = 0;
   let exhausted = false;
+  let endReason: EndReason = 'submit';
+  let refusal: Refusal | undefined;
   const usage: Usage = { inputTokens: 0, outputTokens: 0 };
 
   while (!registry.submitted) {
     if (steps >= maxSteps) {
       exhausted = true;
+      endReason = 'budget';
       break;
     }
     turns++;
@@ -160,14 +175,23 @@ export async function runLoop(opts: RunLoopOptions): Promise<LoopResult> {
       text: res.text,
       toolCalls: res.toolCalls,
       usage: res.usage,
+      refusal: res.refusal,
     });
+
+    if (res.refusal) {
+      // A refusal on an unchanged conversation repeats; re-asking only spends tokens.
+      refusal = res.refusal;
+      endReason = 'refusal';
+      log('refusal.abort', { turn: turns, category: refusal.category, explanation: refusal.explanation });
+      break;
+    }
 
     messages.push({ role: 'assistant', content: res.text, toolCalls: res.toolCalls });
 
     if (res.toolCalls.length === 0) {
       stalls++;
       if (stalls >= MAX_STALLS) {
-        exhausted = true;
+        endReason = 'stall';
         log('stall.abort', { turn: turns, stalls });
         break;
       }
@@ -178,9 +202,24 @@ export async function runLoop(opts: RunLoopOptions): Promise<LoopResult> {
       });
       continue;
     }
-    stalls = 0;
 
+    let executed = 0;
     for (const call of res.toolCalls) {
+      if (call.id === res.truncatedToolCallId) {
+        // Cut off by the response token cap: the input is incomplete, so the
+        // call is not run or charged as a tool error; the model re-issues it.
+        truncatedCalls++;
+        log('tool.truncated', { turn: turns, id: call.id, name: call.name, input: call.input });
+        messages.push({
+          role: 'tool',
+          toolCallId: call.id,
+          name: call.name,
+          content: JSON.stringify({ error: { message: TRUNCATED_CALL_MESSAGE } }),
+          isError: true,
+        });
+        continue;
+      }
+      executed++;
       steps++;
       log('tool.call', { turn: turns, step: steps, id: call.id, name: call.name, input: call.input });
       const outcome = registry.execute(call.name, call.input);
@@ -202,11 +241,24 @@ export async function runLoop(opts: RunLoopOptions): Promise<LoopResult> {
       });
       if (registry.submitted) break;
     }
+
+    // A turn whose only call was cut off made no progress; repeated, it is a stall.
+    if (executed > 0) {
+      stalls = 0;
+    } else if (++stalls >= MAX_STALLS) {
+      endReason = 'stall';
+      log('stall.abort', { turn: turns, stalls });
+      break;
+    }
   }
 
-  const notes = exhausted
-    ? `Budget exhausted before submit() (steps=${steps}, maxSteps=${maxSteps}); best-effort submission assembled by the harness from the current draft. Harness ${HARNESS_VERSION}, prompt v${PROMPT_VERSION}.`
-    : `Produced by vwp-benchmark-harness ${HARNESS_VERSION}, prompt v${PROMPT_VERSION}, temperature 0, maxSteps ${maxSteps}. Submitted by the model via submit(); no touch-ups.`;
+  const bestEffort = `best-effort submission assembled by the harness from the current draft. Harness ${HARNESS_VERSION}, prompt v${PROMPT_VERSION}, temperature ${temperature}.`;
+  const notes = {
+    submit: `Produced by vwp-benchmark-harness ${HARNESS_VERSION}, prompt v${PROMPT_VERSION}, temperature ${temperature}, maxSteps ${maxSteps}. Submitted by the model via submit(); no touch-ups.`,
+    budget: `Budget exhausted before submit() (steps=${steps}, maxSteps=${maxSteps}); ${bestEffort}`,
+    stall: `No tool call executed in ${MAX_STALLS} consecutive turns before submit() (turn ${turns}); ${bestEffort}`,
+    refusal: `Provider refused the request before submit() (turn ${turns}, refusal category ${refusal?.category ?? 'not given'}); ${bestEffort}`,
+  }[endReason];
   const artifact = assembleToBuffer(registry.draft, opts.packet, {
     modelIdentity: opts.modelIdentity,
     notes,
@@ -215,9 +267,12 @@ export async function runLoop(opts: RunLoopOptions): Promise<LoopResult> {
   log('run.end', {
     submitted: registry.submitted,
     exhausted,
+    endReason,
+    refusal,
     steps,
     turns,
     toolErrors,
+    truncatedCalls,
     usage,
     artifactSha256: sha256Hex(artifact),
   });
@@ -227,11 +282,28 @@ export async function runLoop(opts: RunLoopOptions): Promise<LoopResult> {
     artifact,
     submitted: registry.submitted,
     exhausted,
+    endReason,
+    refusal,
     steps,
     turns,
     toolErrors,
+    truncatedCalls,
     usage,
     lastValidation: registry.lastValidation,
     transcriptPath,
   };
+}
+
+/** One-line "ended by" label for the results table. */
+export function describeEnd(result: Pick<LoopResult, 'endReason' | 'refusal'>): string {
+  switch (result.endReason) {
+    case 'submit':
+      return 'submit()';
+    case 'budget':
+      return 'budget exhaustion (best-effort assembly)';
+    case 'stall':
+      return 'stall: no tool calls executed (best-effort assembly)';
+    case 'refusal':
+      return `refusal: ${result.refusal?.category ?? 'no category'} (best-effort)`;
+  }
 }
