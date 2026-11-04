@@ -1,3 +1,6 @@
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { buildSystemPrompt, renderPacketMessage } from '../src/loop.js';
 import { createToolRegistry } from '../src/tools.js';
@@ -21,9 +24,20 @@ function modelFacingText(): string {
     .toLowerCase();
 }
 
+/** The claude+vwp-cli scaffold: only the part under "## Prompt" reaches the model. */
+function cliScaffoldPrompt(): string {
+  const file = fs.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'prompts', 'claude-cli-run.md'), 'utf8');
+  return file.slice(file.indexOf('## Prompt')).toLowerCase();
+}
+
 describe('model-facing prompt surface', () => {
   it.each(REASONING_EXTRACTION_TRIGGERS)('does not ask for %j', (phrase) => {
     expect(modelFacingText()).not.toContain(phrase);
+  });
+
+  it.each(REASONING_EXTRACTION_TRIGGERS)('the claude+vwp-cli scaffold prompt does not ask for %j', (phrase) => {
+    expect(cliScaffoldPrompt().length).toBeGreaterThan(1000);
+    expect(cliScaffoldPrompt()).not.toContain(phrase);
   });
 
   it('still requires judgments to itemize alternatives', () => {

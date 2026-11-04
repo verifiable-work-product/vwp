@@ -118,7 +118,9 @@ Prompt history:
   deliberation and drew deterministic `reasoning_extraction` refusals from
   Claude Opus 5.5, Sonnet 5.5, and Opus 5 (9 of 9 identical requests, no
   server-side fallback for that category). The deliverable contract is
-  unchanged: judgments still itemize alternatives.
+  unchanged: judgments still itemize alternatives. The separate
+  `claude+vwp-cli` scaffold (`prompts/claude-cli-run.md`) moved to v2 with
+  the same wording change.
 
 ## 6. Run policy
 
@@ -126,21 +128,27 @@ Prompt history:
 - Temperature 0 where supported (else provider default, recorded in the
   transcript and provenance notes; Claude models that reject sampling
   parameters are listed in `src/adapters/anthropic.ts`); fixed max
-  completion tokens (16,000 per response on the Anthropic adapter; the
-  OpenAI-compatible adapter does not yet send a cap); step budget (default 200 tool calls) and wall-clock
-  budget aligned to the human time budget's spirit; exhaustion → best-effort
-  `submit()` of the current draft, flagged in provenance notes.
+  completion tokens (16,000 per response, thinking included, on the
+  Anthropic adapter, which streams so a long response never hits an HTTP
+  timeout; the OpenAI-compatible adapter does not yet send a cap); step
+  budget (default 200 tool calls) and wall-clock budget aligned to the human
+  time budget's spirit; exhaustion → best-effort `submit()` of the current
+  draft, flagged in provenance notes.
+- Thinking and effort are not sent, so each model runs at its provider
+  defaults (on current Claude models, adaptive thinking at the model's
+  default effort). Thinking blocks are not replayed in later turns.
 - A response cut off by the token cap inside a tool call: that call's input
   is incomplete, so it is not executed and not counted as a tool error; the
-  model is told it was cut off and re-issues it. Cut-off calls are counted
-  separately in the transcript and results table.
+  model is told it was cut off and re-issues it. A response cut off before
+  any tool call gets a cap-specific nudge. Cut-off calls and turns that hit
+  the cap are counted in the transcript and results table.
 - Three consecutive turns without an executed tool call (none, or only a
-  cut-off one) end the run as a stall; a provider refusal (Anthropic `stop_reason: "refusal"`, OpenAI
-  `content_filter` or `message.refusal`) ends it at once, since a refusal on
-  an unchanged conversation repeats. Both get the same best-effort assembly,
-  with the end reason (and refusal category) in the transcript, provenance
-  notes, and results table. Refused runs are submitted like any other, so
-  they stay in the record.
+  cut-off one) end the run as a stall; a provider refusal (Anthropic
+  `stop_reason: "refusal"`, OpenAI `content_filter` or `message.refusal`)
+  ends it at once, since a refusal on an unchanged conversation repeats.
+  Both get the same best-effort assembly, with the end reason (and refusal
+  category) in the transcript, provenance notes, and results table. Refused
+  runs are submitted like any other, so they stay in the record.
 - Seeds recorded when the provider supports them.
 
 ## 7. Provider adapters

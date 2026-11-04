@@ -42,9 +42,11 @@ export interface CompletionResult {
   stopReason?: string;
   /** Set when the provider refused the request. */
   refusal?: Refusal;
-  /** Id of the last tool call when the response hit the output-token cap
-   * inside it: its input is incomplete, so the loop does not execute it. */
-  truncatedToolCallId?: string;
+  /** The response hit the output-token cap (Anthropic max_tokens, OpenAI length). */
+  hitOutputCap?: boolean;
+  /** The cap cut off the last tool call mid-input: the loop must not run it.
+   * Positional, not by id — some OpenAI-compatible servers omit call ids. */
+  lastToolCallTruncated?: boolean;
 }
 
 export interface ProviderAdapter {

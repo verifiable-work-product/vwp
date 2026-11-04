@@ -9,7 +9,7 @@ export interface FakeStep {
   toolCalls?: Array<{ name: string; input: unknown }>;
   /** Script a provider refusal for this turn. */
   refusal?: Refusal;
-  /** Script a response cut off at the token cap inside its last tool call. */
+  /** Script a response cut off at the token cap (inside its last tool call, if any). */
   truncated?: boolean;
 }
 
@@ -37,7 +37,8 @@ export class FakeAdapter implements ProviderAdapter {
         toolCalls,
         usage: { inputTokens: 0, outputTokens: 0 },
         stopReason: 'max_tokens',
-        ...(toolCalls.length > 0 ? { truncatedToolCallId: toolCalls[toolCalls.length - 1].id } : {}),
+        hitOutputCap: true,
+        lastToolCallTruncated: toolCalls.length > 0,
       };
     }
     return {

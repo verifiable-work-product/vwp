@@ -180,9 +180,11 @@ function printResultsTable(result: LoopResult, validation: ValidationResult): vo
     const failed = findings.filter((f) => f.status === 'fail');
     rows.push([check, failed.length === 0 ? 'PASS' : `FAIL (${failed.length})`]);
   }
-  const cutOff = result.truncatedCalls > 0 ? `, ${result.truncatedCalls} cut off` : '';
-  rows.push(['steps', `${result.steps} tool calls / ${result.turns} turns (${result.toolErrors} tool errors${cutOff})`]);
+  rows.push(['steps', `${result.steps} tool calls / ${result.turns} turns (${result.toolErrors} tool errors)`]);
   rows.push(['tokens', `${result.usage.inputTokens} in / ${result.usage.outputTokens} out`]);
+  if (result.outputCapTurns > 0) {
+    rows.push(['output cap', `hit on ${result.outputCapTurns} turns; ${result.truncatedCalls} calls cut off, not run`]);
+  }
   rows.push(['ended by', describeEnd(result)]);
 
   const width = Math.max(...rows.map(([k]) => k.length));

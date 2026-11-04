@@ -106,15 +106,18 @@ never uploads; a non-interactive session without `--yes` prints the exact
 | `OPENAI_BASE_URL` | OpenAI-compatible servers (vLLM/Ollama); default `https://api.openai.com/v1` |
 | `VWP_TT_API_KEY` | Platform key fallback for `--api-key` |
 
-Temperature is 0 wherever the model accepts it. Claude models that reject
-sampling parameters (Opus 4.7 and later, Sonnet 5 and later, Haiku 5.5,
-Fable, Mythos — `MODELS_WITHOUT_TEMPERATURE` in `src/adapters/anthropic.ts`)
-run at the provider default; the transcript's `run.start` event and the
+Temperature: the Anthropic adapter sends 0, except to Claude models that
+reject sampling parameters (Opus 4.7 and later, Sonnet 5 and later, Haiku
+5.5, Fable, Mythos — `MODELS_WITHOUT_TEMPERATURE` in
+`src/adapters/anthropic.ts`), which run at the provider default. The
+OpenAI-compatible adapter always sends 0, so OpenAI models that reject it
+are not supported yet. The transcript's `run.start` event and the
 artifact's provenance notes record which applied. Anthropic responses are
-capped at 16,000 output tokens (`DEFAULT_MAX_TOKENS`); a tool call cut off
-by the cap is not executed — the model is told to re-issue it — and is
-counted separately from tool errors. Tokens/steps, tool-error counts, and
-cut-off calls are recorded per run for the methods notes.
+streamed and capped at 16,000 output tokens (`DEFAULT_MAX_TOKENS`); a tool
+call cut off by the cap is not executed — the model is told to re-issue
+it — and is counted separately from tool errors. Tokens/steps, tool-error
+counts, cut-off calls, and turns that hit the cap are recorded per run for
+the methods notes.
 
 ## Layout
 

@@ -77,12 +77,15 @@ export class OpenAIAdapter implements ProviderAdapter {
     const data: any = await res.json();
     const message = data.choices?.[0]?.message ?? {};
     const toolCalls: ToolCall[] = [];
+    let lastArgumentsUnparsed = false;
     for (const call of message.tool_calls ?? []) {
       let input: unknown = {};
+      lastArgumentsUnparsed = false;
       try {
         input = call.function?.arguments ? JSON.parse(call.function.arguments) : {};
       } catch {
         input = { __unparsedArguments: call.function?.arguments };
+        lastArgumentsUnparsed = true;
       }
       toolCalls.push({ id: call.id, name: call.function?.name, input });
     }
@@ -99,8 +102,10 @@ export class OpenAIAdapter implements ProviderAdapter {
       ...(finishReason === 'content_filter' || refusalText !== null
         ? { refusal: { category: finishReason === 'content_filter' ? 'content_filter' : null, explanation: refusalText } }
         : {}),
-      // Cut off at the length limit: the last tool call's arguments are incomplete.
-      ...(finishReason === 'length' && toolCalls.length > 0 ? { truncatedToolCallId: toolCalls[toolCalls.length - 1].id } : {}),
+      ...(finishReason === 'length' ? { hitOutputCap: true } : {}),
+      // Only a call whose arguments don't parse was cut off; servers that build
+      // calls from model text may drop the cut call and return complete ones.
+      ...(finishReason === 'length' && lastArgumentsUnparsed ? { lastToolCallTruncated: true } : {}),
     };
   }
 }
