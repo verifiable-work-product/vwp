@@ -18,8 +18,9 @@ validate against `https://vwp.dev/schemas/v0.1/judgment.schema.json`.
 | `topic` | string | yes | Short label for the judgment area. |
 | `question` | string | yes | The question requiring discretion. |
 | `proposedConclusion` | string | yes | The conclusion proposed by the preparer or tool. |
+| `summary` | string | no | Why the proposed conclusion was reached, in one line (no line breaks, at most 140 characters) a reviewer reads first. `basis` holds the full reasoning. |
 | `basis` | string | no | Reasoning and criteria supporting the proposed conclusion. |
-| `alternatives` | array | no | Alternatives considered, each with a description and (optionally) why it was not selected. |
+| `alternatives` | array | no | Alternatives considered, each with a `conclusion`, an optional one-line `summary` (no line breaks, at most 140 characters) and optional `notes` on why it was not selected. |
 | `riskLevel` | string | no | e.g. `low`, `medium`, `high`. Signals required scrutiny. |
 | `requiredApproverRole` | string | no | Role that must approve this judgment (e.g. `controller`, `partner`). |
 | `basisFacts` | array | no | Ids of the facts the judgment weighed. Dependency edges in the integrity graph ([integrity.md](integrity.md)). |
@@ -48,6 +49,7 @@ validate against `https://vwp.dev/schemas/v0.1/judgment.schema.json`.
   "topic": "Wallet control threshold",
   "question": "Is a single signed message plus one observed outbound transfer sufficient to conclude control?",
   "proposedConclusion": "Yes, for wallets below the materiality threshold in policy DA-4.2.",
+  "summary": "Policy DA-4.2 accepts this evidence for wallets below the threshold, and this one is below it.",
   "basis": "Policy DA-4.2 accepts signed-message plus transfer evidence below threshold; wallet balance is below threshold per fact-003.",
   "alternatives": [
     { "option": "Require a second signed message at period end", "rejectedBecause": "Not required by policy below threshold; adds cost without changing conclusion." }

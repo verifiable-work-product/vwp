@@ -10,6 +10,12 @@
     "topic": { "type": "string", "minLength": 1 },
     "question": { "type": "string", "minLength": 1 },
     "proposedConclusion": { "type": "string" },
+    "summary": {
+      "type": "string",
+      "maxLength": 140,
+      "pattern": "^[^\\r\\n]*$",
+      "description": "Why the proposed conclusion was reached, in one line a reviewer reads first. The full reasoning is in basis."
+    },
     "basis": { "type": "string" },
     "alternatives": {
       "type": "array",
@@ -17,6 +23,12 @@
         "type": "object",
         "properties": {
           "conclusion": { "type": "string" },
+          "summary": {
+            "type": "string",
+            "maxLength": 140,
+      "pattern": "^[^\\r\\n]*$",
+            "description": "The alternative in one line a reviewer can scan."
+          },
           "notes": { "type": "string" }
         },
         "additionalProperties": true

@@ -206,17 +206,23 @@ type Claim struct {
 // JudgmentAlternative is an alternative conclusion considered for a judgment.
 type JudgmentAlternative struct {
 	Conclusion string `json:"conclusion,omitempty"`
-	Notes      string `json:"notes,omitempty"`
+	// Summary is the alternative in one line a reviewer can scan (at most
+	// 140 characters); Notes carries the reasoning.
+	Summary string `json:"summary,omitempty"`
+	Notes   string `json:"notes,omitempty"`
 }
 
 // Judgment is a professional judgment point in judgments/judgments.json.
 type Judgment struct {
-	Id                 string                `json:"id"`
-	Topic              string                `json:"topic"`
-	Question           string                `json:"question"`
-	ProposedConclusion string                `json:"proposedConclusion,omitempty"`
-	Basis              string                `json:"basis,omitempty"`
-	Alternatives       []JudgmentAlternative `json:"alternatives,omitempty"`
+	Id                 string `json:"id"`
+	Topic              string `json:"topic"`
+	Question           string `json:"question"`
+	ProposedConclusion string `json:"proposedConclusion,omitempty"`
+	// Summary is why the proposed conclusion was reached, in one line a
+	// reviewer reads first (at most 140 characters); Basis is the full reasoning.
+	Summary      string                `json:"summary,omitempty"`
+	Basis        string                `json:"basis,omitempty"`
+	Alternatives []JudgmentAlternative `json:"alternatives,omitempty"`
 	// BasisFacts and BasisCalculations are the ids the judgment weighed:
 	// its dependency edges in the integrity graph.
 	BasisFacts           []string `json:"basisFacts,omitempty"`
