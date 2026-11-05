@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -726,5 +727,60 @@ func TestAddCalculationDerivesDependsOnFromItsInputs(t *testing.T) {
 	}
 	if r, ok := vwp.Verify(pkg).Result(vwp.ValidatorGraphDeclaredInputs); !ok || r.Status != vwp.StatusPass {
 		t.Fatalf("declaredInputs = %+v", r)
+	}
+}
+
+// A judgment's summary, and each alternative's, is the one line a reviewer
+// reads first; it must survive the builder and come back from the package.
+func TestJudgmentSummaryRoundTrips(t *testing.T) {
+	dir := t.TempDir()
+	b := minimalScaffold(t, dir)
+	in := vwp.Judgment{
+		Id: "j_timing", Topic: "Implementation timing", Question: "Over time or at a point in time?",
+		ProposedConclusion: "Over time, across the 90-day window.",
+		Summary:            "The work is customer-specific and paid for as it goes, so it is earned over time.",
+		Basis:              "ASC 606-10-25-27(c) is met: no alternative use and an enforceable right to payment.",
+		Alternatives: []vwp.JudgmentAlternative{{
+			Conclusion: "Point in time, on completion.",
+			Summary:    "Only if none of the over-time criteria are met.",
+			Notes:      "Not selected: 25-27(c) is met.",
+		}},
+	}
+	if err := b.AddJudgment(in); err != nil {
+		t.Fatalf("AddJudgment: %v", err)
+	}
+	var file struct {
+		Judgments []vwp.Judgment `json:"judgments"`
+	}
+	if err := json.Unmarshal(mustRead(t, filepath.Join(dir, "judgments", "judgments.json")), &file); err != nil {
+		t.Fatal(err)
+	}
+	out := file.Judgments
+	if len(out) != 1 || out[0].Summary != in.Summary || out[0].Alternatives[0].Summary != in.Alternatives[0].Summary {
+		t.Fatalf("summary lost: %+v", out)
+	}
+	if report := verifyDir(t, dir); !report.Valid {
+		t.Fatalf("package invalid; statuses: %v", statuses(report))
+	}
+}
+
+func TestJudgmentSummaryOverOneLineIsRejected(t *testing.T) {
+	b := minimalScaffold(t, t.TempDir())
+	long := strings.Repeat("x", 141)
+	if err := b.AddJudgment(vwp.Judgment{Id: "j_long", Topic: "t", Question: "q", Summary: long}); err == nil {
+		t.Error("a summary over 140 characters should be rejected")
+	}
+	alt := vwp.Judgment{Id: "j_alt", Topic: "t", Question: "q", Alternatives: []vwp.JudgmentAlternative{{Conclusion: "c", Summary: long}}}
+	if err := b.AddJudgment(alt); err == nil {
+		t.Error("an alternative summary over 140 characters should be rejected")
+	}
+	for i, broken := range []string{"First line.\nSecond line.", "First line.\r\nSecond line."} {
+		if err := b.AddJudgment(vwp.Judgment{Id: "j_lines_"+strconv.Itoa(i), Topic: "t", Question: "q", Summary: broken}); err == nil {
+			t.Errorf("a summary with a line break should be rejected: %q", broken)
+		}
+		alt := vwp.Judgment{Id: "j_alt_lines_"+strconv.Itoa(i), Topic: "t", Question: "q", Alternatives: []vwp.JudgmentAlternative{{Conclusion: "c", Summary: broken}}}
+		if err := b.AddJudgment(alt); err == nil {
+			t.Errorf("an alternative summary with a line break should be rejected: %q", broken)
+		}
 	}
 }
