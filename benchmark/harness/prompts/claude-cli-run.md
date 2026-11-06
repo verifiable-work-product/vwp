@@ -1,4 +1,4 @@
-# Claude + vwp CLI run prompt (scaffold: `claude+vwp-cli` v1)
+# Claude + vwp CLI run prompt (scaffold: `claude+vwp-cli` v2)
 
 A versioned prompt for running a VWP-TT challenge with Claude (e.g. Claude
 Code) driving the real `vwp` CLI. This is a DISTINCT scaffold from the leveled
@@ -11,7 +11,8 @@ checkout of this repo (for `cli/` and `schemas/`), plus env:
 `VWP_TT_API_KEY=ttk_…` (an enrolled llm_runner key). Build the CLI once
 (`cd cli && npm ci && npm run build`). Record the exact model id and this
 prompt's version in the run log. Temperature/params per the benchmark run
-config. No human edits to anything the model produces.
+config: temperature 0 where the model and client accept it, otherwise the
+provider default — record which in the run log. No human edits to anything the model produces.
 
 ---
 
@@ -45,7 +46,7 @@ Author the package as a directory and verify as you go:
 1. `manifest.json`, `workproduct.json`, `provenance/provenance.json` — your
    provenance MUST include `models: [{provider, name, version}]` with your
    exact model identity and `toolchain` including `{"name":
-   "claude+vwp-cli", "version": "1"}`. Submissions without exact model
+   "claude+vwp-cli", "version": "2"}`. Submissions without exact model
    identity are rejected.
 2. `evidence/` — download and embed every packet evidence file. For each PDF,
    also save its text layer as `evidence/<id>.textlayer.txt` and add an
@@ -60,8 +61,8 @@ Author the package as a directory and verify as you go:
 4. `judgments/judgments.json` — one judgment per genuine judgment point:
    topic, question, proposedConclusion, basis with authority citations, and
    **`alternatives: [{conclusion, notes}]` itemizing each alternative
-   position considered and why it was set aside**. Do not flatten
-   alternatives into prose.
+   accounting position, with the reason it does not apply in `notes`**. Do
+   not flatten alternatives into prose.
 5. `calculations/*.json` — declared inputs and outputs, `recomputable: true`,
    using the conventional types (`sum`, `schedule`, `journalEntries`,
    `relativeStandaloneSellingPriceAllocation`) where they fit so verifiers can

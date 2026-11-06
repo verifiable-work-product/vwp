@@ -31,7 +31,7 @@ import type { Packet, PacketEvidence } from './packet.js';
 import { isTextPath } from './packet.js';
 
 export const HARNESS_NAME = 'vwp-benchmark-harness';
-export const HARNESS_VERSION = '0.1.0';
+export const HARNESS_VERSION = '0.2.0';
 
 export interface AssembleOptions {
   modelIdentity: ModelIdentity;

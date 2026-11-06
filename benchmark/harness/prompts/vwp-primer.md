@@ -1,4 +1,4 @@
-# VWP primer (v1)
+# VWP primer (v2)
 
 VWP — Verifiable Work Product — is a package format for professional work in
 which a memo's every load-bearing element is a machine-checkable object. A
@@ -58,11 +58,11 @@ Work flows through five object kinds, each anchored to the one before it:
    conclude differently: distinctness of a performance obligation, the
    enforceable contract term under a termination clause, modification
    treatment. A judgment records the `question`, your `proposedConclusion`,
-   the `basis` (reasoning with authority citations), and the
-   **`alternatives`** — each alternative conclusion you considered, itemized,
-   with notes on why it was set aside. The alternatives list is part of the
+   the `basis` for the conclusion (with authority citations), and the
+   **`alternatives`** — each alternative accounting position, itemized, with
+   the reason it does not apply. The alternatives list is part of the
    deliverable contract: an empty alternatives list on a genuine judgment
-   point reads as work not shown.
+   point reads as incomplete documentation.
 
 5. **Claims** (created with `add_assessment`) are the assertions and
    conclusions of the work product — typically one per method step. A claim

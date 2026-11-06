@@ -26,7 +26,7 @@ import { OpenAIAdapter } from './adapters/openai.js';
 import { FakeAdapter, type FakeStep } from './adapters/fake.js';
 import type { ModelIdentity } from './draft.js';
 import { loadLocalPacket, loadRemotePacket, type Packet } from './packet.js';
-import { DEFAULT_MAX_STEPS, runLoop, type LoopResult } from './loop.js';
+import { DEFAULT_MAX_STEPS, describeEnd, runLoop, type LoopResult } from './loop.js';
 import { runValidation, type CheckId, type ValidationResult } from './validate.js';
 import { HARNESS_VERSION } from './assemble.js';
 
@@ -182,7 +182,10 @@ function printResultsTable(result: LoopResult, validation: ValidationResult): vo
   }
   rows.push(['steps', `${result.steps} tool calls / ${result.turns} turns (${result.toolErrors} tool errors)`]);
   rows.push(['tokens', `${result.usage.inputTokens} in / ${result.usage.outputTokens} out`]);
-  rows.push(['ended by', result.submitted ? 'submit()' : result.exhausted ? 'budget exhaustion (best-effort assembly)' : 'stall']);
+  if (result.outputCapTurns > 0) {
+    rows.push(['output cap', `hit on ${result.outputCapTurns} turns; ${result.truncatedCalls} calls cut off, not run`]);
+  }
+  rows.push(['ended by', describeEnd(result)]);
 
   const width = Math.max(...rows.map(([k]) => k.length));
   console.log('┌' + '─'.repeat(width + 2) + '┬' + '─'.repeat(58) + '┐');
@@ -190,6 +193,9 @@ function printResultsTable(result: LoopResult, validation: ValidationResult): vo
     console.log(`│ ${k.padEnd(width)} │ ${v.padEnd(56)} │`);
   }
   console.log('└' + '─'.repeat(width + 2) + '┴' + '─'.repeat(58) + '┘');
+  if (result.refusal) {
+    console.log(`Provider refusal (${result.refusal.category ?? 'no category'}): ${result.refusal.explanation ?? '(no explanation given)'}`);
+  }
   const failures = validation.findings.filter((f) => f.status === 'fail');
   if (failures.length > 0) {
     console.log('Failing findings:');

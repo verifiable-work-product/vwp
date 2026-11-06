@@ -19,8 +19,11 @@ surface, fixed budgets — for every model. Only the provider adapter differs.
 3. **Transcripts retained.** Every request, response, tool call, and usage
    record is written to `<run-dir>/transcript.jsonl`.
 4. **No touch-ups.** The artifact is assembled exactly from what the model
-   produced; tool errors are returned to the model verbatim. Budget
-   exhaustion produces a best-effort assembly flagged in provenance notes.
+   produced; tool errors are returned to the model verbatim. A run that ends
+   without `submit()` — step budget exhausted, the model stops calling tools,
+   or the provider refuses the request — produces a best-effort assembly
+   whose provenance notes say which (with the refusal category, when the
+   provider gives one).
 5. **No keyed feedback.** The in-run `validate()` battery is strictly the
    offline, structure-level checks a diligent human could self-check
    (package verify + G1/G2/C1/K1/S2/P1) — never answer-key material.
@@ -103,8 +106,18 @@ never uploads; a non-interactive session without `--yes` prints the exact
 | `OPENAI_BASE_URL` | OpenAI-compatible servers (vLLM/Ollama); default `https://api.openai.com/v1` |
 | `VWP_TT_API_KEY` | Platform key fallback for `--api-key` |
 
-Temperature is fixed at 0 for all providers. Tokens/steps and tool-error
-counts are recorded per run for the methods notes.
+Temperature: the Anthropic adapter sends 0, except to Claude models that
+reject sampling parameters (Opus 4.7 and later, Sonnet 5 and later, Haiku
+5.5, Fable, Mythos — `MODELS_WITHOUT_TEMPERATURE` in
+`src/adapters/anthropic.ts`), which run at the provider default. The
+OpenAI-compatible adapter always sends 0, so OpenAI models that reject it
+are not supported yet. The transcript's `run.start` event and the
+artifact's provenance notes record which applied. Anthropic responses are
+streamed and capped at 16,000 output tokens (`DEFAULT_MAX_TOKENS`); a tool
+call cut off by the cap is not executed — the model is told to re-issue
+it — and is counted separately from tool errors. Tokens/steps, tool-error
+counts, cut-off calls, and turns that hit the cap are recorded per run for
+the methods notes.
 
 ## Layout
 

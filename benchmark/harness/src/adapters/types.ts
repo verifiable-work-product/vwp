@@ -28,16 +28,33 @@ export interface Usage {
   outputTokens: number;
 }
 
+/** The provider declined to answer (DESIGN §6: the run ends and records it). */
+export interface Refusal {
+  /** Provider policy category when given (e.g. "reasoning_extraction"). */
+  category: string | null;
+  explanation: string | null;
+}
+
 export interface CompletionResult {
   text: string;
   toolCalls: ToolCall[];
   usage: Usage;
   stopReason?: string;
+  /** Set when the provider refused the request. */
+  refusal?: Refusal;
+  /** The response hit the output-token cap (Anthropic max_tokens, OpenAI length). */
+  hitOutputCap?: boolean;
+  /** The cap cut off the last tool call mid-input: the loop must not run it.
+   * Positional, not by id — some OpenAI-compatible servers omit call ids. */
+  lastToolCallTruncated?: boolean;
 }
 
 export interface ProviderAdapter {
   readonly provider: string;
   readonly model: string;
+  /** Sampling temperature sent with every request, or null when the model
+   * rejects sampling parameters and runs at the provider default (DESIGN §6). */
+  readonly temperature: number | null;
   complete(messages: ChatMessage[], tools: ToolSpec[]): Promise<CompletionResult>;
 }
 
